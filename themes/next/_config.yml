@@ -126,14 +126,14 @@ scheme: Gemini
 # External url should start with http:// or https://
 menu:
   home: / || home
-  about: /about/ || user
-  tags: /tags/ || tags
+  # about: /about/ || user
+  # tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
   # schedule: /schedule/ || calendar
   # sitemap: /sitemap.xml || sitemap
   # commonweal: /404/ || heartbeat
-  lover: /lover/ || heart
+  # lover: /lover/ || heart
   
 # Enable / Disable menu icons / item badges.
 menu_settings:
