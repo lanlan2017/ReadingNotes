@@ -11,6 +11,8 @@ REM git pull origin master
 REM 在文章根目录下打开文件资源管理器
 set postRoot=%~dp0source\_posts
 explorer %postRoot%
+REM 打开存放电子书的目录
+explorer G:\Desktop\书籍
 REM 站点目录下打开git-bash
 start git-bash --cd=%blogRoot%
 REM pause
