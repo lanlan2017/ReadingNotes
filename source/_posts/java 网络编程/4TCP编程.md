@@ -1,11 +1,10 @@
 ---
 title: 4TCP编程
-categories: 
-- Java
-- java 网络编程
+categories:
+  - java 网络编程
+abbrlink: dfafaccc
 date: 2018-08-17 14:51:52
 updated: 2018-11-05 17:17:07
-abbrlink: dfafaccc
 ---
 - [客户端网络编程](/blog/dfafaccc/#客户端网络编程)
     - [第一步：建立连接](/blog/dfafaccc/#第一步：建立连接)

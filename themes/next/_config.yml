@@ -379,7 +379,8 @@ safari_rainbow: false
 custom_scrollbar: false
 
 # Custom Logo (Do not support scheme Mist)
-custom_logo: #/uploads/custom-logo.jpg
+# custom_logo: #/uploads/custom-logo.jpg
+custom_logo: /images/logo.svg
 
 codeblock:
   # Code Highlight theme

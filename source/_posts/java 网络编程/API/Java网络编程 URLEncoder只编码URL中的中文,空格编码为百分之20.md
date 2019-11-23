@@ -1,12 +1,11 @@
 ---
-title: Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20
-categories: 
-- Java
-- java 网络编程
-- API
+title: 'Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20'
+categories:
+  - java 网络编程
+  - API
+abbrlink: 7865fbca
 date: 2018-10-30 20:22:09
 updated: 2018-11-05 17:17:07
-abbrlink: 7865fbca
 ---
 - [需求](/blog/7865fbca/#需求)
 - [只编码URL里的中文](/blog/7865fbca/#只编码URL里的中文)

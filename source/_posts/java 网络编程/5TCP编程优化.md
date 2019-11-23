@@ -1,11 +1,10 @@
 ---
 title: 5TCP编程优化
-categories: 
-- Java
-- java 网络编程
+categories:
+  - java 网络编程
+abbrlink: 5eef6183
 date: 2018-08-17 22:47:59
 updated: 2018-11-05 17:17:07
-abbrlink: 5eef6183
 ---
 - [把客户端交换的逻辑写到循环中](/blog/5eef6183/#把客户端交换的逻辑写到循环中)
 - [把服务器端的数据交换逻辑写在循环](/blog/5eef6183/#把服务器端的数据交换逻辑写在循环)

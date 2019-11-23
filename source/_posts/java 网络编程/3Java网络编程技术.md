@@ -1,11 +1,10 @@
 ---
 title: 3Java网络编程技术
-categories: 
-- Java
-- java 网络编程
+categories:
+  - java 网络编程
+abbrlink: eadab85c
 date: 2018-08-17 11:40:15
 updated: 2018-11-05 17:17:07
-abbrlink: eadab85c
 ---
 - [`InetAddress`类--代表一个`IP`地址](/blog/eadab85c/#`InetAddress`类-代表一个`IP`地址)
     - [创建InetAddress类实例的方法](/blog/eadab85c/#创建InetAddress类实例的方法)

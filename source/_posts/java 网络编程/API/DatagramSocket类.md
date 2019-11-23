@@ -1,12 +1,11 @@
 ---
 title: DatagramSocket类
-categories: 
-- Java
-- java 网络编程
-- API
+categories:
+  - java 网络编程
+  - API
+abbrlink: c1fee13e
 date: 2018-08-18 21:47:34
 updated: 2018-11-05 17:17:07
-abbrlink: c1fee13e
 ---
 - [成员方法](/blog/c1fee13e/#成员方法)
 

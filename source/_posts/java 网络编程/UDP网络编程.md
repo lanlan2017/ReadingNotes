@@ -1,11 +1,10 @@
 ---
 title: UDP网络编程
-categories: 
-- Java
-- java 网络编程
+categories:
+  - java 网络编程
+abbrlink: b6cecc51
 date: 2018-08-18 15:50:10
 updated: 2018-11-05 17:17:07
-abbrlink: b6cecc51
 ---
 - [Java UDP网络编程相关类](/blog/b6cecc51/#Java-UDP网络编程相关类)
     - [DatagramSocket类](/blog/b6cecc51/#DatagramSocket类)
