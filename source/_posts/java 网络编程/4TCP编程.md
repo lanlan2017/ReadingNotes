@@ -69,73 +69,73 @@ import java.net.*;
  */
 public class SimpleSocketClient
 {
-	public static void main(String[] args)
-	{
-		Socket socket = null;
-		InputStream is = null;
-		OutputStream os = null;
-		// 服务器端IP地址
-		String serverIP = "127.0.0.1";
-		// 服务器端端口号
-		int serverPort = 10000;
-		// 发送内容
-		String request = "Hello";
-		try
-		{
-			// 第一步:建立连接
-			socket = new Socket(serverIP, serverPort);
-			
-			// 第二步:交换数据
-			// 获取输出流
-			os = socket.getOutputStream();
-			// 发送数据给服务器
-			os.write(request.getBytes());
-			// 接收服务器的数据
-			is = socket.getInputStream();
-			byte[] response = new byte[1024];
-			int size = is.read(response);
-			// 输出反馈数据
-			System.out.println("服务器响应：" + new String(response, 0, size));
-		} catch (Exception e)
-		{
-			e.printStackTrace(); // 打印异常信息
-		} finally
-		{
-			if(os!=null)
-			{
-				try
-				{
-					os.close();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(is!=null)
-			{
-				try
-				{
-					is.close();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(socket!=null)
-			{
-				try
-				{
-					socket.close();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+    public static void main(String[] args)
+    {
+        Socket socket = null;
+        InputStream is = null;
+        OutputStream os = null;
+        // 服务器端IP地址
+        String serverIP = "127.0.0.1";
+        // 服务器端端口号
+        int serverPort = 10000;
+        // 发送内容
+        String request = "Hello";
+        try
+        {
+            // 第一步:建立连接
+            socket = new Socket(serverIP, serverPort);
+            
+            // 第二步:交换数据
+            // 获取输出流
+            os = socket.getOutputStream();
+            // 发送数据给服务器
+            os.write(request.getBytes());
+            // 接收服务器的数据
+            is = socket.getInputStream();
+            byte[] response = new byte[1024];
+            int size = is.read(response);
+            // 输出反馈数据
+            System.out.println("服务器响应：" + new String(response, 0, size));
+        } catch (Exception e)
+        {
+            e.printStackTrace(); // 打印异常信息
+        } finally
+        {
+            if(os!=null)
+            {
+                try
+                {
+                    os.close();
+                } catch (IOException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if(is!=null)
+            {
+                try
+                {
+                    is.close();
+                } catch (IOException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if(socket!=null)
+            {
+                try
+                {
+                    socket.close();
+                } catch (IOException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
 ```
 在该示例代码中`建立了一个连接到`IP`地址为`127.0.0.1`，端口号码为`10000`的`TCP`类型的网络连接`，然后获得连接的输出流对象，将需要发送的字符串“`Hello`”转换为`byte`数组写入到输出流中，由系统自动完成将输出流中的数据发送出去，如果需要强制发送，可以调用输出流对象中的`flush`方法实现。在数据发送出去以后，从连接对象的输入流中读取服务器端的反馈信息，读取时可以使用`IO`中的各种读取方法进行读取，这里使用最简单的方法进行读取，**从输入流中读取到的内容就是服务器端的响应**，并将读取到的内容在客户端的控制台进行输出，最后依次关闭打开的流对象和网络连接对象。
@@ -178,46 +178,46 @@ import java.net.*;
  */
 public class SimpleSocketServer
 {
-	public static void main(String[] args)
-	{
-		ServerSocket serverSocket = null;
-		Socket socket = null;
-		OutputStream out = null;
-		InputStream in = null;
-		// 监听端口号
-		int port = 10000;
-		try
-		{
-			// 建立连接
-			serverSocket = new ServerSocket(port);
-			// 获得连接
-			socket = serverSocket.accept();
-			// 接收客户端发送内容
-			in = socket.getInputStream();
-			byte[] recive = new byte[1024];
-			int size = in.read(recive);
-			// 输出
-			System.out.println("客户端发送内容为：" + new String(recive, 0, size));
-			// 向客户端发送反馈内容
-			out = socket.getOutputStream();
-			out.write(recive, 0, size);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		} finally
-		{
-			try
-			{
-				// 关闭流和连接
-				out.close();
-				in.close();
-				socket.close();
-				serverSocket.close();
-			} catch (Exception e)
-			{
-			}
-		}
-	}
+    public static void main(String[] args)
+    {
+        ServerSocket serverSocket = null;
+        Socket socket = null;
+        OutputStream out = null;
+        InputStream in = null;
+        // 监听端口号
+        int port = 10000;
+        try
+        {
+            // 建立连接
+            serverSocket = new ServerSocket(port);
+            // 获得连接
+            socket = serverSocket.accept();
+            // 接收客户端发送内容
+            in = socket.getInputStream();
+            byte[] recive = new byte[1024];
+            int size = in.read(recive);
+            // 输出
+            System.out.println("客户端发送内容为：" + new String(recive, 0, size));
+            // 向客户端发送反馈内容
+            out = socket.getOutputStream();
+            out.write(recive, 0, size);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            try
+            {
+                // 关闭流和连接
+                out.close();
+                in.close();
+                socket.close();
+                serverSocket.close();
+            } catch (Exception e)
+            {
+            }
+        }
+    }
 }
 ```
 在该示例代码中建立了一个监听当前计算机`10000`号端口的服务器端`Socket`连接，然后获得客户端发送过来的连接，如果有连接到达时，读取连接中发送过来的内容，并将发送的内容在控制台进行输出，输出完成以后将客户端发送的内容再反馈给客户端。最后关闭流和连接对象，结束程序。

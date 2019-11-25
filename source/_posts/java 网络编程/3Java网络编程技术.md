@@ -96,28 +96,28 @@ DESKTOP-9H231R6/192.168.233.233
 ```
 public static void main(String[] args)
 {
-	try
-	{
-		// 使用域名创建对象
-		InetAddress inetAddr = InetAddress.getByName("github.com");
-		System.out.println("IP地址的完全限定域名：" + inetAddr.getCanonicalHostName());
-		System.out.println("主机IP地址为：" + inetAddr.getHostAddress());
-		System.out.println("主机名称为：" + inetAddr.getHostName());
+    try
+    {
+        // 使用域名创建对象
+        InetAddress inetAddr = InetAddress.getByName("github.com");
+        System.out.println("IP地址的完全限定域名：" + inetAddr.getCanonicalHostName());
+        System.out.println("主机IP地址为：" + inetAddr.getHostAddress());
+        System.out.println("主机名称为：" + inetAddr.getHostName());
 
-		// byte[] getAddress() 返回此 InetAddress 对象的原始 IP 地址。
-		byte[] ipbyte = inetAddr.getAddress();// 获取原始IP地址
-		System.out.println("字节数组表示的ip地址：" + Arrays.toString(ipbyte));
-		System.out.print("字节地址转为点分十进制表示:");
-		for (int i = 0; i < ipbyte.length; i++)
-		{
-			if (i != 0)
-				System.out.print(".");
-			System.out.print(Byte.toUnsignedInt(ipbyte[i]));
-		}
-		System.out.println();
-	} catch (Exception e)
-	{
-	}
+        // byte[] getAddress() 返回此 InetAddress 对象的原始 IP 地址。
+        byte[] ipbyte = inetAddr.getAddress();// 获取原始IP地址
+        System.out.println("字节数组表示的ip地址：" + Arrays.toString(ipbyte));
+        System.out.print("字节地址转为点分十进制表示:");
+        for (int i = 0; i < ipbyte.length; i++)
+        {
+            if (i != 0)
+                System.out.print(".");
+            System.out.print(Byte.toUnsignedInt(ipbyte[i]));
+        }
+        System.out.println();
+    } catch (Exception e)
+    {
+    }
 }
 ```
 运行结果：

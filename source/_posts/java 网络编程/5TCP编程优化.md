@@ -257,23 +257,23 @@ public class ResponseThread extends Thread
             close();
         }
     }
-	/**   
-	 * @param receive 接收到的数据
-	 * @throws IOException  
-	 */  
-	public void response(byte[] receive) throws IOException
-	{
-		//初始化流
-		out = socket.getOutputStream();
-		in = socket.getInputStream();
-		for(int i = 0;i < 3;i++)
-		{
-		    //读取数据
-		    int n = in.read(receive);
-		    //反馈数据
-		    out.write(receive,0,n);
-		}
-	}
+    /**   
+     * @param receive 接收到的数据
+     * @throws IOException  
+     */  
+    public void response(byte[] receive) throws IOException
+    {
+        //初始化流
+        out = socket.getOutputStream();
+        in = socket.getInputStream();
+        for(int i = 0;i < 3;i++)
+        {
+            //读取数据
+            int n = in.read(receive);
+            //反馈数据
+            out.write(receive,0,n);
+        }
+    }
     /**
     * 关闭流和连接
     */

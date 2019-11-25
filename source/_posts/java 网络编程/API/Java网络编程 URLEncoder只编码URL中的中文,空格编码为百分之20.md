@@ -47,19 +47,19 @@ https%3A%2F%2Fwww.lansheng.net.cn%2F2018%2F10%2F30%2FJava%2FJava+IO%E6%B5%81%2FJ
 可以看到默认的URLEncoder.encode(str,"utf-8")方法，把`:`编码成`%3A`,`/`编码成`%2F`并不需要编码那么多，只需要编码中文即可,这里来使用正则表达式对中文进行编码：
 ```java
 public static String encode(String str, String charset)
-		throws UnsupportedEncodingException
+        throws UnsupportedEncodingException
 {
-	//匹配中文和空格的正则表达式
-	String zhPattern = "[\u4e00-\u9fa5]+";
-	Pattern p = Pattern.compile(zhPattern);
-	Matcher m = p.matcher(str);
-	StringBuffer b = new StringBuffer();
-	while (m.find())
-	{
-		m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
-	}
-	m.appendTail(b);
-	return b.toString();
+    //匹配中文和空格的正则表达式
+    String zhPattern = "[\u4e00-\u9fa5]+";
+    Pattern p = Pattern.compile(zhPattern);
+    Matcher m = p.matcher(str);
+    StringBuffer b = new StringBuffer();
+    while (m.find())
+    {
+        m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
+    }
+    m.appendTail(b);
+    return b.toString();
 }
 ```
 运行结果：
@@ -90,20 +90,20 @@ https://www.lansheng.net.cn/2018/10/30/Java/Java+IO%E6%B5%81/Java+IO%E6%B5%81+%E
  * @throws UnsupportedEncodingException
  *             不支持的字符集
  */
-	public static String encodeSpaceChinese(String str, String charset)
-			throws UnsupportedEncodingException
+    public static String encodeSpaceChinese(String str, String charset)
+            throws UnsupportedEncodingException
 {
-	//匹配中文和空格的正则表达式
-	String zhPattern = "[\u4e00-\u9fa5 ]+";
-	Pattern p = Pattern.compile(zhPattern);
-	Matcher m = p.matcher(str);
-	StringBuffer b = new StringBuffer();
-	while (m.find())
-	{
-		m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
-	}
-	m.appendTail(b);
-	return b.toString();
+    //匹配中文和空格的正则表达式
+    String zhPattern = "[\u4e00-\u9fa5 ]+";
+    Pattern p = Pattern.compile(zhPattern);
+    Matcher m = p.matcher(str);
+    StringBuffer b = new StringBuffer();
+    while (m.find())
+    {
+        m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
+    }
+    m.appendTail(b);
+    return b.toString();
 }
 ```
 main方法：
@@ -130,19 +130,19 @@ https://www.lansheng.net.cn/2018/10/30/Java/Java%20IO%E6%B5%81/Java%20IO%E6%B5%8
 只对中文进行编码：
 ```java
 public static String encodeChinese(String str, String charset)
-		throws UnsupportedEncodingException
+        throws UnsupportedEncodingException
 {
-	//匹配中文和空格的正则表达式
-	String zhPattern = "[\u4e00-\u9fa5]+";
-	Pattern p = Pattern.compile(zhPattern);
-	Matcher m = p.matcher(str);
-	StringBuffer b = new StringBuffer();
-	while (m.find())
-	{
-		m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
-	}
-	m.appendTail(b);
-	return b.toString();
+    //匹配中文和空格的正则表达式
+    String zhPattern = "[\u4e00-\u9fa5]+";
+    Pattern p = Pattern.compile(zhPattern);
+    Matcher m = p.matcher(str);
+    StringBuffer b = new StringBuffer();
+    while (m.find())
+    {
+        m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
+    }
+    m.appendTail(b);
+    return b.toString();
 }
 ```
 main方法：
@@ -177,80 +177,80 @@ import java.util.regex.Pattern;
  */
 public class URLEncoderCH
 {
-	public static void main(String[] args) throws Exception
-	{
-		String str = "https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/";
-//		把URL中表示空格的+替换成%20,因为有些应用不认+表示的空格，只认%20
-		String url = URLEncode(str);
-		System.out.println(url);
-	}
-	/**编码为浏览器可以直接访问的URL。
-	 * @param str
-	 * @return
-	 * @throws UnsupportedEncodingException  
-	 */  
-	public static String URLEncode(String str)
-			throws UnsupportedEncodingException
-	{
-		String url=encodeChinese(str, "UTF-8");
-		System.out.println(url);
-		url=url.replaceAll(" ", "%20");
-		return url;
-	}
+    public static void main(String[] args) throws Exception
+    {
+        String str = "https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/";
+//        把URL中表示空格的+替换成%20,因为有些应用不认+表示的空格，只认%20
+        String url = URLEncode(str);
+        System.out.println(url);
+    }
+    /**编码为浏览器可以直接访问的URL。
+     * @param str
+     * @return
+     * @throws UnsupportedEncodingException  
+     */  
+    public static String URLEncode(String str)
+            throws UnsupportedEncodingException
+    {
+        String url=encodeChinese(str, "UTF-8");
+        System.out.println(url);
+        url=url.replaceAll(" ", "%20");
+        return url;
+    }
 
-	/**
-	 * 只对中文进行编码。
-	 * 
-	 * @param str
-	 *            被替换的字符串
-	 * @param charset
-	 *            字符集
-	 * @return 替换好的
-	 * @throws UnsupportedEncodingException
-	 *             不支持的字符集
-	 */
-	public static String encodeChinese(String str, String charset)
-			throws UnsupportedEncodingException
-	{
-		//匹配中文和空格的正则表达式
-		String zhPattern = "[\u4e00-\u9fa5]+";
-		Pattern p = Pattern.compile(zhPattern);
-		Matcher m = p.matcher(str);
-		StringBuffer b = new StringBuffer();
-		while (m.find())
-		{
-			m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
-		}
-		m.appendTail(b);
-		return b.toString();
-	}
-	
-	/**
-	 * 只对中文和空格进行编码。
-	 * 
-	 * @param str
-	 *            被替换的字符串
-	 * @param charset
-	 *            字符集
-	 * @return 替换好的
-	 * @throws UnsupportedEncodingException
-	 *             不支持的字符集
-	 */
-	public static String encodeSpaceChinese(String str, String charset)
-			throws UnsupportedEncodingException
-	{
-		//匹配中文和空格的正则表达式
-		String zhPattern = "[\u4e00-\u9fa5 ]+";
-		Pattern p = Pattern.compile(zhPattern);
-		Matcher m = p.matcher(str);
-		StringBuffer b = new StringBuffer();
-		while (m.find())
-		{
-			m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
-		}
-		m.appendTail(b);
-		return b.toString();
-	}
+    /**
+     * 只对中文进行编码。
+     * 
+     * @param str
+     *            被替换的字符串
+     * @param charset
+     *            字符集
+     * @return 替换好的
+     * @throws UnsupportedEncodingException
+     *             不支持的字符集
+     */
+    public static String encodeChinese(String str, String charset)
+            throws UnsupportedEncodingException
+    {
+        //匹配中文和空格的正则表达式
+        String zhPattern = "[\u4e00-\u9fa5]+";
+        Pattern p = Pattern.compile(zhPattern);
+        Matcher m = p.matcher(str);
+        StringBuffer b = new StringBuffer();
+        while (m.find())
+        {
+            m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
+        }
+        m.appendTail(b);
+        return b.toString();
+    }
+    
+    /**
+     * 只对中文和空格进行编码。
+     * 
+     * @param str
+     *            被替换的字符串
+     * @param charset
+     *            字符集
+     * @return 替换好的
+     * @throws UnsupportedEncodingException
+     *             不支持的字符集
+     */
+    public static String encodeSpaceChinese(String str, String charset)
+            throws UnsupportedEncodingException
+    {
+        //匹配中文和空格的正则表达式
+        String zhPattern = "[\u4e00-\u9fa5 ]+";
+        Pattern p = Pattern.compile(zhPattern);
+        Matcher m = p.matcher(str);
+        StringBuffer b = new StringBuffer();
+        while (m.find())
+        {
+            m.appendReplacement(b, URLEncoder.encode(m.group(0), charset));
+        }
+        m.appendTail(b);
+        return b.toString();
+    }
 }
 ```
 ## 参考链接 ##
