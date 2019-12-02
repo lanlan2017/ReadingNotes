@@ -476,7 +476,7 @@ font:
     family:
 
   # Font settings for <code> and code blocks.
-  codes:
+  codes:SEO
     external: true
     family:
 
@@ -494,22 +494,22 @@ disable_baidu_transformation: false
 canonical: true
 
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
-seo: false
+seo: true
 
 # If true, will add site-subtitle to index page.
 # Remember to set up your site-subtitle in Hexo `_config.yml` (e.g. subtitle: Subtitle)
-index_with_subtitle: false
+index_with_subtitle: true
 
 # Automatically add external URL with Base64 encrypt & decrypt.
 exturl: false
 
 # Google Webmaster tools verification.
 # See: https://www.google.com/webmasters
-google_site_verification:
+google_site_verification: _Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmaster
-bing_site_verification:
+bing_site_verification: B1CFD346B8DEBBFE0C983C2AF8955531
 
 # Yandex Webmaster tools verification.
 # See: https://webmaster.yandex.ru
@@ -517,10 +517,10 @@ yandex_site_verification:
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
-baidu_site_verification:
+baidu_site_verification: vkMTwK56xr
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
-baidu_push: false
+baidu_push: true
 
 
 # ---------------------------------------------------------------
