@@ -476,7 +476,7 @@ font:
     family:
 
   # Font settings for <code> and code blocks.
-  codes:SEO
+  codes:
     external: true
     family:
 
