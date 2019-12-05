@@ -135,6 +135,7 @@ menu:
   # commonweal: /404/ || heartbeat
   # lover: /lover/ || heart
   links: /links/ || link
+  admin: /admin/ || lock
   
 # Enable / Disable menu icons / item badges.
 menu_settings:
