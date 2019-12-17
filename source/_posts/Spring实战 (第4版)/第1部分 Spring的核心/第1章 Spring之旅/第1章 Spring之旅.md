@@ -5,14 +5,34 @@ categories:
   - 第1部分 Spring的核心
   - 第1章 Spring之旅
 date: 2019-07-02 19:42:18
-updated: 2019-11-02 01:39:00
+updated: 2019-11-02 10:12:06
 abbrlink: 420ee57d
 ---
-- [第1章 Spring之旅](/ReadingNotes/420ee57d/#第1章-Spring之旅)
-
+<div id='my_toc'><a href="/ReadingNotes/420ee57d/#第1章-Spring之旅" class="header_1">第1章 Spring之旅</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 # 第1章 Spring之旅 #

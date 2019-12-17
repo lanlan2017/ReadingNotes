@@ -1,19 +1,36 @@
 ---
 title: DatagramSocket类
-categories:
+categories: 
   - java 网络编程
   - API
-abbrlink: c1fee13e
 date: 2018-08-18 21:47:34
-updated: 2018-11-05 17:17:07
+updated: 2019-11-23 02:21:58
+abbrlink: c1fee13e
 ---
-- [成员方法](/blog/c1fee13e/#成员方法)
-
+<div id='my_toc'><a href="/ReadingNotes/c1fee13e/#成员方法" class="header_2">成员方法</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<input type="button" onclick="open_closeTOC()" id="showcloseButton">&nbsp;<input type="button" value="本文链接" onclick="copyPageURL();">
-<script>
-    function open_closeTOC() {var id = document.querySelector(".post-body > ul"); if (id.style.display == "block") {id.style.display = "none";document.getElementById("showcloseButton").value= "展开目录";}else if (id.style.display == "none") {id.style.display = "block";document.getElementById("showcloseButton").value="折叠目录";}}(function () {document.querySelector(".post-body > ul").style.display = "none";document.getElementById("showcloseButton").value="展开目录";})();  
-    function copyPageURL() {const input = document.createElement('input');input.setAttribute('readonly', 'readonly');input.setAttribute('value', window.location.href);document.body.appendChild(input); input.select();if (document.execCommand("copy")) {alert("已复制: " + input.value)} document.body.removeChild(input);}
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
 </script>
 
 <!--end-->

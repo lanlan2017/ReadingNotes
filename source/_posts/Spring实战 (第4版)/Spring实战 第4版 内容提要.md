@@ -3,21 +3,34 @@ title: Spring实战 第4版 内容提要
 categories: 
   - Spring实战 (第4版)
 date: 2019-07-02 18:37:20
-updated: 2019-11-02 01:39:00
+updated: 2019-11-02 10:12:05
 abbrlink: 907c6ccc
 ---
-- [Spring实战 第4版 内容提要](/ReadingNotes/907c6ccc/#Spring实战-第4版-内容提要)
-- [关于本书](/ReadingNotes/907c6ccc/#关于本书)
-- [路线图](/ReadingNotes/907c6ccc/#路线图)
-    - [第1部分](/ReadingNotes/907c6ccc/#第1部分)
-    - [第2部分](/ReadingNotes/907c6ccc/#第2部分)
-    - [第3部分](/ReadingNotes/907c6ccc/#第3部分)
-    - [最后部分](/ReadingNotes/907c6ccc/#最后部分)
-- [代码规范与下载](/ReadingNotes/907c6ccc/#代码规范与下载)
-
+<div id='my_toc'><a href="/ReadingNotes/907c6ccc/#Spring实战-第4版-内容提要" class="header_1">Spring实战 第4版 内容提要</a><br><a href="/ReadingNotes/907c6ccc/#关于本书" class="header_1">关于本书</a><br><a href="/ReadingNotes/907c6ccc/#路线图" class="header_1">路线图</a><br><a href="/ReadingNotes/907c6ccc/#第1部分" class="header_2">第1部分</a><br><a href="/ReadingNotes/907c6ccc/#第2部分" class="header_2">第2部分</a><br><a href="/ReadingNotes/907c6ccc/#第3部分" class="header_2">第3部分</a><br><a href="/ReadingNotes/907c6ccc/#最后部分" class="header_2">最后部分</a><br><a href="/ReadingNotes/907c6ccc/#代码规范与下载" class="header_1">代码规范与下载</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 # Spring实战 第4版 内容提要 #

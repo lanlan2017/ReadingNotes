@@ -4,19 +4,34 @@ categories:
   - FFmpeg从入门到精通
   - 前言
 date: 2019-09-11 16:55:27
-updated: 2019-11-02 01:38:59
+updated: 2019-11-02 10:12:04
 abbrlink: ae3baeda
 ---
-- [FFmpeg从入门到精通 前言](/ReadingNotes/ae3baeda/#FFmpeg从入门到精通-前言)
-    - [如何阅读本书](/ReadingNotes/ae3baeda/#如何阅读本书)
-    - [本书源码](/ReadingNotes/ae3baeda/#本书源码)
-    - [相关文档](/ReadingNotes/ae3baeda/#相关文档)
-        - [官方文档资料](/ReadingNotes/ae3baeda/#官方文档资料)
-        - [中文经典资料](/ReadingNotes/ae3baeda/#中文经典资料)
-
+<div id='my_toc'><a href="/ReadingNotes/ae3baeda/#FFmpeg从入门到精通-前言#" class="header_1">FFmpeg从入门到精通 前言#</a><br><a href="/ReadingNotes/ae3baeda/#如何阅读本书" class="header_2">如何阅读本书</a><br><a href="/ReadingNotes/ae3baeda/#本书源码" class="header_2">本书源码</a><br><a href="/ReadingNotes/ae3baeda/#相关文档" class="header_2">相关文档</a><br><a href="/ReadingNotes/ae3baeda/#官方文档资料" class="header_3">官方文档资料</a><br><a href="/ReadingNotes/ae3baeda/#中文经典资料" class="header_3">中文经典资料</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 <!--SSTStart-->

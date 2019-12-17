@@ -4,16 +4,34 @@ categories:
   - Java Web高级编程
   - 第0部分
 date: 2019-08-12 00:30:59
-updated: 2019-11-02 01:38:59
+updated: 2019-11-02 10:12:04
 abbrlink: 487481ea
 ---
-- [代码示例](/ReadingNotes/487481ea/#代码示例)
-- [Maven依赖](/ReadingNotes/487481ea/#Maven依赖)
-- [将安全相关的内容安排在最后的原因](/ReadingNotes/487481ea/#将安全相关的内容安排在最后的原因)
-
+<div id='my_toc'><a href="/ReadingNotes/487481ea/#代码示例" class="header_1">代码示例</a><br><a href="/ReadingNotes/487481ea/#Maven依赖" class="header_1">Maven依赖</a><br><a href="/ReadingNotes/487481ea/#将安全相关的内容安排在最后的原因" class="header_1">将安全相关的内容安排在最后的原因</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 # 代码示例 #

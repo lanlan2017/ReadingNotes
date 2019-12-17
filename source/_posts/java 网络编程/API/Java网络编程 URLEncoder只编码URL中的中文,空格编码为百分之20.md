@@ -1,25 +1,36 @@
 ---
-title: 'Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20'
-categories:
+title: Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20
+categories: 
   - java 网络编程
   - API
-abbrlink: 7865fbca
 date: 2018-10-30 20:22:09
-updated: 2018-11-05 17:17:07
+updated: 2019-11-25 01:27:45
+abbrlink: 7865fbca
 ---
-- [需求](/blog/7865fbca/#需求)
-- [只编码URL里的中文](/blog/7865fbca/#只编码URL里的中文)
-- [同时编码中文和空格](/blog/7865fbca/#同时编码中文和空格)
-    - [方案1：先把空格编码成加号，然后用%20替换](/blog/7865fbca/#方案1：先把空格编码成加号，然后用%20替换)
-    - [方案2：只编码中文,直接用%20替换空格](/blog/7865fbca/#方案2：只编码中文,直接用%20替换空格)
-- [完整代码](/blog/7865fbca/#完整代码)
-- [参考链接](/blog/7865fbca/#参考链接)
-
+<div id='my_toc'><a href="/ReadingNotes/7865fbca/#需求" class="header_2">需求</a><br><a href="/ReadingNotes/7865fbca/#只编码URL里的中文" class="header_2">只编码URL里的中文</a><br><a href="/ReadingNotes/7865fbca/#同时编码中文和空格" class="header_2">同时编码中文和空格</a><br><a href="/ReadingNotes/7865fbca/#方案1：先把空格编码成加号，然后用%20替换" class="header_3">方案1：先把空格编码成加号，然后用%20替换</a><br><a href="/ReadingNotes/7865fbca/#方案2：只编码中文,直接用%20替换空格" class="header_3">方案2：只编码中文,直接用%20替换空格</a><br><a href="/ReadingNotes/7865fbca/#完整代码" class="header_2">完整代码</a><br><a href="/ReadingNotes/7865fbca/#参考链接" class="header_2">参考链接</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<input type="button" onclick="open_closeTOC()" id="showcloseButton">&nbsp;<input type="button" value="本文链接" onclick="copyPageURL();">
-<script>
-    function open_closeTOC() {var id = document.querySelector(".post-body > ul"); if (id.style.display == "block") {id.style.display = "none";document.getElementById("showcloseButton").value= "展开目录";}else if (id.style.display == "none") {id.style.display = "block";document.getElementById("showcloseButton").value="折叠目录";}}(function () {document.querySelector(".post-body > ul").style.display = "none";document.getElementById("showcloseButton").value="展开目录";})();  
-    function copyPageURL() {const input = document.createElement('input');input.setAttribute('readonly', 'readonly');input.setAttribute('value', window.location.href);document.body.appendChild(input); input.select();if (document.execCommand("copy")) {alert("已复制: " + input.value)} document.body.removeChild(input);}
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
 </script>
 
 <!--end-->

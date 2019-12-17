@@ -1,23 +1,35 @@
 ---
 title: 3Java网络编程技术
-categories:
+categories: 
   - java 网络编程
-abbrlink: eadab85c
 date: 2018-08-17 11:40:15
-updated: 2018-11-05 17:17:07
+updated: 2019-11-25 01:27:45
+abbrlink: eadab85c
 ---
-- [`InetAddress`类--代表一个`IP`地址](/blog/eadab85c/#`InetAddress`类-代表一个`IP`地址)
-    - [创建InetAddress类实例的方法](/blog/eadab85c/#创建InetAddress类实例的方法)
-        - [实例](/blog/eadab85c/#实例)
-    - [重写Object类的方法：](/blog/eadab85c/#重写Object类的方法：)
-    - [获取IP地址相关信息的方法](/blog/eadab85c/#获取IP地址相关信息的方法)
-    - [判断方法：](/blog/eadab85c/#判断方法：)
-
+<div id='my_toc'><a href="/ReadingNotes/eadab85c/#-InetAddress-类--代表一个-IP-地址" class="header_2">`InetAddress`类--代表一个`IP`地址</a><br><a href="/ReadingNotes/eadab85c/#创建InetAddress类实例的方法" class="header_3">创建InetAddress类实例的方法</a><br><a href="/ReadingNotes/eadab85c/#实例" class="header_4">实例</a><br><a href="/ReadingNotes/eadab85c/#重写Object类的方法：" class="header_3">重写Object类的方法：</a><br><a href="/ReadingNotes/eadab85c/#获取IP地址相关信息的方法" class="header_3">获取IP地址相关信息的方法</a><br><a href="/ReadingNotes/eadab85c/#判断方法：" class="header_3">判断方法：</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<input type="button" onclick="open_closeTOC()" id="showcloseButton">&nbsp;<input type="button" value="本文链接" onclick="copyPageURL();">
-<script>
-    function open_closeTOC() {var id = document.querySelector(".post-body > ul"); if (id.style.display == "block") {id.style.display = "none";document.getElementById("showcloseButton").value= "展开目录";}else if (id.style.display == "none") {id.style.display = "block";document.getElementById("showcloseButton").value="折叠目录";}}(function () {document.querySelector(".post-body > ul").style.display = "none";document.getElementById("showcloseButton").value="展开目录";})();  
-    function copyPageURL() {const input = document.createElement('input');input.setAttribute('readonly', 'readonly');input.setAttribute('value', window.location.href);document.body.appendChild(input); input.select();if (document.execCommand("copy")) {alert("已复制: " + input.value)} document.body.removeChild(input);}
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
 </script>
 
 <!--end-->

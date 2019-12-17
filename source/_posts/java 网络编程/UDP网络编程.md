@@ -1,32 +1,35 @@
 ---
 title: UDP网络编程
-categories:
+categories: 
   - java 网络编程
-abbrlink: b6cecc51
 date: 2018-08-18 15:50:10
-updated: 2018-11-05 17:17:07
+updated: 2019-11-25 01:27:45
+abbrlink: b6cecc51
 ---
-- [Java UDP网络编程相关类](/blog/b6cecc51/#Java-UDP网络编程相关类)
-    - [DatagramSocket类](/blog/b6cecc51/#DatagramSocket类)
-    - [`DatagramPacket`类](/blog/b6cecc51/#`DatagramPacket`类)
-- [UDP客户端编程步骤](/blog/b6cecc51/#UDP客户端编程步骤)
-    - [建立连接](/blog/b6cecc51/#建立连接)
-    - [发送数据](/blog/b6cecc51/#发送数据)
-    - [客户端接收数据](/blog/b6cecc51/#客户端接收数据)
-    - [关闭](/blog/b6cecc51/#关闭)
-- [UDP服务端网络编程](/blog/b6cecc51/#UDP服务端网络编程)
-    - [第一步监听窗口，建立连接](/blog/b6cecc51/#第一步监听窗口，建立连接)
-    - [第二步：接收客户端的数据](/blog/b6cecc51/#第二步：接收客户端的数据)
-    - [第三步：处理接收的数据，给出响应](/blog/b6cecc51/#第三步：处理接收的数据，给出响应)
-- [实例](/blog/b6cecc51/#实例)
-- [多次发送多次接收](/blog/b6cecc51/#多次发送多次接收)
-    - [情况：得不到服务器的响应，一直阻塞](/blog/b6cecc51/#情况：得不到服务器的响应，一直阻塞)
-
+<div id='my_toc'><a href="/ReadingNotes/b6cecc51/#Java-UDP网络编程相关类" class="header_2">Java UDP网络编程相关类</a><br><a href="/ReadingNotes/b6cecc51/#DatagramSocket类" class="header_3">DatagramSocket类</a><br><a href="/ReadingNotes/b6cecc51/#-DatagramPacket-类" class="header_3">`DatagramPacket`类</a><br><a href="/ReadingNotes/b6cecc51/#UDP客户端编程步骤" class="header_2">UDP客户端编程步骤</a><br><a href="/ReadingNotes/b6cecc51/#建立连接" class="header_3">建立连接</a><br><a href="/ReadingNotes/b6cecc51/#发送数据" class="header_3">发送数据</a><br><a href="/ReadingNotes/b6cecc51/#客户端接收数据" class="header_3">客户端接收数据</a><br><a href="/ReadingNotes/b6cecc51/#关闭" class="header_3">关闭</a><br><a href="/ReadingNotes/b6cecc51/#UDP服务端网络编程" class="header_2">UDP服务端网络编程</a><br><a href="/ReadingNotes/b6cecc51/#第一步监听窗口，建立连接" class="header_3">第一步监听窗口，建立连接</a><br><a href="/ReadingNotes/b6cecc51/#第二步：接收客户端的数据" class="header_3">第二步：接收客户端的数据</a><br><a href="/ReadingNotes/b6cecc51/#第三步：处理接收的数据，给出响应" class="header_3">第三步：处理接收的数据，给出响应</a><br><a href="/ReadingNotes/b6cecc51/#实例" class="header_2">实例</a><br><a href="/ReadingNotes/b6cecc51/#多次发送多次接收" class="header_2">多次发送多次接收</a><br><a href="/ReadingNotes/b6cecc51/#情况：得不到服务器的响应，一直阻塞" class="header_3">情况：得不到服务器的响应，一直阻塞</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<input type="button" onclick="open_closeTOC()" id="showcloseButton">&nbsp;<input type="button" value="本文链接" onclick="copyPageURL();">
-<script>
-    function open_closeTOC() {var id = document.querySelector(".post-body > ul"); if (id.style.display == "block") {id.style.display = "none";document.getElementById("showcloseButton").value= "展开目录";}else if (id.style.display == "none") {id.style.display = "block";document.getElementById("showcloseButton").value="折叠目录";}}(function () {document.querySelector(".post-body > ul").style.display = "none";document.getElementById("showcloseButton").value="展开目录";})();  
-    function copyPageURL() {const input = document.createElement('input');input.setAttribute('readonly', 'readonly');input.setAttribute('value', window.location.href);document.body.appendChild(input); input.select();if (document.execCommand("copy")) {alert("已复制: " + input.value)} document.body.removeChild(input);}
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
 </script>
 
 <!--end-->

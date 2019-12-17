@@ -3,14 +3,34 @@ title: jQuery基础教程 第4版 内容提要
 categories: 
   - jQuery基础教程 第4版
 date: 2019-06-27 19:57:13
-updated: 2019-11-02 01:38:59
+updated: 2019-11-02 10:12:04
 abbrlink: c27a32d7
 ---
-- [内容提要](/ReadingNotes/c27a32d7/#内容提要)
-
+<div id='my_toc'><a href="/ReadingNotes/c27a32d7/#内容提要" class="header_1">内容提要</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 <iframe height="36" width="260" src="https://www.ximalaya.com/thirdparty/player/sound/player.html?id=193882547&type=red" frameborder=0 allowfullscreen></iframe>

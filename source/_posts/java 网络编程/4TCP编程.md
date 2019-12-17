@@ -1,27 +1,35 @@
 ---
 title: 4TCP编程
-categories:
+categories: 
   - java 网络编程
-abbrlink: dfafaccc
 date: 2018-08-17 14:51:52
-updated: 2018-11-05 17:17:07
+updated: 2019-11-25 01:27:45
+abbrlink: dfafaccc
 ---
-- [客户端网络编程](/blog/dfafaccc/#客户端网络编程)
-    - [第一步：建立连接](/blog/dfafaccc/#第一步：建立连接)
-    - [第二步: 交换数据](/blog/dfafaccc/#第二步:-交换数据)
-    - [第三步：关闭网络连接](/blog/dfafaccc/#第三步：关闭网络连接)
-    - [实例](/blog/dfafaccc/#实例)
-- [TCP客户端编程](/blog/dfafaccc/#TCP客户端编程)
-    - [第一步：监听窗口](/blog/dfafaccc/#第一步：监听窗口)
-    - [第二步：建立连接](/blog/dfafaccc/#第二步：建立连接)
-    - [第三步：交换数据](/blog/dfafaccc/#第三步：交换数据)
-    - [关闭连接](/blog/dfafaccc/#关闭连接)
-
+<div id='my_toc'><a href="/ReadingNotes/dfafaccc/#客户端网络编程" class="header_2">客户端网络编程</a><br><a href="/ReadingNotes/dfafaccc/#第一步：建立连接" class="header_3">第一步：建立连接</a><br><a href="/ReadingNotes/dfafaccc/#第二步-交换数据" class="header_3">第二步: 交换数据</a><br><a href="/ReadingNotes/dfafaccc/#第三步：关闭网络连接" class="header_3">第三步：关闭网络连接</a><br><a href="/ReadingNotes/dfafaccc/#实例" class="header_3">实例</a><br><a href="/ReadingNotes/dfafaccc/#TCP客户端编程" class="header_2">TCP客户端编程</a><br><a href="/ReadingNotes/dfafaccc/#第一步：监听窗口" class="header_3">第一步：监听窗口</a><br><a href="/ReadingNotes/dfafaccc/#第二步：建立连接" class="header_3">第二步：建立连接</a><br><a href="/ReadingNotes/dfafaccc/#第三步：交换数据" class="header_3">第三步：交换数据</a><br><a href="/ReadingNotes/dfafaccc/#关闭连接" class="header_3">关闭连接</a><br><a href="/ReadingNotes/dfafaccc/#运行客户端和服务端-###：" class="header_3">运行客户端和服务端 ###：</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<input type="button" onclick="open_closeTOC()" id="showcloseButton">&nbsp;<input type="button" value="本文链接" onclick="copyPageURL();">
-<script>
-    function open_closeTOC() {var id = document.querySelector(".post-body > ul"); if (id.style.display == "block") {id.style.display = "none";document.getElementById("showcloseButton").value= "展开目录";}else if (id.style.display == "none") {id.style.display = "block";document.getElementById("showcloseButton").value="折叠目录";}}(function () {document.querySelector(".post-body > ul").style.display = "none";document.getElementById("showcloseButton").value="展开目录";})();  
-    function copyPageURL() {const input = document.createElement('input');input.setAttribute('readonly', 'readonly');input.setAttribute('value', window.location.href);document.body.appendChild(input); input.select();if (document.execCommand("copy")) {alert("已复制: " + input.value)} document.body.removeChild(input);}
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
 </script>
 
 <!--end-->

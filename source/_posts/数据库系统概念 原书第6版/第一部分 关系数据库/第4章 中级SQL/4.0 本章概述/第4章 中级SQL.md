@@ -6,14 +6,34 @@ categories:
   - 第4章 中级SQL
   - 4.0 本章概述
 date: 2019-10-20 10:29:56
-updated: 2019-11-02 10:08:28
+updated: 2019-11-02 10:12:06
 abbrlink: ee98ec8f
 ---
-- [第4章 中级SQL](/ReadingNotes/ee98ec8f/#第4章-中级SQL)
-
+<div id='my_toc'><a href="/ReadingNotes/ee98ec8f/#第4章-中级SQL" class="header_1">第4章 中级SQL</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 <!--SSTStart-->

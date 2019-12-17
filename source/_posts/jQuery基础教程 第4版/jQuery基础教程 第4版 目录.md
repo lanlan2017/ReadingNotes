@@ -3,28 +3,34 @@ title: jQuery基础教程 第4版 目录
 categories: 
   - jQuery基础教程 第4版
 date: 2019-06-28 14:13:29
-updated: 2019-11-02 01:38:59
+updated: 2019-11-02 10:12:04
 abbrlink: 464b2333
 ---
-- [第1章 jQuery入门](/ReadingNotes/464b2333/#第1章-jQuery入门)
-- [第2章 选择元素](/ReadingNotes/464b2333/#第2章-选择元素)
-- [第4章 样式与动画](/ReadingNotes/464b2333/#第4章-样式与动画)
-- [第5章 操作DOM](/ReadingNotes/464b2333/#第5章-操作DOM)
-- [第6章 通过Ajax发送数据](/ReadingNotes/464b2333/#第6章-通过Ajax发送数据)
-- [第7章 使用插件](/ReadingNotes/464b2333/#第7章-使用插件)
-- [第8章 开发插件](/ReadingNotes/464b2333/#第8章-开发插件)
-- [第9章 高级选择符与遍历](/ReadingNotes/464b2333/#第9章-高级选择符与遍历)
-- [第10章 高级事件处理](/ReadingNotes/464b2333/#第10章-高级事件处理)
-- [第11 章高级效果](/ReadingNotes/464b2333/#第11-章高级效果)
-- [第12章 高级DOM操作](/ReadingNotes/464b2333/#第12章-高级DOM操作)
-- [第13章 高级Ajax](/ReadingNotes/464b2333/#第13章-高级Ajax)
-- [附录A JavaScript闭包](/ReadingNotes/464b2333/#附录A-JavaScript闭包)
-- [附录B 使用QUnit测试JavaScript](/ReadingNotes/464b2333/#附录B-使用QUnit测试JavaScript)
-- [附录C 简明参考](/ReadingNotes/464b2333/#附录C-简明参考)
-
+<div id='my_toc'><a href="/ReadingNotes/464b2333/#第1章-jQuery入门-##-" class="header_2">第1章 jQuery入门 ## </a><br><a href="/ReadingNotes/464b2333/#第2章-选择元素-##-" class="header_2">第2章 选择元素 ## </a><br><a href="/ReadingNotes/464b2333/#第4章-样式与动画" class="header_2">第4章 样式与动画</a><br><a href="/ReadingNotes/464b2333/#第5章-操作DOM" class="header_2">第5章 操作DOM</a><br><a href="/ReadingNotes/464b2333/#第6章-通过Ajax发送数据" class="header_2">第6章 通过Ajax发送数据</a><br><a href="/ReadingNotes/464b2333/#第7章-使用插件" class="header_2">第7章 使用插件</a><br><a href="/ReadingNotes/464b2333/#第8章-开发插件" class="header_2">第8章 开发插件</a><br><a href="/ReadingNotes/464b2333/#第9章-高级选择符与遍历" class="header_2">第9章 高级选择符与遍历</a><br><a href="/ReadingNotes/464b2333/#第10章-高级事件处理" class="header_2">第10章 高级事件处理</a><br><a href="/ReadingNotes/464b2333/#第11-章高级效果" class="header_2">第11 章高级效果</a><br><a href="/ReadingNotes/464b2333/#第12章-高级DOM操作" class="header_2">第12章 高级DOM操作</a><br><a href="/ReadingNotes/464b2333/#第13章-高级Ajax" class="header_2">第13章 高级Ajax</a><br><a href="/ReadingNotes/464b2333/#附录A-JavaScript闭包" class="header_2">附录A JavaScript闭包</a><br><a href="/ReadingNotes/464b2333/#附录B-使用QUnit测试JavaScript" class="header_2">附录B 使用QUnit测试JavaScript</a><br><a href="/ReadingNotes/464b2333/#附录C-简明参考" class="header_2">附录C 简明参考</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
  # jQuery基础教程 第4版 目录 #

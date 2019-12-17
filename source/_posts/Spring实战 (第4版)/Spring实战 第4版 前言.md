@@ -3,14 +3,34 @@ title: Spring实战 第4版 前言
 categories: 
   - Spring实战 (第4版)
 date: 2019-07-02 19:21:02
-updated: 2019-11-02 01:39:00
+updated: 2019-11-02 10:12:06
 abbrlink: 5dbcb087
 ---
-- [Spring实战 第4版 前言](/ReadingNotes/5dbcb087/#Spring实战-第4版-前言)
-
+<div id='my_toc'><a href="/ReadingNotes/5dbcb087/#Spring实战-第4版-前言" class="header_1">Spring实战 第4版 前言</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 # Spring实战 第4版 前言 #

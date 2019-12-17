@@ -4,18 +4,34 @@ categories:
   - 高性能MySQL
   - 第1章 MySQL架构与历史
 date: 2019-03-18 21:48:02
-updated: 2019-11-02 01:39:03
+updated: 2019-11-02 10:12:08
 abbrlink: 3701e29b
 ---
-- [第1章](/ReadingNotes/3701e29b/#第1章)
-- [1.1 MySQL逻辑架构](/ReadingNotes/3701e29b/#1-1-MySQL逻辑架构)
-    - [1.1.1连接管理与安全性](/ReadingNotes/3701e29b/#1-1-1连接管理与安全性)
-    - [1.1.2优化与执行](/ReadingNotes/3701e29b/#1-1-2优化与执行)
-    - [1.2.1读写锁](/ReadingNotes/3701e29b/#1-2-1读写锁)
-
+<div id='my_toc'><a href="/ReadingNotes/3701e29b/#第1章" class="header_2">第1章</a><br><a href="/ReadingNotes/3701e29b/#1.1-MySQL逻辑架构" class="header_2">1.1 MySQL逻辑架构</a><br><a href="/ReadingNotes/3701e29b/#1.1.1连接管理与安全性" class="header_3">1.1.1连接管理与安全性</a><br><a href="/ReadingNotes/3701e29b/#1.1.2优化与执行" class="header_3">1.1.2优化与执行</a><br><a href="/ReadingNotes/3701e29b/#1.2.1读写锁" class="header_3">1.2.1读写锁</a><br></div>
+<style>
+    .header_1{
+        margin-left: 1em;
+    }
+    .header_2{
+        margin-left: 2em;
+    }
+    .header_3{
+        margin-left: 3em;
+    }
+    .header_4{
+        margin-left: 4em;
+    }
+    .header_5{
+        margin-left: 5em;
+    }
+    .header_6{
+        margin-left: 6em;
+    }
+</style>
 <!--more-->
-<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.slim.min.js"></script>
-<script>$(document).ready(function () {$(".post-body > ul:nth-child(1)").hide();});</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
+var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
+</script>
 
 <!--end-->
 ## 第1章 ##
