@@ -5,7 +5,7 @@ categories:
   - 第2部分 Java程序设计
   - 第5章 Java程序设计基本概念
 date: 2019-07-02 14:03:39
-updated: 2019-11-02 10:12:04
+updated: 2019-12-17 01:44:33
 abbrlink: af245703
 ---
 <div id='my_toc'><a href="/ReadingNotes/af245703/#第5章-Java程序设计基本概念" class="header_1">第5章 Java程序设计基本概念</a><br><a href="/ReadingNotes/af245703/#5.-1-JVM" class="header_2">5. 1 JVM</a><br></div>

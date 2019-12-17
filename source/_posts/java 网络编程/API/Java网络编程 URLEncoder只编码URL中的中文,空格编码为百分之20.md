@@ -4,7 +4,7 @@ categories:
   - java 网络编程
   - API
 date: 2018-10-30 20:22:09
-updated: 2019-11-25 01:27:45
+updated: 2019-12-17 01:44:33
 abbrlink: 7865fbca
 ---
 <div id='my_toc'><a href="/ReadingNotes/7865fbca/#需求" class="header_2">需求</a><br><a href="/ReadingNotes/7865fbca/#只编码URL里的中文" class="header_2">只编码URL里的中文</a><br><a href="/ReadingNotes/7865fbca/#同时编码中文和空格" class="header_2">同时编码中文和空格</a><br><a href="/ReadingNotes/7865fbca/#方案1：先把空格编码成加号，然后用%20替换" class="header_3">方案1：先把空格编码成加号，然后用%20替换</a><br><a href="/ReadingNotes/7865fbca/#方案2：只编码中文,直接用%20替换空格" class="header_3">方案2：只编码中文,直接用%20替换空格</a><br><a href="/ReadingNotes/7865fbca/#完整代码" class="header_2">完整代码</a><br><a href="/ReadingNotes/7865fbca/#参考链接" class="header_2">参考链接</a><br></div>

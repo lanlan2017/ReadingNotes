@@ -4,7 +4,7 @@ categories:
   - 高性能MySQL
   - 第1章 MySQL架构与历史
 date: 2019-03-18 21:48:02
-updated: 2019-11-02 10:12:08
+updated: 2019-12-17 01:44:33
 abbrlink: 3701e29b
 ---
 <div id='my_toc'><a href="/ReadingNotes/3701e29b/#第1章" class="header_2">第1章</a><br><a href="/ReadingNotes/3701e29b/#1.1-MySQL逻辑架构" class="header_2">1.1 MySQL逻辑架构</a><br><a href="/ReadingNotes/3701e29b/#1.1.1连接管理与安全性" class="header_3">1.1.1连接管理与安全性</a><br><a href="/ReadingNotes/3701e29b/#1.1.2优化与执行" class="header_3">1.1.2优化与执行</a><br><a href="/ReadingNotes/3701e29b/#1.2.1读写锁" class="header_3">1.2.1读写锁</a><br></div>

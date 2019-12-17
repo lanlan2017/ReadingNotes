@@ -5,7 +5,7 @@ categories:
   - 第一部分 FFmpeg的命令行使用篇
   - 第2章 FFmpeg工具使用基础
 date: 2019-09-12 22:12:09
-updated: 2019-11-02 10:12:04
+updated: 2019-12-17 01:44:33
 abbrlink: 80a8481e
 ---
 <div id='my_toc'><a href="/ReadingNotes/80a8481e/#第2章-FFmpeg工具使用基础-本章概览" class="header_1">第2章 FFmpeg工具使用基础 本章概览</a><br></div>
