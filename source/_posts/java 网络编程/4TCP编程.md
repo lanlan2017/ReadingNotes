@@ -3,34 +3,13 @@ title: 4TCP编程
 categories: 
   - java 网络编程
 date: 2018-08-17 14:51:52
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: dfafaccc
 ---
-<div id='my_toc'><a href="/ReadingNotes/dfafaccc/#客户端网络编程" class="header_2">客户端网络编程</a><br><a href="/ReadingNotes/dfafaccc/#第一步：建立连接" class="header_3">第一步：建立连接</a><br><a href="/ReadingNotes/dfafaccc/#第二步-交换数据" class="header_3">第二步: 交换数据</a><br><a href="/ReadingNotes/dfafaccc/#第三步：关闭网络连接" class="header_3">第三步：关闭网络连接</a><br><a href="/ReadingNotes/dfafaccc/#实例" class="header_3">实例</a><br><a href="/ReadingNotes/dfafaccc/#TCP客户端编程" class="header_2">TCP客户端编程</a><br><a href="/ReadingNotes/dfafaccc/#第一步：监听窗口" class="header_3">第一步：监听窗口</a><br><a href="/ReadingNotes/dfafaccc/#第二步：建立连接" class="header_3">第二步：建立连接</a><br><a href="/ReadingNotes/dfafaccc/#第三步：交换数据" class="header_3">第三步：交换数据</a><br><a href="/ReadingNotes/dfafaccc/#关闭连接" class="header_3">关闭连接</a><br><a href="/ReadingNotes/dfafaccc/#运行客户端和服务端-###：" class="header_3">运行客户端和服务端 ###：</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/dfafaccc/#客户端网络编程" class="header_2">客户端网络编程</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第一步：建立连接" class="header_3">第一步：建立连接</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第二步-交换数据" class="header_3">第二步: 交换数据</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第三步：关闭网络连接" class="header_3">第三步：关闭网络连接</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#实例" class="header_3">实例</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#TCP客户端编程" class="header_2">TCP客户端编程</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第一步：监听窗口" class="header_3">第一步：监听窗口</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第二步：建立连接" class="header_3">第二步：建立连接</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#第三步：交换数据" class="header_3">第三步：交换数据</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#关闭连接" class="header_3">关闭连接</a>&nbsp;<br><a href="/ReadingNotes/dfafaccc/#运行客户端和服务端-###：" class="header_3">运行客户端和服务端 ###：</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 

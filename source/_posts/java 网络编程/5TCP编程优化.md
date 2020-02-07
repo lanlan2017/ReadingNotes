@@ -3,34 +3,13 @@ title: 5TCP编程优化
 categories: 
   - java 网络编程
 date: 2018-08-17 22:47:59
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: 5eef6183
 ---
-<div id='my_toc'><a href="/ReadingNotes/5eef6183/#把客户端交换的逻辑写到循环中" class="header_2">把客户端交换的逻辑写到循环中</a><br><a href="/ReadingNotes/5eef6183/#把服务器端的数据交换逻辑写在循环" class="header_2">把服务器端的数据交换逻辑写在循环</a><br><a href="/ReadingNotes/5eef6183/#如何使服务器端支持多个客户端同时工作" class="header_1">如何使服务器端支持多个客户端同时工作</a><br><a href="/ReadingNotes/5eef6183/#运行效果" class="header_3">运行效果</a><br><a href="/ReadingNotes/5eef6183/#出现的问题" class="header_4">出现的问题</a><br><a href="/ReadingNotes/5eef6183/#使用线程池" class="header_2">使用线程池</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/5eef6183/#把客户端交换的逻辑写到循环中" class="header_2">把客户端交换的逻辑写到循环中</a>&nbsp;<br><a href="/ReadingNotes/5eef6183/#把服务器端的数据交换逻辑写在循环" class="header_2">把服务器端的数据交换逻辑写在循环</a>&nbsp;<br><a href="/ReadingNotes/5eef6183/#如何使服务器端支持多个客户端同时工作" class="header_1">如何使服务器端支持多个客户端同时工作</a>&nbsp;<br><a href="/ReadingNotes/5eef6183/#运行效果" class="header_3">运行效果</a>&nbsp;<br><a href="/ReadingNotes/5eef6183/#出现的问题" class="header_4">出现的问题</a>&nbsp;<br><a href="/ReadingNotes/5eef6183/#使用线程池" class="header_2">使用线程池</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 

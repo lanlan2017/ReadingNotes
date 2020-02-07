@@ -4,34 +4,13 @@ categories:
   - jQuery基础教程 第4版
   - 第5章 操作DOM
 date: 2019-07-20 22:41:16
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: 9f710941
 ---
-<div id='my_toc'><a href="/ReadingNotes/9f710941/#第5章-操作DOM" class="header_1">第5章 操作DOM</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/9f710941/#第5章-操作DOM" class="header_1">第5章 操作DOM</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 <!--SSTStart-->

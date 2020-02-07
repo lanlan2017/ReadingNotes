@@ -3,34 +3,13 @@ title: Spring实战 第4版 内容提要
 categories: 
   - Spring实战 (第4版)
 date: 2019-07-02 18:37:20
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: 907c6ccc
 ---
-<div id='my_toc'><a href="/ReadingNotes/907c6ccc/#Spring实战-第4版-内容提要" class="header_1">Spring实战 第4版 内容提要</a><br><a href="/ReadingNotes/907c6ccc/#关于本书" class="header_1">关于本书</a><br><a href="/ReadingNotes/907c6ccc/#路线图" class="header_1">路线图</a><br><a href="/ReadingNotes/907c6ccc/#第1部分" class="header_2">第1部分</a><br><a href="/ReadingNotes/907c6ccc/#第2部分" class="header_2">第2部分</a><br><a href="/ReadingNotes/907c6ccc/#第3部分" class="header_2">第3部分</a><br><a href="/ReadingNotes/907c6ccc/#最后部分" class="header_2">最后部分</a><br><a href="/ReadingNotes/907c6ccc/#代码规范与下载" class="header_1">代码规范与下载</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/907c6ccc/#Spring实战-第4版-内容提要" class="header_1">Spring实战 第4版 内容提要</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#关于本书" class="header_1">关于本书</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#路线图" class="header_1">路线图</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第1部分" class="header_2">第1部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第2部分" class="header_2">第2部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第3部分" class="header_2">第3部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#最后部分" class="header_2">最后部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#代码规范与下载" class="header_1">代码规范与下载</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 # Spring实战 第4版 内容提要 #

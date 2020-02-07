@@ -4,34 +4,13 @@ categories:
   - java 网络编程
   - API
 date: 2018-08-18 21:47:34
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: c1fee13e
 ---
-<div id='my_toc'><a href="/ReadingNotes/c1fee13e/#成员方法" class="header_2">成员方法</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/c1fee13e/#成员方法" class="header_2">成员方法</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 |方法|描述|

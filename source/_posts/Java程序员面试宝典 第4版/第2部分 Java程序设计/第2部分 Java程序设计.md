@@ -4,34 +4,13 @@ categories:
   - Java程序员面试宝典 第4版
   - 第2部分 Java程序设计
 date: 2019-07-02 17:11:50
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: 550a73ea
 ---
-<div id='my_toc'><a href="/ReadingNotes/550a73ea/#第2部分-Java程序设计" class="header_1">第2部分 Java程序设计</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/550a73ea/#第2部分-Java程序设计" class="header_1">第2部分 Java程序设计</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 # 第2部分 Java程序设计 #

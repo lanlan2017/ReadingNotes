@@ -3,34 +3,13 @@ title: 3Java网络编程技术
 categories: 
   - java 网络编程
 date: 2018-08-17 11:40:15
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: eadab85c
 ---
-<div id='my_toc'><a href="/ReadingNotes/eadab85c/#-InetAddress-类--代表一个-IP-地址" class="header_2">`InetAddress`类--代表一个`IP`地址</a><br><a href="/ReadingNotes/eadab85c/#创建InetAddress类实例的方法" class="header_3">创建InetAddress类实例的方法</a><br><a href="/ReadingNotes/eadab85c/#实例" class="header_4">实例</a><br><a href="/ReadingNotes/eadab85c/#重写Object类的方法：" class="header_3">重写Object类的方法：</a><br><a href="/ReadingNotes/eadab85c/#获取IP地址相关信息的方法" class="header_3">获取IP地址相关信息的方法</a><br><a href="/ReadingNotes/eadab85c/#判断方法：" class="header_3">判断方法：</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/eadab85c/#-InetAddress-类--代表一个-IP-地址" class="header_2">`InetAddress`类--代表一个`IP`地址</a>&nbsp;<br><a href="/ReadingNotes/eadab85c/#创建InetAddress类实例的方法" class="header_3">创建InetAddress类实例的方法</a>&nbsp;<br><a href="/ReadingNotes/eadab85c/#实例" class="header_4">实例</a>&nbsp;<br><a href="/ReadingNotes/eadab85c/#重写Object类的方法：" class="header_3">重写Object类的方法：</a>&nbsp;<br><a href="/ReadingNotes/eadab85c/#获取IP地址相关信息的方法" class="header_3">获取IP地址相关信息的方法</a>&nbsp;<br><a href="/ReadingNotes/eadab85c/#判断方法：" class="header_3">判断方法：</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 

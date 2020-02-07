@@ -3,34 +3,13 @@ title: UDP网络编程
 categories: 
   - java 网络编程
 date: 2018-08-18 15:50:10
-updated: 2019-12-17 01:44:33
+updated: 2019-12-17 02:00:55
 abbrlink: b6cecc51
 ---
-<div id='my_toc'><a href="/ReadingNotes/b6cecc51/#Java-UDP网络编程相关类" class="header_2">Java UDP网络编程相关类</a><br><a href="/ReadingNotes/b6cecc51/#DatagramSocket类" class="header_3">DatagramSocket类</a><br><a href="/ReadingNotes/b6cecc51/#-DatagramPacket-类" class="header_3">`DatagramPacket`类</a><br><a href="/ReadingNotes/b6cecc51/#UDP客户端编程步骤" class="header_2">UDP客户端编程步骤</a><br><a href="/ReadingNotes/b6cecc51/#建立连接" class="header_3">建立连接</a><br><a href="/ReadingNotes/b6cecc51/#发送数据" class="header_3">发送数据</a><br><a href="/ReadingNotes/b6cecc51/#客户端接收数据" class="header_3">客户端接收数据</a><br><a href="/ReadingNotes/b6cecc51/#关闭" class="header_3">关闭</a><br><a href="/ReadingNotes/b6cecc51/#UDP服务端网络编程" class="header_2">UDP服务端网络编程</a><br><a href="/ReadingNotes/b6cecc51/#第一步监听窗口，建立连接" class="header_3">第一步监听窗口，建立连接</a><br><a href="/ReadingNotes/b6cecc51/#第二步：接收客户端的数据" class="header_3">第二步：接收客户端的数据</a><br><a href="/ReadingNotes/b6cecc51/#第三步：处理接收的数据，给出响应" class="header_3">第三步：处理接收的数据，给出响应</a><br><a href="/ReadingNotes/b6cecc51/#实例" class="header_2">实例</a><br><a href="/ReadingNotes/b6cecc51/#多次发送多次接收" class="header_2">多次发送多次接收</a><br><a href="/ReadingNotes/b6cecc51/#情况：得不到服务器的响应，一直阻塞" class="header_3">情况：得不到服务器的响应，一直阻塞</a><br></div>
-<style>
-    .header_1{
-        margin-left: 1em;
-    }
-    .header_2{
-        margin-left: 2em;
-    }
-    .header_3{
-        margin-left: 3em;
-    }
-    .header_4{
-        margin-left: 4em;
-    }
-    .header_5{
-        margin-left: 5em;
-    }
-    .header_6{
-        margin-left: 6em;
-    }
-</style>
+<div id='my_toc'><a href="/ReadingNotes/b6cecc51/#Java-UDP网络编程相关类" class="header_2">Java UDP网络编程相关类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#DatagramSocket类" class="header_3">DatagramSocket类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#-DatagramPacket-类" class="header_3">`DatagramPacket`类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#UDP客户端编程步骤" class="header_2">UDP客户端编程步骤</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#建立连接" class="header_3">建立连接</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#发送数据" class="header_3">发送数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#客户端接收数据" class="header_3">客户端接收数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#关闭" class="header_3">关闭</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#UDP服务端网络编程" class="header_2">UDP服务端网络编程</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第一步监听窗口，建立连接" class="header_3">第一步监听窗口，建立连接</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第二步：接收客户端的数据" class="header_3">第二步：接收客户端的数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第三步：处理接收的数据，给出响应" class="header_3">第三步：处理接收的数据，给出响应</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#实例" class="header_2">实例</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#多次发送多次接收" class="header_2">多次发送多次接收</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#情况：得不到服务器的响应，一直阻塞" class="header_3">情况：得不到服务器的响应，一直阻塞</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
 <!--more-->
-<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}
-var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}
-</script>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
 
 <!--end-->
 参考：[https://blog.csdn.net/sihai12345/article/details/79334299](https://blog.csdn.net/sihai12345/article/details/79334299)
