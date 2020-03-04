@@ -11,7 +11,13 @@ set postRoot=%~dp0source\_posts
 explorer %postRoot%
 echo 在%blogRoot%目录下打开git-bash
 start git-bash --cd=%blogRoot%
-REM pause
-echo 拉取远程分支
-git pull origin master
-REM 在文章根目录下打开文件资源管理器
+
+choice /t 10 /d n /m 是否拉取远程更新(默认不拉取)
+
+IF ERRORLEVEL 2 goto end
+
+    echo 拉取远程分支
+    git pull origin master
+:end
+    REM echo 程序结束
+    REM pause
