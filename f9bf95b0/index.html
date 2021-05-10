@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="7.5 实体-联系图&amp;nbsp;7.5.1 基本结构&amp;nbsp;7.5.2 映射基数&amp;nbsp;箭头线段形式&amp;nbsp;小结&amp;nbsp;l..h表示形式&amp;nbsp;7.5.3 复杂的属性&amp;nbsp;7.5.4 角色&amp;nbsp;7.5.5 非二元的联系集&amp;nbsp;7.5.6 弱实体集&amp;nbsp;弱实体集&amp;nbsp;标识性联系&amp;nbsp;E-R图中弱实体集和强实体集的区别&amp;nbsp;7.5.7 大学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.5 实体-联系图">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/f9bf95b0/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="7.5 实体-联系图&amp;nbsp;7.5.1 基本结构&amp;nbsp;7.5.2 映射基数&amp;nbsp;箭头线段形式&amp;nbsp;小结&amp;nbsp;l..h表示形式&amp;nbsp;7.5.3 复杂的属性&amp;nbsp;7.5.4 角色&amp;nbsp;7.5.5 非二元的联系集&amp;nbsp;7.5.6 弱实体集&amp;nbsp;弱实体集&amp;nbsp;标识性联系&amp;nbsp;E-R图中弱实体集和强实体集的区别&amp;nbsp;7.5.7 大学">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/1.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/2.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/3.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/4.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/5.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/6.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/7.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/8.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/9.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/10.png">
+<meta property="article:published_time" content="2019-11-06T17:05:23.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/1.png">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/f9bf95b0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>7.5 实体-联系图 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/f9bf95b0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">7.5 实体-联系图
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-06 17:05:23" itemprop="dateCreated datePublished" datetime="2019-11-06T17:05:23+00:00">2019-11-06</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">第二部分 数据库设计</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">第7章 数据库设计和E-R模型</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/7-5-%E5%AE%9E%E4%BD%93-%E8%81%94%E7%B3%BB%E5%9B%BE/" itemprop="url" rel="index"><span itemprop="name">7.5 实体-联系图</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/f9bf95b0/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/f9bf95b0/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/f9bf95b0/#7-5-实体-联系图" class="header_1">7.5 实体-联系图</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-1-基本结构" class="header_1">7.5.1 基本结构</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-2-映射基数" class="header_1">7.5.2 映射基数</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#箭头线段形式" class="header_2">箭头线段形式</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#小结" class="header_2">小结</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#l-h表示形式" class="header_2">l..h表示形式</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-3-复杂的属性" class="header_1">7.5.3 复杂的属性</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-4-角色" class="header_1">7.5.4 角色</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-5-非二元的联系集" class="header_1">7.5.5 非二元的联系集</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-6-弱实体集" class="header_1">7.5.6 弱实体集</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#弱实体集" class="header_2">弱实体集</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#标识性联系" class="header_3">标识性联系</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#E-R图中弱实体集和强实体集的区别" class="header_2">E-R图中弱实体集和强实体集的区别</a>&nbsp;<br><a href="/ReadingNotes/f9bf95b0/#7-5-7-大学的E-R图" class="header_1">7.5.7 大学的E-R图</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="7-5-实体-联系图"><a href="#7-5-实体-联系图" class="headerlink" title="7.5 实体-联系图"></a>7.5 实体-联系图</h1><p>1.3.3节曾经简要地介绍过,<code>E-R</code>图(<code>E-R diagram</code>)可以图形化表示数据库的全局逻辑结构。<code>E-R</code>图既简单又清晰,这些是致使<code>E-R</code>模型广泛使用的重要性质。</p>
+<h1 id="7-5-1-基本结构"><a href="#7-5-1-基本结构" class="headerlink" title="7.5.1 基本结构"></a>7.5.1 基本结构</h1><p><code>E-R</code>图包括如下几个主要构件:</p>
+<ol>
+<li>分成两部分的<strong><code>矩形</code>代表<code>实体集</code></strong>。本书中有阴影的第一部分包含实体集的名字,第二部分包含实体集中所有属性的名字。</li>
+<li><strong>菱形</strong>代表<strong>联系集</strong>。</li>
+<li>未分割的矩形代表联系集的属性。构成主码的属性以<code>下划线</code>标明。</li>
+<li><code>线段</code>将实体集连接到联系集。</li>
+<li><code>虚线</code>将联系集属性连接到联系集。</li>
+<li><code>双线</code>显示实体在联系集中的参与度。</li>
+<li><code>双菱形</code>代表连接到弱实体集的标志性联系集(我们将在7.5.6节讲述标志性联系集和弱实体</li>
+</ol>
+<p>考虑图7-7中的<code>ER</code>图,它由通过二元联系集<code>advisor</code>关联的两个实体集<code>instructor</code>和<code>student</code>组成。同<code>instructor</code>相关联的属性为<code>ID</code>、<code>name</code>和<code>salary</code>。同<code>student</code>相关联的属性为<code>ID</code>、<code>name</code>和<code>tot_cred.</code>。如图7-7所示,实体集的属性中那些组成主码的属性以下划线标明。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/1.png" alt="这里有一张图片"><br><strong>如果一个联系集有关联的属性，那么我们将这些属性放入一个矩形中，并且用虚线将该矩形与代表联系集的菱形连接起来</strong>。例如，在图7-8中，我们有描述性属性<code>dame</code>附带到联系集 <code>advisor</code>上，表示教师成为导师的日期。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/2.png" alt="这里有一张图片"></p>
+<h1 id="7-5-2-映射基数"><a href="#7-5-2-映射基数" class="headerlink" title="7.5.2 映射基数"></a>7.5.2 映射基数</h1><h2 id="箭头线段形式"><a href="#箭头线段形式" class="headerlink" title="箭头线段形式"></a>箭头线段形式</h2><p>实体集<code>instructor</code>和<code>student</code>之间的联系集<code>advisor</code>可以是<strong>一对一</strong>、<strong>一对多</strong>、<strong>多对一</strong>或<strong>多对多</strong>的。为了区别这些类型，我们在所讨论的联系集和实体集之间画一个箭头（→）或一条线段（一），如下所示。<br><strong>一对一</strong>:我们从联系集 <code>advisor</code>向实体集 <code>instructor</code>和 <code>student</code>各画一个箭头(见图7-9a)。这表示一名教师可以指导最多一名学生,并且一名学生可以有最多一位导师。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/3.png" alt="这里有一张图片"><br><strong>一对多</strong>:我们从联系集 <code>advisor</code>画一个箭头到实体集<code>instructor</code>,以及一条<code>线段</code>到实体集 <code>student</code>(见图7-9b)这表示一名教师可以指导多名学生,但一名学生可以有至多一位导师。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/4.png" alt="这里有一张图片"><br><strong>多对一</strong>:我们从联系集<code>advisor</code>画一条<code>线段</code>到实体集<code>instructor</code>,以及一个<code>箭头</code>到实体集<code>student</code>。这表示一名教师可以指导至多一名学生,但一名学生可以有多位导师。<br><strong>多对多</strong>:我们从联系集<code>advisor</code>向实体集<code>instructor</code>和<code>student</code>各画一条<code>线段</code>(见图7-9c)。这表示一名教师可以指导多名学生,并且一名学生可以有多位导师。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/5.png" alt="这里有一张图片"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><code>箭头</code>表示<code>一</code></li>
+<li><code>线段</code>表示<code>多</code></li>
+</ul>
+<h2 id="l-h表示形式"><a href="#l-h表示形式" class="headerlink" title="l..h表示形式"></a>l..h表示形式</h2><p><code>ER</code>图还提供了一种描述每个实体参与联系集中的联系的次数的更复杂的约束的方法。实体集和二元联系集之间的一条边可以有一个关联的最大和最小的映射基数,用<code>l..h</code>的形式表示,其中</p>
+<ul>
+<li><code>l</code>表示<code>最小</code>的映射基数,</li>
+<li>而<code>h</code>表示<code>最大</code>的映射基数。</li>
+<li>最小值<code>l</code>为1表示这个实体集在该联系集中全部参与,即实体集中的每个实体在联系集中的至少一个联系中出现。</li>
+<li>最大值<code>h</code>为1表示这个实体参与至多一个联系,而最大值为<code>*</code>代表没有限制。</li>
+</ul>
+<p>例如,考虑图7-10：<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/6.png" alt="这里有一张图片"><br>在<code>advisor</code>和<code>student</code>之间的边有<code>1..1</code>的基数约束,意味着基数的最小值和最大值都是1,也就是,每个学生必须有且仅有一个导师。<br>从<code>advisor</code>到<code>instructor</code>边上的约束<code>0..*</code>说明<code>教师可以有零个或多个学生</code>。因此, <code>advisor</code>联系是从<code>instructor</code>到<code>student</code>的一对多联系,更进一步地讲, <code>student</code>在<code>advisor</code>联系中的参与是全部的,表示<code>一个学生必须有一个导师</code>。<br>很容易将左侧边上的<code>0..*</code>曲解为联系<code>advisor</code>是从<code>instructor</code>到<code>student</code>多对一的,而这正好和正确的解释相反。<br>图7-10中的<code>E-R</code>图的<strong>另一种画法</strong>是在基数约束的位置画一条从<code>student</code>到<code>advisor</code>的双线,以及一个从<code>advisor</code>到<code>instructor</code>的箭头。这种画法可以强制实施同图7-10中所示约束完全一样的约束。</p>
+<h1 id="7-5-3-复杂的属性"><a href="#7-5-3-复杂的属性" class="headerlink" title="7.5.3 复杂的属性"></a>7.5.3 复杂的属性</h1><p><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/7.png" alt="这里有一张图片"><br>图7-11说明了怎样在<code>E-R</code>图中表示复合属性。这里一个具有子属性<code>first_name</code>、 <code>middle_initial</code>和<code>last_name</code>的复合属性<code>name</code>代替了<code>instructor</code>的简单属性<code>name</code>。再例如,假定我们给实体集<code>instructor</code>增加个地址。地址可以定义为具有属性<code>street</code>、<code>city</code>、<code>sate</code>和<code>a_code</code>的复合属性<code>address</code>属性<code>street</code>本身也是一个复合属性,其子属性为<code>street_number</code>、 <code>street_name</code>和<code>apartment_number</code>。<br>在图7-11还给出了一个由”<code>{phone_number}</code>“表示的多值属性<code>phone_number</code>和一个由”<code>{age()}</code>“表示的<strong>派生属性</strong><code>age</code>。</p>
+<h1 id="7-5-4-角色"><a href="#7-5-4-角色" class="headerlink" title="7.5.4 角色"></a>7.5.4 角色</h1><p>在<code>E-R</code>图中,我们通过在菱形和矩形之间的连线上进行标注来表示角色。图7-12给出了<code>course</code>实体集和<code>prereq</code>联系集之间的角色标识<code>course id</code>和<code>prereq_id</code>。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/8.png" alt="这里有一张图片"></p>
+<h1 id="7-5-5-非二元的联系集"><a href="#7-5-5-非二元的联系集" class="headerlink" title="7.5.5 非二元的联系集"></a>7.5.5 非二元的联系集</h1><p>非二元的联系集也可以在<code>E-R</code>图中简单地表示。图7-13包含三个实体集<code>instructor</code>、 <code>student</code>和<code>project</code>,它们通过联系集<code>proi_ guide</code>相关联。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/9.png" alt="这里有一张图片"><br>在非二元的联系集中,我们可以表示某些类型的多对一联系。假设一个<code>student</code>在每个项目上最多只能有一位导师。这种约束可用从<code>proj_guide</code>的边指向<code>instructor</code>的箭头来表示。</p>
+<p>省略部分内容….</p>
+<h1 id="7-5-6-弱实体集"><a href="#7-5-6-弱实体集" class="headerlink" title="7.5.6 弱实体集"></a>7.5.6 弱实体集</h1><p>考虑一个<code>section</code>实体,它由课程编号、学期、学年以及开课编号唯一标识。显然,开课实体和课程实体相关联。假定我们在实体集<code>section</code>和<code>course</code>之间创建了一个联系集<code>sec_course</code>。<br>现在,发现<code>sec_course</code>中的信息是冗余的,由于<code>section</code>已有属性<code>course_id</code>,它标识该开课所关联的课程。消除这种冗余的一个方法是删除联系<code>sec_course</code>;然而,这么做使得<code>section</code>和<code>course</code>之间的联系隐含于一个属性中,这并不是我们想要的。<br>消除这种冗余的另一个方法是<strong>在实体<code>section</code>中不保存属性<code>course_id</code>,而只保存剩下的属性<code>sec_id</code>,<code>year</code>以及<code>semester</code></strong>。然而,这样的话实体集<code>section</code>就没有足够的属性唯一标识一个指定的<code>section</code>实体;即使每个<code>section</code>实体都是唯一的,不同课程的开课也可能会有相同的<code>sec_id</code>、<code>year</code>以及<code>semester.</code>。为解决这个问题,我们将联系<code>sec_course</code>视为一个特殊的联系,它给唯一标识<code>section</code>实体提供额外信息,即<code>course_id</code>.</p>
+<h2 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h2><ul>
+<li><strong>没有足够的属性以形成<code>主码</code>的<code>实体集</code>称作弱实体集</strong>(<code>weak entity set</code>)。</li>
+<li><strong>有主码的实体集称作强实体集</strong>(<code>strong entity set</code>)。</li>
+</ul>
+<p>弱实体集必须与另一个称作<strong>标识</strong>( <code>identifying</code>)或<strong>属主实体集</strong>(<code>owner entity set</code>)的实体集关联才能有意义。<br><strong>每个弱实体必须和一个标识实体关联</strong>;也就是说,<strong>弱实体集存在依赖</strong>(<code>existence dependent</code>)于标识实体集。<br>我们称<code>标识实体集</code>拥有(<code>own</code>)它所标识的<code>弱实体集</code>。</p>
+<h3 id="标识性联系"><a href="#标识性联系" class="headerlink" title="标识性联系"></a>标识性联系</h3><p>将<code>弱实体集</code>与其<code>标识实体集</code>相联的<code>联系</code>称为<strong>标识性联系</strong>( <code>identifying relationship</code>)</p>
+<p>标识性联系是从<code>弱实体集</code>到<code>标识实体集</code><strong>多对一</strong>的,并且弱实体集在联系中的参与是全部的。标识性联系集不应该有任何描述性属性,因为这种属性中的任意一个都可以与弱实体集相关联。<br>在我们的例子中, <code>section</code>的<code>标识实体集</code>是<code>course</code>,将<code>section</code>实体和它们对应的<code>course</code>实体关联在起的<code>sec_course</code>是<code>标识性联系</code>。<br>虽然弱实体集没有主码,但是我们仍需要区分依赖于特定强实体集的弱实体集中的实体的方法。弱实体集的<code>分辨符</code>(<code>discriminator</code>)是使得我们进行这种区分的属性集合。例如,弱实体集<code>section</code>的分辨符由属性<code>sec_id</code>、<code>year</code>以及<code>semester</code>组成,因为对每门课程来说,这个属性集唯一标识了这门课程的移一次开课。<strong>弱实体集的<code>分辨符</code>也称为该实体集的<code>部分码</code></strong></p>
+<p><strong><code>弱实体集</code>的主码由<code>标识实体集的主码</code>加上<code>该弱实体集的分辨符</code>构成</strong>。在实体集<code>section</code>的例子中,它的主码是<code>{course_id,sec_id, year, semester}</code>,其中<code>course_id</code>是标识实体集<code>course</code>的主码,<code>sec_id,year, semester</code>区分同一门课程的不同<code>section</code>实体。<br>注意,我们可以选择使<code>sec_id</code>对于大学所提供的所有课程都不重复,在这种情况下实体集<code>section</code>将会具有一个主码。然而,一个<code>section</code>的存在在概念上仍依赖于一个<code>course</code>,通过使之成为弱实体集可以明确这种依赖关系。</p>
+<h2 id="E-R图中弱实体集和强实体集的区别"><a href="#E-R图中弱实体集和强实体集的区别" class="headerlink" title="E-R图中弱实体集和强实体集的区别"></a>E-R图中弱实体集和强实体集的区别</h2><p>在<code>ER</code>图中,弱实体集和强实体集类似,以矩形表示,但是有两点主要的区别:</p>
+<ul>
+<li>弱实体集的<code>分辨符</code>以<code>虚下划线</code>标明,而不是实线。</li>
+<li>关联<code>弱实体集</code>和<code>标识性强实体集</code>的联系集以<code>双菱形</code>表示。</li>
+</ul>
+<p>在图7-14中,弱实体集<code>section</code>通过联系集<code>sec_course</code>依赖于强实体集<code>course</code>。<br><img src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch7/10.png" alt="这里有一张图片"><br>该图还表明了如何使用<strong>双线表明全部参与</strong>;(弱)实体集<code>section</code>在联系<code>sec_course</code>中的参与是全部的,表示每次开课都必须通过<code>sec_course</code>同某门课程关联。最后,从<code>sec_course</code>指向<code>course</code>的<code>箭头</code>表示每次开课与单门课程相关联。<br><strong>弱实体集可以参与标识性联系以外的其他联系</strong>。例如, <code>section</code>实体可以和<code>time_slot</code>实体集参与个联系,以标识开课的时间。<br><strong>弱实体集可以作为属主与另一个弱实体集参与一个标识性联系</strong>。<br><strong>一个弱实体集也可能与不止一个标识实体集关联</strong>。这样,一个特定的弱实体将被一个实体的组合标识,其中每个标识实体集有一个实体在该组合中。<br><strong>弱实体集的主码可以由标识实体集的主码的并集加上弱实体集的分辨符组成</strong>。<br>在某些情况下,数据库设计者会选择将一个弱实体集表示为属主实体集的一个多值复合属性。<br>在我们的例子中,这种方法需要实体集<code>course</code>具有一个多值复合属性<code>section</code>。如果弱实体集只参与标识性联系,而且其属性不多,那么在建模时将其表示为一个属性更恰当。相反地,如果弱实体集参与到标识性联系以外的联系中,或者其属性较多,则建模时将其表示为弱实体集更恰当。很明显, <code>section</code>不符合建模成多值复合属性的要求,而将其建模为弱实体集更恰当。</p>
+<h1 id="7-5-7-大学的E-R图"><a href="#7-5-7-大学的E-R图" class="headerlink" title="7.5.7 大学的E-R图"></a>7.5.7 大学的E-R图</h1><p>图7-15展示了本书迄今所使用的大学所对应的E-R图。除了增加了若干约束,以及<code>section</code>为弱实体以外,该<code>ER</code>图与我们在74节中看到的大学<code>E-R</code>模型的文字性描述等价。<br>在我们的大学数据库中,我们限制每名教师必须有且仅有一个相关联的系。因此,如图7-15所示,在<code>instructor</code>和<code>inst_dept</code>之间有一条双线,表示<code>instructor</code>在<code>inst_dept</code>中全部参与;即每名教师必须和一个系相关联。另外,存在一个从<code>inst_dept</code>到<code>department</code>的箭头,表示每个教师可以有至多一个相关联的系。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/f9bf95b0/" title="7.5 实体-联系图">https://lanlan2017.github.io/ReadingNotes/f9bf95b0/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/7ecbb3b1/" rel="next" title="7.4 从实体集中删除冗余属性">
+                  <i class="fa fa-chevron-left"></i> 7.4 从实体集中删除冗余属性
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/ef76614/" rel="prev" title="第3讲 总第13讲 数据库设计过程">
+                  第3讲 总第13讲 数据库设计过程 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-实体-联系图"><span class="nav-number">1.</span> <span class="nav-text">7.5 实体-联系图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-1-基本结构"><span class="nav-number">2.</span> <span class="nav-text">7.5.1 基本结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-2-映射基数"><span class="nav-number">3.</span> <span class="nav-text">7.5.2 映射基数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头线段形式"><span class="nav-number">3.1.</span> <span class="nav-text">箭头线段形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#l-h表示形式"><span class="nav-number">3.3.</span> <span class="nav-text">l..h表示形式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-3-复杂的属性"><span class="nav-number">4.</span> <span class="nav-text">7.5.3 复杂的属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-4-角色"><span class="nav-number">5.</span> <span class="nav-text">7.5.4 角色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-5-非二元的联系集"><span class="nav-number">6.</span> <span class="nav-text">7.5.5 非二元的联系集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-6-弱实体集"><span class="nav-number">7.</span> <span class="nav-text">7.5.6 弱实体集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弱实体集"><span class="nav-number">7.1.</span> <span class="nav-text">弱实体集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标识性联系"><span class="nav-number">7.1.1.</span> <span class="nav-text">标识性联系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-R图中弱实体集和强实体集的区别"><span class="nav-number">7.2.</span> <span class="nav-text">E-R图中弱实体集和强实体集的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-7-大学的E-R图"><span class="nav-number">8.</span> <span class="nav-text">7.5.7 大学的E-R图</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

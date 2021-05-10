@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="网络编程步骤&amp;nbsp;客户端网络编程步骤&amp;nbsp;建立网络连接&amp;nbsp;交换数据&amp;nbsp;关闭网络连接&amp;nbsp;服务器端网络编程步骤&amp;nbsp;监听端口&amp;nbsp;获得连接&amp;nbsp;交换数据&amp;nbsp;关闭连接&amp;nbsp;现实的例子&amp;nbsp;小结&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2网络编程技术">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/20535608/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="网络编程步骤&amp;nbsp;客户端网络编程步骤&amp;nbsp;建立网络连接&amp;nbsp;交换数据&amp;nbsp;关闭网络连接&amp;nbsp;服务器端网络编程步骤&amp;nbsp;监听端口&amp;nbsp;获得连接&amp;nbsp;交换数据&amp;nbsp;关闭连接&amp;nbsp;现实的例子&amp;nbsp;小结&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-16T23:08:39.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/20535608/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>2网络编程技术 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/20535608/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">2网络编程技术
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-16 23:08:39" itemprop="dateCreated datePublished" datetime="2018-08-16T23:08:39+00:00">2018-08-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">java 网络编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/20535608/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/20535608/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/20535608/#网络编程步骤" class="header_2">网络编程步骤</a>&nbsp;<br><a href="/ReadingNotes/20535608/#客户端网络编程步骤" class="header_3">客户端网络编程步骤</a>&nbsp;<br><a href="/ReadingNotes/20535608/#建立网络连接" class="header_4">建立网络连接</a>&nbsp;<br><a href="/ReadingNotes/20535608/#交换数据" class="header_4">交换数据</a>&nbsp;<br><a href="/ReadingNotes/20535608/#关闭网络连接" class="header_4">关闭网络连接</a>&nbsp;<br><a href="/ReadingNotes/20535608/#服务器端网络编程步骤" class="header_2">服务器端网络编程步骤</a>&nbsp;<br><a href="/ReadingNotes/20535608/#监听端口" class="header_3">监听端口</a>&nbsp;<br><a href="/ReadingNotes/20535608/#获得连接" class="header_3">获得连接</a>&nbsp;<br><a href="/ReadingNotes/20535608/#交换数据" class="header_3">交换数据</a>&nbsp;<br><a href="/ReadingNotes/20535608/#关闭连接" class="header_3">关闭连接</a>&nbsp;<br><a href="/ReadingNotes/20535608/#现实的例子" class="header_3">现实的例子</a>&nbsp;<br><a href="/ReadingNotes/20535608/#小结" class="header_2">小结</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<p>原文:<a href="https://blog.csdn.net/sihai12345/article/details/79334299" target="_blank" rel="noopener">https://blog.csdn.net/sihai12345/article/details/79334299</a></p>
+<p>前面介绍了网络编程的相关基础知识，初步建立了网络编程的概念，但是实际学习网络编程还必须使用某种程序设计语言进行代码实现，下面就介绍一下网络编程的代码实现。</p>
+<h2 id="网络编程步骤"><a href="#网络编程步骤" class="headerlink" title="网络编程步骤"></a>网络编程步骤</h2><p>按照前面的基础知识介绍，<strong>无论使用TCP方式还是UDP方式进行网络通讯，网络编程都是由客户端和服务器端组成。</strong>当然<strong>，B/S结构的编程中只需要实现服务器端即可</strong>。所以，下面介绍网络编程的步骤时，均以C/S结构为基础进行介绍。</p>
+<p>说明：这里的步骤实现和语言无关，也就是说，这个步骤适用于各种语言实现，不局限于Java语言。</p>
+<h3 id="客户端网络编程步骤"><a href="#客户端网络编程步骤" class="headerlink" title="客户端网络编程步骤"></a>客户端网络编程步骤</h3><p><strong>客户端(Client)是指网络编程中首先发起连接的程序</strong>，客户端一般实现程序界面和基本逻辑实现，在进行实际的客户端编程时，无论客户端复杂还是简单，以及客户端实现的方式，客户端的编程主要由三个步骤实现：</p>
+<h4 id="建立网络连接"><a href="#建立网络连接" class="headerlink" title="建立网络连接"></a>建立网络连接</h4><p><strong>客户端网络编程的第一步都是建立网络连接</strong>。<strong>在建立网络连接时需要指定连接到的服务器的IP地址和端口号</strong>，建立完成以后，会形成一条虚拟的连接，后续的操作就可以通过该连接实现数据交换了。</p>
+<h4 id="交换数据"><a href="#交换数据" class="headerlink" title="交换数据"></a>交换数据</h4><p>连接建立以后，就可以通过这个连接交换数据了。<strong>交换数据严格按照请求响应模型进行，由客户端发送一个请求数据到服务器，服务器反馈一个响应数据给客户端</strong>，如果客户端不发送请求则服务器端就不响应。</p>
+<p>根据逻辑需要，可以多次交换数据，但是还是必须遵循请求响应模型。</p>
+<h4 id="关闭网络连接"><a href="#关闭网络连接" class="headerlink" title="关闭网络连接"></a>关闭网络连接</h4><p>在数据交换完成以后，关闭网络连接，释放程序占用的端口、内存等系统资源，结束网络编程。</p>
+<p>最基本的步骤一般都是这三个步骤，在实际实现时，步骤2会出现重复，在进行代码组织时，由于网络编程是比较耗时的操作，所以一般开启专门的现场进行网络通讯。</p>
+<h2 id="服务器端网络编程步骤"><a href="#服务器端网络编程步骤" class="headerlink" title="服务器端网络编程步骤"></a>服务器端网络编程步骤</h2><p><strong>服务器端(Server)是指在网络编程中被动等待连接的程序</strong>，服务器端一般实现程序的核心逻辑以及数据存储等核心功能。服务器端的编程步骤和客户端不同，是<strong>由四个步骤实现</strong>，依次是：</p>
+<h3 id="监听端口"><a href="#监听端口" class="headerlink" title="监听端口"></a>监听端口</h3><p>服务器端属于被动等待连接，所以服务器端启动以后，不需要发起连接，而只需要监听本地计算机的某个固定端口即可。</p>
+<p>这个端口就是服务器端开放给客户端的端口，服务器端程序运行的本地计算机的IP地址就是服务器端程序的IP地址。</p>
+<h3 id="获得连接"><a href="#获得连接" class="headerlink" title="获得连接"></a>获得连接</h3><p>当客户端连接到服务器端时，服务器端就可以获得一个连接，这个连接包含客户端的信息，例如客户端IP地址等等，服务器端和客户端也通过该连接进行数据交换。</p>
+<p>一般在服务器端编程中，当获得连接时，需要开启专门的线程处理该连接，每个连接都由独立的线程实现。</p>
+<h3 id="交换数据-1"><a href="#交换数据-1" class="headerlink" title="交换数据"></a>交换数据</h3><p>服务器端通过获得的连接进行数据交换。<strong>服务器端的数据交换步骤是首先接收客户端发送过来的数据，然后进行逻辑处理，再把处理以后的结果数据发送给客户端</strong>。简单来说，就是<strong>先接收请求再发送处理结果(响应)</strong>，这个和客户端的数据交换数序不同。</p>
+<p>其实，服务器端获得的连接和客户端连接是一样的，只是数据交换的步骤不同。</p>
+<p>当然，服务器端的数据交换也是可以多次进行的。</p>
+<p>在数据交换完成以后，关闭和客户端的连接。</p>
+<h3 id="关闭连接"><a href="#关闭连接" class="headerlink" title="关闭连接"></a>关闭连接</h3><p>当服务器程序关闭时，需要关闭服务器端，通过关闭服务器端使得服务器监听的端口以及占用的内存可以释放出来，实现了连接的关闭。</p>
+<h3 id="现实的例子"><a href="#现实的例子" class="headerlink" title="现实的例子"></a>现实的例子</h3><p>其实<strong>服务器端编程的模型和呼叫中心的实现是类似的</strong>，例如移动的客服电话10086就是典型的呼叫中心，当一个用户拨打10086时，转接给一个专门的客服人员，由该客服实现和该用户的问题解决，当另外一个用户拨打10086时，则转接给另一个客服，实现问题解决，依次类推。</p>
+<p>在服务器端编程时，10086这个电话号码就类似于服务器端的端口号码，每个用户就相当于一个客户端程序，每个客服人员就相当于服务器端启动的专门和客户端连接的线程，每个线程都是独立进行交互的。</p>
+<p>这就是服务器端编程的模型，<strong>只是TCP方式是需要建立连接的，对于服务器端的压力比较大，而UDP是不需要建立连接的，对于服务器端的压力比较小罢了</strong>。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>总之，<strong>无论使用任何语言，任何方式进行基础的网络编程，都必须遵循固定的步骤进行操作</strong>，在熟悉了这些步骤以后，可以根据需要进行逻辑上的处理，但是还是必须遵循固定的步骤进行。</p>
+<p>其实，基础的网络编程本身不难，也不需要很多的基础网络知识，只是由于编程的基础功能都已经由API实现，而且需要按照固定的步骤进行，所以在入门时有一定的门槛，希望下面的内容能够将你快速的带入网络编程技术的大门。</p>
+<blockquote>
+<p>原文链接: <a href="https://www.lansheng.net.cn/blog/20535608/" target="_blank" rel="noopener">2网络编程技术</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/20535608/" title="2网络编程技术">https://lanlan2017.github.io/ReadingNotes/20535608/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/d9a41e7d/" rel="next" title="1网络概述">
+                  <i class="fa fa-chevron-left"></i> 1网络概述
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/eadab85c/" rel="prev" title="3Java网络编程技术">
+                  3Java网络编程技术 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络编程步骤"><span class="nav-number">1.</span> <span class="nav-text">网络编程步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端网络编程步骤"><span class="nav-number">1.1.</span> <span class="nav-text">客户端网络编程步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立网络连接"><span class="nav-number">1.1.1.</span> <span class="nav-text">建立网络连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交换数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">交换数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭网络连接"><span class="nav-number">1.1.3.</span> <span class="nav-text">关闭网络连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器端网络编程步骤"><span class="nav-number">2.</span> <span class="nav-text">服务器端网络编程步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监听端口"><span class="nav-number">2.1.</span> <span class="nav-text">监听端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得连接"><span class="nav-number">2.2.</span> <span class="nav-text">获得连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换数据-1"><span class="nav-number">2.3.</span> <span class="nav-text">交换数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭连接"><span class="nav-number">2.4.</span> <span class="nav-text">关闭连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现实的例子"><span class="nav-number">2.5.</span> <span class="nav-text">现实的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="FFmpeg从入门到精通前言第一部分 FFmpeg的命令行使用篇 第1章 FFmpeg简介 第2章 FFmpeg工具使用基础 Head frist Servlet and JSP第2章Java Web高级编程第0部分第1部分 创建企业级应用程序 第1章 介绍Java EE平台 java 网络编程API">
+<meta property="og:type" content="website">
+<meta property="og:title" content="网站目录">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/dir/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="FFmpeg从入门到精通前言第一部分 FFmpeg的命令行使用篇 第1章 FFmpeg简介 第2章 FFmpeg工具使用基础 Head frist Servlet and JSP第2章Java Web高级编程第0部分第1部分 创建企业级应用程序 第1章 介绍Java EE平台 java 网络编程API">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-17T04:08:18.000Z">
+<meta property="article:modified_time" content="2021-05-10T19:00:01.125Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/dir/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: false,
+    isPage: true,
+    isArchive: false
+  };
+</script>
+
+  <title>网站目录 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h2 class="post-title" itemprop="name headline">网站目录
+
+</h2>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="FFmpeg从入门到精通"><a href="#FFmpeg从入门到精通" class="headerlink" title="FFmpeg从入门到精通"></a><a href="/ReadingNotes/categories/FFmpeg从入门到精通">FFmpeg从入门到精通</a></h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><a href="/ReadingNotes/categories/FFmpeg从入门到精通/前言">前言</a></h2><h2 id="第一部分-FFmpeg的命令行使用篇"><a href="#第一部分-FFmpeg的命令行使用篇" class="headerlink" title="第一部分 FFmpeg的命令行使用篇"></a><a href="/ReadingNotes/categories/FFmpeg从入门到精通/第一部分-FFmpeg的命令行使用篇">第一部分 FFmpeg的命令行使用篇</a></h2><ul>
+<li><a href="/ReadingNotes/categories/FFmpeg从入门到精通/第一部分-FFmpeg的命令行使用篇/第1章-FFmpeg简介">第1章 FFmpeg简介</a></li>
+<li><a href="/ReadingNotes/categories/FFmpeg从入门到精通/第一部分-FFmpeg的命令行使用篇/第2章-FFmpeg工具使用基础">第2章 FFmpeg工具使用基础</a></li>
+</ul><h1 id="Head-frist-Servlet-and-JSP"><a href="#Head-frist-Servlet-and-JSP" class="headerlink" title="Head frist Servlet and JSP"></a><a href="/ReadingNotes/categories/Head-frist-Servlet-and-JSP">Head frist Servlet and JSP</a></h1><h2 id="第2章"><a href="#第2章" class="headerlink" title="第2章"></a><a href="/ReadingNotes/categories/Head-frist-Servlet-and-JSP/第2章">第2章</a></h2><h1 id="Java-Web高级编程"><a href="#Java-Web高级编程" class="headerlink" title="Java Web高级编程"></a><a href="/ReadingNotes/categories/Java-Web高级编程">Java Web高级编程</a></h1><h2 id="第0部分"><a href="#第0部分" class="headerlink" title="第0部分"></a><a href="/ReadingNotes/categories/Java-Web高级编程/第0部分">第0部分</a></h2><h2 id="第1部分-创建企业级应用程序"><a href="#第1部分-创建企业级应用程序" class="headerlink" title="第1部分 创建企业级应用程序"></a><a href="/ReadingNotes/categories/Java-Web高级编程/第1部分-创建企业级应用程序">第1部分 创建企业级应用程序</a></h2><ul>
+<li><a href="/ReadingNotes/categories/Java-Web高级编程/第1部分-创建企业级应用程序/第1章-介绍Java-EE平台">第1章 介绍Java EE平台</a></li>
+</ul><h1 id="java-网络编程"><a href="#java-网络编程" class="headerlink" title="java 网络编程"></a><a href="/ReadingNotes/categories/java-网络编程">java 网络编程</a></h1><h2 id="API"><a href="#API" class="headerlink" title="API"></a><a href="/ReadingNotes/categories/java-网络编程/API">API</a></h2><a id="more"></a>
+
+<h1 id="Java程序员面试宝典-第4版"><a href="#Java程序员面试宝典-第4版" class="headerlink" title="Java程序员面试宝典 第4版"></a><a href="/ReadingNotes/categories/Java程序员面试宝典-第4版">Java程序员面试宝典 第4版</a></h1><h2 id="第2部分-Java程序设计"><a href="#第2部分-Java程序设计" class="headerlink" title="第2部分 Java程序设计"></a><a href="/ReadingNotes/categories/Java程序员面试宝典-第4版/第2部分-Java程序设计">第2部分 Java程序设计</a></h2><ul>
+<li><a href="/ReadingNotes/categories/Java程序员面试宝典-第4版/第2部分-Java程序设计/第5章-Java程序设计基本概念">第5章 Java程序设计基本概念</a></li>
+</ul>
+<h1 id="jQuery基础教程-第4版"><a href="#jQuery基础教程-第4版" class="headerlink" title="jQuery基础教程 第4版"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版">jQuery基础教程 第4版</a></h1><h2 id="第1章-jQuery入门"><a href="#第1章-jQuery入门" class="headerlink" title="第1章 jQuery入门"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第1章-jQuery入门">第1章 jQuery入门</a></h2><h2 id="第2章-选择元素"><a href="#第2章-选择元素" class="headerlink" title="第2章 选择元素"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第2章-选择元素">第2章 选择元素</a></h2><h2 id="第3章-事件"><a href="#第3章-事件" class="headerlink" title="第3章 事件"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第3章-事件">第3章 事件</a></h2><h2 id="第4章-样式与动画"><a href="#第4章-样式与动画" class="headerlink" title="第4章 样式与动画"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画">第4章 样式与动画</a></h2><ul>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画/4-2-隐藏和显示元素">4.2 隐藏和显示元素</a></li>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画/4-3-效果和时长">4.3 效果和时长</a></li>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画/4-4-创建自定义动画">4.4 创建自定义动画</a></li>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画/4-5-并发与排队效果">4.5 并发与排队效果</a></li>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第4章-样式与动画/4-6-小结">4.6 小结</a></li>
+</ul>
+<h2 id="第5章-操作DOM"><a href="#第5章-操作DOM" class="headerlink" title="第5章 操作DOM"></a><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第5章-操作DOM">第5章 操作DOM</a></h2><ul>
+<li><a href="/ReadingNotes/categories/jQuery基础教程-第4版/第5章-操作DOM/5-1-操作属性">5.1 操作属性</a></li>
+</ul>
+<h1 id="Spring实战-第4版"><a href="#Spring实战-第4版" class="headerlink" title="Spring实战 (第4版)"></a><a href="/ReadingNotes/categories/Spring实战-第4版">Spring实战 (第4版)</a></h1><h2 id="第1部分-Spring的核心"><a href="#第1部分-Spring的核心" class="headerlink" title="第1部分 Spring的核心"></a><a href="/ReadingNotes/categories/Spring实战-第4版/第1部分-Spring的核心">第1部分 Spring的核心</a></h2><ul>
+<li><a href="/ReadingNotes/categories/Spring实战-第4版/第1部分-Spring的核心/第1章-Spring之旅">第1章 Spring之旅</a></li>
+</ul>
+<h1 id="大象-Thinking-in-UML-第2版"><a href="#大象-Thinking-in-UML-第2版" class="headerlink" title="大象 Thinking in UML(第2版)"></a><a href="/ReadingNotes/categories/大象-Thinking-in-UML-第2版">大象 Thinking in UML(第2版)</a></h1><h2 id="第3章-UML核心元素"><a href="#第3章-UML核心元素" class="headerlink" title="第3章 UML核心元素"></a><a href="/ReadingNotes/categories/大象-Thinking-in-UML-第2版/第3章-UML核心元素">第3章 UML核心元素</a></h2><h1 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a><a href="/ReadingNotes/categories/数据库系统">数据库系统</a></h1><h2 id="中"><a href="#中" class="headerlink" title="中"></a><a href="/ReadingNotes/categories/数据库系统/中">中</a></h2><h1 id="数据库系统概念-原书第6版"><a href="#数据库系统概念-原书第6版" class="headerlink" title="数据库系统概念 原书第6版"></a><a href="/ReadingNotes/categories/数据库系统概念-原书第6版">数据库系统概念 原书第6版</a></h1><h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/前言">前言</a></h2><h2 id="第1章-引言"><a href="#第1章-引言" class="headerlink" title="第1章 引言"></a><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第1章-引言">第1章 引言</a></h2><h2 id="第一部分-关系数据库"><a href="#第一部分-关系数据库" class="headerlink" title="第一部分 关系数据库"></a><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库">第一部分 关系数据库</a></h2><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第2章-关系模型介绍">第2章 关系模型介绍</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL">第3章 SQL</a><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-1-SQL查询语言概览">3.1 SQL查询语言概览</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-2-SQL数据定义">3.2 SQL数据定义</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-3-SQL查询的基本结构">3.3 SQL查询的基本结构</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-4-SQL查询附加的基本运算">3.4 SQL查询附加的基本运算</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-5-集合运算">3.5 集合运算</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-6-空值">3.6 空值</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-7-聚集函数">3.7 聚集函数</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-8-嵌套子查询">3.8 嵌套子查询</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-9-数据库的修改">3.9 数据库的修改</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第3章-SQL/3-10-总结">3.10 总结</a></li>
+</ul>
+</li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL">第4章 中级SQL</a><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-0-本章概述">4.0 本章概述</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-1-连接表达式">4.1 连接表达式</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-2-视图">4.2 视图</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-3-事务">4.3 事务</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-4-完整性约束">4.4 完整性约束</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-5-SQL的数据类型与模式">4.5 SQL的数据类型与模式</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-6-授权">4.6 授权</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第4章-中级SQL/4-7-总结">4.7 总结</a></li>
+</ul>
+</li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL">第5章 高级SQL</a><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-0-第5章-高级SQL概述">5.0 第5章 高级SQL概述</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-1-使用程序设计语言访问数据库">5.1 使用程序设计语言访问数据库</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-2-函数和过程">5.2 函数和过程</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-3-触发器">5.3 触发器</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-4-递归查询">5.4 递归查询</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-5-高级聚集特性">5.5 高级聚集特性</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-6-联机分析处理OLAP">5.6 联机分析处理OLAP</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第5章-高级SQL/5-7-总结">5.7 总结</a></li>
+</ul>
+</li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言">第6章 形式化关系查询语言</a><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言/6-0-本章概述">6.0 本章概述</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言/6-1-关系代数">6.1 关系代数</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言/6-2-元组关系演算">6.2 元组关系演算</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言/6-3-域关系演算">6.3 域关系演算</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第一部分-关系数据库/第6章-形式化关系查询语言/6-4-总结">6.4 总结</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="第二部分-数据库设计"><a href="#第二部分-数据库设计" class="headerlink" title="第二部分 数据库设计"></a><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计">第二部分 数据库设计</a></h2><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型">第7章 数据库设计和E-R模型</a><ul>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-0-第7章-概述">7.0 第7章 概述</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-1-设计过程概览">7.1 设计过程概览</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-2-实体-联系模型">7.2 实体-联系模型</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-3-约束">7.3 约束</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-4-从实体集中删除冗余属性">7.4 从实体集中删除冗余属性</a></li>
+<li><a href="/ReadingNotes/categories/数据库系统概念-原书第6版/第二部分-数据库设计/第7章-数据库设计和E-R模型/7-5-实体-联系图">7.5 实体-联系图</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="精通Spring-MVC4"><a href="#精通Spring-MVC4" class="headerlink" title="精通Spring MVC4"></a><a href="/ReadingNotes/categories/精通Spring-MVC4">精通Spring MVC4</a></h1><h2 id="第0章-前言"><a href="#第0章-前言" class="headerlink" title="第0章 前言"></a><a href="/ReadingNotes/categories/精通Spring-MVC4/第0章-前言">第0章 前言</a></h2><h2 id="第1章-快速搭建Spring-Web应用"><a href="#第1章-快速搭建Spring-Web应用" class="headerlink" title="第1章 快速搭建Spring Web应用"></a><a href="/ReadingNotes/categories/精通Spring-MVC4/第1章-快速搭建Spring-Web应用">第1章 快速搭建Spring Web应用</a></h2><h1 id="设计模式-可复用面向对象软件的基础"><a href="#设计模式-可复用面向对象软件的基础" class="headerlink" title="设计模式 可复用面向对象软件的基础"></a><a href="/ReadingNotes/categories/设计模式-可复用面向对象软件的基础">设计模式 可复用面向对象软件的基础</a></h1><h2 id="第0章"><a href="#第0章" class="headerlink" title="第0章"></a><a href="/ReadingNotes/categories/设计模式-可复用面向对象软件的基础/第0章">第0章</a></h2><h2 id="第1章-引言-1"><a href="#第1章-引言-1" class="headerlink" title="第1章 引言"></a><a href="/ReadingNotes/categories/设计模式-可复用面向对象软件的基础/第1章-引言">第1章 引言</a></h2><h1 id="设计模式之禅-第2版"><a href="#设计模式之禅-第2版" class="headerlink" title="设计模式之禅(第2版)"></a><a href="/ReadingNotes/categories/设计模式之禅-第2版">设计模式之禅(第2版)</a></h1><h2 id="第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读"><a href="#第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读" class="headerlink" title="第一部分 大旗不挥 谁敢冲锋 6大设计原则全新解读"></a><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读">第一部分 大旗不挥 谁敢冲锋 6大设计原则全新解读</a></h2><ul>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第1章-单一职责原则">第1章 单一职责原则</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第2章-里氏替换原则">第2章 里氏替换原则</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第3章-依赖倒置原则">第3章 依赖倒置原则</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第4章-接口隔离原则">第4章 接口隔离原则</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第5章-迪米特法则">第5章 迪米特法则</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读/第6章-开闭原则">第6章 开闭原则</a></li>
+</ul>
+<h2 id="第二部分-真刀实枪-23种设计模式完美演绎"><a href="#第二部分-真刀实枪-23种设计模式完美演绎" class="headerlink" title="第二部分 真刀实枪 23种设计模式完美演绎"></a><a href="/ReadingNotes/categories/设计模式之禅-第2版/第二部分-真刀实枪-23种设计模式完美演绎">第二部分 真刀实枪 23种设计模式完美演绎</a></h2><ul>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第二部分-真刀实枪-23种设计模式完美演绎/第7章-单例模式">第7章 单例模式</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第二部分-真刀实枪-23种设计模式完美演绎/第8章-工厂方法模式">第8章 工厂方法模式</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第二部分-真刀实枪-23种设计模式完美演绎/第9章-抽象工厂模式">第9章 抽象工厂模式</a></li>
+<li><a href="/ReadingNotes/categories/设计模式之禅-第2版/第二部分-真刀实枪-23种设计模式完美演绎/第10章-模板方法模式">第10章 模板方法模式</a></li>
+</ul>
+<h1 id="高性能MySQL"><a href="#高性能MySQL" class="headerlink" title="高性能MySQL"></a><a href="/ReadingNotes/categories/高性能MySQL">高性能MySQL</a></h1><h2 id="第1章-MySQL架构与历史"><a href="#第1章-MySQL架构与历史" class="headerlink" title="第1章 MySQL架构与历史"></a><a href="/ReadingNotes/categories/高性能MySQL/第1章-MySQL架构与历史">第1章 MySQL架构与历史</a></h2>
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FFmpeg从入门到精通"><span class="nav-number">1.</span> <span class="nav-text">FFmpeg从入门到精通</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-FFmpeg的命令行使用篇"><span class="nav-number">1.2.</span> <span class="nav-text">第一部分 FFmpeg的命令行使用篇</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Head-frist-Servlet-and-JSP"><span class="nav-number">2.</span> <span class="nav-text">Head frist Servlet and JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章"><span class="nav-number">2.1.</span> <span class="nav-text">第2章</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-Web高级编程"><span class="nav-number">3.</span> <span class="nav-text">Java Web高级编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第0部分"><span class="nav-number">3.1.</span> <span class="nav-text">第0部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1部分-创建企业级应用程序"><span class="nav-number">3.2.</span> <span class="nav-text">第1部分 创建企业级应用程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-网络编程"><span class="nav-number">4.</span> <span class="nav-text">java 网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">4.1.</span> <span class="nav-text">API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java程序员面试宝典-第4版"><span class="nav-number">5.</span> <span class="nav-text">Java程序员面试宝典 第4版</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2部分-Java程序设计"><span class="nav-number">5.1.</span> <span class="nav-text">第2部分 Java程序设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jQuery基础教程-第4版"><span class="nav-number">6.</span> <span class="nav-text">jQuery基础教程 第4版</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-jQuery入门"><span class="nav-number">6.1.</span> <span class="nav-text">第1章 jQuery入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-选择元素"><span class="nav-number">6.2.</span> <span class="nav-text">第2章 选择元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-事件"><span class="nav-number">6.3.</span> <span class="nav-text">第3章 事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4章-样式与动画"><span class="nav-number">6.4.</span> <span class="nav-text">第4章 样式与动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5章-操作DOM"><span class="nav-number">6.5.</span> <span class="nav-text">第5章 操作DOM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring实战-第4版"><span class="nav-number">7.</span> <span class="nav-text">Spring实战 (第4版)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1部分-Spring的核心"><span class="nav-number">7.1.</span> <span class="nav-text">第1部分 Spring的核心</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大象-Thinking-in-UML-第2版"><span class="nav-number">8.</span> <span class="nav-text">大象 Thinking in UML(第2版)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-UML核心元素"><span class="nav-number">8.1.</span> <span class="nav-text">第3章 UML核心元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库系统"><span class="nav-number">9.</span> <span class="nav-text">数据库系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中"><span class="nav-number">9.1.</span> <span class="nav-text">中</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库系统概念-原书第6版"><span class="nav-number">10.</span> <span class="nav-text">数据库系统概念 原书第6版</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-1"><span class="nav-number">10.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-引言"><span class="nav-number">10.2.</span> <span class="nav-text">第1章 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-关系数据库"><span class="nav-number">10.3.</span> <span class="nav-text">第一部分 关系数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-数据库设计"><span class="nav-number">10.4.</span> <span class="nav-text">第二部分 数据库设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#精通Spring-MVC4"><span class="nav-number">11.</span> <span class="nav-text">精通Spring MVC4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第0章-前言"><span class="nav-number">11.1.</span> <span class="nav-text">第0章 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-快速搭建Spring-Web应用"><span class="nav-number">11.2.</span> <span class="nav-text">第1章 快速搭建Spring Web应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式-可复用面向对象软件的基础"><span class="nav-number">12.</span> <span class="nav-text">设计模式 可复用面向对象软件的基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第0章"><span class="nav-number">12.1.</span> <span class="nav-text">第0章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-引言-1"><span class="nav-number">12.2.</span> <span class="nav-text">第1章 引言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式之禅-第2版"><span class="nav-number">13.</span> <span class="nav-text">设计模式之禅(第2版)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-大旗不挥-谁敢冲锋-6大设计原则全新解读"><span class="nav-number">13.1.</span> <span class="nav-text">第一部分 大旗不挥 谁敢冲锋 6大设计原则全新解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-真刀实枪-23种设计模式完美演绎"><span class="nav-number">13.2.</span> <span class="nav-text">第二部分 真刀实枪 23种设计模式完美演绎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高性能MySQL"><span class="nav-number">14.</span> <span class="nav-text">高性能MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-MySQL架构与历史"><span class="nav-number">14.1.</span> <span class="nav-text">第1章 MySQL架构与历史</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

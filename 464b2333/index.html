@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="第1章 jQuery入门 ## &amp;nbsp;第2章 选择元素 ## &amp;nbsp;第4章 样式与动画&amp;nbsp;第5章 操作DOM&amp;nbsp;第6章 通过Ajax发送数据&amp;nbsp;第7章 使用插件&amp;nbsp;第8章 开发插件&amp;nbsp;第9章 高级选择符与遍历&amp;nbsp;第10章 高级事件处理&amp;nbsp;第11 章高级效果&amp;nbsp;第12章 高级DOM操作&amp;nbsp;第13章 高级Ajax&amp;nb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery基础教程 第4版 目录">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/464b2333/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="第1章 jQuery入门 ## &amp;nbsp;第2章 选择元素 ## &amp;nbsp;第4章 样式与动画&amp;nbsp;第5章 操作DOM&amp;nbsp;第6章 通过Ajax发送数据&amp;nbsp;第7章 使用插件&amp;nbsp;第8章 开发插件&amp;nbsp;第9章 高级选择符与遍历&amp;nbsp;第10章 高级事件处理&amp;nbsp;第11 章高级效果&amp;nbsp;第12章 高级DOM操作&amp;nbsp;第13章 高级Ajax&amp;nb">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-28T14:13:29.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/464b2333/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>jQuery基础教程 第4版 目录 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/464b2333/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">jQuery基础教程 第4版 目录
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-28 14:13:29" itemprop="dateCreated datePublished" datetime="2019-06-28T14:13:29+00:00">2019-06-28</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/464b2333/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/464b2333/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/464b2333/#第1章-jQuery入门-##" class="header_2">第1章 jQuery入门 ## </a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第2章-选择元素-##" class="header_2">第2章 选择元素 ## </a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第4章-样式与动画" class="header_2">第4章 样式与动画</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第5章-操作DOM" class="header_2">第5章 操作DOM</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第6章-通过Ajax发送数据" class="header_2">第6章 通过Ajax发送数据</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第7章-使用插件" class="header_2">第7章 使用插件</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第8章-开发插件" class="header_2">第8章 开发插件</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第9章-高级选择符与遍历" class="header_2">第9章 高级选择符与遍历</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第10章-高级事件处理" class="header_2">第10章 高级事件处理</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第11-章高级效果" class="header_2">第11 章高级效果</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第12章-高级DOM操作" class="header_2">第12章 高级DOM操作</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#第13章-高级Ajax" class="header_2">第13章 高级Ajax</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#附录A-JavaScript闭包" class="header_2">附录A JavaScript闭包</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#附录B-使用QUnit测试JavaScript" class="header_2">附录B 使用QUnit测试JavaScript</a>&nbsp;<br><a href="/ReadingNotes/464b2333/#附录C-简明参考" class="header_2">附录C 简明参考</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="jQuery基础教程-第4版-目录"><a href="#jQuery基础教程-第4版-目录" class="headerlink" title="jQuery基础教程 第4版 目录"></a>jQuery基础教程 第4版 目录</h1><h2 id="第1章-jQuery入门"><a href="#第1章-jQuery入门" class="headerlink" title="第1章 jQuery入门"></a>第1章 jQuery入门</h2><ul>
+<li>1.1 jQuery能做什么</li>
+<li>1.2 jQuery为什么如此出色</li>
+<li>1.3 第一个 jQuery驱动的页面<ul>
+<li>1.3.1 下载 jQuery</li>
+<li>1.3.2 本书使用 jQuery的哪个版本</li>
+<li>1.3.3 在 HTML文档中引入 jQuery</li>
+<li>1.3.4 编写 jQuery代码</li>
+<li>1.3.5 最终结果</li>
+</ul>
+</li>
+<li>1.4 纯 JavaScript与 jQuery</li>
+<li>1.5 使用开发工具</li>
+<li>1.6 小结</li>
+</ul>
+<h2 id="第2章-选择元素"><a href="#第2章-选择元素" class="headerlink" title="第2章 选择元素"></a>第2章 选择元素</h2><ul>
+<li>2.1 理解DOM</li>
+<li>2.2 使用$()函数</li>
+<li>2.3 CSS选择符</li>
+<li>2.4 属性选择符</li>
+<li>2.5 自定义选择符<ul>
+<li>2.5.1 每隔一行为表格添加样式</li>
+<li>2.5.2 基于上下文内容选择元素</li>
+<li>2.5.3 基于表单的选择符</li>
+</ul>
+</li>
+<li>2.6 DOM遍历方法<ul>
+<li>2.6.1 为特定单元格添加样式</li>
+<li>2.6.2 连缀</li>
+</ul>
+</li>
+<li>2.7 访问 DOM元素</li>
+<li>2.8 小结</li>
+<li>2.9 练习</li>
+</ul>
+<p>第3章 事件</p>
+<ul>
+<li>3.1 在页面加载后执行任务<ul>
+<li>3.1.1 代码执行的时机选择</li>
+<li>3.1.2 基于一个页面执行多个脚本</li>
+<li>3.1.3 .ready()的简写形式</li>
+<li>3.1.4 向.ready()回调函数中传入参数</li>
+</ul>
+</li>
+<li>3.2 处理简单的事件<ul>
+<li>3.2.1 简单的样式转换器</li>
+<li>3.2.2 启用其他按钮</li>
+<li>3.2.3 利用事件处理程序的上下文</li>
+<li>3.2.4 使用事件上下文进一步减少代码</li>
+<li>3.2.5 简写的事件</li>
+<li>3.2.6 显示和隐藏高级特性</li>
+</ul>
+</li>
+<li>3.3 事件传播<ul>
+<li>3.3.1 事件的旅程</li>
+<li>3.3.2 事件冒泡的副作用</li>
+</ul>
+</li>
+<li>3.4 通过事件对象改变事件的旅程<ul>
+<li>3.4.1 事件目标</li>
+<li>3.4.2 停止事件传播</li>
+<li>3.4.3 阻止默认操作</li>
+<li>3.4.4 事件委托</li>
+<li>3.4.5 使用内置的事件委托功能</li>
+</ul>
+</li>
+<li>3.5 移除事件处理程序<ul>
+<li>3.5.1 为事件处理程序添加命名空间</li>
+<li>3.5.2 重新绑定事件</li>
+</ul>
+</li>
+<li>3.6 模仿用户操作</li>
+<li>3.7 小结</li>
+<li>3.8 练习</li>
+</ul>
+<h2 id="第4章-样式与动画"><a href="#第4章-样式与动画" class="headerlink" title="第4章 样式与动画"></a>第4章 样式与动画</h2><ul>
+<li>4.1 修改内联CSS<ul>
+<li>4.1.1 设置计算的样式属性值</li>
+<li>4.1.2 带厂商前缀的样式属性</li>
+</ul>
+</li>
+<li>4.2 隐藏和显示元素</li>
+<li>4.3 效果和时长<ul>
+<li>4.3.1 指定显示速度</li>
+<li>4.3.2 淡入和淡出</li>
+<li>4.3.3 滑上和滑下</li>
+<li>4.3.4 切换可见性</li>
+</ul>
+</li>
+<li>4.4 创建自定义动画<ul>
+<li>4.4.1 手工创建效果</li>
+<li>4.4.2 一次给多个属性添加动画效果</li>
+</ul>
+</li>
+<li>4.5 并发与排队效果<ul>
+<li>4.5.1 处理一组元素</li>
+<li>4.5.2 处理多组元素</li>
+<li>4.5.3 简单概括</li>
+</ul>
+</li>
+<li>4.6 小结</li>
+<li>4.7 练习</li>
+</ul>
+<h2 id="第5章-操作DOM"><a href="#第5章-操作DOM" class="headerlink" title="第5章 操作DOM"></a>第5章 操作DOM</h2><ul>
+<li>5.1 操作属性<ul>
+<li>5.1.1 非类属性</li>
+<li>5.1.2 DOM元素属性</li>
+<li>5.1.3 表单控件的值</li>
+</ul>
+</li>
+<li>5.2 DOM树操作<ul>
+<li>5.2.1 重新认识$()函数</li>
+<li>5.2.2 创建新元素</li>
+<li>5.2.3 插入新元素</li>
+<li>5.2.4 移动元素</li>
+<li>5.2.5 包装元素</li>
+<li>5.2.6 使用反向插入方法</li>
+</ul>
+</li>
+<li>5.3 复制元素</li>
+<li>5.4 内容setter和getter方法</li>
+<li>5.5DOM操作方法的简单归纳</li>
+<li>5.6 小结</li>
+<li>5.7 练习</li>
+</ul>
+<h2 id="第6章-通过Ajax发送数据"><a href="#第6章-通过Ajax发送数据" class="headerlink" title="第6章 通过Ajax发送数据"></a>第6章 通过Ajax发送数据</h2><ul>
+<li>6.1 基于请求加载数据<ul>
+<li>6.1.1 追加HTML</li>
+<li>6.1.2 操作JavaScript对象</li>
+<li>6.1.3 加载XML文档</li>
+</ul>
+</li>
+<li>6.2 选择数据格式</li>
+<li>6.3 向服务器传递数据<ul>
+<li>6.3.1 执行GET 请求</li>
+<li>6.3.2 执行POST 请求</li>
+<li>6.3.3 序列化表单</li>
+</ul>
+</li>
+<li>6.4 为Ajax请求提供不同的内容</li>
+<li>6.5 关注请求</li>
+<li>6.6 错误处理</li>
+<li>6.7 Ajax和事件</li>
+<li>6.8 安全限制</li>
+<li>6.9 其他工具<ul>
+<li>6.9.1 低级Ajax方法</li>
+<li>6.9.2 修改默认选项</li>
+<li>6.9.3 部分加载HTML页面</li>
+</ul>
+</li>
+<li>6.10 小结</li>
+<li>6.11 练习</li>
+</ul>
+<h2 id="第7章-使用插件"><a href="#第7章-使用插件" class="headerlink" title="第7章 使用插件"></a>第7章 使用插件</h2><ul>
+<li>7.1 查找插件和帮助</li>
+<li>7.2 使用插件<ul>
+<li>7.2.1 下载并包含Cycle插件</li>
+<li>7.2.2 调用插件提供的方法</li>
+<li>7.2.3 为插件方法指定参数</li>
+<li>7.2.4 修改参数默认值</li>
+</ul>
+</li>
+<li>7.3 其他形式的插件<ul>
+<li>7.3.1 自定义选择符</li>
+<li>7.3.2 全局函数插件</li>
+</ul>
+</li>
+<li>7.4 jQuery UI插件库<ul>
+<li>7.4.1 效果</li>
+<li>7.4.2 交互组件</li>
+<li>7.4.3 部件</li>
+<li>7.4.4 jQuery UI主题卷轴</li>
+</ul>
+</li>
+<li>7.5 jQuery Mobile插件库<ul>
+<li>7.5.1 HTML5自定义数据属性</li>
+<li>7.5.2 移动导航</li>
+<li>7.5.3 一个文档支持多个页面</li>
+<li>7.5.4 交互式元素</li>
+<li>7.5.5 高级功能</li>
+</ul>
+</li>
+<li>7.6 小结</li>
+<li>7.7 练习</li>
+</ul>
+<h2 id="第8章-开发插件"><a href="#第8章-开发插件" class="headerlink" title="第8章 开发插件"></a>第8章 开发插件</h2><ul>
+<li>8.1 在插件中使用$别名</li>
+<li>8.2 添加新的全局函数</li>
+<li>8.3 添加jQuery 对象方法<ul>
+<li>8.3.1 对象方法的上下文</li>
+<li>8.3.2 隐式迭代</li>
+<li>8.3.3 方法连缀</li>
+</ul>
+</li>
+<li>8.4 提供灵活的方法参数<ul>
+<li>8.4.1 参数对象</li>
+<li>8.4.2 默认参数值</li>
+<li>8.4.3 回调函数</li>
+<li>8.4.4 可定制的默认值</li>
+</ul>
+</li>
+<li>8.5 使用jQueryUI部件工厂创建插件<ul>
+<li>8.5.1 创建部件</li>
+<li>8.5.2 销毁部件</li>
+<li>8.5.3 启用和禁用部件</li>
+<li>8.5.4 接受部件选项</li>
+<li>8.5.5 添加子方法</li>
+<li>8.5.6 触发部件事件</li>
+</ul>
+</li>
+<li>8.6 插件设计建议</li>
+<li>8.7 小结</li>
+<li>8.8 练习</li>
+</ul>
+<h2 id="第9章-高级选择符与遍历"><a href="#第9章-高级选择符与遍历" class="headerlink" title="第9章 高级选择符与遍历"></a>第9章 高级选择符与遍历</h2><ul>
+<li>9.1 深入选择与遍历<ul>
+<li>9.1.1 动态筛选表格内容</li>
+<li>9.1.2 为表格行添加条纹效果</li>
+<li>9.1.3 组合筛选与条纹</li>
+<li>9.1.4 更多选择符与遍历方法</li>
+</ul>
+</li>
+<li>9.2 定制与优化选择符<ul>
+<li>9.2.1 编写定制的选择符插件</li>
+<li>9.2.2 选择符的性能问题</li>
+</ul>
+</li>
+<li>9.3 DOM遍历背后的秘密<ul>
+<li>9.3.1 jQuery对象属性</li>
+<li>9.3.2 DOM元素栈</li>
+<li>9.3.3 编写DOM遍历方法插件</li>
+<li>9.3.4DOM遍历的性能问题</li>
+</ul>
+</li>
+<li>9.4 小结</li>
+<li>9.5 练习</li>
+</ul>
+<h2 id="第10章-高级事件处理"><a href="#第10章-高级事件处理" class="headerlink" title="第10章 高级事件处理"></a>第10章 高级事件处理</h2><ul>
+<li>10.1 再谈事件<ul>
+<li>10.1.1 追加数据页面</li>
+<li>10.1.2 悬停时显示数据</li>
+</ul>
+</li>
+<li>10.2 事件委托<ul>
+<li>10.2.1 使用jQuery的委托方法</li>
+<li>10.2.2 选择委托的作用域</li>
+<li>10.2.3 早委托</li>
+</ul>
+</li>
+<li>10.3 自定义事件<ul>
+<li>10.3.1 无穷滚动</li>
+<li>10.3.2 自定义事件参数</li>
+</ul>
+</li>
+<li>10.4 节流事件</li>
+<li>10.5 扩展事件</li>
+<li>10.6 小结</li>
+<li>10.7 练习</li>
+</ul>
+<h2 id="第11-章高级效果"><a href="#第11-章高级效果" class="headerlink" title="第11 章高级效果"></a>第11 章高级效果</h2><ul>
+<li>11.1 再谈动画</li>
+<li>11.2 观测及中断动画<ul>
+<li>11.2.1 确定动画状态</li>
+<li>11.2.2 中止运行的动画</li>
+</ul>
+</li>
+<li>11.3 全局效果属性<ul>
+<li>11.3.1 禁用所有效果</li>
+<li>11.3.2 定义效果时长</li>
+</ul>
+</li>
+<li>11.4 多属性缓动</li>
+<li>11.5 使用延迟对象</li>
+<li>11.6 精细地控制动画</li>
+<li>11.7 小结</li>
+<li>11.8 练习</li>
+</ul>
+<h2 id="第12章-高级DOM操作"><a href="#第12章-高级DOM操作" class="headerlink" title="第12章 高级DOM操作"></a>第12章 高级DOM操作</h2><ul>
+<li>12.1 排序表格行<ul>
+<li>12.1.1 服务器端排序</li>
+<li>12.1.2 Ajax排序</li>
+<li>12.1.3 JavaScript排序</li>
+</ul>
+</li>
+<li>12.2 移动和插入元素<ul>
+<li>12.2.1 为已有的文本添加链接</li>
+<li>12.2.2 简单的JavaScript数组排序</li>
+<li>12.2.3 对DOM元素排序</li>
+</ul>
+</li>
+<li>12.3 在DOM元素中保存数据<ul>
+<li>12.3.1 执行预先计算</li>
+<li>12.3.2 存储非字符串数据</li>
+<li>12.3.3 变换排序方向</li>
+</ul>
+</li>
+<li>12.4 使用HTML5自定义数据属性</li>
+<li>12.5 使用JSON排序和构建行<ul>
+<li>12.5.1 修改JSON对象</li>
+<li>12.5.2 按需重新构建内容</li>
+</ul>
+</li>
+<li>12.6 高级属性操作<ul>
+<li>12.6.1 简捷地创建元素</li>
+<li>12.6.2 DOM创建挂钩</li>
+</ul>
+</li>
+<li>12.7 小结</li>
+<li>12.8 练习</li>
+</ul>
+<h2 id="第13章-高级Ajax"><a href="#第13章-高级Ajax" class="headerlink" title="第13章 高级Ajax"></a>第13章 高级Ajax</h2><ul>
+<li>13.1 渐进增强与Ajax</li>
+<li>13.2 处理Ajax错误</li>
+<li>13.3 jqXHR 对象<ul>
+<li>13.3.1 Ajax承诺</li>
+<li>13.3.2 缓存响应</li>
+</ul>
+</li>
+<li>13.4 截流Ajax请求</li>
+<li>13.5 扩展Ajax功能<ul>
+<li>13.5.1 数据类型转换器</li>
+<li>13.5.2 Ajax预过滤器</li>
+<li>13.5.3 替代传输方式</li>
+</ul>
+</li>
+<li>13.6 小结</li>
+<li>13.7 练习</li>
+</ul>
+<h2 id="附录A-JavaScript闭包"><a href="#附录A-JavaScript闭包" class="headerlink" title="附录A JavaScript闭包"></a>附录A JavaScript闭包</h2><ul>
+<li>A.1 创建内部函数</li>
+<li>A.1.1 在任何地方调用内部函数</li>
+<li>A.1.2 理解变量作用域</li>
+<li>A.2 处理闭包之间的交互</li>
+<li>A.3 在jQuery中创建闭包<ul>
+<li>A.3.1 $(document).ready()的参数</li>
+<li>A.3.2 绑定事件处理程序</li>
+<li>A.3.3 在循环中绑定处理程序</li>
+<li>A.3.4 命名及匿名函数</li>
+</ul>
+</li>
+<li>A.4 应对内存泄漏的风险<ul>
+<li>A.4.1 避免意外的引用循环</li>
+<li>A.4.2 控制DOM与JavaScript的循环</li>
+</ul>
+</li>
+<li>A.5 小结</li>
+</ul>
+<h2 id="附录B-使用QUnit测试JavaScript"><a href="#附录B-使用QUnit测试JavaScript" class="headerlink" title="附录B 使用QUnit测试JavaScript"></a>附录B 使用QUnit测试JavaScript</h2><ul>
+<li>B.1 下载QUnit</li>
+<li>B.2 设置文档</li>
+<li>B.3 组织测试</li>
+<li>B.4 添加和运行测试</li>
+<li>B.5 其他测试类型</li>
+<li>B.6 最佳实践</li>
+<li>B.7 小结</li>
+</ul>
+<h2 id="附录C-简明参考"><a href="#附录C-简明参考" class="headerlink" title="附录C 简明参考"></a>附录C 简明参考</h2><ul>
+<li>C.1 选择符表达式<ul>
+<li>C.1.1 简单的CSS选择符</li>
+<li>C.1.2 在同辈元素间定位</li>
+<li>C.1.3 在匹配的元素间定位</li>
+<li>C.1.4 属性</li>
+<li>C.1.5 表单</li>
+<li>C.1.6 其他自定义选择符</li>
+</ul>
+</li>
+<li>C.2 DOM遍历方法<ul>
+<li>C.2.1 筛选元素</li>
+<li>C.2.2 后代元素</li>
+<li>C.2.3 同辈元素</li>
+<li>C.2.4 祖先元素</li>
+<li>C.2.5 集合操作</li>
+<li>C.2.6 操作选中的元素</li>
+</ul>
+</li>
+<li>C.3 事件方法<ul>
+<li>C.3.1 绑定</li>
+<li>C.3.2 简写绑定</li>
+<li>C.3.3 触发事件</li>
+<li>C.3.4 简写触发方法</li>
+<li>C.3.5 实用方法</li>
+</ul>
+</li>
+<li>C.4 效果方法<ul>
+<li>C.4.1 预定义效果</li>
+<li>C.4.2 自定义动画</li>
+<li>C.4.3 队列操作</li>
+</ul>
+</li>
+<li>C.5 DOM操作方法<ul>
+<li>C.5.1 特性与属性</li>
+<li>C.5.2 内容</li>
+<li>C.5.3 CSS</li>
+<li>C.5.4 尺寸</li>
+<li>C.5.5 插入</li>
+<li>C.5.6 替换</li>
+<li>C.5.7 删除</li>
+<li>C.5.8 复制</li>
+<li>C.5.9 数据</li>
+</ul>
+</li>
+<li>C.6 Ajax方法<ul>
+<li>C.6.1 发送请求</li>
+<li>C.6.2 监视请求</li>
+<li>C.6.3 配置</li>
+<li>C.6.4 实用方法</li>
+</ul>
+</li>
+<li>C.7 延迟方法<ul>
+<li>C.7.1 创建对象</li>
+<li>C.7.2 延迟对象的方法</li>
+<li>C.7.3 承诺对象的方法</li>
+</ul>
+</li>
+<li>C.8 其他方法<ul>
+<li>C.8.1 jQuery对象的属性</li>
+<li>C.8.2 数组和对象</li>
+<li>C.8.3 对象内省</li>
+<li>C.8.4 其他</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/464b2333/" title="jQuery基础教程 第4版 目录">https://lanlan2017.github.io/ReadingNotes/464b2333/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/c27a32d7/" rel="next" title="jQuery基础教程 第4版 内容提要">
+                  <i class="fa fa-chevron-left"></i> jQuery基础教程 第4版 内容提要
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/938adc5f/" rel="prev" title="第1章 jQuery入门 1.1 jQuery能做什么">
+                  第1章 jQuery入门 1.1 jQuery能做什么 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jQuery基础教程-第4版-目录"><span class="nav-number">1.</span> <span class="nav-text">jQuery基础教程 第4版 目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-jQuery入门"><span class="nav-number">1.1.</span> <span class="nav-text">第1章 jQuery入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-选择元素"><span class="nav-number">1.2.</span> <span class="nav-text">第2章 选择元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4章-样式与动画"><span class="nav-number">1.3.</span> <span class="nav-text">第4章 样式与动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5章-操作DOM"><span class="nav-number">1.4.</span> <span class="nav-text">第5章 操作DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-通过Ajax发送数据"><span class="nav-number">1.5.</span> <span class="nav-text">第6章 通过Ajax发送数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第7章-使用插件"><span class="nav-number">1.6.</span> <span class="nav-text">第7章 使用插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第8章-开发插件"><span class="nav-number">1.7.</span> <span class="nav-text">第8章 开发插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第9章-高级选择符与遍历"><span class="nav-number">1.8.</span> <span class="nav-text">第9章 高级选择符与遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第10章-高级事件处理"><span class="nav-number">1.9.</span> <span class="nav-text">第10章 高级事件处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第11-章高级效果"><span class="nav-number">1.10.</span> <span class="nav-text">第11 章高级效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第12章-高级DOM操作"><span class="nav-number">1.11.</span> <span class="nav-text">第12章 高级DOM操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第13章-高级Ajax"><span class="nav-number">1.12.</span> <span class="nav-text">第13章 高级Ajax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录A-JavaScript闭包"><span class="nav-number">1.13.</span> <span class="nav-text">附录A JavaScript闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录B-使用QUnit测试JavaScript"><span class="nav-number">1.14.</span> <span class="nav-text">附录B 使用QUnit测试JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录C-简明参考"><span class="nav-number">1.15.</span> <span class="nav-text">附录C 简明参考</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

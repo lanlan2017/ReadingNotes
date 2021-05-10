@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Spring实战 第4版 内容提要&amp;nbsp;关于本书&amp;nbsp;路线图&amp;nbsp;第1部分&amp;nbsp;第2部分&amp;nbsp;第3部分&amp;nbsp;最后部分&amp;nbsp;代码规范与下载&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-lef">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring实战 第4版 内容提要">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/907c6ccc/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="Spring实战 第4版 内容提要&amp;nbsp;关于本书&amp;nbsp;路线图&amp;nbsp;第1部分&amp;nbsp;第2部分&amp;nbsp;第3部分&amp;nbsp;最后部分&amp;nbsp;代码规范与下载&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-lef">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-02T18:37:20.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/907c6ccc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Spring实战 第4版 内容提要 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/907c6ccc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Spring实战 第4版 内容提要
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-02 18:37:20" itemprop="dateCreated datePublished" datetime="2019-07-02T18:37:20+00:00">2019-07-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战 (第4版)</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/907c6ccc/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/907c6ccc/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/907c6ccc/#Spring实战-第4版-内容提要" class="header_1">Spring实战 第4版 内容提要</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#关于本书" class="header_1">关于本书</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#路线图" class="header_1">路线图</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第1部分" class="header_2">第1部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第2部分" class="header_2">第2部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#第3部分" class="header_2">第3部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#最后部分" class="header_2">最后部分</a>&nbsp;<br><a href="/ReadingNotes/907c6ccc/#代码规范与下载" class="header_1">代码规范与下载</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="Spring实战-第4版-内容提要"><a href="#Spring实战-第4版-内容提要" class="headerlink" title="Spring实战 第4版 内容提要"></a>Spring实战 第4版 内容提要</h1><p>本书是经典的、畅销的<code>Spring</code>学习和实践指南。<br>第4版针对<code>Spring4</code>进行了全面更新。全书分为4部分。</p>
+<ul>
+<li>第1部分介绍<code>Spring</code>框架的核心知识。</li>
+<li>第2部分在此基础上介绍了如何使用<code>Spring</code>构建<code>Web</code>应用程序。</li>
+<li>第3部分告别前端,介绍了如何在应用程序的后端使用<code>Spring</code>。</li>
+<li>第4部分描述了如何使用<code>Spring</code>与其他的应用和服务进行集成。</li>
+</ul>
+<p>本书适用于已具有一定<code>Java</code>编程基础的读者,以及在<code>Java</code>平台下进行各类软件的开发人员、测试人员,尤其适用于企业级<code>Java</code>开发人员。本书既可以被刚开始学习<code>Spring</code>的读者当作学习指南,也可以被那些想深入了解<code>Spring</code>某方面功能的资深用户作为参考用书。</p>
+<h1 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h1><p><code>Spring</code>框架是以简化<code>Java EE</code>应用程序的开发为目标而创建的。同样,本书是为了帮助读者更容易地使用<code>Spring</code>而编写的。我的目标不是为读者详细地列出<code>Spring API</code>,而是希望通过现实中的实际示例代码来为<code>Java EE</code>开发人员展现<code>Spring</code>框架。因为<code>Spring</code>是一个模块化的框架,所以这本书也是按照这种方式编写的。我们知道并不是所有的开发人员都有相同的需求,有些人想从头学习<code>Spring</code>,而有的可能只想排出几个主题,然后按照自己的节奏来学习。所以,本书既可以被刚开始学习<code>Spring</code>的读者当作学习指南,也可以被那些想深入了解某方面功能的读者作为参考。<br>本书适用于所有的<code>Java</code>开发人员,企业级<code>Java</code>开发人员将会发现更有帮助。我将会循序渐进地指导读者浏览本书中每章复杂的示例代码,但<code>Spring</code>的真正强大之处在于它能够使企业级应用程序的开发更简单。因此,企业级应用程序的开发人员会更加欣赏本书的示例代码。因为<code>Spring</code>的绝大部分内容都是提供企业级服务的,所以这里包含了许多<code>Spring</code>和<code>EJB</code>的比较。</p>
+<h1 id="路线图"><a href="#路线图" class="headerlink" title="路线图"></a>路线图</h1><p>本书分为4部分。</p>
+<ul>
+<li>第1部分介绍<code>Spring</code>框架的核心知识。</li>
+<li>第2部分在此基础上介绍如何使用<code>Spring</code>构建<code>Web</code>应用程序。</li>
+<li>第3部分告别前端,介绍如何在应用程序的后端使用<code>Spring</code>。</li>
+<li>第4部分描述如何使用<code>Spring</code>与其他的应用和服务进行集成。</li>
+</ul>
+<h2 id="第1部分"><a href="#第1部分" class="headerlink" title="第1部分"></a>第1部分</h2><p>在第1部分中,读者将会学习到<code>Spring</code>容器、依赖注入(<code>dependency injection</code>,<code>DI</code>)和面向切面编程(<code>aspect-oriented programming</code>,<code>AOP</code>),也就是<code>Spring</code>框架的核心。这能让读者很好地理解<code>Spring</code>的基础原理,而这些原理将会在本书各个章节都会用到。</p>
+<ul>
+<li>第1章将会概要地介绍<code>Spring</code>,包括DI和<code>AOP</code>的一些基本样例。同时,读者还会了解到更大的<code>Spring</code>生态系统的整体情况。</li>
+<li>第2章更为详细地介绍DI,展现应用程序中的各个组件(<code>bean</code>)如何装配在一起。这包括基于<code>XML</code>装配、基于<code>Java</code>装配以及自动装配。</li>
+<li>在掌握了基本的<code>bean</code>装配后,第3章会介绍几种高级装配技术,读者可能并不会经常用到这些技术,但是如果用到的话,本章的内容将会告诉读者如何发挥<code>Spring</code>容器最强大的威力。</li>
+<li>第4章介绍如何使用<code>Spring</code>的<code>AOP</code>来为对象解耦那些对其提供服务的横切性关注点。这一章也为后面各章提供基础,在后面读者将会使用<code>AOP</code>来提供声明式服务,如事务、安全和缓存。</li>
+</ul>
+<h2 id="第2部分"><a href="#第2部分" class="headerlink" title="第2部分"></a>第2部分</h2><p>在第2部分中,读者将会看到如何使用<code>Spring</code>来构建<code>Web</code>应用程序。</p>
+<ul>
+<li>第5章介绍使用<code>Spring MVC</code>的基础知识，这是<code>Spring</code>中的基础<code>Web</code>框架。读者将会看到如何编写控制器来处理请求，并使用模型数据产生响应。</li>
+<li>当控制器的工作完成后，模型数据必须要使用一个视图来进行渲染。第6章将会探讨在<code>Spring</code>中可以使用的各种视图技术，包括<code>JSP</code>、<code>Apache Tiles</code>以及<code>Thymeleaf</code>。</li>
+<li>第7章的内容不再是<code>Spring MVC</code>的基础知识了，在本章中，读者将会学习到如何自定义<code>Spring MVC</code>配置、处理<code>multipart</code>类型的文件上传、处理在控制器中可能会出现的异常并且会通过<code>flash</code>属性在请求之间传递数据。</li>
+<li>第8章将会介绍<code>Spring Web Flow</code>，这是<code>Spring MVC</code>的一个扩展，能够开发会话式的<code>Web</code>应用程序。在本章中，读者将会学习到如何构建引导用户完成特定流程的<code>Web</code>应用程序。</li>
+<li>第9章读者将会学到如何使用<code>Spring Security</code>为自己的应用程序<code>Web</code>层实现安全性。</li>
+</ul>
+<h2 id="第3部分"><a href="#第3部分" class="headerlink" title="第3部分"></a>第3部分</h2><p>第3部分所关注的内容不再是应用程序的前端了,而是关注于如何处理和持久化数据。</p>
+<ul>
+<li>第10章首先会介绍如何使用<code>Spring</code>对<code>JDBC</code>的抽象实现关系型数据库中的数据持久化。</li>
+<li>第11章从另外一个角度介绍数据持久化，也就是使用<code>Java</code>持久化<code>API</code>（<code>JPA</code>）存储关系型数据库中的数据。</li>
+<li>第12章将会介绍如何将<code>Spring</code>与非关系型数据库结合使用，如<code>MongoDB</code>和<code>Neo4j</code>。</li>
+<li>不管数据存储在什么地方，缓存都有助于性能的提升，这是通过只有在必要的时候才去查询数据库实现的。第13章将会为读者介绍<code>Spring</code>对声明式缓存的支持。</li>
+<li>第14章重新回到<code>Spring Security</code>，将会介绍如何通过<code>AOP</code>将安全性应用到方法级别。</li>
+</ul>
+<h2 id="最后部分"><a href="#最后部分" class="headerlink" title="最后部分"></a>最后部分</h2><p>本书的最后一部分会介绍如何将<code>Spring</code>应用程序与其他系统进行集成。</p>
+<ul>
+<li>第15章将会学习如何创建与使用远程服务，包括<code>RMI</code>、<code>Hessian</code>、<code>Burlap</code>以及基于<code>SOAP</code>的服务。</li>
+<li>第16章将会再次回到<code>Spring MVC</code>，我们将会看到如何创建<code>RESTful</code>服务，在这个过程中所使用的编程模型与之前在第5章中所描述的是一致的。</li>
+<li>第17章将会探讨<code>Spring</code>对异步消息的支持，本章将会包括<code>Java</code>消息服务（<code>Java Message Service</code>，<code>JMS</code>）以及高级消息队列协议（<code>Advanced Message Queuing Protocol</code>，<code>AMQP</code>）。</li>
+<li>在第18章中，异步消息有了新的花样，在这一章中读者会看到如何将<code>Spring</code>与<code>WebSocket</code>和<code>STOMP</code>结合起来，实现服务端与客户端之间的异步通信。</li>
+<li>第19章将会介绍如何使用<code>Spring</code>发送<code>E-mail</code>。</li>
+<li>第20章会关注于<code>Spring</code>对<code>Java</code>管理扩展（<code>Java Management Extensions</code>，<code>JMX</code>）功能的支持，借助这项功能可以对<code>Spring</code>应用程序进行监控和修改运行时配置。</li>
+<li>最后，在第21章，读者将会看到一个全新并且会改变游戏规则的<code>Spring</code>使用方式，名为<code>Spring Boot</code>。我们将会看到<code>Spring Boot</code>如何将<code>Spring</code>应用中样板式的配置移除掉，这样就能让读者更加专注于业务功能。</li>
+</ul>
+<h1 id="代码规范与下载"><a href="#代码规范与下载" class="headerlink" title="代码规范与下载"></a>代码规范与下载</h1><p>本书中有大量的示例代码。这些代码将会使用固定宽度的代码字体。本书正文中的类名、方法名或<code>XML</code>片段也都使用代码字体。<br>很多<code>Spring</code>类和包的名字很长（不过会有较强的表达性）。鉴于此，我们有时候会用到换行符（➥）。<br>本书中的示例代码并不都是完整的。为了关注某个主题，我有时候只会展示类的一个或两个方法。本书所构建的应用程序完整代码可以在出版社站点上下载，地址是<a href="https://www.manning.com/books/spring-in-action-fourth-edition" target="_blank" rel="noopener">https://www.manning.com/books/spring-in-action-fourth-edition</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/907c6ccc/" title="Spring实战 第4版 内容提要">https://lanlan2017.github.io/ReadingNotes/907c6ccc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/2f175477/" rel="next" title="精通Spring MVC4 内容提要">
+                  <i class="fa fa-chevron-left"></i> 精通Spring MVC4 内容提要
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/dbb822e5/" rel="prev" title="精通Spring MVC4 译者序">
+                  精通Spring MVC4 译者序 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring实战-第4版-内容提要"><span class="nav-number">1.</span> <span class="nav-text">Spring实战 第4版 内容提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于本书"><span class="nav-number">2.</span> <span class="nav-text">关于本书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路线图"><span class="nav-number">3.</span> <span class="nav-text">路线图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1部分"><span class="nav-number">3.1.</span> <span class="nav-text">第1部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2部分"><span class="nav-number">3.2.</span> <span class="nav-text">第2部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3部分"><span class="nav-number">3.3.</span> <span class="nav-text">第3部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后部分"><span class="nav-number">3.4.</span> <span class="nav-text">最后部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码规范与下载"><span class="nav-number">4.</span> <span class="nav-text">代码规范与下载</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

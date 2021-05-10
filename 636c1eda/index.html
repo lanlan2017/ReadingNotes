@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="3.9.3 更新&amp;nbsp;SQL更新 所有教师的工资将增长5%&amp;nbsp;SQL更新 只给那些工资低于70000美元的教师涨工资&amp;nbsp;update的where子句可以嵌套查询语句&amp;nbsp;SQL更新 对工资低于平均数的教师涨5%的工资&amp;nbsp;给工资超过100000美元的教师涨3%的工资,其余教师涨5%&amp;nbsp;update语句的顺序十分重要&amp;nbsp;case结构&amp;nbsp;cas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.9.3 更新">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/636c1eda/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="3.9.3 更新&amp;nbsp;SQL更新 所有教师的工资将增长5%&amp;nbsp;SQL更新 只给那些工资低于70000美元的教师涨工资&amp;nbsp;update的where子句可以嵌套查询语句&amp;nbsp;SQL更新 对工资低于平均数的教师涨5%的工资&amp;nbsp;给工资超过100000美元的教师涨3%的工资,其余教师涨5%&amp;nbsp;update语句的顺序十分重要&amp;nbsp;case结构&amp;nbsp;cas">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-18T22:06:05.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/636c1eda/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>3.9.3 更新 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/636c1eda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">3.9.3 更新
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-18 22:06:05" itemprop="dateCreated datePublished" datetime="2019-10-18T22:06:05+00:00">2019-10-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/" itemprop="url" rel="index"><span itemprop="name">第3章 SQL</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/3-9-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BF%AE%E6%94%B9/" itemprop="url" rel="index"><span itemprop="name">3.9 数据库的修改</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/636c1eda/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/636c1eda/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/636c1eda/#3-9-3-更新" class="header_1">3.9.3 更新</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#SQL更新-所有教师的工资将增长5%" class="header_2">SQL更新 所有教师的工资将增长5%</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#SQL更新-只给那些工资低于70000美元的教师涨工资" class="header_2">SQL更新 只给那些工资低于70000美元的教师涨工资</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#update的where子句可以嵌套查询语句" class="header_2">update的where子句可以嵌套查询语句</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#SQL更新-对工资低于平均数的教师涨5%的工资" class="header_3">SQL更新 对工资低于平均数的教师涨5%的工资</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#给工资超过100000美元的教师涨3%的工资-其余教师涨5%" class="header_3">给工资超过100000美元的教师涨3%的工资,其余教师涨5%</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#update语句的顺序十分重要" class="header_2">update语句的顺序十分重要</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#case结构" class="header_2">case结构</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#case语句的格式" class="header_3">case语句的格式</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#case语句可以出现的地方" class="header_3">case语句可以出现的地方</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#使用标量子查询" class="header_2">使用标量子查询</a>&nbsp;<br><a href="/ReadingNotes/636c1eda/#使用标量子查询和case" class="header_2">使用标量子查询和case</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="3-9-3-更新"><a href="#3-9-3-更新" class="headerlink" title="3.9.3 更新"></a>3.9.3 更新</h1><p>有些情况下,我们可能希望在不改变整个元组的情况下改变其部分属性的值。为达到这一目的,可以使用<code>update</code>语句。与使用<code>insert</code>、 <code>delete</code>类似,待更新的元组可以用查询语句找到</p>
+<h2 id="SQL更新-所有教师的工资将增长5"><a href="#SQL更新-所有教师的工资将增长5" class="headerlink" title="SQL更新 所有教师的工资将增长5%"></a>SQL更新 所有教师的工资将增长5%</h2><p>假设要进行年度工资增长,所有教师的工资将增长5%。我们写出:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line">    <span class="keyword">set</span> salary=salary * <span class="number">1.05</span>;</span><br></pre></td></tr></table></figure><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update instructor</span><br><span class="line">    <span class="built_in">set</span> salary=salary * <span class="number">1</span>.<span class="number">05</span>;</span><br><span class="line">Query OK, <span class="number">12</span> rows affected (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line">Rows matched: <span class="number">12</span>  Changed: <span class="number">12</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure><br>上面的更新语句将在 <code>instructor</code>关系的每个元组上执行一次。</p>
+<h2 id="SQL更新-只给那些工资低于70000美元的教师涨工资"><a href="#SQL更新-只给那些工资低于70000美元的教师涨工资" class="headerlink" title="SQL更新 只给那些工资低于70000美元的教师涨工资"></a>SQL更新 只给那些工资低于70000美元的教师涨工资</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line">    <span class="keyword">set</span> salary=salary*<span class="number">1.05</span></span><br><span class="line">    <span class="keyword">where</span> salary&gt;<span class="number">70000</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update instructor</span><br><span class="line">    <span class="built_in">set</span> salary=salary*<span class="number">1</span>.<span class="number">05</span></span><br><span class="line">    where salary&gt;<span class="number">70000</span>;</span><br><span class="line">Query OK, <span class="number">8</span> rows affected (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line">Rows matched: <span class="number">8</span>  Changed: <span class="number">8</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="update的where子句可以嵌套查询语句"><a href="#update的where子句可以嵌套查询语句" class="headerlink" title="update的where子句可以嵌套查询语句"></a>update的where子句可以嵌套查询语句</h2><p>总之, <code>update</code>语句的<code>where</code>子句可以包含<code>select</code>语句的<code>where</code>子句中的任何合法结构(包括嵌套的<code>select</code>)。<br>和<code>insert</code>、 <code>delete</code>类似, <code>update</code>语句中嵌套的<code>set</code>可以引用待更新的关系。同样,<code>SQL</code>首先检查关系中的所有元组,看它们是否应该被更新,然后才执行更新。</p>
+<h3 id="SQL更新-对工资低于平均数的教师涨5-的工资"><a href="#SQL更新-对工资低于平均数的教师涨5-的工资" class="headerlink" title="SQL更新 对工资低于平均数的教师涨5%的工资"></a>SQL更新 对工资低于平均数的教师涨5%的工资</h3><p>例如,请求”<strong>对工资低于平均数的教师涨5%的工资</strong>“可以写为如下形式:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line">    <span class="keyword">set</span> salary=salary*<span class="number">1.05</span></span><br><span class="line">    <span class="keyword">where</span> salary &lt;(</span><br><span class="line">        <span class="keyword">select</span> avg_salary <span class="keyword">from</span>(</span><br><span class="line">            <span class="keyword">select</span> <span class="keyword">avg</span>(salary) <span class="keyword">as</span> avg_salary <span class="keyword">from</span> instructor</span><br><span class="line">        ) <span class="keyword">as</span> Avgs</span><br><span class="line">);</span><br></pre></td></tr></table></figure><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update instructor</span><br><span class="line">    <span class="built_in">set</span> salary=salary*<span class="number">1</span>.<span class="number">05</span></span><br><span class="line">    where salary &lt;(</span><br><span class="line">        select avg_salary from(</span><br><span class="line">            select avg(salary) as avg_salary from instructor</span><br><span class="line">        ) as Avgs</span><br><span class="line">);</span><br><span class="line">Query OK, <span class="number">5</span> rows affected (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line">Rows matched: <span class="number">5</span>  Changed: <span class="number">5</span>  Warnings: <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="给工资超过100000美元的教师涨3-的工资-其余教师涨5"><a href="#给工资超过100000美元的教师涨3-的工资-其余教师涨5" class="headerlink" title="给工资超过100000美元的教师涨3%的工资,其余教师涨5%"></a>给工资超过100000美元的教师涨3%的工资,其余教师涨5%</h3><p>我们可以写两条<code>update</code>语句:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line">    <span class="keyword">set</span> salary=salary*<span class="number">1.03</span></span><br><span class="line">    <span class="keyword">where</span> salary &gt;<span class="number">100000</span>;</span><br><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line">    <span class="keyword">set</span> salary=salary*<span class="number">1.05</span></span><br><span class="line">    <span class="keyword">where</span> salary&lt;<span class="number">100000</span>;</span><br></pre></td></tr></table></figure><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update instructor</span><br><span class="line">    <span class="built_in">set</span> salary=salary*<span class="number">1</span>.<span class="number">03</span></span><br><span class="line">    where salary &gt;<span class="number">100000</span>;</span><br><span class="line">update instructor</span><br><span class="line">    <span class="built_in">set</span> salary=salary*<span class="number">1</span>.<span class="number">05</span></span><br><span class="line">    where salary&lt;<span class="number">100000</span>;</span><br><span class="line">Query OK, <span class="number">0</span> rows affected (<span class="number">0</span>.<span class="number">00</span> sec)</span><br><span class="line">Rows matched: <span class="number">0</span>  Changed: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">Query OK, <span class="number">12</span> rows affected (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line">Rows matched: <span class="number">12</span>  Changed: <span class="number">12</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="update语句的顺序十分重要"><a href="#update语句的顺序十分重要" class="headerlink" title="update语句的顺序十分重要"></a>update语句的顺序十分重要</h2><p>注意上面这两条<code>update</code>语句的<strong>顺序十分重要</strong>。<br>假如我们改变这两条语句的顺序,工资略少于100000美元的教师将增长8%的工资。</p>
+<h2 id="case结构"><a href="#case结构" class="headerlink" title="case结构"></a>case结构</h2><p><code>SQL</code>提供<code>case</code>结构,我们可以利用它在一条<code>update</code>语句中执行前面的两种更新,避免更新次序引发的问题:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> instructor</span><br><span class="line"><span class="keyword">set</span> salary=<span class="keyword">case</span></span><br><span class="line">    <span class="keyword">when</span> salary &lt; <span class="number">100000</span> <span class="keyword">then</span> salary*<span class="number">1.05</span></span><br><span class="line">    <span class="keyword">else</span> salary*<span class="number">1.03</span></span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update instructor</span><br><span class="line"><span class="built_in">set</span> salary=case</span><br><span class="line">    when salary &lt; <span class="number">100000</span> then salary*<span class="number">1</span>.<span class="number">05</span></span><br><span class="line">    <span class="keyword">else</span> salary*<span class="number">1</span>.<span class="number">03</span></span><br><span class="line">end;</span><br><span class="line">Query OK, <span class="number">12</span> rows affected (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line">Rows matched: <span class="number">12</span>  Changed: <span class="number">12</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="case语句的格式"><a href="#case语句的格式" class="headerlink" title="case语句的格式"></a>case语句的格式</h3><p><code>case</code>语句的一般格式如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">case</span><br><span class="line">    when pred_1, then result_1</span><br><span class="line">    when pred_2, then result_2</span><br><span class="line">    ...</span><br><span class="line">    when pred_n, then result_n</span><br><span class="line">    else result0</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>如果第一个满足的是谓词<code>pred_i</code>,则返回结果<code>result_i</code>.</li>
+<li>如果没有一个谓词可以满足,则返回<code>result0</code></li>
+</ul>
+<h3 id="case语句可以出现的地方"><a href="#case语句可以出现的地方" class="headerlink" title="case语句可以出现的地方"></a>case语句可以出现的地方</h3><p><strong><code>case</code>语句可以用在任何应该出现<code>值</code>的地方</strong>。</p>
+<h2 id="使用标量子查询"><a href="#使用标量子查询" class="headerlink" title="使用标量子查询"></a>使用标量子查询</h2><p>标量子查询在<code>SQL</code>更新语句中也非常有用,它们可以用在<code>set</code>子句中。<br>考虑这样一种更新:我们把每个<code>student</code>元组的<code>tot_cred</code>属性值设为该生<strong>成功学完的课程学分的总和</strong>。我们假设如果一个学生在某门课程上的成绩既不是”<code>F</code>“,也不是空,那么他成功学完了这门课程。<br>我们需要使用<code>set</code>子句中的子查询来写出这种更新,如下所示:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> student S</span><br><span class="line">    <span class="keyword">set</span> tot_cred =(</span><br><span class="line">        <span class="keyword">select</span> <span class="keyword">sum</span>(credits)</span><br><span class="line">            <span class="keyword">from</span> takes <span class="keyword">natural</span> <span class="keyword">join</span> course</span><br><span class="line">            <span class="keyword">where</span> S.ID=takes.ID <span class="keyword">and</span> takes.grade &lt;&gt; <span class="string">'F'</span> <span class="keyword">and</span> takes.grade <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update student S</span><br><span class="line">    <span class="built_in">set</span> tot_cred =(</span><br><span class="line">        select sum(credits)</span><br><span class="line">            from takes natural join course</span><br><span class="line">            where S.ID=takes.ID and takes.grade &lt;&gt; 'F' and takes.grade is <span class="keyword">not</span> null</span><br><span class="line">);</span><br><span class="line">Query OK, <span class="number">13</span> rows affected (<span class="number">0</span>.<span class="number">02</span> sec)</span><br><span class="line">Rows matched: <span class="number">13</span>  Changed: <span class="number">13</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用标量子查询和case"><a href="#使用标量子查询和case" class="headerlink" title="使用标量子查询和case"></a>使用标量子查询和case</h2><p>注意子查询使用了来自<code>update</code>语句中的相关变量S。如果一个学生没有成功学完任何课程,上述更新语句将把其<code>tot_cred</code>属性值设为空。<br>如果想把这样的属性值设为0的话,我们可以使用另一条<code>update</code>语句来把空值替换为0。<br>不过更好的方案是把上述子查询中的”<code>select sun(credits)</code>“子句替换为如下使用<code>case</code>表达式的<code>select</code>子句:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">case</span></span><br><span class="line">    <span class="keyword">when</span> <span class="keyword">sum</span>(credits ) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">then</span> <span class="keyword">sum</span>(credits)</span><br><span class="line">    <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>也就是改为如下形式:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> student S</span><br><span class="line">    <span class="keyword">set</span> tot_cred =(</span><br><span class="line">            <span class="keyword">select</span> <span class="keyword">case</span></span><br><span class="line">                    <span class="keyword">when</span> <span class="keyword">sum</span>(credits ) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">then</span> <span class="keyword">sum</span>(credits)</span><br><span class="line">                    <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">from</span> takes <span class="keyword">natural</span> <span class="keyword">join</span> course</span><br><span class="line">            <span class="keyword">where</span> S.ID=takes.ID <span class="keyword">and</span> takes.grade &lt;&gt; <span class="string">'F'</span> <span class="keyword">and</span> takes.grade <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure><br><!--SSTStop--></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/636c1eda/" title="3.9.3 更新">https://lanlan2017.github.io/ReadingNotes/636c1eda/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/b18bc4c4/" rel="next" title="3.9.2 插入">
+                  <i class="fa fa-chevron-left"></i> 3.9.2 插入
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/81b3e3dc/" rel="prev" title="3.10 总结">
+                  3.10 总结 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-9-3-更新"><span class="nav-number">1.</span> <span class="nav-text">3.9.3 更新</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL更新-所有教师的工资将增长5"><span class="nav-number">1.1.</span> <span class="nav-text">SQL更新 所有教师的工资将增长5%</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL更新-只给那些工资低于70000美元的教师涨工资"><span class="nav-number">1.2.</span> <span class="nav-text">SQL更新 只给那些工资低于70000美元的教师涨工资</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update的where子句可以嵌套查询语句"><span class="nav-number">1.3.</span> <span class="nav-text">update的where子句可以嵌套查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL更新-对工资低于平均数的教师涨5-的工资"><span class="nav-number">1.3.1.</span> <span class="nav-text">SQL更新 对工资低于平均数的教师涨5%的工资</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给工资超过100000美元的教师涨3-的工资-其余教师涨5"><span class="nav-number">1.3.2.</span> <span class="nav-text">给工资超过100000美元的教师涨3%的工资,其余教师涨5%</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update语句的顺序十分重要"><span class="nav-number">1.4.</span> <span class="nav-text">update语句的顺序十分重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case结构"><span class="nav-number">1.5.</span> <span class="nav-text">case结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case语句的格式"><span class="nav-number">1.5.1.</span> <span class="nav-text">case语句的格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case语句可以出现的地方"><span class="nav-number">1.5.2.</span> <span class="nav-text">case语句可以出现的地方</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用标量子查询"><span class="nav-number">1.6.</span> <span class="nav-text">使用标量子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用标量子查询和case"><span class="nav-number">1.7.</span> <span class="nav-text">使用标量子查询和case</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

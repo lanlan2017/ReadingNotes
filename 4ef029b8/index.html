@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="3.2.2 基本模式定义&amp;nbsp;创建关系 create table&amp;nbsp;create table命令格式&amp;nbsp;命令以分号结束&amp;nbsp;完整性约束&amp;nbsp;primary key&amp;nbsp;foreign key&amp;nbsp;not null&amp;nbsp;SQL不允许破坏完整性约束的命令执行&amp;nbsp;主码不能为空 主码不能重复&amp;nbsp;外码要在被参照关系中存在&amp;nbsp;插入元组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.2.2 基本模式定义">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/4ef029b8/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="3.2.2 基本模式定义&amp;nbsp;创建关系 create table&amp;nbsp;create table命令格式&amp;nbsp;命令以分号结束&amp;nbsp;完整性约束&amp;nbsp;primary key&amp;nbsp;foreign key&amp;nbsp;not null&amp;nbsp;SQL不允许破坏完整性约束的命令执行&amp;nbsp;主码不能为空 主码不能重复&amp;nbsp;外码要在被参照关系中存在&amp;nbsp;插入元组">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-12T19:37:15.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/4ef029b8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>3.2.2 基本模式定义 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/4ef029b8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">3.2.2 基本模式定义
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-12 19:37:15" itemprop="dateCreated datePublished" datetime="2019-10-12T19:37:15+00:00">2019-10-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/" itemprop="url" rel="index"><span itemprop="name">第3章 SQL</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/3-2-SQL%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89/" itemprop="url" rel="index"><span itemprop="name">3.2 SQL数据定义</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/4ef029b8/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/4ef029b8/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/4ef029b8/#3-2-2-基本模式定义" class="header_1">3.2.2 基本模式定义</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#创建关系-create-table" class="header_2">创建关系 create table</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#create-table命令格式" class="header_2">create table命令格式</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#命令以分号结束" class="header_2">命令以分号结束</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#完整性约束" class="header_2">完整性约束</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#primary-key" class="header_3">primary key</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#foreign-key" class="header_3">foreign key</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#not-null" class="header_3">not null</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#SQL不允许破坏完整性约束的命令执行" class="header_2">SQL不允许破坏完整性约束的命令执行</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#主码不能为空-主码不能重复" class="header_3">主码不能为空 主码不能重复</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#外码要在被参照关系中存在" class="header_3">外码要在被参照关系中存在</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#插入元组-insert-into" class="header_2">插入元组 insert into</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#删除元组-delete-from" class="header_2">删除元组 delete from</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#删除关系-drop-table" class="header_2">删除关系 drop table</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#drop-table-和delete-from" class="header_2">drop table 和delete from</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#alter-table" class="header_2">alter table</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#为已有的关系增加属性-alter-table-r-add-A-D" class="header_3">为已有的关系增加属性 alter table r add A D</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#从关系中去掉属性-alter-table-r-drop-A" class="header_3">从关系中去掉属性 alter table r drop A</a>&nbsp;<br><a href="/ReadingNotes/4ef029b8/#有些数据库不支持删除属性" class="header_4">有些数据库不支持删除属性</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="3-2-2-基本模式定义"><a href="#3-2-2-基本模式定义" class="headerlink" title="3.2.2 基本模式定义"></a>3.2.2 基本模式定义</h1><h2 id="创建关系-create-table"><a href="#创建关系-create-table" class="headerlink" title="创建关系 create table"></a>创建关系 create table</h2><!--SSTStop-->
+<p>我们用<code>create table</code>命令定义<code>SQL</code>关系。</p>
+<p>下面的命令在数据库中创建了一个<code>department</code>关系。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> department(</span><br><span class="line">    dept_name <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    building <span class="built_in">varchar</span>(<span class="number">15</span>),</span><br><span class="line">    budget <span class="built_in">numeric</span>(<span class="number">12</span>,<span class="number">2</span>),</span><br><span class="line">    primary <span class="keyword">key</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><br>上面创建的关系具有三个属性:</p>
+<ul>
+<li><code>dept_name</code>是最大长度为20的字符串, </li>
+<li><code>building</code>是最大长度为15的字符串, </li>
+<li><code>budget</code>是一个12位的数,其中2位数字在小数点后面。 </li>
+<li><code>create table</code>命令还指明了<code>dept_name</code>属性是<code>department</code>关系的主码。</li>
+</ul>
+<h2 id="create-table命令格式"><a href="#create-table命令格式" class="headerlink" title="create table命令格式"></a>create table命令格式</h2><p><code>create table</code>命令的通用形式是:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> r(</span><br><span class="line">    A_1 D_1,</span><br><span class="line">    A_2 D_2,</span><br><span class="line">    ...</span><br><span class="line">    A_n D_n,</span><br><span class="line">    &lt;完整性约束<span class="number">1</span>&gt;,</span><br><span class="line">    ...</span><br><span class="line">    &lt;完整性约束n&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure><br>其中<code>r</code>是关系名,每个<code>A_n</code>是关系<code>r</code>模式中的一个属性名,<code>D_n</code>是属性<code>A_n</code>的域,也就是说<code>D_n</code>约束了属性<code>A_n</code>的类型以及可选的范围,是用于限制所允许的A取值的集合。<br><!--SSTStart--></p>
+<h2 id="命令以分号结束"><a href="#命令以分号结束" class="headerlink" title="命令以分号结束"></a>命令以分号结束</h2><p><code>create table</code>命令后面用分号结束,本章后面的其他<code>SQL</code>语句也是如此,在很多<code>SQL</code>实现中分号是可选的。</p>
+<h2 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h2><p><code>SQL</code>支持许多不同的完整性约束。在本节我们只讨论其中少数几个:</p>
+<h3 id="primary-key"><a href="#primary-key" class="headerlink" title="primary key"></a>primary key</h3><p><code>primary key(A1, A2,...,Am)</code>: <code>primary key</code>声明表示属性<code>A1,A2,…,Am</code>构成关系的主码。主码属性必须非空且唯一。也就是说没有一个元组在主码属性上取空值,关系中也没有两个元组在所有主码属性上取值相同。虽然主码的声明是可选的,但为每个关系指定一个主码通常会更好。</p>
+<h3 id="foreign-key"><a href="#foreign-key" class="headerlink" title="foreign key"></a>foreign key</h3><p><code>foreign key(A1,A2,... An) references 关系S</code>:<br><code>foreign key</code>声明表示关系中任意元组在属性<code>(A1,A2,…,An)</code>上的取值必须对应于<code>关系s</code>中某元组在<code>主码</code>属性上的取值。</p>
+<h3 id="not-null"><a href="#not-null" class="headerlink" title="not null"></a>not null</h3><p><code>not null</code>:一个属性上的<code>not null</code>约束表明在该属性上不允许空值。</p>
+<h2 id="SQL不允许破坏完整性约束的命令执行"><a href="#SQL不允许破坏完整性约束的命令执行" class="headerlink" title="SQL不允许破坏完整性约束的命令执行"></a>SQL不允许破坏完整性约束的命令执行</h2><p><code>SQL</code>禁止破坏完整性约束的任何数据库更新。</p>
+<h3 id="主码不能为空-主码不能重复"><a href="#主码不能为空-主码不能重复" class="headerlink" title="主码不能为空 主码不能重复"></a>主码不能为空 主码不能重复</h3><p>例如,如果关系中一条新插入或新修改的元组在任意一个<code>主码</code>属性上有空值,或者元组在<code>主码属性上的取值</code>与关系中的另一个元组的主码属性值相同,<code>SQL</code>将标记个错误,并阻止更新。</p>
+<h3 id="外码要在被参照关系中存在"><a href="#外码要在被参照关系中存在" class="headerlink" title="外码要在被参照关系中存在"></a>外码要在被参照关系中存在</h3><p>类似地,如果插入的<code>course</code>元组在<code>dept_name</code>上的取值没有出现在<code>department</code>关系中,就会破坏<code>course</code>上的外码约束,<code>SQL</code>会阻止这种插入的发生。</p>
+<h2 id="插入元组-insert-into"><a href="#插入元组-insert-into" class="headerlink" title="插入元组 insert into"></a>插入元组 insert into</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> instructor <span class="keyword">values</span>(<span class="number">10211</span>, <span class="string">"Smith"</span>, <span class="string">"Biology"</span>,<span class="number">66000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="删除元组-delete-from"><a href="#删除元组-delete-from" class="headerlink" title="删除元组 delete from"></a>删除元组 delete from</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+<h2 id="删除关系-drop-table"><a href="#删除关系-drop-table" class="headerlink" title="删除关系 drop table"></a>删除关系 drop table</h2><p>如果要从<code>SQL</code>数据库中去掉一个关系,我们使用<code>drop table</code>命令。 <code>drop table</code>命令从数据库中删除关于被去掉关系的所有信息。</p>
+<h2 id="drop-table-和delete-from"><a href="#drop-table-和delete-from" class="headerlink" title="drop table 和delete from"></a>drop table 和delete from</h2><p>命令<code>drop table r;</code>是比<code>delete from r;</code>更强的语句。</p>
+<ul>
+<li><code>delete from r;</code>只是删除<code>r</code>中的所有元组,但会保留关系<code>r</code>。</li>
+<li><code>drop table r;</code>不仅删除<code>r</code>的所有元组,还删除<code>r</code>的模式。此时,除非用<code>create table</code>命令重建关系<code>r</code>,否则无法将元组可以插入到关系<code>r</code>中。</li>
+</ul>
+<h2 id="alter-table"><a href="#alter-table" class="headerlink" title="alter table"></a>alter table</h2><h3 id="为已有的关系增加属性-alter-table-r-add-A-D"><a href="#为已有的关系增加属性-alter-table-r-add-A-D" class="headerlink" title="为已有的关系增加属性 alter table r add A D"></a>为已有的关系增加属性 alter table r add A D</h3><p>使用<code>alter table</code>命令可以给已有关系增加属性。关系中的所有元组在新增加的属性上的取值将被设为<code>null</code>,<br><code>alter table</code>命令的格式为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> r <span class="keyword">add</span> A D</span><br></pre></td></tr></table></figure><br>其中<code>r</code>是现有关系的名字,<code>A</code>是待添加属性的名字,<code>D</code>是待添加属性的域。</p>
+<h3 id="从关系中去掉属性-alter-table-r-drop-A"><a href="#从关系中去掉属性-alter-table-r-drop-A" class="headerlink" title="从关系中去掉属性 alter table r drop A"></a>从关系中去掉属性 alter table r drop A</h3><p>通过命令<code>alter table r drop A</code>可以从关系中去掉属性。<br>其中<code>r</code>是现有关系的名字,<code>A</code>是关系的一个属性的名字。</p>
+<h4 id="有些数据库不支持删除属性"><a href="#有些数据库不支持删除属性" class="headerlink" title="有些数据库不支持删除属性"></a>有些数据库不支持删除属性</h4><p>很多数据库系统并不支持去掉属性,尽管它们允许去掉整个表。<br><!--SSTStop--></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/4ef029b8/" title="3.2.2 基本模式定义">https://lanlan2017.github.io/ReadingNotes/4ef029b8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/f68199a2/" rel="next" title="3.2 SQL数据定义 3.2.1 基本类型">
+                  <i class="fa fa-chevron-left"></i> 3.2 SQL数据定义 3.2.1 基本类型
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/b0218f52/" rel="prev" title="3.3 SQL查询的基本结构 3.3.1 单关系查询">
+                  3.3 SQL查询的基本结构 3.3.1 单关系查询 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-2-基本模式定义"><span class="nav-number">1.</span> <span class="nav-text">3.2.2 基本模式定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建关系-create-table"><span class="nav-number">1.1.</span> <span class="nav-text">创建关系 create table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-table命令格式"><span class="nav-number">1.2.</span> <span class="nav-text">create table命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令以分号结束"><span class="nav-number">1.3.</span> <span class="nav-text">命令以分号结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整性约束"><span class="nav-number">1.4.</span> <span class="nav-text">完整性约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#primary-key"><span class="nav-number">1.4.1.</span> <span class="nav-text">primary key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreign-key"><span class="nav-number">1.4.2.</span> <span class="nav-text">foreign key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-null"><span class="nav-number">1.4.3.</span> <span class="nav-text">not null</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL不允许破坏完整性约束的命令执行"><span class="nav-number">1.5.</span> <span class="nav-text">SQL不允许破坏完整性约束的命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主码不能为空-主码不能重复"><span class="nav-number">1.5.1.</span> <span class="nav-text">主码不能为空 主码不能重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外码要在被参照关系中存在"><span class="nav-number">1.5.2.</span> <span class="nav-text">外码要在被参照关系中存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入元组-insert-into"><span class="nav-number">1.6.</span> <span class="nav-text">插入元组 insert into</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除元组-delete-from"><span class="nav-number">1.7.</span> <span class="nav-text">删除元组 delete from</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除关系-drop-table"><span class="nav-number">1.8.</span> <span class="nav-text">删除关系 drop table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#drop-table-和delete-from"><span class="nav-number">1.9.</span> <span class="nav-text">drop table 和delete from</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alter-table"><span class="nav-number">1.10.</span> <span class="nav-text">alter table</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为已有的关系增加属性-alter-table-r-add-A-D"><span class="nav-number">1.10.1.</span> <span class="nav-text">为已有的关系增加属性 alter table r add A D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从关系中去掉属性-alter-table-r-drop-A"><span class="nav-number">1.10.2.</span> <span class="nav-text">从关系中去掉属性 alter table r drop A</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有些数据库不支持删除属性"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">有些数据库不支持删除属性</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

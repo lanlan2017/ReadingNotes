@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="4.3 事务&amp;nbsp;结束事务&amp;nbsp;系统出现不一致例子&amp;nbsp;银行例子&amp;nbsp;大学应用例子&amp;nbsp;原子性&amp;nbsp;不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现&amp;nbsp;默认一条&#96;SQL&#96;语句一个事务&amp;nbsp;关闭自动提交 一个事务执行多条SQL&amp;nbsp;后续章节对事务的介绍&amp;nbsp; .header_1{margin-left: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.3 事务">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/2e30f7e8/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="4.3 事务&amp;nbsp;结束事务&amp;nbsp;系统出现不一致例子&amp;nbsp;银行例子&amp;nbsp;大学应用例子&amp;nbsp;原子性&amp;nbsp;不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现&amp;nbsp;默认一条&#96;SQL&#96;语句一个事务&amp;nbsp;关闭自动提交 一个事务执行多条SQL&amp;nbsp;后续章节对事务的介绍&amp;nbsp; .header_1{margin-left: 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-20T21:39:14.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/2e30f7e8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>4.3 事务 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/2e30f7e8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">4.3 事务
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-20 21:39:14" itemprop="dateCreated datePublished" datetime="2019-10-20T21:39:14+00:00">2019-10-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/" itemprop="url" rel="index"><span itemprop="name">第4章 中级SQL</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/4-3-%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">4.3 事务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/2e30f7e8/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/2e30f7e8/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/2e30f7e8/#4-3-事务" class="header_1">4.3 事务</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#结束事务" class="header_2">结束事务</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#系统出现不一致例子" class="header_2">系统出现不一致例子</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#银行例子" class="header_3">银行例子</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#大学应用例子" class="header_3">大学应用例子</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#原子性" class="header_2">原子性</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现" class="header_2">不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#默认一条-SQL-语句一个事务" class="header_2">默认一条`SQL`语句一个事务</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#关闭自动提交-一个事务执行多条SQL" class="header_2">关闭自动提交 一个事务执行多条SQL</a>&nbsp;<br><a href="/ReadingNotes/2e30f7e8/#后续章节对事务的介绍" class="header_2">后续章节对事务的介绍</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="4-3-事务"><a href="#4-3-事务" class="headerlink" title="4.3 事务"></a>4.3 事务</h1><p>事务(<code>transaction</code>)由查询询和(或)更新语句的<code>序列组成</code>。<strong><code>SQL</code>标准规定当一条<code>SOL</code>语句被执行,就隐式地开始了一个事务</strong>。</p>
+<h2 id="结束事务"><a href="#结束事务" class="headerlink" title="结束事务"></a>结束事务</h2><p>下列<code>SQL</code>语句之一会结束一个事务:</p>
+<ul>
+<li><code>Commit work</code>:提交当前事务,也就是将该事务所做的更新在数据库中持久保存。在事务被提交后,一个新的事务自动开始。</li>
+<li><code>Rollback work</code>:回滚当前事务,即撤销该事务中所有<code>SoL</code>语句对数据库的更新。这样,数据库就恢复到执行该事务第一条语句之前的状态。</li>
+</ul>
+<p>关键词<code>work</code>在两条语句中都是可选的<br>当在事务执行过程中检测到错误时,事务回滚是有用的。在某种意义上,事务提交就像对编辑文档的变化存盘,而回滚就像<strong>不保存变化退出编辑</strong>。<strong>一旦某事务执行了<code>commit work,</code>它的影响就不能用<code>rollback work</code>来撤销了</strong>。<br>数据库系统保证在发生诸如某条<code>SQL</code>语句错误、断电、系统崩溃这些故障的情况下,<strong>如果一个事务还没有完成<code>commit work</code>,其影响将被回滚</strong>。<br>在断电和系统崩溃的情况下,<strong>回滚会在系统重启后执行</strong>。</p>
+<h2 id="系统出现不一致例子"><a href="#系统出现不一致例子" class="headerlink" title="系统出现不一致例子"></a>系统出现不一致例子</h2><h3 id="银行例子"><a href="#银行例子" class="headerlink" title="银行例子"></a>银行例子</h3><p>例如,考虑一个银行应用,我们需要从一个银行账户上把钱转到同一家银行的另一个账户。为了这样做,我们需要更新两个账户的余额,把需要转移的资金额从一个账户划走,并把它加到另一个账户上。如果在从第一个账户上划走资金以后,但在把这笔资金加入第二个账户之前发生了系统崩溃,那么银行账户就会不一致。如果在第一个账户划走资金之前先往第二个账户存款,并且在存款之后马上发生系统崩溃,那么也会出现类似的问题。</p>
+<h3 id="大学应用例子"><a href="#大学应用例子" class="headerlink" title="大学应用例子"></a>大学应用例子</h3><p>作为另一个例子,考虑我们正在使用的大学应用的例子。我们假设<code>student</code>关系中每个元组在<code>tot_cred</code>属性上的取值需要保持在最新状态,只要学生成功修完一门课程,该属性值就要更新。为了这样做只要<code>takes</code>关系被更新为记录一位学生成功修完一门课程的信息(通过赋予适当的成绩),相应的<code>student</code>元组也必须更新。如果执行这两个更新的任务在执行完一个更新后,但在第二个更新前崩溃了,数据库中的数据就是不一致的。</p>
+<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>一个事务</p>
+<ul>
+<li><strong>或者在完成所有步骤后提交其行为</strong>,</li>
+<li><strong>或者在不能成功完成其所有动作的情况下回滚其所有动作</strong>,</li>
+</ul>
+<p>通过这种方式数据库提供了对事务具有<strong>原子性</strong>(<code>atomic</code>)的抽象,原子性也就是不可分割性,</p>
+<ul>
+<li>要么事务的所有影响被反映到数据库中,</li>
+<li>要么任何影响都没有(在回滚之后)。</li>
+</ul>
+<p>如果把事务的概念应用到上述应用中,那些更新语句就会作为单个事务执行。在事务执行其某条语句时出错会导致事务早先执行的语句的影响被撒销,从而不会让数据库处于部分更新状态。</p>
+<h2 id="不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现"><a href="#不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现" class="headerlink" title="不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现"></a>不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现</h2><p>如果程序没有执行<code>Commit</code>或<code>Rollback</code>两条命令中的任何一条而终止了,<strong>那么更新要么被提交要么被回滚</strong>。<code>SQL</code>标准并没有指出究竟执行哪一种,如何选择依赖于具体实现。</p>
+<h2 id="默认一条SQL语句一个事务"><a href="#默认一条SQL语句一个事务" class="headerlink" title="默认一条SQL语句一个事务"></a>默认一条<code>SQL</code>语句一个事务</h2><p>在很多<code>SQL</code>实现中,<strong>默认方式下每个<code>SQL</code>语句<code>自成一个事务</code>,且一执行完就提交</strong>。</p>
+<h2 id="关闭自动提交-一个事务执行多条SQL"><a href="#关闭自动提交-一个事务执行多条SQL" class="headerlink" title="关闭自动提交 一个事务执行多条SQL"></a>关闭自动提交 一个事务执行多条SQL</h2><p>如果一个事务要执行多条<code>SQL</code>语句,就必须关闭单独<code>SQL</code>语句的自动提交。如何关闭自动提交也依赖于特定的<code>SQL</code>实现,尽管在诸如<code>JDBC</code>或<code>ODBC</code>那样的应用编程接口中存在标准化方式来完成这项工作。我们将在<code>5.1.1</code>和<code>5.1.2</code>节分别学习<code>JDBC</code>和<code>ODBC</code>。<br>一个较好的选择是,作为<code>SQL:1999</code>标准的一部分(但目前只有一些<code>SQL</code>实现支持),允许多条<code>SQL</code>语句包含在关键字<code>begin atomic … end</code>之间。所有在关键字之间的语句构成了一个单一事务。</p>
+<h2 id="后续章节对事务的介绍"><a href="#后续章节对事务的介绍" class="headerlink" title="后续章节对事务的介绍"></a>后续章节对事务的介绍</h2><ul>
+<li>我们将在第<code>14</code>章学习事务的更多特性;</li>
+<li>第<code>15</code>章和第<code>16</code>章介绍在单个数据库中实现事务的相关问题,</li>
+<li>而在第<code>19</code>章介绍跨多个数据库上实现事务的相关问题,这是为了处理不同银行的账户之间转账的问题,不同银行有不同的数据库。</li>
+</ul>
+<!--SSTStop-->
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/2e30f7e8/" title="4.3 事务">https://lanlan2017.github.io/ReadingNotes/2e30f7e8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/d8d00e0a/" rel="next" title="4.2.4 视图更新">
+                  <i class="fa fa-chevron-left"></i> 4.2.4 视图更新
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/4286b88a/" rel="prev" title="4.4 完整性约束 4.4.1 单个关系上的约束">
+                  4.4 完整性约束 4.4.1 单个关系上的约束 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-3-事务"><span class="nav-number">1.</span> <span class="nav-text">4.3 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结束事务"><span class="nav-number">1.1.</span> <span class="nav-text">结束事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统出现不一致例子"><span class="nav-number">1.2.</span> <span class="nav-text">系统出现不一致例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#银行例子"><span class="nav-number">1.2.1.</span> <span class="nav-text">银行例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大学应用例子"><span class="nav-number">1.2.2.</span> <span class="nav-text">大学应用例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">1.3.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现"><span class="nav-number">1.4.</span> <span class="nav-text">不是commit或Rollback的命令出错时是提交还是回滚得看具体的数据库实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认一条SQL语句一个事务"><span class="nav-number">1.5.</span> <span class="nav-text">默认一条SQL语句一个事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭自动提交-一个事务执行多条SQL"><span class="nav-number">1.6.</span> <span class="nav-text">关闭自动提交 一个事务执行多条SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续章节对事务的介绍"><span class="nav-number">1.7.</span> <span class="nav-text">后续章节对事务的介绍</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

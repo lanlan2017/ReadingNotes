@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="4.5 SQL的数据类型与模式&amp;nbsp;4.5.1 SQL中的日期和时间类型&amp;nbsp;字符串转成日期和时间类型&amp;nbsp;从日期和时间中提取年月日时分秒等信息&amp;nbsp;SQL中获取当然日期和事件的函数&amp;nbsp;SQL支持的数据运算&amp;nbsp;什么是&#96;时间间隔&#96;类型&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.5 SQL的数据类型与模式">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/1d2f522e/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="4.5 SQL的数据类型与模式&amp;nbsp;4.5.1 SQL中的日期和时间类型&amp;nbsp;字符串转成日期和时间类型&amp;nbsp;从日期和时间中提取年月日时分秒等信息&amp;nbsp;SQL中获取当然日期和事件的函数&amp;nbsp;SQL支持的数据运算&amp;nbsp;什么是&#96;时间间隔&#96;类型&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-21T15:44:10.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/1d2f522e/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>4.5 SQL的数据类型与模式 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/1d2f522e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">4.5 SQL的数据类型与模式
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-21 15:44:10" itemprop="dateCreated datePublished" datetime="2019-10-21T15:44:10+00:00">2019-10-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/" itemprop="url" rel="index"><span itemprop="name">第4章 中级SQL</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/4-5-SQL%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">4.5 SQL的数据类型与模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/1d2f522e/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/1d2f522e/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/1d2f522e/#4-5-SQL的数据类型与模式" class="header_1">4.5 SQL的数据类型与模式</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#4-5-1-SQL中的日期和时间类型" class="header_1">4.5.1 SQL中的日期和时间类型</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#字符串转成日期和时间类型" class="header_2">字符串转成日期和时间类型</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#从日期和时间中提取年月日时分秒等信息" class="header_2">从日期和时间中提取年月日时分秒等信息</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#SQL中获取当然日期和事件的函数" class="header_2">SQL中获取当然日期和事件的函数</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#SQL支持的数据运算" class="header_2">SQL支持的数据运算</a>&nbsp;<br><a href="/ReadingNotes/1d2f522e/#什么是-时间间隔-类型" class="header_3">什么是`时间间隔`类型</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="4-5-SQL的数据类型与模式"><a href="#4-5-SQL的数据类型与模式" class="headerlink" title="4.5 SQL的数据类型与模式"></a>4.5 SQL的数据类型与模式</h1><p>在第3章中,我们介绍了一些<code>SQL</code>支持的固有数据类型,如整数类型、实数类型和字符类型。<code>SQL</code>还支持一些其他的固有数据类型,我们将在下面描述。我们还将描述如何<strong>在<code>SQL</code>中创建基本的<code>用户定义类型</code></strong>。</p>
+<h1 id="4-5-1-SQL中的日期和时间类型"><a href="#4-5-1-SQL中的日期和时间类型" class="headerlink" title="4.5.1 SQL中的日期和时间类型"></a>4.5.1 SQL中的日期和时间类型</h1><p>除了我们在3.2节介绍过的基本数据类型以外,<code>SQL</code>标准还支持与<code>日期</code>和<code>时间</code>相关的几种数据类型:<br><code>date</code>:日历日期,包括年(四位)、月和日。<br><code>time</code>:一天中的时间,包括小时、分和秒。可以用变量<code>time(p)</code>来表示秒的小数点后的数字位数(这里默认值为0)。通过指定<code>time with timezone</code>,还可以把时区信息连同时间一起存储。<br><code>timestamp</code>:<code>date</code>和<code>time</code>的组合。可以用变量<code>timestamp(p)</code>来表示秒的小数点后的数字位数(这里默认值为<code>6</code>)。如果指定<code>with timezone</code>,则时区信息也会被存储。</p>
+<p>日期和时间类型的值可按如下方式说明:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">date '2001-04-25'</span><br><span class="line">time '09:30:00'</span><br><span class="line">timestamp '2001-04-25 10:29:01.45'</span><br></pre></td></tr></table></figure><br>日期类型必须按照如上年月日的格式顺序指定。<code>time</code>和<code>timestamp</code>的秒部分可能会有小数部分,像上述时间戳中的情况一样。</p>
+<h2 id="字符串转成日期和时间类型"><a href="#字符串转成日期和时间类型" class="headerlink" title="字符串转成日期和时间类型"></a>字符串转成日期和时间类型</h2><p>我们可以利用<code>cast e as t</code>形式的表达式来将一个字符串(或字符串表达式)<code>e</code>转换成类型<code>t</code>,其中<code>t</code>是<code>date</code>、<code>time</code>、 <code>timestamp</code>中的一种。字符串必须符合正确的格式,像本段开头说的那样。当需要时,时区信息可以从系统设置中得到。</p>
+<h2 id="从日期和时间中提取年月日时分秒等信息"><a href="#从日期和时间中提取年月日时分秒等信息" class="headerlink" title="从日期和时间中提取年月日时分秒等信息"></a>从日期和时间中提取年月日时分秒等信息</h2><p>我们可以利用<code>extract(field from d)</code>,从<code>date</code>或<code>time</code>值<code>d</code>中提取出单独的域,这里的域可以是<code>year</code>、 <code>month</code>、<code>day</code>、<code>hour</code>、 <code>minute</code>或者<code>second</code>中的任意一种。时区信息可以用<code>timezone_hour</code>和<code>timezone_minute</code>来提取。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select extract(year from current_date());</span><br><span class="line">+-----------------------------------+</span><br><span class="line">| extract(year from current_date()) |</span><br><span class="line">+-----------------------------------+</span><br><span class="line">|                              <span class="number">2019</span> |</span><br><span class="line">+-----------------------------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">02</span> sec)</span><br></pre></td></tr></table></figure>
+<h2 id="SQL中获取当然日期和事件的函数"><a href="#SQL中获取当然日期和事件的函数" class="headerlink" title="SQL中获取当然日期和事件的函数"></a>SQL中获取当然日期和事件的函数</h2><p><code>SQL</code>定义了一些函数以获取当前日期和时间。例如, </p>
+<ul>
+<li><code>current_date</code>返回当前日期, </li>
+<li><code>current_time</code>返回当前时间(带有时区),</li>
+<li>还有<code>localtime</code>返回当前的本地时间(不带时区)。</li>
+<li>时间戳(日期加上时间)由<code>current_timestamp</code>(带有时区)</li>
+<li>以及<code>localtimestamp</code>(本地日期和时间,不带时区)</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select current_date();</span><br><span class="line">+----------------+</span><br><span class="line">| current_date() |</span><br><span class="line">+----------------+</span><br><span class="line">| <span class="number">2019</span>-<span class="number">10</span>-<span class="number">21</span>     |</span><br><span class="line">+----------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select current_time();</span><br><span class="line">+----------------+</span><br><span class="line">| current_time() |</span><br><span class="line">+----------------+</span><br><span class="line">| <span class="number">18</span>:<span class="number">44</span>:<span class="number">48</span>       |</span><br><span class="line">+----------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select localtime();</span><br><span class="line">+---------------------+</span><br><span class="line">| localtime()         |</span><br><span class="line">+---------------------+</span><br><span class="line">| <span class="number">2019</span>-<span class="number">10</span>-<span class="number">21</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">00</span> |</span><br><span class="line">+---------------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select current_timestamp();</span><br><span class="line">+---------------------+</span><br><span class="line">| current_timestamp() |</span><br><span class="line">+---------------------+</span><br><span class="line">| <span class="number">2019</span>-<span class="number">10</span>-<span class="number">21</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">11</span> |</span><br><span class="line">+---------------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select localtimestamp();</span><br><span class="line">+---------------------+</span><br><span class="line">| localtimestamp()    |</span><br><span class="line">+---------------------+</span><br><span class="line">| <span class="number">2019</span>-<span class="number">10</span>-<span class="number">21</span> <span class="number">18</span>:<span class="number">45</span>:<span class="number">29</span> |</span><br><span class="line">+---------------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">03</span> sec)</span><br></pre></td></tr></table></figure>
+<h2 id="SQL支持的数据运算"><a href="#SQL支持的数据运算" class="headerlink" title="SQL支持的数据运算"></a>SQL支持的数据运算</h2><p><code>SQL</code>允许在上面列出的所有类型上进行<strong>比较运算</strong>,也允许在各种<strong>数字类型</strong>上进行<strong>算术运算</strong>和<strong>比较运算</strong>。<code>SQL</code>还支持<code>interval</code>数据类型,它允许在日期、时间和<strong>时间间隔</strong>上进行<strong>计算</strong>。</p>
+<h3 id="什么是时间间隔类型"><a href="#什么是时间间隔类型" class="headerlink" title="什么是时间间隔类型"></a>什么是<code>时间间隔</code>类型</h3><p>例如,假设x和y都是<code>date</code>类型,那么x-y就是时间间隔类型,其值为<strong>从日期x到日期y<code>间隔</code>的天数</strong>。类似地,在<strong>日期或时间上加减一个<code>时间间隔</code>将分别得到新的日期或时间</strong><br><!--SSTStop--></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/1d2f522e/" title="4.5 SQL的数据类型与模式">https://lanlan2017.github.io/ReadingNotes/1d2f522e/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/708bdc81/" rel="next" title="4.4.7 复杂check条件与断言">
+                  <i class="fa fa-chevron-left"></i> 4.4.7 复杂check条件与断言
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/23a0cb2d/" rel="prev" title="4.5.2 默认值">
+                  4.5.2 默认值 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-5-SQL的数据类型与模式"><span class="nav-number">1.</span> <span class="nav-text">4.5 SQL的数据类型与模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-5-1-SQL中的日期和时间类型"><span class="nav-number">2.</span> <span class="nav-text">4.5.1 SQL中的日期和时间类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转成日期和时间类型"><span class="nav-number">2.1.</span> <span class="nav-text">字符串转成日期和时间类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从日期和时间中提取年月日时分秒等信息"><span class="nav-number">2.2.</span> <span class="nav-text">从日期和时间中提取年月日时分秒等信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL中获取当然日期和事件的函数"><span class="nav-number">2.3.</span> <span class="nav-text">SQL中获取当然日期和事件的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL支持的数据运算"><span class="nav-number">2.4.</span> <span class="nav-text">SQL支持的数据运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是时间间隔类型"><span class="nav-number">2.4.1.</span> <span class="nav-text">什么是时间间隔类型</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

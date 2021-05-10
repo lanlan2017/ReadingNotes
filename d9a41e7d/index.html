@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="网络概述&amp;nbsp;计算机网络概述&amp;nbsp;从网络中找到一个计算机--IP地址&amp;nbsp;域名--方便记忆&amp;nbsp;域名和IP地址的区别&amp;nbsp;在一个计算机中找到一个程序--端口&amp;nbsp;在网络上找到一个程序：IP地址+端口号&amp;nbsp;网络编程概述&amp;nbsp;请求响应模型&amp;nbsp;请求响应模型&amp;nbsp;客户端&#x2F;服务器结构&amp;nbsp;优缺点&amp;nbsp;浏览器&#x2F;服务器结构&amp;nbsp;优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1网络概述">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/d9a41e7d/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="网络概述&amp;nbsp;计算机网络概述&amp;nbsp;从网络中找到一个计算机--IP地址&amp;nbsp;域名--方便记忆&amp;nbsp;域名和IP地址的区别&amp;nbsp;在一个计算机中找到一个程序--端口&amp;nbsp;在网络上找到一个程序：IP地址+端口号&amp;nbsp;网络编程概述&amp;nbsp;请求响应模型&amp;nbsp;请求响应模型&amp;nbsp;客户端&#x2F;服务器结构&amp;nbsp;优缺点&amp;nbsp;浏览器&#x2F;服务器结构&amp;nbsp;优">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-16T23:01:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/d9a41e7d/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>1网络概述 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/d9a41e7d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">1网络概述
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-16 23:01:00" itemprop="dateCreated datePublished" datetime="2018-08-16T23:01:00+00:00">2018-08-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">java 网络编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/d9a41e7d/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/d9a41e7d/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/d9a41e7d/#网络概述" class="header_2">网络概述</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#计算机网络概述" class="header_3">计算机网络概述</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#从网络中找到一个计算机--IP地址" class="header_4">从网络中找到一个计算机--IP地址</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#域名--方便记忆" class="header_4">域名--方便记忆</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#域名和IP地址的区别" class="header_4">域名和IP地址的区别</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#在一个计算机中找到一个程序--端口" class="header_4">在一个计算机中找到一个程序--端口</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#在网络上找到一个程序：IP地址-端口号" class="header_4">在网络上找到一个程序：IP地址+端口号</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#网络编程概述" class="header_1">网络编程概述</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#请求响应模型" class="header_2">请求响应模型</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#请求响应模型" class="header_2">请求响应模型</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#客户端/服务器结构" class="header_2">客户端/服务器结构</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#优缺点" class="header_3">优缺点</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#浏览器/服务器结构" class="header_2">浏览器/服务器结构</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#优点：" class="header_3">优点：</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#缺点" class="header_3">缺点</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#P2P-Point-to-Point-程序" class="header_2">P2P(Point to Point)程序</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#协议-Protocol" class="header_2">协议(Protocol)</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#协议的列子" class="header_3">协议的列子</a>&nbsp;<br><a href="/ReadingNotes/d9a41e7d/#网络通讯方式" class="header_1">网络通讯方式</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<ul>
+<li><a href="/blog/d9a41e7d/#网络概述">网络概述</a><ul>
+<li><a href="/blog/d9a41e7d/#计算机网络概述">计算机网络概述</a><ul>
+<li><a href="/blog/d9a41e7d/#从网络中找到一个计算机-IP地址">从网络中找到一个计算机—IP地址</a></li>
+<li><a href="/blog/d9a41e7d/#域名-方便记忆">域名—方便记忆</a></li>
+<li><a href="/blog/d9a41e7d/#域名和IP地址的区别">域名和IP地址的区别</a></li>
+<li><a href="/blog/d9a41e7d/#在一个计算机中找到一个程序-端口">在一个计算机中找到一个程序—端口</a></li>
+<li><a href="/blog/d9a41e7d/#在网络上找到一个程序：IP地址-端口号">在网络上找到一个程序：IP地址+端口号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="/blog/d9a41e7d/#网络编程概述">网络编程概述</a></li>
+<li><a href="/blog/d9a41e7d/#请求响应模型">请求响应模型</a></li>
+<li><a href="/blog/d9a41e7d/#请求响应模型">请求响应模型</a></li>
+<li><a href="/blog/d9a41e7d/#客户端-服务器结构">客户端/服务器结构</a><ul>
+<li><a href="/blog/d9a41e7d/#优缺点">优缺点</a></li>
+</ul>
+</li>
+<li><a href="/blog/d9a41e7d/#浏览器-服务器结构">浏览器/服务器结构</a><ul>
+<li><a href="/blog/d9a41e7d/#优点：">优点：</a></li>
+<li><a href="/blog/d9a41e7d/#缺点">缺点</a></li>
+</ul>
+</li>
+<li><a href="/blog/d9a41e7d/#P2P-Point-to-Point-程序">P2P(Point to Point)程序</a></li>
+<li><a href="/blog/d9a41e7d/#协议-Protocol-">协议(Protocol)</a><ul>
+<li><a href="/blog/d9a41e7d/#协议的列子">协议的列子</a></li>
+</ul>
+</li>
+<li><a href="/blog/d9a41e7d/#网络通讯方式">网络通讯方式</a></li>
+</ul>
+<!--more-->
+<h2 id="网络概述"><a href="#网络概述" class="headerlink" title="网络概述"></a>网络概述</h2><p><strong>网络编程就是在两个或两个以上的设备(例如计算机)之间传输数据。</strong><br><strong>程序员所作的事情就是把数据发送到指定的位置，或者接收到指定的数据，这个就是狭义的网络编程范畴。</strong><br>在发送和接收数据时，大部分的程序设计语言都设计了专门的API实现这些功能，程序员只需要调用即可。所以，基础的网络编程可以和打电话一样简单。</p>
+<h3 id="计算机网络概述"><a href="#计算机网络概述" class="headerlink" title="计算机网络概述"></a>计算机网络概述</h3><p><strong>网络编程的实质就是两个(或多个)设备(例如计算机)之间的数据传输。</strong></p>
+<p><strong>网络最主要的优势在于共享</strong>：共享设备和数据，现在共享设备最常见的是打印机，一个公司一般一个打印机即可，共享数据就是将大量的数据存储在一组机器中，其它的计算机通过网络访问这些数据，例如网站、银行服务器等等。</p>
+<p><strong>对于网络编程来说，最主要的是计算机和计算机之间的通信</strong>，这样首要的问题就是如何找到网络上的计算机呢？这就需要了解IP地址的概念。</p>
+<h4 id="从网络中找到一个计算机—IP地址"><a href="#从网络中找到一个计算机—IP地址" class="headerlink" title="从网络中找到一个计算机—IP地址"></a>从网络中找到一个计算机—IP地址</h4><p><strong>为了能够方便的识别网络上的每个设备，网络中的每个设备都会有一个唯一的数字标识，这个就是IP地址。</strong>在计算机网络中,现在命名IP地址的规定是IPv4协议，该协议规定每个IP地址由4个0-255之间的数字组成，例如10.0.120.34。每个接入网络的计算机都拥有唯一的IP地址，这个IP地址可能是固定的，例如网络上各种各样的服务器，也可以是动态的，例如使用ADSL拨号上网的宽带用户，无论以何种方式获得或是否是固定的，<strong>每个计算机在联网以后都拥有一个唯一的合法IP地址</strong>，就像每个手机号码一样。</p>
+<h4 id="域名—方便记忆"><a href="#域名—方便记忆" class="headerlink" title="域名—方便记忆"></a>域名—方便记忆</h4><p>但是由于IP地址不容易记忆，所以为了方便记忆，有创造了另外一个概念——域名(Domain Name)，例如sohu.com等。<strong>一个IP地址可以对应多个域名，一个域名只能对应一个IP地址。</strong>域名的概念可以类比手机中的通讯簿，由于手机号码不方便记忆，所以添加一个姓名标识号码，在实际拨打电话时可以选择该姓名，然后拨打即可。</p>
+<p><strong>在网络中传输的数据，全部是以IP地址作为地址标识，所以在实际传输数据以前需要将域名转换为IP地址，实现这种功能的服务器称之为DNS服务器</strong>，也就是通俗的说法叫做域名解析。例如当用户在浏览器输入域名时，浏览器首先请求DNS服务器，将域名转换为IP地址，然后将转换后的IP地址反馈给浏览器，然后再进行实际的数据传输。</p>
+<h4 id="域名和IP地址的区别"><a href="#域名和IP地址的区别" class="headerlink" title="域名和IP地址的区别"></a>域名和IP地址的区别</h4><p>当DNS服务器正常工作时，使用IP地址或域名都可以很方便的找到计算机网络中的某个设备，例如服务器计算机。<strong>当DNS不正常工作时，只能通过IP地址访问该设备。所以IP地址的使用要比域名通用一些。</strong></p>
+<h4 id="在一个计算机中找到一个程序—端口"><a href="#在一个计算机中找到一个程序—端口" class="headerlink" title="在一个计算机中找到一个程序—端口"></a>在一个计算机中找到一个程序—端口</h4><p><strong>IP地址和域名很好的解决了在网络中找到一个计算机的问题</strong>，但是为了让一个计算机可以同时运行多个网络程序，就引入了另外一个概念——端口(port)。</p>
+<p>在介绍端口的概念以前，首先来看一个例子，一般一个公司前台会有一个电话，每个员工会有一个分机，这样如果需要找到这个员工的话，需要首先拨打前台总机，然后转该分机号即可。这样减少了公司的开销，也方便了每个员工。在该示例中<strong>前台总机的电话号码就相当于IP地址，而每个员工的分机号就相当于端口。</strong></p>
+<p>有了端口的概念以后，<strong>在同一个计算机中每个程序对应唯一的端口，这样一个计算机上就可以通过端口区分发送给每个端口的数据了</strong>，换句话说，也就是一个计算机上可以并发运行多个网络程序，而不会在互相之间产生干扰。</p>
+<p>在硬件上规定<strong>，端口的号码必须位于0-65535之间，每个端口唯一的对应一个网络程序，一个网络程序可以使用多个端口。</strong>这样一个网络程序运行在一台计算上时，不管是客户端还是服务器，都是至少占用一个端口进行网络通讯。<strong>在接收数据时，首先发送给对应的计算机，然后计算机根据端口把数据转发给对应的程序。</strong></p>
+<h4 id="在网络上找到一个程序：IP地址-端口号"><a href="#在网络上找到一个程序：IP地址-端口号" class="headerlink" title="在网络上找到一个程序：IP地址+端口号"></a>在网络上找到一个程序：IP地址+端口号</h4><p>有了IP地址和端口的概念以后，<strong>在进行网络通讯交换时，就可以通过IP地址查找到该台计算机，然后通过端口标识这台计算机上的一个唯一的程序</strong>。这样就可以进行网络数据的交换了。</p>
+<p>但是，进行网络编程时，只有IP地址和端口的概念还是不够的，下面就介绍一下基础的网络编程相关的软件基础知识。</p>
+<h1 id="网络编程概述"><a href="#网络编程概述" class="headerlink" title="网络编程概述"></a>网络编程概述</h1><p>按照前面的介绍，<strong>网络编程就是两个或多个设备之间的数据交换</strong>，<strong>其实更具体的说，网络编程就是两个或多个程序之间的数据交换</strong>，和普通的单机程序相比，网络程序最大的不同就是需要交换数据的程序运行在不同的计算机上，这样就造成了数据交换的复杂。虽然通过IP地址和端口可以找到网络上运行的一个程序，但是如果需要进行网络编程，则还需要了解网络通讯的过程。</p>
+<h2 id="请求响应模型"><a href="#请求响应模型" class="headerlink" title="请求响应模型"></a>请求响应模型</h2><p>网络通讯基于“请求-响应”模型。为了理解这个模型，先来看一个例子，经常看电视的人肯定见过审讯的场面吧，一般是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">警察：姓名</span><br><span class="line">嫌疑犯：XXX</span><br><span class="line">警察：性别</span><br><span class="line">嫌疑犯：男</span><br><span class="line">警察：年龄</span><br><span class="line">嫌疑犯：29</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<h2 id="请求响应模型-1"><a href="#请求响应模型-1" class="headerlink" title="请求响应模型"></a>请求响应模型</h2><p>在这个例子中，警察问一句，嫌疑犯回答一句，如果警察不问，则嫌疑犯保持沉默。<strong>这种一问一答的形式就是网络中的“请求-响应”模型</strong>。也就是通讯的一端发送数据，另外一端反馈数据，网络通讯都基于该模型。</p>
+<p>在网络通讯中，<strong>第一次主动发起通讯的程序被称作客户端(Client)程序，简称客户端</strong>，而<strong>在第一次通讯中等待连接的程序被称作服务器端(Server)程序，简称服务器</strong>。<strong>一旦通讯建立，则客户端和服务器端完全一样，没有本质的区别。</strong></p>
+<h2 id="客户端-服务器结构"><a href="#客户端-服务器结构" class="headerlink" title="客户端/服务器结构"></a>客户端/服务器结构</h2><p>由此<strong>，网络编程中的两种程序就分别是客户端和服务器端</strong>，例如QQ程序，每个QQ用户安装的都是QQ客户端程序，而QQ服务器端程序则运行在腾讯公司的机房中，为大量的QQ用户提供服务。这种网络编程的结构被称作<strong>客户端/服务器结构</strong>，也叫做Client/Server结构，简称<strong>C/S结构</strong>。</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>使用C/S结 构的程序，在开发时需要分别开发客户端和服务器端，这种结构的优势在于由于客户端是专门开发的，所以根据需要实现各种效果，专业点说就是表现力丰富，而服 务器端也需要专门进行开发。但是这种结构也存在着很多不足，例如通用性差，几乎不能通用等，也就是说<strong>一种程序的客户端只能和对应的服务器端通讯，而不能和 其它服务器端通讯，在实际维护时，也需要维护专门的客户端和服务器端，维护的压力比较大。</strong></p>
+<h2 id="浏览器-服务器结构"><a href="#浏览器-服务器结构" class="headerlink" title="浏览器/服务器结构"></a>浏览器/服务器结构</h2><p>其实在运行很多程序时，没有必要使用专用的客户端，而需要使用通用的客户端，例如浏览器，使用<strong>浏览器作为客户端的结构被称作浏览器/服务器结构，也叫做Browser/Server结构，简称为B/S结构。</strong></p>
+<p><strong>使用B/S结构的程序，在开发时只需要开发服务器端即可</strong></p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>这种结构的优势在于开发的压力比较小，不需要维护客户端。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>但是这种结构也存在着很多不足，例如浏览器的限制比较大，表现力不强，无法进行系统级操作等。</p>
+<p>总之C/S结构和B/S结构是现在网络编程中常见的两种结构，B/S结构其实也就是一种特殊的C/S结构。</p>
+<h2 id="P2P-Point-to-Point-程序"><a href="#P2P-Point-to-Point-程序" class="headerlink" title="P2P(Point to Point)程序"></a>P2P(Point to Point)程序</h2><p>另外简单的介绍一下P2P(Point to Point)程序，常见的如BT、电驴等。<strong>P2P程序是一种特殊的程序，应该一个P2P程序中既包含客户端程序，也包含服务器端程序</strong>，例如BT，使用客户端程序部分连接其它的种子(服务器端)，而使用服务器端向其它的BT客户端传输数据。如果这个还不是很清楚，其实P2P程序和手机是一样的，当手机拨打电话时就是使用客户端的作用，而手机处于待机状态时，可以接收到其它用户拨打的电话则起的就是服务器端的功能，只是一般的手机不能同时使用拨打电话和接听电话的功能，而P2P程序实现了该功能。</p>
+<h2 id="协议-Protocol"><a href="#协议-Protocol" class="headerlink" title="协议(Protocol)"></a>协议(Protocol)</h2><p>最后再介绍一个网络编程中最重要，也是最复杂的概念——协议(Protocol)。按照前面的介绍，<strong>网络编程就是运行在不同计算机中两个程序之间的数据交换</strong>。在实际进行数据交换时，<strong>为了让接收端理解该数据</strong>，计算机比较笨，什么都不懂的，那么<strong>就需要规定该数据的格式，这个数据的格式就是协议。</strong></p>
+<h3 id="协议的列子"><a href="#协议的列子" class="headerlink" title="协议的列子"></a>协议的列子</h3><p>如 果没有理解协议的概念，那么再举一个例子，记得有个电影叫《永不消逝的电波》，讲述的是地下党通过电台发送情报的故事，这里我们不探讨电影的剧情，而只关 心电台发送的数据。在<strong>实际发报时，需要首先将需要发送的内容转换为电报编码，然后将电报编码发送出去，而接收端接收的是电报编码，如果需要理解电报的内容 则需要根据密码本翻译出该电报的内容</strong>。<strong>这里的密码本就规定了一种数据格式，这种对于网络中传输的数据格式在网络编程中就被称作协议。</strong></p>
+<p>那么如何来编写协议格式呢？答案是随意。只要按照这种协议格式能够生成唯一的编码，按照该编码可以唯一的解析出发送数据的内容即可。也正因为各个网络程序之间协议格式的不同，所以才导致了客户端程序都是专用的结构。</p>
+<p>在实际的网络程序编程中，最麻烦的内容不是数据的发送和接收，因为这个功能在几乎所有的程序语言中都提供了封装好的API进行调用，最麻烦的内容就是协议的设计以及协议的生产和解析，这个才是网络编程中最核心的内容。</p>
+<p>关于网络编程的基础知识，就介绍这里，深刻理解IP地址、端口和协议等概念，将会极大的有助于后续知识的学习。 </p>
+<h1 id="网络通讯方式"><a href="#网络通讯方式" class="headerlink" title="网络通讯方式"></a>网络通讯方式</h1><p>在现有的网络中，网络通讯的方式主要有两种：</p>
+<ul>
+<li>TCP(传输控制协议)方式</li>
+<li>UDP(用户数据报协议)方式</li>
+</ul>
+<p>为 了方便理解这两种方式，还是先来看一个例子。大家使用手机时，向别人传递信息时有两种方式：拨打电话和发送短信。使用拨打电话的方式可以保证将信息传递给 别人，因为别人接听电话时本身就确认接收到了该信息。而发送短信的方式价格低廉，使用方便，但是接收人有可能接收不到。</p>
+<p>在网络通讯中，<strong>TCP方式就类似于拨打电话</strong>，使用该种方式进行网络通讯时，<strong>需要建立专门的虚拟连接，然后进行可靠的数据传输，如果数据发送失败，则客户端会自动重发该数据。</strong></p>
+<p>而<strong>UDP方式就类似于发送短信</strong>，使用这种方式进行网络通讯时，不需要建立专门的虚拟连接，传输也不是很可靠，如果发送失败则客户端无法获得。</p>
+<p>这两种传输方式都是实际的网络编程中进行使用，<strong>重要的数据一般使用TCP方式进行数据传输</strong>，而大量的<strong>非核心数据则都通过UDP方式进行传递</strong>，在一些程序中甚至结合使用这两种方式进行数据的传递。</p>
+<p>由于TCP需要建立专用的虚拟连接以及确认传输是否正确，所以使用TCP方式的速度稍微慢一些，而且传输时产生的数据量要比UDP稍微大一些。</p>
+<p>关于网络编程的基础知识就介绍这么多，如果需要深入了解相关知识请阅读专门的计算机网络书籍，下面开始介绍Java语言中网络编程的相关技术。</p>
+<blockquote>
+<p>原文链接: <a href="https://www.lansheng.net.cn/blog/d9a41e7d/" target="_blank" rel="noopener">1网络概述</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/d9a41e7d/" title="1网络概述">https://lanlan2017.github.io/ReadingNotes/d9a41e7d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/20535608/" rel="prev" title="2网络编程技术">
+                  2网络编程技术 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络概述"><span class="nav-number">1.</span> <span class="nav-text">网络概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机网络概述"><span class="nav-number">1.1.</span> <span class="nav-text">计算机网络概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从网络中找到一个计算机—IP地址"><span class="nav-number">1.1.1.</span> <span class="nav-text">从网络中找到一个计算机—IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#域名—方便记忆"><span class="nav-number">1.1.2.</span> <span class="nav-text">域名—方便记忆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#域名和IP地址的区别"><span class="nav-number">1.1.3.</span> <span class="nav-text">域名和IP地址的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在一个计算机中找到一个程序—端口"><span class="nav-number">1.1.4.</span> <span class="nav-text">在一个计算机中找到一个程序—端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在网络上找到一个程序：IP地址-端口号"><span class="nav-number">1.1.5.</span> <span class="nav-text">在网络上找到一个程序：IP地址+端口号</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络编程概述"><span class="nav-number"></span> <span class="nav-text">网络编程概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#请求响应模型"><span class="nav-number">1.</span> <span class="nav-text">请求响应模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求响应模型-1"><span class="nav-number">2.</span> <span class="nav-text">请求响应模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端-服务器结构"><span class="nav-number">3.</span> <span class="nav-text">客户端&#x2F;服务器结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">3.1.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器-服务器结构"><span class="nav-number">4.</span> <span class="nav-text">浏览器&#x2F;服务器结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点："><span class="nav-number">4.1.</span> <span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P2P-Point-to-Point-程序"><span class="nav-number">5.</span> <span class="nav-text">P2P(Point to Point)程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议-Protocol"><span class="nav-number">6.</span> <span class="nav-text">协议(Protocol)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协议的列子"><span class="nav-number">6.1.</span> <span class="nav-text">协议的列子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络通讯方式"><span class="nav-number"></span> <span class="nav-text">网络通讯方式</span></a></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="4.4 创建自定义动画&amp;nbsp;animate方法类型&amp;nbsp;类型2&amp;nbsp;4.4.1 手工创建效果&amp;nbsp;4.4.2 一次给多个属性添加动画效果&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.4 创建自定义动画">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/ec993adb/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="4.4 创建自定义动画&amp;nbsp;animate方法类型&amp;nbsp;类型2&amp;nbsp;4.4.1 手工创建效果&amp;nbsp;4.4.2 一次给多个属性添加动画效果&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-20T16:58:22.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/ec993adb/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>4.4 创建自定义动画 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/ec993adb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">4.4 创建自定义动画
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-20 16:58:22" itemprop="dateCreated datePublished" datetime="2019-07-20T16:58:22+00:00">2019-07-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC4%E7%AB%A0-%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index"><span itemprop="name">第4章 样式与动画</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC4%E7%AB%A0-%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%8A%A8%E7%94%BB/4-4-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index"><span itemprop="name">4.4 创建自定义动画</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/ec993adb/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/ec993adb/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/ec993adb/#4-4-创建自定义动画" class="header_1">4.4 创建自定义动画</a>&nbsp;<br><a href="/ReadingNotes/ec993adb/#animate方法类型" class="header_2">animate方法类型</a>&nbsp;<br><a href="/ReadingNotes/ec993adb/#类型2" class="header_3">类型2</a>&nbsp;<br><a href="/ReadingNotes/ec993adb/#4-4-1-手工创建效果" class="header_1">4.4.1 手工创建效果</a>&nbsp;<br><a href="/ReadingNotes/ec993adb/#4-4-2-一次给多个属性添加动画效果" class="header_2">4.4.2 一次给多个属性添加动画效果</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="4-4-创建自定义动画"><a href="#4-4-创建自定义动画" class="headerlink" title="4.4 创建自定义动画"></a>4.4 创建自定义动画</h1><p>除了预置的效果方法外,<code>jQuery</code>还提供了一个强大的<code>.animate()</code>方法,用于创建控制更加精细的自定义动画。</p>
+<h2 id="animate方法类型"><a href="#animate方法类型" class="headerlink" title="animate方法类型"></a>animate方法类型</h2><p><code>.animate()</code>方法有两种形式,第一种形式接收以下4个参数。</p>
+<ol>
+<li>一个包含样式属性及值的<code>对象</code>:与本章前面讨论的<code>.css()</code>方法中的参数类似。</li>
+<li>可选的<code>时长</code>参数:既可以是预置的字符串,也可以是毫秒数值。</li>
+<li>可选的<code>缓动</code>(<code>easing</code>)类型:现在我们先不介绍,这是第11章中将要讨论的一个高级选项。</li>
+<li>可选的<code>回调函数</code>:将在本章后面讨论。把这4个参数放到一起,结果如下所示:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.animate(&#123;<span class="attr">property1</span>: <span class="string">'value1'</span>, <span class="attr">property2</span>: <span class="string">'value2'</span>&#125;,  </span><br><span class="line">duration, easing, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    alert(<span class="string">'The animation is finished.'</span>); </span><br><span class="line">  &#125; </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="类型2"><a href="#类型2" class="headerlink" title="类型2"></a>类型2</h3>第二种形式接受两个参数,一个<code>属性对象</code>和一个<code>选项对象</code>:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.animate(&#123;properties&#125;, &#123;options&#125;)</span><br></pre></td></tr></table></figure>
+实际上,这里的第二个参数是把第一种形式的第2～4个参数封装在了另一个对象中,同时又添加了两个选项。考虑到可读性并调整了换行之后,调用第二种形式的方法的代码如下:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.animate(</span><br><span class="line">    &#123;</span><br><span class="line">        property1: <span class="string">'value1'</span>,</span><br><span class="line">        property2: <span class="string">'value2'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        duration: <span class="string">'value'</span>,</span><br><span class="line">        easing: <span class="string">'value'</span>,</span><br><span class="line">        specialEasing: </span><br><span class="line">        &#123;</span><br><span class="line">            property1: <span class="string">'easing1'</span>,</span><br><span class="line">            property2: <span class="string">'easing2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        complete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            alert(<span class="string">'The animation is finished.'</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        queue: <span class="literal">true</span>,</span><br><span class="line">        step: callback</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+现在,我们使用第一种形式的<code>.animate()</code>方法,但在本章后面介绍排队效果时会使用其第二种形式。<h1 id="4-4-1-手工创建效果"><a href="#4-4-1-手工创建效果" class="headerlink" title="4.4.1 手工创建效果"></a>4.4.1 手工创建效果</h1>现在,我们已经介绍了几个用于显示和隐藏元素的预定义方法。为了讨论<code>.animate()</code>方法,有必要看一看怎么通过这个低级接口来实现与调用<code>.slideToggle()</code>相同的效果。在此,我们把前面例子中调用<code>.slideToggle()</code>方法的代码替换成了自定义动画代码,参见代码清单4-13。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> $speech = $(<span class="string">'div.speech'</span>);</span><br><span class="line">  <span class="keyword">var</span> defaultSize = $speech.css(<span class="string">'fontSize'</span>);</span><br><span class="line">  $(<span class="string">'#switcher button'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="built_in">parseFloat</span>($speech.css(<span class="string">'fontSize'</span>));</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">this</span>.id) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'switcher-large'</span>:</span><br><span class="line">        num *= <span class="number">1.4</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'switcher-small'</span>:</span><br><span class="line">        num /= <span class="number">1.4</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        num = <span class="built_in">parseFloat</span>(defaultSize);</span><br><span class="line">    &#125;</span><br><span class="line">    $speech.css(<span class="string">'fontSize'</span>, num + <span class="string">'px'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> $firstPara = $(<span class="string">'p'</span>).eq(<span class="number">1</span>);</span><br><span class="line">  $firstPara.hide();</span><br><span class="line">  $(<span class="string">'a.more'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    <span class="comment">// 自定义动画</span></span><br><span class="line">    $firstPara.animate(&#123;<span class="attr">height</span>: <span class="string">'toggle'</span>&#125;, <span class="string">'slow'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> $link = $(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">if</span> ($link.text() == <span class="string">'read more'</span>) &#123;</span><br><span class="line">      $link.text(<span class="string">'read less'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      $link.text(<span class="string">'read more'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+通过这个例子可以看出,<code>.animate()</code>方法针对<code>CSS</code>属性提供了方便简写值:<code>&#39;show&#39;</code>、<code>&#39;hide&#39;</code>和<code>&#39;toggle&#39;</code>, 以便在简写方法不适用时提供另一种简化<code>.slideToggle()</code>等内置效果方法的方式。<h2 id="4-4-2-一次给多个属性添加动画效果"><a href="#4-4-2-一次给多个属性添加动画效果" class="headerlink" title="4.4.2 一次给多个属性添加动画效果"></a>4.4.2 一次给多个属性添加动画效果</h2>使用<code>.animate()</code>方法可以同时修改多个<code>CSS</code>属性。例如,要在切换第二个段落时,创建一个同时具有滑动和淡入淡出效果的动画,只需在<code>.animate()</code>方法的属性对象参数中添加一个<code>opacity</code>属性值对即可,参见代码清单4-14。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $firstPara = $(<span class="string">'p'</span>).eq(<span class="number">1</span>);</span><br><span class="line">$firstPara.hide();</span><br><span class="line">$(<span class="string">'a.more'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    $firstPara.animate(&#123;</span><br><span class="line">        opacity: <span class="string">'toggle'</span>,</span><br><span class="line">        height: <span class="string">'toggle'</span></span><br><span class="line">    &#125;, <span class="string">'slow'</span>);</span><br><span class="line">    <span class="keyword">var</span> $link = $(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">if</span> ($link.text() == <span class="string">'read more'</span>) &#123;</span><br><span class="line">        $link.text(<span class="string">'read less'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $link.text(<span class="string">'read more'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+此外,不仅可以在简写效果方法中使用样式属性,也可以使用其他<code>CSS</code>属性,如:<code>left</code>、<code>top</code>、<code>fontSize</code>、<code>margin</code>、<code>padding</code>和<code>borderWidth</code>。还记得改变演讲段落文本大小的脚本吗?要实现同样的文本大小变化动画,只要把<code>.css()</code>方法替换成<code>.animate()</code>方法即可,参见代码清单4-15。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">  <span class="keyword">var</span> $speech = $(<span class="string">'div.speech'</span>); </span><br><span class="line">  <span class="keyword">var</span> defaultSize = $speech.css(<span class="string">'fontSize'</span>); </span><br><span class="line">  $(<span class="string">'#switcher button'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> num = <span class="built_in">parseFloat</span>($speech.css(<span class="string">'fontSize'</span>)); </span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">this</span>.id) &#123; </span><br><span class="line">      <span class="keyword">case</span> <span class="string">'switcher-large'</span>: </span><br><span class="line">        num *= <span class="number">1.4</span>;       </span><br><span class="line">        <span class="keyword">break</span>; </span><br><span class="line">      <span class="keyword">case</span> <span class="string">'switcher-small'</span>: </span><br><span class="line">        num /= <span class="number">1.4</span>; </span><br><span class="line">        <span class="keyword">break</span>; </span><br><span class="line">      <span class="keyword">default</span>: </span><br><span class="line">        num = <span class="built_in">parseFloat</span>(defaultSize);  </span><br><span class="line">    &#125; </span><br><span class="line">    $speech.animate(&#123;<span class="attr">fontSize</span>: num + <span class="string">'px'</span>&#125;, <span class="string">'slow'</span>); </span><br><span class="line">  &#125;); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+再使用其他属性,则可以创造出更复杂的效果。例如,可以在把某个项从页面左侧移动到右侧的同时,让该项的高度增加20像素并使其边框宽度增加到5像素。下面,我们就把这个效果应用于<code>&lt;div id=&quot;switcher&quot;&gt;</code>盒子。图4-8显示了应用效果之前的画面。<br>在可变宽度的布局中,需要计算盒子在与页面右侧对齐之前应该移动的距离。假设段落宽度为100%,可以从段落宽度中减去<code>Text Size</code>盒子的宽度。<strong>我们使用<code>jQuery</code>的<code>.outWidth()</code>方法来计算宽度,包括内边距及边框宽度。我们还使用这个方法计算转换器新的<code>left</code>属性</strong>。对于这个例子而言,我们打算通过单击按钮上面的<code>Text Size</code>文本来触发动画,参见代码清单4-16。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">  $(<span class="string">'div.label'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> paraWidth = $(<span class="string">'div.speech p'</span>).outerWidth(); </span><br><span class="line">    <span class="keyword">var</span> $switcher = $(<span class="keyword">this</span>).parent(); </span><br><span class="line">    <span class="keyword">var</span> switcherWidth = $switcher.outerWidth(); </span><br><span class="line">    $switcher.animate(&#123; </span><br><span class="line">      borderWidth: <span class="string">'5px'</span>, </span><br><span class="line">      left: paraWidth - switcherWidth, </span><br><span class="line">      height: <span class="string">'+=20px'</span> </span><br><span class="line">    &#125;, <span class="string">'slow'</span>); </span><br><span class="line">  &#125;); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+在此,有必要详细解释一下这些动画属性。首先,<code>borderWidth</code>属性很明显,只要给它指定一个常量值加一个单位即可,就像在样式表中一样。其次,<code>left</code>属性是计算的数值。这些属性值的单位后缀是可选的,如果不指定,就会默认以px作为单位。最后,<code>height</code>属性使用我们以前没有遇到过的语法,其中属性值前面的<code>+=</code>操作符表示相对值。在这里表示的意思不是以动画方式变化到20像素,而是在原来基础上再以动画方式变化20像素。因为涉及特殊字符问题,所以必须以字符串形式指定相对值,也就是说必须把值放到一对括号内。<!--SSTStop-->
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/ec993adb/" title="4.4 创建自定义动画">https://lanlan2017.github.io/ReadingNotes/ec993adb/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/1f645f17/" rel="next" title="4.3.4 切换可见性">
+                  <i class="fa fa-chevron-left"></i> 4.3.4 切换可见性
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/8d0f89ac/" rel="prev" title="4.5 并发与排队效果 4.5.1 处理一组元素">
+                  4.5 并发与排队效果 4.5.1 处理一组元素 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-创建自定义动画"><span class="nav-number">1.</span> <span class="nav-text">4.4 创建自定义动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#animate方法类型"><span class="nav-number">1.1.</span> <span class="nav-text">animate方法类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型2"><span class="nav-number">1.1.1.</span> <span class="nav-text">类型2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-1-手工创建效果"><span class="nav-number">2.</span> <span class="nav-text">4.4.1 手工创建效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-2-一次给多个属性添加动画效果"><span class="nav-number">2.1.</span> <span class="nav-text">4.4.2 一次给多个属性添加动画效果</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

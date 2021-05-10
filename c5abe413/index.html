@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="7.2.3 属性&amp;nbsp;属性的域&amp;nbsp;属性类型分类&amp;nbsp;简单(&#96;simple&#96;)和复合(&#96;composite&#96;)属性&amp;nbsp;什么是简单属性&amp;nbsp;什么是复合属性&amp;nbsp;使用复合属性的情况&amp;nbsp;复合属性的好处&amp;nbsp;复合属性可有层次&amp;nbsp;单值( &#96;single-valued&#96;)和多值( &#96;multivalued&#96;)属性&amp;nbsp;如何表示多值属性&amp;nbsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.2.3 属性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/c5abe413/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="7.2.3 属性&amp;nbsp;属性的域&amp;nbsp;属性类型分类&amp;nbsp;简单(&#96;simple&#96;)和复合(&#96;composite&#96;)属性&amp;nbsp;什么是简单属性&amp;nbsp;什么是复合属性&amp;nbsp;使用复合属性的情况&amp;nbsp;复合属性的好处&amp;nbsp;复合属性可有层次&amp;nbsp;单值( &#96;single-valued&#96;)和多值( &#96;multivalued&#96;)属性&amp;nbsp;如何表示多值属性&amp;nbsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-01T21:04:21.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/c5abe413/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>7.2.3 属性 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/c5abe413/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">7.2.3 属性
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-01 21:04:21" itemprop="dateCreated datePublished" datetime="2019-11-01T21:04:21+00:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">第二部分 数据库设计</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">第7章 数据库设计和E-R模型</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/7-2-%E5%AE%9E%E4%BD%93-%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">7.2 实体-联系模型</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/c5abe413/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/c5abe413/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/c5abe413/#7-2-3-属性" class="header_1">7.2.3 属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#属性的域" class="header_2">属性的域</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#属性类型分类" class="header_2">属性类型分类</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#简单-simple-和复合-composite-属性" class="header_3">简单(`simple`)和复合(`composite`)属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#什么是简单属性" class="header_4">什么是简单属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#什么是复合属性" class="header_4">什么是复合属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#使用复合属性的情况" class="header_4">使用复合属性的情况</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#复合属性的好处" class="header_5">复合属性的好处</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#复合属性可有层次" class="header_5">复合属性可有层次</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#单值-single-valued-和多值-multivalued-属性" class="header_3">单值( `single-valued`)和多值( `multivalued`)属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#如何表示多值属性" class="header_4">如何表示多值属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#给多值属性设置上下界" class="header_4">给多值属性设置上下界</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#派生-derived-属性" class="header_3">派生(`derived`)属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#基属性" class="header_4">基属性</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#派生属性的特点" class="header_4">派生属性的特点</a>&nbsp;<br><a href="/ReadingNotes/c5abe413/#null" class="header_3">null</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="7-2-3-属性"><a href="#7-2-3-属性" class="headerlink" title="7.2.3 属性"></a>7.2.3 属性</h1><h2 id="属性的域"><a href="#属性的域" class="headerlink" title="属性的域"></a>属性的域</h2><p>每个属性都有一个<strong>可取值的集合</strong>,称为该<strong>属性的<code>域</code></strong>(<code>domain</code>),或者<strong>值集</strong>( <code>value set</code>)。</p>
+<ul>
+<li><code>course_id</code>属性的域可能是特定长度的所有文本字符串的集合。</li>
+<li>类似地,属性<code>semester</code>的域可能是集合{秋,冬,春,夏}中的字符串</li>
+</ul>
+<p>正规地说,<strong>实体集的属性是将实体集映射到域的函数</strong>。由于一个实体集可能有多个属性,因此每个实体可以用一组<strong>(<code>属性</code>,<code>数据值</code>)</strong>对来表示,实体集的每个属性对应一个这样的对。<br>例如,某个<code>instructor</code>实体可以用集合<code>{(ID,76766),(name, Crick),(dept_name,生物),( salary,72000)}</code>来描述,</p>
+<ul>
+<li>该实体描述了一个叫<code>Crick</code>的人,他的教师<code>编号</code>为76766,是<code>生物系</code>的成员,<code>工资</code>为<code>$72000</code>。</li>
+</ul>
+<p>从这里我们可以看出抽象模式与被建模的实际企业的结合<strong>。用来描述实体的属性值构成存储在数据库中的数据的一个重要部分</strong>。</p>
+<h2 id="属性类型分类"><a href="#属性类型分类" class="headerlink" title="属性类型分类"></a>属性类型分类</h2><p>E-R模型中的属性可以按照如下的属性类型来进行划分:</p>
+<h3 id="简单-simple-和复合-composite-属性"><a href="#简单-simple-和复合-composite-属性" class="headerlink" title="简单(simple)和复合(composite)属性"></a>简单(<code>simple</code>)和复合(<code>composite</code>)属性</h3><h4 id="什么是简单属性"><a href="#什么是简单属性" class="headerlink" title="什么是简单属性"></a>什么是简单属性</h4><p>在我们的例子中,迄今为止出现的属性都是<strong>简单属性</strong>,也就是说,<strong>简单属性不能划分为更小的部分</strong>。</p>
+<h4 id="什么是复合属性"><a href="#什么是复合属性" class="headerlink" title="什么是复合属性"></a>什么是复合属性</h4><p><strong>复合(<code>composite</code>)属性可以再划分为更小的部分(即其他属性)</strong>。</p>
+<p>例如,属性<code>name</code>可设计为一个包括<code>first_name</code>、 <code>middle_initial</code>和<code>last_name</code>的复合属性。</p>
+<h4 id="使用复合属性的情况"><a href="#使用复合属性的情况" class="headerlink" title="使用复合属性的情况"></a>使用复合属性的情况</h4><p><strong>如果一个用户<code>希望在一些场景中引用完整的属性</code>,而<code>在另外的场景中仅引用属性的一部分</code>,则在设计模式中使用复合属性是一个好的选择</strong>。<br>假设我们要给<code>student</code>实体集增加个<strong>地址</strong>。地址可定义为包含属性<code>street</code>、<code>city</code>、<code>state</code>和<code>zip_code</code>的复合属性<code>address</code>。</p>
+<h5 id="复合属性的好处"><a href="#复合属性的好处" class="headerlink" title="复合属性的好处"></a>复合属性的好处</h5><p>复合属性帮助我们<code>把相关属性聚集起来</code>,使模型更清晰。</p>
+<h5 id="复合属性可有层次"><a href="#复合属性可有层次" class="headerlink" title="复合属性可有层次"></a>复合属性可有层次</h5><p>注意,<strong>复合属性可以是<code>有层次</code>的</strong>。在复合属性<code>address</code>中,其子属性<code>street</code>可以进一步分为<code>street_number</code>、<code>street_name</code>和<code>apartment_number</code>。</p>
+<h3 id="单值-single-valued-和多值-multivalued-属性"><a href="#单值-single-valued-和多值-multivalued-属性" class="headerlink" title="单值( single-valued)和多值( multivalued)属性"></a>单值( <code>single-valued</code>)和多值( <code>multivalued</code>)属性</h3><p><strong>一个属性值只能对应一个一个特定实体的属性</strong>是单值(<code>single valued</code>)的属性。<br>例如,对某个特定的学生实体而言, <code>student_ID</code>属性只对应于一个学生<code>ID</code>。<br>而在某些情况下对某个特定实体而言,<strong>一个属性可能对应于一组值</strong>。<br>假设我们往<code>instructor</code>实体集添加一个<code>phone_number</code>属性,<code>每个教师可以有零个、个或多个电话号码</code>,不同的教师可以有不同数量的电话。这样的属性称作是多值( <code>multivalued</code>)的。<br>作为另一个例子,我们可以往实体集<code>instructor</code>中添加一个属性<code>dependent_name</code>,它列出所有的眷属。这个属性将是多值的,因为任何一个特定的教师可能有零个、一个或多个眷属</p>
+<h4 id="如何表示多值属性"><a href="#如何表示多值属性" class="headerlink" title="如何表示多值属性"></a>如何表示多值属性</h4><p>为了表示一个属性是多值的,我们<strong>用花括号将属性名</strong>括住,例如:<code>{phone_number}</code>或者<code>{dependent_name}</code>。</p>
+<h4 id="给多值属性设置上下界"><a href="#给多值属性设置上下界" class="headerlink" title="给多值属性设置上下界"></a>给多值属性设置上下界</h4><p>在适当的情况下,可以<strong>对一个多值属性的取值数目设置上、下界</strong>。<br>例如,<strong>一所大学可能将一个教师的电话号码个数限制在两个以内</strong>。在这个例子中设置限制表明<code>instructor</code>实体集的<code>phone_number</code>属性可以有0~2个值。</p>
+<h3 id="派生-derived-属性"><a href="#派生-derived-属性" class="headerlink" title="派生(derived)属性"></a>派生(<code>derived</code>)属性</h3><p>这类<strong>属性的值可以从别的相关属性或实体派生出来</strong>。例如,让我们假设<code>instructor</code>实体集有一个属性<code>students_advised</code>,表示<strong>一个教师指导了多少个学生</strong>。我们<strong>可以通过统计与一个教师相关联的所有<code>student</code>实体的数目来得到这个属性的值</strong>。<br>又如,假设<code>instructor</code>实体集具有属性<code>age</code>,表示教师的年龄。如果<code>instructor</code>实体集还具有属性<code>date_of_birth</code>,我们就可以从当前的日期和<code>dae_ of_birth</code><strong>计算出</strong><code>age</code>。因此<code>age</code>就是派生属性。</p>
+<h4 id="基属性"><a href="#基属性" class="headerlink" title="基属性"></a>基属性</h4><p>在这里, </p>
+<ul>
+<li><code>date_of_birth</code>可以称为基属性,或<code>存储的属性</code>。</li>
+<li><code>age</code>称为<code>派生属性</code><h4 id="派生属性的特点"><a href="#派生属性的特点" class="headerlink" title="派生属性的特点"></a>派生属性的特点</h4><strong>派生属性的值不存储,而是在需要时计算出来</strong>。<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3>当实体在某个属性上没有值时使用空(<code>null</code>)值。</li>
+<li>空值可以表示”不适用”,即该实体的这个属性不存在值。例如,一个人可能没有中间名字。</li>
+<li>空值还可以用来表示属性值未知。未知的值<strong>可能是缺失的</strong>(值存在,但我们没有该信息),<strong>或不知道的</strong>(我们并不知道该值是否确实存在)。</li>
+</ul>
+<p>例如</p>
+<ul>
+<li>如果一个特定的教师的<code>name</code>值是空,我们推测这个值是<code>缺失的</code>,因为每个教师肯定有一个名字。</li>
+<li>而<code>apartment_number</code>属性的空值<ul>
+<li>可能意味着地址不包括房间号(不适用),</li>
+<li>或房间号是存在的但是我们不知道是什么(缺失的),</li>
+<li>或者我们不知道房间号是否是该教师的地址的一部分(不知道的)。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/c5abe413/" title="7.2.3 属性">https://lanlan2017.github.io/ReadingNotes/c5abe413/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/8c04dbed/" rel="next" title="7.2.2 联系集">
+                  <i class="fa fa-chevron-left"></i> 7.2.2 联系集
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ReadingNotes/272661d/" rel="prev" title="7.3 约束 7.3.1 映射基数">
+                  7.3 约束 7.3.1 映射基数 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-2-3-属性"><span class="nav-number">1.</span> <span class="nav-text">7.2.3 属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的域"><span class="nav-number">1.1.</span> <span class="nav-text">属性的域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性类型分类"><span class="nav-number">1.2.</span> <span class="nav-text">属性类型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单-simple-和复合-composite-属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">简单(simple)和复合(composite)属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是简单属性"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">什么是简单属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是复合属性"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">什么是复合属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用复合属性的情况"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">使用复合属性的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#复合属性的好处"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">复合属性的好处</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复合属性可有层次"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">复合属性可有层次</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单值-single-valued-和多值-multivalued-属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">单值( single-valued)和多值( multivalued)属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何表示多值属性"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">如何表示多值属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给多值属性设置上下界"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">给多值属性设置上下界</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#派生-derived-属性"><span class="nav-number">1.2.3.</span> <span class="nav-text">派生(derived)属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基属性"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">基属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#派生属性的特点"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">派生属性的特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.2.4.</span> <span class="nav-text">null</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

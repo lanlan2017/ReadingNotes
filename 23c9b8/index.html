@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg?v=7.4.1" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/ReadingNotes/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ReadingNotes/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前言&amp;nbsp;基本内容&amp;nbsp;重点与难点&amp;nbsp;函数依赖&amp;nbsp;(1)函数依赖的定义&amp;nbsp;示例&amp;nbsp;(2)函数依赖的示例&amp;nbsp;表1&amp;nbsp;表2&amp;nbsp;(3)函数依赖的特性&amp;nbsp;(4)函数依赖的提取练习&amp;nbsp;完全函数依赖与传递函数依赖&amp;nbsp;(1)部分函数依赖与完全函数依赖的定义&amp;nbsp;(2)部分函数依赖与完全函数依赖的示例&amp;nbsp;(3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第4讲 总第14讲 函数依赖及其公理 定理">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/23c9b8/index.html">
+<meta property="og:site_name" content="读书笔记|蓝蓝博客">
+<meta property="og:description" content="前言&amp;nbsp;基本内容&amp;nbsp;重点与难点&amp;nbsp;函数依赖&amp;nbsp;(1)函数依赖的定义&amp;nbsp;示例&amp;nbsp;(2)函数依赖的示例&amp;nbsp;表1&amp;nbsp;表2&amp;nbsp;(3)函数依赖的特性&amp;nbsp;(4)函数依赖的提取练习&amp;nbsp;完全函数依赖与传递函数依赖&amp;nbsp;(1)部分函数依赖与完全函数依赖的定义&amp;nbsp;(2)部分函数依赖与完全函数依赖的示例&amp;nbsp;(3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/3.png">
+<meta property="article:published_time" content="2019-12-07T21:18:00.000Z">
+<meta property="article:modified_time" content="2019-12-17T02:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="读书">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/-1.png">
+  <link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/23c9b8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>第4讲 总第14讲 函数依赖及其公理 定理 | 读书笔记|蓝蓝博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ReadingNotes/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">读书笔记|蓝蓝博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/ReadingNotes/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-dir">
+      
+    
+
+    <a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-fw fa-sitemap"></i>目录</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/ReadingNotes/links/" rel="section"><i class="fa fa-fw fa-link"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lanlan2017" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ReadingNotes/23c9b8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蓝蓝">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="读书笔记|蓝蓝博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">第4讲 总第14讲 函数依赖及其公理 定理
+
+          
+        </h2>
+
+        <div class="post-meta">
+          <!-- 置顶插件添加 开始 -->
+          
+          <!-- 置顶插件添加 结束 -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-07 21:18:00" itemprop="dateCreated datePublished" datetime="2019-12-07T21:18:00+00:00">2019-12-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+00:00">2019-12-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">数据库系统</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E4%B8%AD/" itemprop="url" rel="index"><span itemprop="name">中</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/ReadingNotes/23c9b8/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/ReadingNotes/23c9b8/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><div id='my_toc'><a href="/ReadingNotes/23c9b8/#前言" class="header_1">前言</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#基本内容" class="header_2">基本内容</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#重点与难点" class="header_2">重点与难点</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#函数依赖" class="header_1">函数依赖</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-1-函数依赖的定义" class="header_2">(1)函数依赖的定义</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#示例" class="header_2">示例</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-2-函数依赖的示例" class="header_2">(2)函数依赖的示例</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#表1" class="header_3">表1</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#表2" class="header_3">表2</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-3-函数依赖的特性" class="header_2">(3)函数依赖的特性</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-4-函数依赖的提取练习" class="header_2">(4)函数依赖的提取练习</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#完全函数依赖与传递函数依赖" class="header_1">完全函数依赖与传递函数依赖</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-1-部分函数依赖与完全函数依赖的定义" class="header_2">(1)部分函数依赖与完全函数依赖的定义</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-2-部分函数依赖与完全函数依赖的示例" class="header_2">(2)部分函数依赖与完全函数依赖的示例</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-3-传递函数依赖的定义" class="header_2">(3)传递函数依赖的定义</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-4-传递函数依赖的示例" class="header_2">(4)传递函数依赖的示例</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#函数依赖相关的几个重要概念" class="header_1">函数依赖相关的几个重要概念</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-1-候选键的定义" class="header_2">(1)候选键的定义</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#主键" class="header_2">主键</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#主属性" class="header_2">主属性</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#超键" class="header_2">超键</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-2-候选键的示例" class="header_2">(2)候选键的示例</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-3-外键" class="header_2">(3)外键</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-4-逻辑蕴涵的定义" class="header_2">(4)逻辑蕴涵的定义</a>&nbsp;<br><a href="/ReadingNotes/23c9b8/#-5-闭包的定义" class="header_2">(5)闭包的定义</a>&nbsp;<br></div></p>
+<p><style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style><br><a id="more"></a></p>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="基本内容"><a href="#基本内容" class="headerlink" title="基本内容"></a>基本内容</h2><ol>
+<li>函数依赖</li>
+<li>完全函数依赖与传递函数依赖</li>
+<li>关于函数依赖的公理和定理</li>
+<li>函数依赖集的最小覆盖</li>
+</ol>
+<h2 id="重点与难点"><a href="#重点与难点" class="headerlink" title="重点与难点"></a>重点与难点</h2><ul>
+<li>一组概念:函数依赖、部分函数依赖和完全函数依赖、传递函数依赖、候选键、非主属性、逻辑蕴涵、闭包、属性闭包、覆盖、最小覆盖等</li>
+<li>关于函数依赖的公理和定理,相关的证明</li>
+<li>求属性闭包的算法、求最小覆盖的算法</li>
+</ul>
+<h1 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h1><h2 id="1-函数依赖的定义"><a href="#1-函数依赖的定义" class="headerlink" title="(1)函数依赖的定义"></a>(1)函数依赖的定义</h2><p>设$R(U)$是属性集合$U=\lbrace A_1,A_2,\cdots,A_n \rbrace $上的一个关系模式,$X$, $Y$是$U$上的两个子集,若对$R(U)$的任意一个可能的关系$r$,  $r$中不可能有<strong>两个元组</strong>满足<strong>在$X$中的属性值相等而在$Y$中的属性值不等</strong>,则称<strong>$X$函数决定$Y$</strong>或$Y$函数依赖于$X$, 记作$X \to Y$。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>示例：$U=\lbrace 学号,姓名,年龄,班号,班长,课号,成绩 \rbrace$</p>
+<ul>
+<li>学号函数决定姓名和年龄:<ul>
+<li>$学号\to\lbrace 姓名,年龄\rbrace$</li>
+</ul>
+</li>
+<li>学号函数决定班长:<ul>
+<li>$班号\to班长$</li>
+</ul>
+</li>
+<li>学号和课号函数决定成绩:<ul>
+<li>$\lbrace 学号,课号\rbrace\to 成绩$</li>
+</ul>
+</li>
+</ul>
+<p>注：函数依赖的分析取决于对问题领域的限定和分析,取决于对业务规则的正确理解。<br>例如：问题领域中,学生是<strong>没有重名的</strong>,则有:<strong>年龄</strong>和<strong>家庭住址</strong>都函数依赖于<strong>姓名</strong>。<br>而在另一个问题领域中,学生是有重名的,则上述函数依赖是不成立的。</p>
+<p>设计关系模式时,除给出属性全集外,还需给出数据依赖集合</p>
+<h2 id="2-函数依赖的示例"><a href="#2-函数依赖的示例" class="headerlink" title="(2)函数依赖的示例"></a>(2)函数依赖的示例</h2><p>示例:下列的表就是问题领域, 则存在的函数依赖有哪些呢?</p>
+<h3 id="表1"><a href="#表1" class="headerlink" title="表1"></a>表1</h3><p><img src="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/-1.png" alt=""><br>由于属性A上没有重复值,所以属性A可以决定B,A可以决定C<br>当B相同的时候,A有不同的值,所以B不能决定A<br>当B属性值相同的时候,C上的对应属性也是相同的,所以B能决定C<br>$A \to B$,$B \to C$,$A \to C$</p>
+<h3 id="表2"><a href="#表2" class="headerlink" title="表2"></a>表2</h3><p><img src="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/2.png" alt=""><br>当属性A有相同的属性值时候,B上对应的属性值有不同值,所以A不能决定B<br>当属性A相同的时候,属性C对应的值也相同,所以A能决定C,$A \to C$<br>当属性A相同的时候,属性D对应的值也相同,所以A能决定D,$A \to D$<br>当属性B相同的时候,属性A对应的值不相同,所以B不能决定A,$B \nrightarrow A$<br>当属性B相同的时候,属性C对应的值不相同,所以B不能决定C<br>当属性B相同的时候,属性D对应的值相同,所以B能决定D,$B \to D$<br>当属性C相同的时候,属性A对应的值不相同,所以C不能决定A</p>
+<h2 id="3-函数依赖的特性"><a href="#3-函数依赖的特性" class="headerlink" title="(3)函数依赖的特性"></a>(3)函数依赖的特性</h2><p>(1)对$X \to Y$,但$Y\require{cancel} \cancel{\subset}X$, 则称$X\to Y$为<strong>非平凡的函数依赖</strong>；<br>(2)若$X \to Y$,则任意两个元组,若X上值相等,则Y上值必然相等,则称X为<strong>决定因素</strong>；<br>(3)若$X\to Y$ ,$Y\to X$, 则记作$X \leftrightarrow Y$,互相决定<br>(4)若Y不函数依赖于X,则记作$X \nrightarrow Y$；<br>(5)$X\to Y$,有基于模式R的,则要求对任意的关系r成立；有基于具体关系r的,则要求对某一关系r成立；<br>(6)如一关系r的某属性集X,r中根本没有X上相等的两个元组存在,则$X\to Y$恒成立；</p>
+<h2 id="4-函数依赖的提取练习"><a href="#4-函数依赖的提取练习" class="headerlink" title="(4)函数依赖的提取练习"></a>(4)函数依赖的提取练习</h2><p>请分析下列属性集上的函数依赖<br>$\textbf{学生(学号,姓名,班级,课号,课程名,成绩,教师,教师职务)}$<br>$\textbf{员工(员工码,姓名,出生日期,联系电话, 最后学历,毕业学校,培训日期,培训内容,职务变动日期,变动后职务 )}$<br>$\textbf{图书(书号,书名,出版日期,出版社,书架号,房间号)}$<br>$\textbf{客户(客户号,客户名称,类别,联系电话,产品编码,产品名称,数量,要货日期)}$</p>
+<p>$\textbf{学生(学号,姓名,班级,课号,课程名,成绩,教师,教师职务)}$</p>
+<ul>
+<li>$学号\to \lbrace 姓名,班级 \rbrace$</li>
+<li>$课号\to 课程名$或者:<ul>
+<li>$\lbrace班级,课号\rbrace\to 教师$</li>
+<li>$课号\to 教师$</li>
+<li>$\lbrace学号,课号\rbrace\to 教师$<ul>
+<li>这几个究竟选择哪一个,取决于对问题领域的理解.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>$\lbrace学号,课号\rbrace\rightarrow 成绩$</li>
+<li>$教师\to教师职务$</li>
+<li>$\lbrace班级,课号\rbrace\to教师$</li>
+</ul>
+<p>$\textbf{客户(客户号,客户名称,类别,联系电话,产品编码,产品名称,数量,要货日期)}$</p>
+<p>$客户号\to\lbrace客户名称,类别\rbrace$<br>$产品编码\to产品名称$<br>$\lbrace客户号,产品编码,要货日期\rbrace\to数量$</p>
+<h1 id="完全函数依赖与传递函数依赖"><a href="#完全函数依赖与传递函数依赖" class="headerlink" title="完全函数依赖与传递函数依赖"></a>完全函数依赖与传递函数依赖</h1><h2 id="1-部分函数依赖与完全函数依赖的定义"><a href="#1-部分函数依赖与完全函数依赖的定义" class="headerlink" title="(1)部分函数依赖与完全函数依赖的定义"></a>(1)部分函数依赖与完全函数依赖的定义</h2><p>在$R(U)$中，</p>
+<ul>
+<li>若$X\to Y$并且对于$X$的任何真子集$X’ $都有$X’ \nrightarrow Y$,则称$Y$完全函数依赖于$X$, 记为：$X\xrightarrow{f}Y$。</li>
+<li>否则称Y部分函数依赖于$X$, 记为：$X\xrightarrow{f}Y$.</li>
+</ul>
+<p>示例:$U=\lbrace学号,姓名,年龄,班号,班长,课号,成绩 \rbrace$</p>
+<ul>
+<li>$\lbrace学号,课号\rbrace \xrightarrow{f}U$<ul>
+<li>单独的学号不能决定U,单独的课号(真子集)不能决定U,所以是完全函数依赖</li>
+</ul>
+</li>
+<li>$\lbrace学号,课号\rbrace \xrightarrow{p} 姓名$<ul>
+<li>单独的学号就可以决定姓名了,所以是部分函数依赖</li>
+</ul>
+</li>
+<li>$\lbrace学号,课号\rbrace\xrightarrow{f} 成绩$<ul>
+<li>单独的学号(真子集),单独的课号(真子集)都不能决定成绩,所以是完全函数依赖.</li>
+</ul>
+</li>
+</ul>
+<p><strong>部分依赖存在着<code>非受控冗余</code></strong><br><img src="https://raw.githubusercontent.com/lanlan2017/images/master/RedingNotes/ShuJuKuXiTong/Zhong/4/3.png" alt=""></p>
+<h2 id="2-部分函数依赖与完全函数依赖的示例"><a href="#2-部分函数依赖与完全函数依赖的示例" class="headerlink" title="(2)部分函数依赖与完全函数依赖的示例"></a>(2)部分函数依赖与完全函数依赖的示例</h2><p>$学生(学号,姓名,班级,课号,课程名,成绩,教师,教师职务)$</p>
+<ul>
+<li>${学号, 课号}\xrightarrow{f} U$; 但 ${学号, 课号}\xrightarrow{p} 姓名$</li>
+<li>${学号, 课号}\xrightarrow{p} 课程名$</li>
+</ul>
+<p>$员工(员工码,姓名,出生日期,联系电话, 最后学历,毕业学校,培训日期,培训内容)$</p>
+<ul>
+<li>${员工码, 培训日期} \xrightarrow{p} U$;单独的员工码无法决定培训内容,培训日期可以决定培训内容.所以员工码加上培训日期来可以决定U </li>
+<li>${员工码, 培训日期} \xrightarrow{p} {姓名,出生日期 }$,单独的员工码就可以决定该员工的姓名和出生日期了,所以是部分函数决定</li>
+</ul>
+<p>$图书(书号,书名,出版日期,出版社,书架号,房间号)$</p>
+<ul>
+<li>$\lbrace书号,房间号,书架号\rbrace\to U$,书号可以决定书名,出版日期,出版社,</li>
+</ul>
+<p>$客户(客户号,客户名称,类别,联系电话,产品编码,产品名称,数量,要货日期)$</p>
+<p>$学生(学号,姓名,系号,系主任)$</p>
+<h2 id="3-传递函数依赖的定义"><a href="#3-传递函数依赖的定义" class="headerlink" title="(3)传递函数依赖的定义"></a>(3)传递函数依赖的定义</h2><p>在R(U)中，若$X\to Y$，$Y\to Z$ 且$Y\require{cancel} \cancel{\subset}X$,$Z\require{cancel} \cancel{\subset}Y$,$Z\require{cancel} \cancel{\subset}X$, $Y\nrightarrow X$, 则称Z传递函数依赖于X。</p>
+<p>示例:$U=\lbrace学号,姓名,年龄,班号,班长,课号,成绩 \rbrace$<br>$学号\to班号$ ;$班号\to班长$,所以$学号\to班长$,(“班长”是传递依赖于 “学号”的。)</p>
+<p>示例:$学生(学号,姓名,系号,系主任)$<br>$学号\to系号$; $系号\to系主任$,所以$学号\to系主任$(“系主任”是传递依赖于 “学号”的)</p>
+<p><strong>传递依赖存在着非受控冗余</strong></p>
+<h2 id="4-传递函数依赖的示例"><a href="#4-传递函数依赖的示例" class="headerlink" title="(4)传递函数依赖的示例"></a>(4)传递函数依赖的示例</h2><p>$\textbf{商店(商店,商品,商品经营部,经营部经理)}$</p>
+<ul>
+<li>$\lbrace商店,商品经营部\rbrace\to经营部经理$</li>
+<li>$\lbrace商店,商品经营部\rbrace\to经营部经理$<br>所以有传递依赖:$\lbrace商店,商品\rbrace\to经营部经理$</li>
+</ul>
+<p>$\textbf{学生(学号,姓名,班级,班主任,课号,课程名,成绩,教师,教师职务)}$</p>
+<ul>
+<li>$学号\to班级;班级\to班主任$;</li>
+<li>$\lbrace学号,课号\rbrace\to教师;教师\to教师职务$;<br>所以有传递依赖:$\lbrace学号,课号\rbrace\to教师职务$</li>
+</ul>
+<p>$\textbf{员工(员工码,姓名,部门,部门经理)}$</p>
+<ul>
+<li>$员工码\to部门$</li>
+<li>$部门\to部门经理$<br>所以有传递依赖:$员工码\to部门经理$</li>
+</ul>
+<p>图书(书号,书名,出版日期,出版社,书架号,房间号,管理员)<br>客户(客户号,客户名称,类别,联系电话,产品编码,产品名称,数量,要货日期)</p>
+<h1 id="函数依赖相关的几个重要概念"><a href="#函数依赖相关的几个重要概念" class="headerlink" title="函数依赖相关的几个重要概念"></a>函数依赖相关的几个重要概念</h1><h2 id="1-候选键的定义"><a href="#1-候选键的定义" class="headerlink" title="(1)候选键的定义"></a>(1)候选键的定义</h2><p>设K为R(U)中的属性或属性组合,若$K\xrightarrow{f}U$,则称K为(U)上的候选键(Candidate Key)。</p>
+<ul>
+<li>唯一性</li>
+<li>最小性</li>
+</ul>
+<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>(1)可<strong>任选一个候选键</strong>作为R的<strong>主键</strong>(Primary Key)；</p>
+<h2 id="主属性"><a href="#主属性" class="headerlink" title="主属性"></a>主属性</h2><p>(2)包含在<strong>任一候选键中的属性</strong>称主属性(Prime Attribute),其他属性称<strong>非主属性</strong>；</p>
+<h2 id="超键"><a href="#超键" class="headerlink" title="超键"></a>超键</h2><p>(3)若K是R的一个候选键,$S\supset K$, 则称S为R的一个超键(Super Key)。候选键是没有多余属性的超键,候选键带上任意个其他属性可被视为超键<br>唯一性,没有最小性</p>
+<h2 id="2-候选键的示例"><a href="#2-候选键的示例" class="headerlink" title="(2)候选键的示例"></a>(2)候选键的示例</h2><p>$\textbf{学生(学号,年龄,家庭住址,课程号,成绩,教师,教师职务)}$<br>学生(学号,年龄,家庭住址,课程号,成绩,教师,教师职务)</p>
+<ul>
+<li>候选键:学号和课程号就可以决定所有的属性,所以学号和课程号就是一个候选键,$\lbrace学号,课程号\rbrace$</li>
+<li>主属性:学号,课程号</li>
+<li>非主属性:年龄,家庭住址,成绩,教师,教师职务.</li>
+</ul>
+<p>$\textbf{商店(商店,商品,商品经营部,商品经营部经理)}$<br>候选键是??,非主属性是??</p>
+<ul>
+<li>候选键:商店和商品可以决定商品经营部,商品经营部可以决定商品经营部经理,所以商店和商品可以决定所有的属性,所以候选键为商店和商品{商店,商品}</li>
+<li>非主属性:商品经营部,商品经营部经理.</li>
+</ul>
+<p>$\textbf{学生(学号,姓名,所属系别,系主任)}$<br>候选键是??,非主属性是??<br>候选键:学号<br>非主属性:姓名,所属系别,系主任</p>
+<h2 id="3-外键"><a href="#3-外键" class="headerlink" title="(3)外键"></a>(3)外键</h2><p>若R(U)中的属性或属性组合X并非R的候选键，但X却是另一关系的候选键，则称X为R的<strong>外来键</strong>(Foreign Key)，简称<strong>外键</strong>。<br>示例:<br>$R=\lbrace合同号,合同名,签订日期,{\color{red}{供应商名}}\rbrace$<br>$S=\lbrace供应商名,地址,执照号,法人代表\rbrace$<br>合同号是关系R个候选键:$合同号\xrightarrow{f} \lbrace合同号,合同名,签订日期,供应商名\rbrace$<br>供应商名是关键S的候选键:$供应商名\xrightarrow{f}\lbrace供应商名,地址,执照号,法人代表\rbrace$<br>所以供应商名,在关系R中是<strong>外键</strong></p>
+<h2 id="4-逻辑蕴涵的定义"><a href="#4-逻辑蕴涵的定义" class="headerlink" title="(4)逻辑蕴涵的定义"></a>(4)逻辑蕴涵的定义</h2><p>设F是关系模式R(U)中的一个函数依赖集合，X,Y是R的属性子集，如果从F中的函数依赖能够<strong>推导出</strong>$X\to Y$，则称F逻辑蕴涵$X\to Y$, 或称$X\to Y$是F的逻辑蕴涵。记作$F\models X\to Y$。</p>
+<p>省略</p>
+<h2 id="5-闭包的定义"><a href="#5-闭包的定义" class="headerlink" title="(5)闭包的定义"></a>(5)闭包的定义</h2><p>被F<code>逻辑蕴涵</code>的所有<code>函数依赖</code><strong>集合</strong>称为F的闭包(Closure)，记作$F^+$</p>
+<!-- RedingNotes/ShuJuKuXiTong/Zhong/4/ -->
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>蓝蓝</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lanlan2017.github.io/ReadingNotes/23c9b8/" title="第4讲 总第14讲 函数依赖及其公理 定理">https://lanlan2017.github.io/ReadingNotes/23c9b8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！<br><strong><mark>如果图片无法显示</mark></strong>: <a href='https://lanlan2017.github.io/blog/9a6c2fdf/'>https://lanlan2017.github.io/blog/9a6c2fdf/</a></li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/ReadingNotes/ef76614/" rel="next" title="第3讲 总第13讲 数据库设计过程">
+                  <i class="fa fa-chevron-left"></i> 第3讲 总第13讲 数据库设计过程
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本内容"><span class="nav-number">1.1.</span> <span class="nav-text">基本内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重点与难点"><span class="nav-number">1.2.</span> <span class="nav-text">重点与难点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数依赖"><span class="nav-number">2.</span> <span class="nav-text">函数依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-函数依赖的定义"><span class="nav-number">2.1.</span> <span class="nav-text">(1)函数依赖的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-函数依赖的示例"><span class="nav-number">2.3.</span> <span class="nav-text">(2)函数依赖的示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表1"><span class="nav-number">2.3.1.</span> <span class="nav-text">表1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表2"><span class="nav-number">2.3.2.</span> <span class="nav-text">表2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-函数依赖的特性"><span class="nav-number">2.4.</span> <span class="nav-text">(3)函数依赖的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数依赖的提取练习"><span class="nav-number">2.5.</span> <span class="nav-text">(4)函数依赖的提取练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完全函数依赖与传递函数依赖"><span class="nav-number">3.</span> <span class="nav-text">完全函数依赖与传递函数依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-部分函数依赖与完全函数依赖的定义"><span class="nav-number">3.1.</span> <span class="nav-text">(1)部分函数依赖与完全函数依赖的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-部分函数依赖与完全函数依赖的示例"><span class="nav-number">3.2.</span> <span class="nav-text">(2)部分函数依赖与完全函数依赖的示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-传递函数依赖的定义"><span class="nav-number">3.3.</span> <span class="nav-text">(3)传递函数依赖的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-传递函数依赖的示例"><span class="nav-number">3.4.</span> <span class="nav-text">(4)传递函数依赖的示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数依赖相关的几个重要概念"><span class="nav-number">4.</span> <span class="nav-text">函数依赖相关的几个重要概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-候选键的定义"><span class="nav-number">4.1.</span> <span class="nav-text">(1)候选键的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">4.2.</span> <span class="nav-text">主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主属性"><span class="nav-number">4.3.</span> <span class="nav-text">主属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超键"><span class="nav-number">4.4.</span> <span class="nav-text">超键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-候选键的示例"><span class="nav-number">4.5.</span> <span class="nav-text">(2)候选键的示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-外键"><span class="nav-number">4.6.</span> <span class="nav-text">(3)外键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-逻辑蕴涵的定义"><span class="nav-number">4.7.</span> <span class="nav-text">(4)逻辑蕴涵的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-闭包的定义"><span class="nav-number">4.8.</span> <span class="nav-text">(5)闭包的定义</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/ReadingNotes/images/avatar.jpg"
+      alt="蓝蓝">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/ReadingNotes/archives/%20%7C%7C%20archive">
+        
+          <span class="site-state-item-count">256</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/ReadingNotes/categories/%20%7C%7C%20th">
+          
+        
+        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/ReadingNotes/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ReadingNotes/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/ReadingNotes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/ReadingNotes/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/ReadingNotes/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+
+<script src="/ReadingNotes/js/next-boot.js?v=7.4.1.js"></script>
+
+<script src="/ReadingNotes/js/bookmark.js?v=7.4.1.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/ReadingNotes/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'KVtEjXUX9wDimI183iDfg6tK-MdYXbMMI',
+    appKey: 'mvmFgKF86C8Pi79KfVeFgzys',
+    placeholder: '在这里输入评论',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
