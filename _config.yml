@@ -87,8 +87,8 @@ deploy:
   # repo: git@blueblue233:blueblue233/blueblue233.github.io.git #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
   # branch: master #published
   type: git
-  # repo: git@github.com:lanlan2017/ReadingNotes.git #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
-  repo: https://gh_token@github.com/lanlan2017/ReadingNotes.git #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+  repo: git@github.com:lanlan2017/ReadingNotes.git #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+  # repo: https://gh_token@github.com/lanlan2017/ReadingNotes.git #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
   # branch: master #published
   branch: gh-pages #published
   # message: [message]
