@@ -53,6 +53,21 @@ date: 2019-12-17 04:08:18
 ## [第1部分 Spring的核心](/ReadingNotes/categories/Spring实战-第4版/第1部分-Spring的核心)
 - [第1章 Spring之旅](/ReadingNotes/categories/Spring实战-第4版/第1部分-Spring的核心/第1章-Spring之旅)
 
+# [Spring实战(第5版)](/ReadingNotes/categories/Spring实战-第5版)
+
+## [第0部分 内容提要 译者序 关于本书 前言 致谢 资源与支持](/ReadingNotes/categories/Spring实战-第5版/第0部分-内容提要-译者序-关于本书-前言-致谢-资源与支持)
+
+## [第1部分 Spring基础](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础)
+- [第1章 Spring起步](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础/第1章-Spring起步)
+- [第2章 开发Web应用](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础/第2章-开发Web应用)
+- [第3章 使用数据](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础/第3章-使用数据)
+- [第4章 保护Spring](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础/第4章-保护Spring)
+- [第5章 使用配置属性](/ReadingNotes/categories/Spring实战-第5版/第1部分-Spring基础/第5章-使用配置属性)
+
+## [第2部分 Spring集成](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成)
+- [第6章 创建REST服务](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第6章-创建REST服务)
+- [第7章 消费REST服务](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第7章-消费REST服务)
+
 # [大象 Thinking in UML(第2版)](/ReadingNotes/categories/大象-Thinking-in-UML-第2版)
 
 ## [第3章 UML核心元素](/ReadingNotes/categories/大象-Thinking-in-UML-第2版/第3章-UML核心元素)
