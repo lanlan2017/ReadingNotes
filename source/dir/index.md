@@ -67,6 +67,13 @@ date: 2019-12-17 04:08:18
 ## [第2部分 Spring集成](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成)
 - [第6章 创建REST服务](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第6章-创建REST服务)
 - [第7章 消费REST服务](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第7章-消费REST服务)
+- [第8章 发送异步消息](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第8章-发送异步消息)
+- [第9章 Spring集成](/ReadingNotes/categories/Spring实战-第5版/第2部分-Spring集成/第9章-Spring集成)
+
+## [第3部分 反应式Spring](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring)
+- [第10章 理解反应式编程](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring/第10章-理解反应式编程)
+- [第11章 开发反应式API](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring/第11章-开发反应式API)
+- [第12章 反应式持久化数据](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring/第12章-反应式持久化数据)
 
 # [大象 Thinking in UML(第2版)](/ReadingNotes/categories/大象-Thinking-in-UML-第2版)
 
