@@ -75,6 +75,19 @@ date: 2019-12-17 04:08:18
 - [第11章 开发反应式API](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring/第11章-开发反应式API)
 - [第12章 反应式持久化数据](/ReadingNotes/categories/Spring实战-第5版/第3部分-反应式Spring/第12章-反应式持久化数据)
 
+## [第4部分 云原生Spring](/ReadingNotes/categories/Spring实战-第5版/第4部分-云原生Spring)
+- [第13章 注册和发现服务](/ReadingNotes/categories/Spring实战-第5版/第4部分-云原生Spring/第13章-注册和发现服务)
+- [第14章 管理配置](/ReadingNotes/categories/Spring实战-第5版/第4部分-云原生Spring/第14章-管理配置)
+- [第15章 处理失败和延迟](/ReadingNotes/categories/Spring实战-第5版/第4部分-云原生Spring/第15章-处理失败和延迟)
+
+## [第5部分 部署Spring](/ReadingNotes/categories/Spring实战-第5版/第5部分-部署Spring)
+- [第16章 使用Spring Boot Actuator](/ReadingNotes/categories/Spring实战-第5版/第5部分-部署Spring/第16章-使用Spring-Boot-Actuator)
+- [第17章 管理Spring](/ReadingNotes/categories/Spring实战-第5版/第5部分-部署Spring/第17章-管理Spring)
+- [第18章 使用JMX监控Spring](/ReadingNotes/categories/Spring实战-第5版/第5部分-部署Spring/第18章-使用JMX监控Spring)
+- [第19章 部署Spring](/ReadingNotes/categories/Spring实战-第5版/第5部分-部署Spring/第19章-部署Spring)
+
+## [附录 初始化Spring应用](/ReadingNotes/categories/Spring实战-第5版/附录-初始化Spring应用)
+
 # [大象 Thinking in UML(第2版)](/ReadingNotes/categories/大象-Thinking-in-UML-第2版)
 
 ## [第3章 UML核心元素](/ReadingNotes/categories/大象-Thinking-in-UML-第2版/第3章-UML核心元素)
