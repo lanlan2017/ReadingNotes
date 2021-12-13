@@ -1,0 +1,1 @@
+期望的服务器响应的数据类型，可以是null、xml、script或者json。dataType提供了指定的方法以便控制服务器的响应。这个指定的方法将被直接地反映到jQuery.httpData()方法中。dataType支持以下格式。[插图] xml。如果dataType被指定为xml，服务器返回内容将被作为XML来对待。同时，如果“success”回调函数被指定，responseXML的值将会传递给回调函数。[插图] json。如果dataType被指定为json，服务器返回内容将被执行，如果“success”回调函数被指定，返回的内容将会传递给回调函数。[插图] script。如果dataType被指定为script，服务器返回内容将被放在全局环境中执行。
