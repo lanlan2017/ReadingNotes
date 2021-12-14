@@ -1,3 +1,9 @@
+---
+categories:
+  - 锋利的jQuery(第2版)
+  - 第12章 附录
+abbrlink: e539086d
+---
 # 附录E jQuery加载并解析XML
 ## E.1 简述
 XML（eXtensible Markup Language）即可扩展标记语言，与HTML一样，都是属于SGML标准通用语言。在XML中，采用了如下语法。

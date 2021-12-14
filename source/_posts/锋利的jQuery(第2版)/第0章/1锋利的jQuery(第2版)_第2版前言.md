@@ -77,7 +77,16 @@ updated: 2021-12-12 14:58:45
 ## 本书约定
 1.本书代码以灰色为背景，如下所示：
 
-[插图]
+```html
+<html>
+<head>
+<!-- 在head标签内 引入jQuery  -->
+<script src="../scripts/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+</body>
+</html>
+```
 
 2.凡本书中有需要读者注意的知识点或其他内容时，将给出以下提示：
 
@@ -91,11 +100,15 @@ updated: 2021-12-12 14:58:45
 6.如果没有特别说明，代码默认都是在`document.ready()`里执行。
 7.如果获取的是jQuery对象，那么我们在变量前面加上`$`，如：
 
-[插图]
+```javascript
+var  $variable=jQuery对象;
+```
 
 如果获取的是DOM对象，则这么定义：
 
-[插图]
+```javascript
+var variable = DOM对象;
+```
 
 本书中的例子均会以这种形式呈现，以方便读者阅读。
 8.如果没有特别说明，所有网页的头部都必须有标准的DOCTYPE声明。

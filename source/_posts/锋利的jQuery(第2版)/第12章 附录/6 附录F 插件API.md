@@ -1,3 +1,9 @@
+---
+categories:
+  - 锋利的jQuery(第2版)
+  - 第12章 附录
+abbrlink: 43daea3b
+---
 # 附录F 插件API
 ## F.1 Validation插件API
 Validation插件有两个经常被用到的选项，分别是方法（method）和规则（rule）。

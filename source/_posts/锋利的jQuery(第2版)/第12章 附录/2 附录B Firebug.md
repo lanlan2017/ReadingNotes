@@ -1,3 +1,9 @@
+---
+categories:
+  - 锋利的jQuery(第2版)
+  - 第12章 附录
+abbrlink: 642929bb
+---
 # 附录B Firebug
 ## B.1 概述
 Firebug是一个用于网站前端开发的工具，它是Firefox浏览器的一个扩展插件。它可以调试JavaScript、查看DOM、分析CSS、监控网络流量以及进行Ajax交互等。它提供了几乎前端开发需要的全部功能。官方网站是 www.getfirebug.com/ 。

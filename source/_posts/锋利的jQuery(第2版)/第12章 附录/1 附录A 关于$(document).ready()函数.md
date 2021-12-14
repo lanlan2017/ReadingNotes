@@ -1,3 +1,9 @@
+---
+categories:
+  - 锋利的jQuery(第2版)
+  - 第12章 附录
+abbrlink: 99a041a2
+---
 # 附录A 关于 $(document).ready()函数
 
 ## A.1 $(document).ready()函数介绍
