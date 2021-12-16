@@ -271,20 +271,20 @@ API的官方网站地址为：https://github.com/carhartl/jquery-cookie
 
 [插图]
 
-<div style="border-style:solid;"><strong>注意</strong>：“the_cookie”为待写入的Cookie名，“the_value”为待写入的值。</div>
+<div style="border:1px solid;"><strong>注意</strong>：“the_cookie”为待写入的Cookie名，“the_value”为待写入的值。</div>
 
 - 删除Cookie。
 
 [插图]
 
-<div style="border-style:solid;"><strong>注意</strong>：“the_cookie”为Cookie名，设置为null即删除此Cookie。必须使用与之前设置时相同的路径（path）和域名（domain），才可以正确删除Cookie。
+<div style="border:1px solid;"><strong>注意</strong>：“the_cookie”为Cookie名，设置为null即删除此Cookie。必须使用与之前设置时相同的路径（path）和域名（domain），才可以正确删除Cookie。
 </div>
 
 - 其他可选参数。
 
 [插图]
 
-<div style="border-style:solid;">
+<div style="border:1px solid;">
 <strong>注意</strong>：
 - expires：（Number|Date）有效期。可以设置一个整数作为有效期（单位：天），也可以直接设置一个日期对象作为Cookie的过期日期。如果指定日期为负数，例如已经过去的日子，那么此Cookie将被删除；如果不设置或者设置为null，那么此Cookie将被当作Session Cookie处理，并且在浏览器关闭后删除。
 - path：（String）cookie的路径属性。默认是创建该Cookie的页面路径。

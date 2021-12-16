@@ -1,8 +1,8 @@
 ---
 title: 0锋利的jQuery(第2版)_简介
-categories: 
+categories:
   - 锋利的jQuery(第2版)
-  - 第0章
+  - 第0章 简介前言
 abbrlink: d4198cac
 date: 2021-12-12 12:45:15
 updated: 2021-12-12 14:58:45

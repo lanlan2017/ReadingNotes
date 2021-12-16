@@ -1,8 +1,8 @@
 ---
 title: 1锋利的jQuery(第2版)_第2版前言
-categories: 
+categories:
   - 锋利的jQuery(第2版)
-  - 第0章
+  - 第0章 简介前言
 abbrlink: 2600061c
 date: 2021-12-12 12:47:18
 updated: 2021-12-12 14:58:45
@@ -92,7 +92,7 @@ updated: 2021-12-12 14:58:45
 
 2.凡本书中有需要读者注意的知识点或其他内容时，将给出以下提示：
 
-<div style="border-style:solid;"><strong>注意：</strong>在本书的所有章节中，如果没有特别说明，jQuery库都是默认导入的。</div>
+<div style="border:1px solid;"><strong>注意：</strong>在本书的所有章节中，如果没有特别说明，jQuery库都是默认导入的。</div>
 
 3.本书所有例子都是基于`jQuery1.7.1`版而制作。
 4.如果没有特别说明，`jQuery1.7.1`程序库都是默认导入的。

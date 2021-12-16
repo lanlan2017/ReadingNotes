@@ -236,13 +236,7 @@ date: 2019-12-17 04:08:18
 
 # [锋利的jQuery(第2版)](/ReadingNotes/categories/锋利的jQuery-第2版)
 
-## [第0章](/ReadingNotes/categories/锋利的jQuery-第2版/第0章)
-
-## [第10章 jQuery各个版本的变化](/ReadingNotes/categories/锋利的jQuery-第2版/第10章-jQuery各个版本的变化)
-
-## [第11章 jQuery性能优化和技巧](/ReadingNotes/categories/锋利的jQuery-第2版/第11章-jQuery性能优化和技巧)
-
-## [第12章 附录](/ReadingNotes/categories/锋利的jQuery-第2版/第12章-附录)
+## [第0章 简介前言](/ReadingNotes/categories/锋利的jQuery-第2版/第0章-简介前言)
 
 ## [第1章 认识jQuery](/ReadingNotes/categories/锋利的jQuery-第2版/第1章-认识jQuery)
 
@@ -261,6 +255,12 @@ date: 2019-12-17 04:08:18
 ## [第8章 用jQuery打造个性网站](/ReadingNotes/categories/锋利的jQuery-第2版/第8章-用jQuery打造个性网站)
 
 ## [第9章 jQuery Mobile](/ReadingNotes/categories/锋利的jQuery-第2版/第9章-jQuery-Mobile)
+
+## [第10章 jQuery各个版本的变化](/ReadingNotes/categories/锋利的jQuery-第2版/第10章-jQuery各个版本的变化)
+
+## [第11章 jQuery性能优化和技巧](/ReadingNotes/categories/锋利的jQuery-第2版/第11章-jQuery性能优化和技巧)
+
+## [第12章 附录](/ReadingNotes/categories/锋利的jQuery-第2版/第12章-附录)
 
 # [高性能MySQL](/ReadingNotes/categories/高性能MySQL)
 
