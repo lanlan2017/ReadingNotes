@@ -1,8 +1,11 @@
 ---
-categories:
+title: 1 附录A 关于$(document).ready()函数
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: 99a041a2
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:10:08
 ---
 # 附录A 关于 $(document).ready()函数
 

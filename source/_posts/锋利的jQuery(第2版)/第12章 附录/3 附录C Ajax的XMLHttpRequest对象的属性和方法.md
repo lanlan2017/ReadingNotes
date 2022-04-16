@@ -1,8 +1,11 @@
 ---
-categories:
+title: 3 附录C Ajax的XMLHttpRequest对象的属性和方法
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: a9d86887
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:29:04
 ---
 # 附录C Ajax的XMLHttpRequest对象的属性和方法
 XMLHttpRequest对象是Ajax的核心，它有许多的属性、方法和事件以便于脚本处理和控制HTTP的请求与响应。下面是关于XMLHttpRequest对象的一些属性和方法的介绍。

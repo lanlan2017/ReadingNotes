@@ -45,7 +45,7 @@ updated: 2021-12-12 14:58:45
 
 本章是对前面4章知识的一个巩固。
 
-第6 章的重点是 Ajax 应用。首先介绍了 Ajax 技术的优势和不足，以及 Ajax的核心对象XMLHttpRequest；然后介绍jQuery中的Ajax解决方案，例如load()、$.get()、$.post()、$.ajax()等；这些方法和DOM操作的结合将大大简化Ajax的开发；接下来介绍了Ajax中的序列化元素和全局事件；最后通过将Ajax聊天程序作为案例进行研究以巩固读者对Ajax操作的掌握。
+第6 章的重点是 Ajax 应用。首先介绍了 Ajax 技术的优势和不足，以及 Ajax的核心对象XMLHttpRequest；然后介绍jQuery中的Ajax解决方案，例如`load()`、`$.get()`、`$.post()`、`$.ajax()`等；这些方法和DOM操作的结合将大大简化Ajax的开发；接下来介绍了Ajax中的序列化元素和全局事件；最后通过将Ajax聊天程序作为案例进行研究以巩固读者对Ajax操作的掌握。
 
 第7章的重点是插件。jQuery有着非常丰富而强大的插件。在这一章里，首先是对几个常见而实用的插件进行详细讲解，例如表单验证插件（Validation Plugin）、表单插件（Form Plugin）、遮罩窗口插件（SimpleModal Plugin）、Cookie插件和UI插件；然后详细介绍了如何编写jQuery插件和使用插件应注意的事项。
 
@@ -61,10 +61,10 @@ updated: 2021-12-12 14:58:45
 
 本书的附录部分也是跟jQuery相关的一些重要知识点，共有7篇。
 
-- 第1篇介绍了jQuery中的$(document).ready()方法。
-- 第2篇介绍了前端开发调试工具—Firebug。
+- 第1篇介绍了jQuery中的`$(document).ready()`方法。
+- 第2篇介绍了前端开发调试工具—`Firebug`。
 - 第3篇介绍了Ajax的核心对象—XMLHttpRequest。
-- 第4篇介绍了jQuery中的$.ajax()方法。
+- 第4篇介绍了jQuery中的`$.ajax()`方法。
 - 第5篇介绍了jQuery加载并解析XML。
 - 第6篇是第7章的插件的API。
 - 第7篇是jQuery API速查表。

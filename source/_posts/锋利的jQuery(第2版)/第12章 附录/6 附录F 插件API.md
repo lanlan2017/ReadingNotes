@@ -1,8 +1,11 @@
 ---
-categories:
+title: 6 附录F 插件API
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: 43daea3b
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:10:08
 ---
 # 附录F 插件API
 ## F.1 Validation插件API

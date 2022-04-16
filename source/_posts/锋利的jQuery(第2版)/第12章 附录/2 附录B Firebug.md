@@ -1,8 +1,11 @@
 ---
-categories:
+title: 2 附录B Firebug
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: 642929bb
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:10:08
 ---
 # 附录B Firebug
 ## B.1 概述

@@ -1,8 +1,11 @@
 ---
-categories:
+title: 7 附录G jQuery速查表
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: b26ebe9
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:10:08
 ---
 # 附录G jQuery速查表
 ## G.1基础

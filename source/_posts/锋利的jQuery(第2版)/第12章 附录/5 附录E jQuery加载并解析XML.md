@@ -1,8 +1,11 @@
 ---
-categories:
+title: 5 附录E jQuery加载并解析XML
+categories: 
   - 锋利的jQuery(第2版)
   - 第12章 附录
 abbrlink: e539086d
+date: 2022-04-16 16:10:08
+updated: 2022-04-16 16:10:08
 ---
 # 附录E jQuery加载并解析XML
 ## E.1 简述
