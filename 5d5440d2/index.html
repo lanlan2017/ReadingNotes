@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="35.1 迷你版的交易系统大家可能对银行的交易系统充满敬畏之情，一听说是银行的IT人员，立马想当然地认为这是个很厉害的人物，那我们今天就来对银行的交易系统做一个初步探讨。国内一家大型集团（全球500强之一）计划建立全国“一卡通”计划，每个员工配备一张IC卡，该卡基本上就是万能的，门禁系统用它，办公系统用它，你想打开自己的邮箱，没有它就甭想了，它还可以用来进行消费，比如到食堂吃饭，到园区内的商店消费">
+<meta property="og:type" content="article">
+<meta property="og:title" content="35.1 迷你版的交易系统">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/5d5440d2/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="35.1 迷你版的交易系统大家可能对银行的交易系统充满敬畏之情，一听说是银行的IT人员，立马想当然地认为这是个很厉害的人物，那我们今天就来对银行的交易系统做一个初步探讨。国内一家大型集团（全球500强之一）计划建立全国“一卡通”计划，每个员工配备一张IC卡，该卡基本上就是万能的，门禁系统用它，办公系统用它，你想打开自己的邮箱，没有它就甭想了，它还可以用来进行消费，比如到食堂吃饭，到园区内的商店消费">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001195939.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001200222.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001200346.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001201110.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-09-27T12:01:46.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001195939.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/5d5440d2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/5d5440d2/","path":"/5d5440d2/","title":"35.1 迷你版的交易系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>35.1 迷你版的交易系统 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#35-1-%E8%BF%B7%E4%BD%A0%E7%89%88%E7%9A%84%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">35.1 迷你版的交易系统</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/5d5440d2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="35.1 迷你版的交易系统 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          35.1 迷你版的交易系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-09-27 19:57:33 / 修改时间：20:01:46" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/4-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%B7%B7%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">4 第四部分 完美世界 ——设计模式混编</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/4-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%B7%B7%E7%BC%96/%E7%AC%AC35%E7%AB%A0-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">第35章 工厂方法模式+策略模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/5d5440d2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/5d5440d2/" data-xid="/ReadingNotes/5d5440d2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="35-1-迷你版的交易系统"><a href="#35-1-迷你版的交易系统" class="headerlink" title="35.1 迷你版的交易系统"></a>35.1 迷你版的交易系统</h1><p>大家可能对银行的交易系统充满敬畏之情，一听说是银行的IT人员，立马想当然地认为这是个很厉害的人物，那我们今天就来对银行的交易系统做一个初步探讨。国内一家大型集团（全球500强之一）计划建立全国“一卡通”计划，每个员工配备一张IC卡，该卡基本上就是万能的，门禁系统用它，办公系统用它，你想打开自己的邮箱，没有它就甭想了，它还可以用来进行消费，比如到食堂吃饭，到园区内的商店消费，甚至洗澡、理发、借书、买书等都可以用它，只要这张卡内有余额，在集团内部就是一张借记卡（当然还有一些内部的补助通过该卡发放）。我们要讲解的就是“一卡通”项目联机交易子系统，类似于银行的交易系统，可以说它是交易系统的mini版吧。</p>
+<p>该项目具有一定的挑战性，集团公司的架构分为三层：总部、省级分部、市级机构，业务要求是“一卡通”推广到全国，一名员工从北京出差到了上海，凭一卡通能在北京做的事情在上海同样能完成。对于联机交易子项目，异地分支机构与总部之间的通信采用了MQ（Message Queue，消息队列）传递消息，也就是我们观察者模式的BOSS版，与目前的通过POS机刷信用卡基本上是一个道理。</p>
+<p>联机交易子系统有一个非常重要的子模块（Module）——扣款子模块。这个模块太重要了！从业务上来说，扣款失败就代表着所有的商业交易关闭，这是不允许发生的；从技术上来说，扣款的异常处理、事务处理、鲁棒性都是不容忽视的，特别是饭点时间，并发量是很恐怖的，这对架构师提出了很高的要求。</p>
+<p>我们详细分析一下扣款子模块，每个员工都有一张IC卡，他的IC卡上有以下两种金额。</p>
+<ul>
+<li>固定金额</li>
+</ul>
+<p>固定金额是指员工不能提现的金额，这部分金额只能用来特定消费，即员工日常必需的消费，例如食堂内吃饭、理发、健身等活动。</p>
+<ul>
+<li>自由金额</li>
+</ul>
+<p>自由金额是可以提现的，当然也可以用于消费。每个月初，总部都会为每个员工的IC卡中打入固定数量的金额，然后提倡大家在集团内的商店消费。</p>
+<p>在实际的系统开发中，架构设计采用的是一张IC卡绑定两个账户：固定账户和自由账号，本书为了简化描述，还是使用固定金额和自由金额的概念。既然有消费，系统肯定有扣款处理，系统内有两套扣款规则。</p>
+<ul>
+<li>扣款策略一</li>
+</ul>
+<p>该类型的扣款会对IC卡上的两个金额产生影响，计算公式如下： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IC卡固定余额=IC卡现有固定余额-交易金额/2 </span><br><span class="line">IC卡自由余额=IC卡现有自由金额-交易金额/2</span><br></pre></td></tr></table></figure>
+<p>也就是说，该类型的消费分别在固定金额和自由金额上各扣除一半。它适用于固定消费场景例如吃饭、理发等情况下的扣款，这么做是为了防止乱请客，你请别人吃饭时自己也要出一半。</p>
+<ul>
+<li>扣款策略二</li>
+</ul>
+<p>全部从自由金额上扣除，由于集团内的各种消费、服务非常齐全，而且比市面价格稍低，员工还是很乐意到这里消费的，而且很多员工本身就住在集团附近，基本上就是“公司即家，家即公司”。</p>
+<p>今天要讲的重点就是这两种消费的扣款策略该怎样设计？要知道这种联机交易，日后允许大规模变更的可能性基本上是零，所以系统设计的时候要做到可拆卸（Pluggable），避免日后维护的大量开支。</p>
+<p>很明显，这是一个策略模式的实际应用，但是你还记得策略模式是有缺陷的吗？它的具体策略必须暴露出去，而且还要由上层模块初始化，这不合适，与迪米特法则有冲突，高层次模块对低层次的模块应该仅仅处在“接触”的层次上，而不应该是“耦合”的关系，否则，维护的工作量就会非常大。问题提出了，那我们就应该想办法来修改这个缺陷，正好工厂方法模式可以帮我们产生指定的对象，但是问题又来了，工厂方法模式要指定一个类，它才能产生对象，怎么办？引入一个配置文件进行映射，避免系统僵化情况的发生，我们以枚举类完成该任务。</p>
+<p>还有一个问题，一个交易的扣款模式是固定的，根据其交易编号而定，那我们怎样把交易编号与扣款策略对应起来呢？采用状态模式或责任链模式都可以，如果采用状态则认为交易编号就是一个交易对象的状态，对于一笔确定的交易（一个已经生成了的对象），它的状态不会从一个状态过渡到另一个状态，也就是说它的状态只有一个，执行完毕后即结束，不存在多状态的问题；如果采用责任链模式，则可以用交易编码作为链中的判断依据，由每个执行节点进行判断，返回相应的扣款模式。但是在实际中，采用了关系型数据库存储扣款规则与交易编码的对应关系，为了简化该部分的讲义，我们在下面的设计中使用了条件判断语句来代替。</p>
+<p>还有，这么复杂的扣款模块总要进行一个封装吧，不能让上层的业务模块直接深入到模块的内部，于是门面模式又摆在了眼前。</p>
+<p>分析完毕，我们要先画出类图，做设计要遵循这样一个原则：先选最简单的业务，然后画出类图。那我们先定义交易中用到的两个类：IC卡类和交易类，如图35-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001195939.png" alt="image-20211001195939429"></p>
+<p>图35-1 IC卡类和交易类</p>
+<p>每个IC卡有三个属性，分别是IC卡号码、固定金额、自由金额，然后通过getter&#x2F;setter方法来访问，如代码清单35-1所示。</p>
+<p>代码清单35-1 IC卡类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Card</span> &#123;</span><br><span class="line">    <span class="comment">//IC卡号码</span></span><br><span class="line">    <span class="keyword">private</span> String cardNo=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//卡内的固定交易金额</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">steadyMoney</span> <span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">    <span class="comment">//卡内自由交易金额</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">freeMoney</span> <span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">    <span class="comment">//getter/setter方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCardNo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> cardNo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCardNo</span><span class="params">(String cardNo)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.cardNo = cardNo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSteadyMoney</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> steadyMoney;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSteadyMoney</span><span class="params">(<span class="type">int</span> steadyMoney)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.steadyMoney = steadyMoney;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getFreeMoney</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> freeMoney;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFreeMoney</span><span class="params">(<span class="type">int</span> freeMoney)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.freeMoney = freeMoney;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>细心的读者可能注意到，金额怎么都是整数类型呀，应该是double类型或者BigDecimal 类型呀。是，一般非银行的交易系统，比如超市的收银系统，系统内都是存放的int类型，在显示的时候才转换为货币类型。</p>
+<p>交易信息Trade类，负责记录每一笔交易，它是由监听程序监听MQ队列而产生的，有两个属性：交易编号和交易金额，其中的交易编号对整个交易非常重要，18位字符（在银行的交易系统中，这里可不是字符串，一般是十进制数字或二进制数字，要考虑系统的性能，数字运算可比字符运算快得多），包括POS机编号、商户编号、校验码等，我们这里暂时用不到，就不多做介绍，我们只要知道它是一个非常有用的编码就成。交易金额为整数类型，实际金额放大100倍即可。如代码清单35-2所示。</p>
+<p>代码清单35-2 交易类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Trade</span> &#123;</span><br><span class="line">    <span class="comment">//交易编号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">tradeNo</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//交易金额</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">amount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//getter/setter方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getTradeNo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> tradeNo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTradeNo</span><span class="params">(String postNo)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.tradeNo = postNo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAmount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> amount;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAmount</span><span class="params">(<span class="type">int</span> amount)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个最简单也是在应用中最常使用的对象定义完毕，下面就需要来定义策略了，非常明显的策略模式，类图如图35-2所示。</p>
+<p>典型的策略模式，扣款有两种策略：固定扣款和自由扣款。下面我们来看代码，先看抽象策略，也就是扣款接口，如代码清单35-3所示。</p>
+<p>代码清单35-3 扣款策略接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IDeduction</span> &#123;</span><br><span class="line">    <span class="comment">//扣款，提供交易和卡信息，进行扣款，并返回扣款是否成功</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exec</span><span class="params">(Card card,Trade trade)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>固定扣款的规则是固定金额和自由金额各扣除交易金额的一半，如代码清单35-4所示。</p>
+<p>代码清单35-4 扣款策略一</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SteadyDeduction</span> <span class="keyword">implements</span> <span class="title class_">IDeduction</span> &#123;</span><br><span class="line">    <span class="comment">//固定性交易扣款</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exec</span><span class="params">(Card card, Trade trade)</span> &#123;</span><br><span class="line">        <span class="comment">//固定金额和自由金额各扣除50%</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">halfMoney</span> <span class="operator">=</span> (<span class="type">int</span>)Math.rint(trade.getAmount() / <span class="number">2.0</span>);</span><br><span class="line">        card.setFreeMoney(card.getFreeMoney() - halfMoney);</span><br><span class="line">        card.setSteadyMoney(card.getSteadyMoney() - halfMoney);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001200222.png" alt="image-20211001200222415"></p>
+<center>图35-2 扣款策略类图</center>
+这个具体策略也非常简单，就是两个金额各自减去交易额的一半（注意除数是2.0，可不是2），然后再四舍五入，算法确实简单。该逻辑没有考虑账户余额不足的情况，也没有考虑异常情况，比如并发情况，读者可以想想看，一张卡有两笔消费同时发生时，是不是就发生错误了？一张卡同时有两笔消费会出现这种情况吗？会的，网络阻塞的情况，MQ多通道发送，在网络繁忙的情况下是有可能出现该问题，这里就不多介绍，有兴趣的读者可以看看MQ的资料。我们在这里的讲解实现的是一个快乐路径，认为所有的交易都是在安全可靠的环境中发生的，并且所有的系统环境都满足我们的要求。我们再来看另一个策略，这个策略更简单，如代码清单35-5所示。
+
+<p>代码清单35-5 扣款策略二</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FreeDeduction</span> <span class="keyword">implements</span> <span class="title class_">IDeduction</span> &#123;</span><br><span class="line">    <span class="comment">//自由扣款</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exec</span><span class="params">(Card card, Trade trade)</span> &#123;</span><br><span class="line">        <span class="comment">//直接从自由余额中扣除</span></span><br><span class="line">        card.setFreeMoney(card.getFreeMoney() - trade.getAmount());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>卡内的自由金额减去交易金额再修改卡内自由金额就完事了，异常情况不考虑。这两个具体的策略与我们的交易类型没有任何关系，也不应该有关系，策略模式就是提供两个可以相互替换的策略，至于在什么时候使用什么策略，则不是由策略模式来决定的。策略模式还有一个角色没出场，即封装角色，如代码清单35-6所示。</p>
+<p>代码清单35-6 扣款策略的封装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeductionContext</span> &#123;</span><br><span class="line">    <span class="comment">//扣款策略</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">IDeduction</span> <span class="variable">deduction</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">//构造函数传递策略</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DeductionContext</span><span class="params">(IDeduction _deduction)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.deduction = _deduction;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//执行扣款</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exec</span><span class="params">(Card card,Trade trade)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.deduction.exec(card, trade);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>典型的策略上下文角色。扣款模块的策略已经定义完毕了，然后需要想办法解决策略模式的缺陷：它把所有的策略类都暴露出去，暴露得越多以后的修改风险也就越大。怎么修改呢？增加一个映射配置文件，实现策略类的隐藏。我们使用枚举担当此任，对策略类进行映射处理，避免高层模块直接访问策略类，同时由工厂方法模式根据映射产生策略对象，类图如图35-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001200346.png" alt="image-20211001200346462"></p>
+<center>图35-3 策略工厂类图</center>
+
+<p>又是一个简单得不能再简单的模式——工厂方法模式，通过StrategyMan负责对具体策略的映射，如代码清单35-7所示。</p>
+<p>代码清单35-7 策略枚举</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">StrategyMan</span> &#123;</span><br><span class="line">    SteadyDeduction(<span class="string">&quot;com.cbf4life.common.SteadyDeduction&quot;</span>), FreeDeduction(<span class="string">&quot;com.cbf4life.common.FreeDeduction&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">StrategyMan</span><span class="params">(String _value)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.value = _value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getValue</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似的代码解释过很多遍了，不再多说，它就是一个登记容器，所有的具体策略都在这里登记，然后提供给工厂方法模式。策略工厂如代码清单35-8所示。</p>
+<p>代码清单35-8 策略工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StrategyFactory</span> &#123;</span><br><span class="line">    <span class="comment">//策略工厂</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> IDeduction <span class="title function_">getDeduction</span><span class="params">(StrategyMan strategy)</span>&#123;</span><br><span class="line">        <span class="type">IDeduction</span> <span class="variable">deduction</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            deduction = (IDeduction)Class.forName(strategy.getValue()).newInstance();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// 异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> deduction;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个简单的工厂，根据策略管理类的枚举项创建一个策略对象，简单而实用，策略模式的缺陷也弥补成功。那这么复杂的系统怎么让高层模块访问？（你看不出复杂？那是因为我们写的都是快乐路径，太多情况都没有考虑，在实际项目中仅就并发处理和事务管理这两部分就够你头疼了。）既然系统很复杂，是不是需要封装一下。我们请出门面模式进行封装， 如代码清单35-9所示。</p>
+<p>代码清单35-9 扣款模块封装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeductionFacade</span> &#123;</span><br><span class="line">    <span class="comment">//对外公布的扣款信息</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Card <span class="title function_">deduct</span><span class="params">(Card card,Trade trade)</span>&#123;</span><br><span class="line">        <span class="comment">//获得消费策略</span></span><br><span class="line">        <span class="type">StrategyMan</span> <span class="variable">reg</span> <span class="operator">=</span> getDeductionType(trade);</span><br><span class="line">        <span class="comment">//初始化一个消费策略对象</span></span><br><span class="line">        <span class="type">IDeduction</span> <span class="variable">deduction</span> <span class="operator">=</span> StrategyFactory.getDeduction(reg);</span><br><span class="line">        <span class="comment">//产生一个策略上下文</span></span><br><span class="line">        <span class="type">DeductionContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DeductionContext</span>(deduction);</span><br><span class="line">        <span class="comment">//进行扣款处理</span></span><br><span class="line">        context.exec(card, trade);</span><br><span class="line">        <span class="comment">//返回扣款处理完毕后的数据</span></span><br><span class="line">        <span class="keyword">return</span> card;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得对应的商户消费策略</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> StrategyMan <span class="title function_">getDeductionType</span><span class="params">(Trade trade)</span>&#123;</span><br><span class="line">        <span class="comment">//模拟操作</span></span><br><span class="line">        <span class="keyword">if</span>(trade.getTradeNo().contains(<span class="string">&quot;abc&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> StrategyMan.FreeDeduction;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> StrategyMan.SteadyDeduction;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这次为什么要先展示代码而后写类图呢？那是因为这段代码比写类图更能让你理解。读者注意一下getDeductionType方法，这个方法在实际项目中是存在的，但是与上面的写法有天壤之别，因为在实际项目中，数据库中保存了策略代码与交易编码的对应关系，直接通过数据库的SQL语句就可以返回对应的扣款策略。这里我们采用大家最熟悉的条件转移来实现，也是比较清晰和容易理解的。</p>
+<p>可能读者要问了，在门面模式中已经明确地说明，门面类中不允许有业务逻辑存在，但是你这里还是有了一个getDeductionType方法，它可代表的是一个判断逻辑呀，这是为什么呢？是的，该方法完全可以移到其他Hepler类中，由于我们是示例代码，暂没有明确的业务含义，故编写在此处，读者在实际应用中，请把该方法放置到其他类中。</p>
+<p>好，所有用到的模式都介绍完毕了，我们把完整的类图整理一下，如图35-4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001201110.png" alt="image-20211001201105393"></p>
+<center>图35-4 扣款子模块完整类图</center>
+
+<p>真实系统比这复杂得多，有了我们之前的分析，这个图还是比较容易看懂的。我们所有的开发都完成了，是不是应该写一个测试类来展示一下我们的成果，如代码清单35-10所示。</p>
+<p>代码清单35-10 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="comment">//模拟交易</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//初始化一张IC卡</span></span><br><span class="line">        <span class="type">Card</span> <span class="variable">card</span> <span class="operator">=</span> initIC();</span><br><span class="line">        <span class="comment">//显示一下卡内信息</span></span><br><span class="line">        System.out.println(<span class="string">&quot;========初始卡信息：=========&quot;</span>);</span><br><span class="line">        showCard(card);</span><br><span class="line">        <span class="comment">//是否停止运行标志</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(flag)&#123;</span><br><span class="line">            <span class="type">Trade</span> <span class="variable">trade</span> <span class="operator">=</span> createTrade();</span><br><span class="line">            DeductionFacade.deduct(card, trade);</span><br><span class="line">            <span class="comment">//交易成功，打印出成功处理消息</span></span><br><span class="line">            System.out.println(<span class="string">&quot;\n======交易凭证========&quot;</span>);</span><br><span class="line">            System.out.println(trade.getTradeNo()+<span class="string">&quot; 交易成功！&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;本次发生的交易金额为：&quot;</span>+ trade.getAmount()/<span class="number">100.0</span>+<span class="string">&quot;元&quot;</span>);</span><br><span class="line">            <span class="comment">//展示一下卡内信息</span></span><br><span class="line">            showCard(card);</span><br><span class="line">            System.out.print(<span class="string">&quot;\n是否需要退出？(Y/N)&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span>(getInput().equalsIgnoreCase(<span class="string">&quot;y&quot;</span>))&#123;</span><br><span class="line">                flag = <span class="literal">false</span>;</span><br><span class="line">                <span class="comment">//退出</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//初始化一个IC卡</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Card <span class="title function_">initIC</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Card</span> <span class="variable">card</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Card</span>();</span><br><span class="line">        card.setCardNo(<span class="string">&quot;1100010001000&quot;</span>);</span><br><span class="line">        card.setFreeMoney(<span class="number">100000</span>);</span><br><span class="line">        <span class="comment">//1000元</span></span><br><span class="line">        card.setSteadyMoney(<span class="number">80000</span>);</span><br><span class="line">        <span class="comment">//800元</span></span><br><span class="line">        <span class="keyword">return</span> card;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//产生一条交易</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Trade <span class="title function_">createTrade</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Trade</span> <span class="variable">trade</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Trade</span>();</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入交易编号：&quot;</span>);</span><br><span class="line">        trade.setTradeNo(getInput());</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入交易金额：&quot;</span>);</span><br><span class="line">        trade.setAmount(Integer.parseInt(getInput()));</span><br><span class="line">        <span class="comment">//返回交易</span></span><br><span class="line">        <span class="keyword">return</span> trade;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//打印出当前卡内交易余额</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">showCard</span><span class="params">(Card card)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;IC卡编号:&quot;</span> + card.getCardNo());</span><br><span class="line">        System.out.println(<span class="string">&quot;固定类型余额：&quot;</span>+ card.getSteadyMoney()/<span class="number">100.0</span> + <span class="string">&quot; 元&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;自由类型余额：&quot;</span>+ card.getFreeMoney()/<span class="number">100.0</span> + <span class="string">&quot; 元&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得键盘输入</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getInput</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span><span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            str=(<span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in))).readLine();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">//异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类比较长，耐心看还是非常简单的，对其中Client类的方法说明如下：</p>
+<ul>
+<li>initIC方法</li>
+</ul>
+<p>初始化一张IC卡，方便进行测试。</p>
+<ul>
+<li>createTrade方法</li>
+</ul>
+<p>创建一笔交易，完成测试任务。</p>
+<ul>
+<li>showCard方法</li>
+</ul>
+<p>显示IC卡内的信息。</p>
+<ul>
+<li>getInput方法</li>
+</ul>
+<p>获得从键盘输入的字符，以回车符作为终结标志。</p>
+<p>方法介绍完毕了，我们运行一下看看，结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">========初始卡信息：========= </span><br><span class="line">IC卡编号:1100010001000 </span><br><span class="line">固定类型余额：800.0 元 </span><br><span class="line">自由类型余额：1000.0 元 </span><br><span class="line">请输入交易编号：abcdef </span><br><span class="line">请输入交易金额：10000 </span><br><span class="line">======交易凭证======== </span><br><span class="line">abcdef 交易成功！ </span><br><span class="line">本次发生的交易金额为：100.0 元 </span><br><span class="line">IC卡编号:1100010001000 </span><br><span class="line">固定类型余额：800.0 元</span><br><span class="line">自由类型余额：900.0 元 </span><br><span class="line">是否需要退出？(Y/N)</span><br></pre></td></tr></table></figure>
+<p>我们模拟了一笔自由消费，直接从自由类型金额中扣除了。我们再模拟一笔固定类型的消费，运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">========初始卡信息：========= </span><br><span class="line">IC卡编号:1100010001000 </span><br><span class="line">固定类型余额：800.0 元 </span><br><span class="line">自由类型余额：1000.0 元 </span><br><span class="line">请输入交易编号：abcdef </span><br><span class="line">请输入交易金额：10000 </span><br><span class="line">======交易凭证======== </span><br><span class="line">abcdef 交易成功！ </span><br><span class="line">本次发生的交易金额为：100.0 元 </span><br><span class="line">IC卡编号:1100010001000 </span><br><span class="line">固定类型余额：800.0 元 </span><br><span class="line">自由类型余额：900.0 元 </span><br><span class="line">是否需要退出？(Y/N)n </span><br><span class="line">请输入交易编号：1001 </span><br><span class="line">请输入交易金额：1234 </span><br><span class="line">======交易凭证======== </span><br><span class="line">1001 交易成功！ </span><br><span class="line">本次发生的交易金额为：12.34 元 </span><br><span class="line">IC卡编号:1100010001000 </span><br><span class="line">固定类型余额：793.83 元 </span><br><span class="line">自由类型余额：893.83 元 </span><br><span class="line">是否需要退出？(Y/N)</span><br></pre></td></tr></table></figure>
+<p>交易成功！到这里为止，联机交易中的扣款子模块开发完毕了！是不是很简单，银行业的交易系统也就是这么回事！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/5d5440d2/" title="35.1 迷你版的交易系统">https://lanlan2017.github.io/ReadingNotes/5d5440d2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a39027c2/" rel="prev" title="36.1 事件触发器的开发">
+                  <i class="fa fa-chevron-left"></i> 36.1 事件触发器的开发
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/7ca547d2/" rel="next" title="34.1 搬移UNIX的命令">
+                  34.1 搬移UNIX的命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/5d5440d2/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/5d5440d2/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

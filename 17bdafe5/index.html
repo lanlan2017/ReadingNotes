@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="1.4 数据库语言&amp;nbsp;1.4.1 数据操纵语言&amp;nbsp;数据操纵语言分类&amp;nbsp;查询&amp;nbsp;1.4.2 数据定义语言&amp;nbsp;约束&amp;nbsp;有哪些约束&amp;nbsp;数据字典介绍&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.4 数据库语言">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/17bdafe5/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="1.4 数据库语言&amp;nbsp;1.4.1 数据操纵语言&amp;nbsp;数据操纵语言分类&amp;nbsp;查询&amp;nbsp;1.4.2 数据定义语言&amp;nbsp;约束&amp;nbsp;有哪些约束&amp;nbsp;数据字典介绍&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{m">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-07T13:17:21.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/17bdafe5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/17bdafe5/","path":"/17bdafe5/","title":"1.4 数据库语言"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1.4 数据库语言 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">1.4 数据库语言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4-1-%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">1.4.1 数据操纵语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E8%A8%80%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">数据操纵语言分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.2.</span> <span class="nav-text">查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4-2-%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">1.4.2 数据定义语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-number">3.1.</span> <span class="nav-text">约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BA%A6%E6%9D%9F"><span class="nav-number">3.1.1.</span> <span class="nav-text">有哪些约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">数据字典介绍</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/17bdafe5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1.4 数据库语言 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1.4 数据库语言
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-07 21:17:21" itemprop="dateCreated datePublished" datetime="2019-10-07T21:17:21+08:00">2019-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC1%E7%AB%A0-%E5%BC%95%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">第1章 引言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/17bdafe5/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/17bdafe5/" data-xid="/ReadingNotes/17bdafe5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/17bdafe5/#1-4-数据库语言" class="header_1">1.4 数据库语言</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#1-4-1-数据操纵语言" class="header_1">1.4.1 数据操纵语言</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#数据操纵语言分类" class="header_2">数据操纵语言分类</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#查询" class="header_2">查询</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#1-4-2-数据定义语言" class="header_1">1.4.2 数据定义语言</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#约束" class="header_2">约束</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#有哪些约束" class="header_3">有哪些约束</a>&nbsp;<br><a href="/ReadingNotes/17bdafe5/#数据字典介绍" class="header_2">数据字典介绍</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="1-4-数据库语言"><a href="#1-4-数据库语言" class="headerlink" title="1.4 数据库语言"></a>1.4 数据库语言</h1><p>数据库系统提供<code>数据定义语言</code>(<code>data-definition language</code>)来<code>定义数据库模式</code>,以及<code>数据操纵语言</code>(<code>data-manipulation language)</code>来表达数据库的<code>査询</code>和<code>更新</code>。而实际上,数据定义和数据操纵语言并不是两种分离的语言,相反地,它们简单地构成了单一的数据库语言(如广泛使用的<code>SQL</code>语言)的不同部分。</p>
+<h1 id="1-4-1-数据操纵语言"><a href="#1-4-1-数据操纵语言" class="headerlink" title="1.4.1 数据操纵语言"></a>1.4.1 数据操纵语言</h1><p>数据操纵语言(<code>Data-Manipulation Language,DML</code>)使得用户可以<code>访问</code>或<code>操纵</code>那些按照某种适当的数据模型组织起来的数据。有以下访问类型:</p>
+<ul>
+<li>对存储在数据库中的信息进行检索。</li>
+<li>向数据库中插入新的信息。</li>
+<li>从数据库中删除信息。</li>
+<li>修改数据库中存储的信息。</li>
+</ul>
+<h2 id="数据操纵语言分类"><a href="#数据操纵语言分类" class="headerlink" title="数据操纵语言分类"></a>数据操纵语言分类</h2><p>通常有两类基本的数据操纵语言:</p>
+<ol>
+<li>过程化<code>DML(procedural DML)</code>要求<strong>用户指定需要什么数据以及如何获得这些数据</strong>。</li>
+<li>声明式<code>DML(declarative DML)</code>(也称为非过程化<code>DML)</code>只要求<strong>用户指定需要什么数据,而不指明如何获得这些数据</strong>。</li>
+</ol>
+<p>通常**声明式<code>DML</code><strong>比</strong>过程化<code>DML</code>**易学易用。但是,由于用户不必指明如何获得数据,数据库系统必须找出一种访问数据的高效途径</p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>查询(<code>query</code>)是要求对信息进行检索的语句。<code>DML</code>中涉及信息检索的部分称作查询语言<code>query language</code>。实践中常把<code>查询语言</code>和<code>数据操纵语言</code>作为同义词使用,尽管从技术上来说这并不正确.</p>
+<h1 id="1-4-2-数据定义语言"><a href="#1-4-2-数据定义语言" class="headerlink" title="1.4.2 数据定义语言"></a>1.4.2 数据定义语言</h1><p><code>数据库模式</code>是通过一系列定义来说明的,这些定义由一种称作<code>数据定义语言</code>(<code>Data-DefinitionLanguage,DDL</code>)的特殊语言来表达。<code>DDL</code>也可用于定义数据的其他特征。<br>数据库系统所使用的<code>存储结构</code>和<code>访问方式</code>是通过一系列特殊的<code>DDL</code>语句来说明的,这种特殊的<code>DDL</code>称作<strong>数据存储和定义语言</strong>(<code>data storage and definition)</code>。这些语句<strong>定义了数据库模式的实现细节</strong>,而这些细节对用户来说通常是不可见的。</p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>存储在数据库中的数据值必须满足某些一致性约束( <code>consistency constraint)</code>。例如,假设大学要求个系的账户余额必须不能为负值。<code>DDL</code>语言提供了指定这种约束的工具。每当数据库被更新时,数据库系统都会检查这些约束。通常,约束可以是关于数据库的任意谓词。然而,如果要测试任意谓词,可能代价比较高。因此,数据库系统实现可以以最小代价测试的<code>完整性约束</code></p>
+<h3 id="有哪些约束"><a href="#有哪些约束" class="headerlink" title="有哪些约束"></a>有哪些约束</h3><ol>
+<li><strong>域约束</strong>(<code>domain constraint</code>)。每个属性都必须对应于一个所有可能的取值构成的域(例如,整数型、字符型、日期&#x2F;时间型)。<strong>声明一种属性属于某种具体的域就相当于约束它可以取的值</strong>。域约束是完整性约束的最基本形式。每当有新数据项插入到数据库中,系统就能方便地进行域约束检测。</li>
+<li><strong>参照完整性约束</strong>(<code>referential integrity</code>)。我们常常希望,<strong>一个关系中给定属性集上的取值也在另一关系的某一属性集的取值中出现</strong>(参照完整性)。例如,每门课程所列出的系必须是实际存在的系。更准确地说,一个<code>course</code>记录中的<code>dept_name</code>值必须出现在<code>department</code>关系中的某个记录的<code>dept_name</code>属性中。数据库的修改会导致参照完整性的破坏。当参照完整性约束被违反时,通常的处理是拒绝执行导致完整性被破坏的操作。</li>
+<li><strong>断言</strong>(<code>assertion)</code>。<strong>一个断言就是数据库需要时刻满足的某一条件</strong>。**<code>域约束</code>和<code>参照完整性约束</code>是断言的特殊形式**。然而,还有许多约束不能仅用这几种特殊形式表达。例如,”每一学期每个系必须至少开设5门课程”,必须表达成一个断言。断言创建以后,系统会检测其有效性。如果断言有效,则以后只有不破坏断言的数据库更新才被允许。</li>
+<li><strong>授权</strong>(<code>authorization)</code>。我们也许想对用户加以区别,对于不同的用户在数据库中的不同数据值上允许不同的访问类型。这些区别以授权来表达,最常见的是:<ul>
+<li><strong>读权限</strong>( <code>read authorization)</code>,允许读取数据,但不能修改数据;</li>
+<li><strong>插入权限</strong>( <code>insert authorization)</code>,允许插入新数据,但不允许修改已有数据;</li>
+<li><strong>更新权限</strong>( <code>update authorization)</code>,允许修改,但不能删除数据;</li>
+<li><strong>删除权限</strong>( <code>deleteauthorization)</code>,允许删除数据。<br>我们可以赋予用户所有的权限,或者没有或部分拥有这些权限。</li>
+</ul>
+</li>
+</ol>
+<h2 id="数据字典介绍"><a href="#数据字典介绍" class="headerlink" title="数据字典介绍"></a>数据字典介绍</h2><p>正如其他任何程序设计语言一样,<strong>数据定义语言</strong>(<code>DDL</code>)以一些指令(语句)作为输入,生成一些输出。<br><code>DDL</code>的<code>输出</code>放在数据字典(<code>data dictionary</code>)中,数据字典包含了元数据(<code>metadata</code>),<strong>元数据是关于数据的数据</strong>。<br>可把数据字典看作一种特殊的表,这种表只能由数据库系统本身(不是常规的用户)来访问和修改。在读取和修改实际的数据前,数据库系统先要参考数据字典。</p>
+<!--SSTStop-->
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/17bdafe5/" title="1.4 数据库语言">https://lanlan2017.github.io/ReadingNotes/17bdafe5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f6bbcb52/" rel="prev" title="1.2 数据库系统的目标">
+                  <i class="fa fa-chevron-left"></i> 1.2 数据库系统的目标
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/fa82473e/" rel="next" title="1.5 关系数据库">
+                  1.5 关系数据库 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/17bdafe5/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/17bdafe5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

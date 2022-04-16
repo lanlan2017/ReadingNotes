@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.3.2 多关系查询&amp;nbsp;找出所有&#96;教师&#96;的&#96;姓名&#96;,以及他们&#96;所在系&#96;的&#96;名称&#96;和&#96;系所在建筑的名称&#96;&amp;nbsp;如何查询&amp;nbsp;对应的SQL语句&amp;nbsp;两个关系中的同名属性要使用关系名作为前缀&amp;nbsp;不重名的属性不需要关系名作为前缀&amp;nbsp;多个关系查询的&#96;SQL&#96;通用形式&amp;nbsp;select from where三个子句的作用&amp;nbsp;SQL查询语句格式&amp;nbsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.3.2 多关系查询">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/43da05aa/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.3.2 多关系查询&amp;nbsp;找出所有&#96;教师&#96;的&#96;姓名&#96;,以及他们&#96;所在系&#96;的&#96;名称&#96;和&#96;系所在建筑的名称&#96;&amp;nbsp;如何查询&amp;nbsp;对应的SQL语句&amp;nbsp;两个关系中的同名属性要使用关系名作为前缀&amp;nbsp;不重名的属性不需要关系名作为前缀&amp;nbsp;多个关系查询的&#96;SQL&#96;通用形式&amp;nbsp;select from where三个子句的作用&amp;nbsp;SQL查询语句格式&amp;nbsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-13T09:05:35.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/43da05aa/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/43da05aa/","path":"/43da05aa/","title":"3.3.2 多关系查询"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.3.2 多关系查询 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-2-%E5%A4%9A%E5%85%B3%E7%B3%BB%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">3.3.2 多关系查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E6%89%80%E6%9C%89%E6%95%99%E5%B8%88%E7%9A%84%E5%A7%93%E5%90%8D-%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E6%89%80%E5%9C%A8%E7%B3%BB%E7%9A%84%E5%90%8D%E7%A7%B0%E5%92%8C%E7%B3%BB%E6%89%80%E5%9C%A8%E5%BB%BA%E7%AD%91%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.1.</span> <span class="nav-text">找出所有教师的姓名,以及他们所在系的名称和系所在建筑的名称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">如何查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E5%BA%94%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.1.2.</span> <span class="nav-text">对应的SQL语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%85%B3%E7%B3%BB%E4%B8%AD%E7%9A%84%E5%90%8C%E5%90%8D%E5%B1%9E%E6%80%A7%E8%A6%81%E4%BD%BF%E7%94%A8%E5%85%B3%E7%B3%BB%E5%90%8D%E4%BD%9C%E4%B8%BA%E5%89%8D%E7%BC%80"><span class="nav-number">1.2.</span> <span class="nav-text">两个关系中的同名属性要使用关系名作为前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E9%87%8D%E5%90%8D%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%8D%E9%9C%80%E8%A6%81%E5%85%B3%E7%B3%BB%E5%90%8D%E4%BD%9C%E4%B8%BA%E5%89%8D%E7%BC%80"><span class="nav-number">1.3.</span> <span class="nav-text">不重名的属性不需要关系名作为前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%85%B3%E7%B3%BB%E6%9F%A5%E8%AF%A2%E7%9A%84SQL%E9%80%9A%E7%94%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">多个关系查询的SQL通用形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-from-where%E4%B8%89%E4%B8%AA%E5%AD%90%E5%8F%A5%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">select from where三个子句的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">SQL查询语句格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E5%90%84%E5%AD%90%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.7.</span> <span class="nav-text">查询运算各子句的执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#form%E5%AD%90%E5%8F%A5%E5%BE%97%E5%88%B0%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF"><span class="nav-number">1.8.</span> <span class="nav-text">form子句得到笛卡尔积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF%E8%AF%B4%E6%98%8E"><span class="nav-number">1.8.1.</span> <span class="nav-text">笛卡尔积说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where%E5%AD%90%E5%8F%A5%E9%99%90%E5%88%B6from%E5%AD%90%E5%8F%A5%E5%BE%97%E5%88%B0%E7%9A%84%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF"><span class="nav-number">1.9.</span> <span class="nav-text">where子句限制from子句得到的笛卡尔积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3SQL%E6%9F%A5%E8%AF%A2%E7%9A%84%E7%BB%93%E6%9E%9C%E5%BA%94%E8%AF%A5%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84"><span class="nav-number">1.10.</span> <span class="nav-text">理解SQL查询的结果应该是什么样的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%88%E9%80%82%E7%9A%84where"><span class="nav-number">1.11.</span> <span class="nav-text">要设置合适的where</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E5%AD%A6%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">大学数据库模式</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/43da05aa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.3.2 多关系查询 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.3.2 多关系查询
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-13 17:05:35" itemprop="dateCreated datePublished" datetime="2019-10-13T17:05:35+08:00">2019-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/" itemprop="url" rel="index"><span itemprop="name">第3章 SQL</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/3-3-SQL%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">3.3 SQL查询的基本结构</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/43da05aa/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/43da05aa/" data-xid="/ReadingNotes/43da05aa/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/43da05aa/#3-3-2-多关系查询" class="header_1">3.3.2 多关系查询</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#找出所有-教师-的-姓名-以及他们-所在系-的-名称-和-系所在建筑的名称" class="header_2">找出所有`教师`的`姓名`,以及他们`所在系`的`名称`和`系所在建筑的名称`</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#如何查询" class="header_3">如何查询</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#对应的SQL语句" class="header_3">对应的SQL语句</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#两个关系中的同名属性要使用关系名作为前缀" class="header_2">两个关系中的同名属性要使用关系名作为前缀</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#不重名的属性不需要关系名作为前缀" class="header_2">不重名的属性不需要关系名作为前缀</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#多个关系查询的-SQL-通用形式" class="header_2">多个关系查询的`SQL`通用形式</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#select-from-where三个子句的作用" class="header_2">select from where三个子句的作用</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#SQL查询语句格式" class="header_2">SQL查询语句格式</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#查询运算各子句的执行顺序" class="header_2">查询运算各子句的执行顺序</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#form子句得到笛卡尔积" class="header_2">form子句得到笛卡尔积</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#笛卡尔积说明" class="header_3">笛卡尔积说明</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#where子句限制from子句得到的笛卡尔积" class="header_2">where子句限制from子句得到的笛卡尔积</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#理解SQL查询的结果应该是什么样的" class="header_2">理解SQL查询的结果应该是什么样的</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#要设置合适的where" class="header_2">要设置合适的where</a>&nbsp;<br><a href="/ReadingNotes/43da05aa/#大学数据库模式" class="header_1">大学数据库模式</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="3-3-2-多关系查询"><a href="#3-3-2-多关系查询" class="headerlink" title="3.3.2 多关系查询"></a>3.3.2 多关系查询</h1><h2 id="找出所有教师的姓名-以及他们所在系的名称和系所在建筑的名称"><a href="#找出所有教师的姓名-以及他们所在系的名称和系所在建筑的名称" class="headerlink" title="找出所有教师的姓名,以及他们所在系的名称和系所在建筑的名称"></a>找出所有<code>教师</code>的<code>姓名</code>,以及他们<code>所在系</code>的<code>名称</code>和<code>系所在建筑的名称</code></h2><p>考虑<code>instructor</code>关系的模式,我们发现可以从<code>dept_name</code>属性得到<code>系名</code>,但是系所在建筑的名称是在<code>department</code>关系的<code>building</code>属性中给出的。</p>
+<!--SSTStop-->
+<blockquote>
+<p>教师模式:<code>instructor(<u>ID</u>,name,dept_name,salary)</code><br>系模式:<code>department(<u>dept_name</u>,building,budget)</code></p>
+</blockquote>
+<!--SSTStart-->
+<p>为了回答上面的查询, <code>instructor</code>关系中的每个元组必须与<code>department</code>关系中的元组匹配,也就是**<code>department</code>在<code>dept_name</code>上的取值要<code>等于</code> <code>instructor</code>元组在<code>dept_name</code>上的取值**。</p>
+<h3 id="如何查询"><a href="#如何查询" class="headerlink" title="如何查询"></a>如何查询</h3><p>为了在<code>SQL</code>中回答上述查询,我们**把需要访问的关系都列在<code>from</code>子句中,并在<code>where</code>子句中指定<code>匹配条件</code>**。</p>
+<h3 id="对应的SQL语句"><a href="#对应的SQL语句" class="headerlink" title="对应的SQL语句"></a>对应的SQL语句</h3><p>上述查询可用<code>SQL</code>写为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, instructor.dept_name, building</span><br><span class="line">    <span class="keyword">from</span> instructor, department</span><br><span class="line">    <span class="keyword">where</span> instructor.dept_name <span class="operator">=</span> department.dept_name;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name, instructor.dept_name, building</span><br><span class="line">from instructor, department</span><br><span class="line">where instructor.dept_name = department.dept_name;</span><br><span class="line">+------------+------------+----------+</span><br><span class="line">| name       | dept_name  | building |</span><br><span class="line">+------------+------------+----------+</span><br><span class="line">| Crick      | Biology    | Watson   |</span><br><span class="line">| Srinivasan | <span class="built_in">Comp</span>. Sci. | Taylor   |</span><br><span class="line">| Katz       | <span class="built_in">Comp</span>. Sci. | Taylor   |</span><br><span class="line">| Brandt     | <span class="built_in">Comp</span>. Sci. | Taylor   |</span><br><span class="line">| Kim        | Elec. Eng. | Taylor   |</span><br><span class="line">| Wu         | Finance    | Painter  |</span><br><span class="line">| Singh      | Finance    | Painter  |</span><br><span class="line">| El Said    | History    | Painter  |</span><br><span class="line">| Califieri  | History    | Painter  |</span><br><span class="line">| Mozart     | Music      | Packard  |</span><br><span class="line">| Einstein   | Physics    | Watson   |</span><br><span class="line">| Gold       | Physics    | Watson   |</span><br><span class="line">+------------+------------+----------+</span><br><span class="line"><span class="number">12</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h2 id="两个关系中的同名属性要使用关系名作为前缀"><a href="#两个关系中的同名属性要使用关系名作为前缀" class="headerlink" title="两个关系中的同名属性要使用关系名作为前缀"></a>两个关系中的同名属性要使用关系名作为前缀</h2><p><code>dept_name</code>属性既出现在<code>instructor</code>关系中,也出现在<code>department</code>中,所以需要使用关系名作为前缀来说明我们使用的是哪个属性<br>例如:<br><code>instructor.dept_name</code><br><code>department.dept_name</code></p>
+<h2 id="不重名的属性不需要关系名作为前缀"><a href="#不重名的属性不需要关系名作为前缀" class="headerlink" title="不重名的属性不需要关系名作为前缀"></a>不重名的属性不需要关系名作为前缀</h2><p>属性<code>name</code>和<code>building</code>只出现在一个关系中,因而不需要把关系名作为前缀。</p>
+<h2 id="多个关系查询的SQL通用形式"><a href="#多个关系查询的SQL通用形式" class="headerlink" title="多个关系查询的SQL通用形式"></a>多个关系查询的<code>SQL</code>通用形式</h2><p>现在我们考虑涉及多个关系的<code>SQL</code>查询的通用形式。</p>
+<h2 id="select-from-where三个子句的作用"><a href="#select-from-where三个子句的作用" class="headerlink" title="select from where三个子句的作用"></a>select from where三个子句的作用</h2><p>一个<code>SQL</code>查询可以包括三种类型的子句:<code>select</code>子句、<code>from</code>子句和<code>where</code>子句。每种子句的作用如下:</p>
+<ul>
+<li><code>select</code>子句用于列出<code>查询结果中所需要的属性</code>。</li>
+<li><code>from</code>子句是一个查询求值中需要访问的<code>关系列表</code>。</li>
+<li><code>where</code>子句是一个<strong>作用在<code>from</code>子句中关系的属性上的谓词</strong></li>
+</ul>
+<h2 id="SQL查询语句格式"><a href="#SQL查询语句格式" class="headerlink" title="SQL查询语句格式"></a>SQL查询语句格式</h2><p>一个典型的<code>SQL</code>查询具有如下形式:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A1,A2,...An</span><br><span class="line">    form R1,R2,...,Rm</span><br><span class="line">    <span class="keyword">where</span> P;</span><br></pre></td></tr></table></figure>
+<p>每个<code>An</code>,代表一个属性,每个<code>Rm</code>代表一个关系。<code>P</code>是一个谓词。如果省略<code>where</code>子句,则谓词<code>P</code>为<code>true</code>。<br>如何</p>
+<h2 id="查询运算各子句的执行顺序"><a href="#查询运算各子句的执行顺序" class="headerlink" title="查询运算各子句的执行顺序"></a>查询运算各子句的执行顺序</h2><p>尽管各子句必须以<code>select</code>、<code>from</code>、 <code>where</code>的次序写出,但理解查询所代表运算的最容易的方式是<code>以运算的顺序</code>来考察各子句:</p>
+<ul>
+<li>首先是<code>from</code>,</li>
+<li>然后是<code>where</code>,</li>
+<li>最后是<code>select</code>。</li>
+</ul>
+<h2 id="form子句得到笛卡尔积"><a href="#form子句得到笛卡尔积" class="headerlink" title="form子句得到笛卡尔积"></a>form子句得到笛卡尔积</h2><p>**通过<code>from</code>子句定义了一个在该子句中所列出关系上的<code>笛卡儿积</code>**。</p>
+<!--SSTStop-->
+<p>它可以用集合理论来形式化地定义,但最好通过下面的迭代过程来理解,此过程可为<code>from</code>子句的结果关系产生元组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> 元组T1 <span class="keyword">in</span> 关系R1</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">each</span> 元组T2 <span class="keyword">in</span> 关系R2</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">for</span> <span class="keyword">each</span> 元组Tn <span class="keyword">in</span> 关系Rn</span><br><span class="line">            把T1,T2,...,Tn 连接 成单个元组T</span><br><span class="line">            把T加入结果关系中.    </span><br></pre></td></tr></table></figure>
+<p>此结果关系具有来自<code>from</code>子句中所有关系的所有属性。由于在关系<code>Ri</code>和<code>Rj</code>中可能出现相同的属性名,此时需要在属性名前加上关系名作为前缀,表示该属性来自于哪个关系。</p>
+<h3 id="笛卡尔积说明"><a href="#笛卡尔积说明" class="headerlink" title="笛卡尔积说明"></a>笛卡尔积说明</h3><blockquote>
+<p><code>instructor(<u>ID</u>,name,dept_name,salary)</code><br><code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code></p>
+</blockquote>
+<p>关系<code>instructor</code>和<code>teaches</code>的<code>笛卡儿积</code>的关系模式为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(instructor.ID, instructor.name, instructor.dept_name, instructor.salary teaches.ID, teaches.course_id, teaches.sec_id, teaches.semester, teaches.year)</span><br></pre></td></tr></table></figure>
+<p>有了这个模式,我们可以区分出<code>instructor.ID</code>和<code>teaches.ID</code>。对于那些只出现在单个模式中的属性,我们通常去掉关系名前缀。这种简化并不会造成任何混淆。这样我们可以把关系模式写为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(instructor.ID, name, dept_name, salary, teaches.ID, course_id, sec_id, semester, <span class="keyword">year</span>)</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>笛卡儿积</code>把来自<code>instructor</code>和<code>teaches</code>中相互没有关联的元组组合起来。 <code>instructor</code>中的每个元组和<code>teaches</code>中的所有元组都要进行组合。结果可能是一个非常庞大的关系,创建这样的笛卡儿积通常是没有意义的。</p>
+<!--SSTStart-->
+<h2 id="where子句限制from子句得到的笛卡尔积"><a href="#where子句限制from子句得到的笛卡尔积" class="headerlink" title="where子句限制from子句得到的笛卡尔积"></a>where子句限制from子句得到的笛卡尔积</h2><p><code>where</code>子句中的谓词用来限制笛卡儿积所建立的组合,只留下那些对所需答案有意义的组合。<br>例如:<br>我们希望把<code>teaches</code>元组只和<strong>具有相同<code>ID</code>值</strong>的<code>instructor</code>元组进行匹配。下面的<code>SQL</code>查询满足这个条件,从这些匹配元组中输出教师名和课程标识。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, course_id</span><br><span class="line"><span class="keyword">from</span> instructor , teaches</span><br><span class="line"><span class="keyword">where</span> instructor.ID<span class="operator">=</span> teaches.ID;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name, course_id</span><br><span class="line">from instructor , teaches</span><br><span class="line">where instructor.ID= teaches.ID;</span><br><span class="line">+------------+-----------+</span><br><span class="line">| name       | course_id |</span><br><span class="line">+------------+-----------+</span><br><span class="line">| Srinivasan | CS-<span class="number">101</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">315</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">347</span>    |</span><br><span class="line">| Wu         | FIN-<span class="number">201</span>   |</span><br><span class="line">| Mozart     | MU-<span class="number">199</span>    |</span><br><span class="line">| Einstein   | PHY-<span class="number">101</span>   |</span><br><span class="line">| El Said    | HIS-<span class="number">351</span>   |</span><br><span class="line">| Katz       | CS-<span class="number">101</span>    |</span><br><span class="line">| Katz       | CS-<span class="number">319</span>    |</span><br><span class="line">| Crick      | BIO-<span class="number">101</span>   |</span><br><span class="line">| Crick      | BIO-<span class="number">301</span>   |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">319</span>    |</span><br><span class="line">| Kim        | EE-<span class="number">181</span>    |</span><br><span class="line">+------------+-----------+</span><br><span class="line"><span class="number">15</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br><span class="line"></span><br><span class="line">mysql&gt; </span><br></pre></td></tr></table></figure>
+<p>注意上述<strong>查询只输出讲授了课程的教师,不会输出那些没有讲授任何课程的教师</strong>,可以使用一种被称作<code>外连接</code>的运算,外连接将在4.1.2节讲述。</p>
+<p>如果我们只希望找出<code>Computer Science</code>系的教师名和课程标识,我们可以在<code>where</code>子句中增加另外的谓词,如下所示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, course_id </span><br><span class="line"><span class="keyword">from</span> instructor, teaches</span><br><span class="line"><span class="keyword">where</span> instructor.ID<span class="operator">=</span> teaches.ID <span class="keyword">and</span> instructor.dept_name <span class="operator">=</span> <span class="string">&#x27;Comp. Sci.&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name, course_id</span><br><span class="line">from instructor, teaches</span><br><span class="line">where instructor.ID= teaches.ID and instructor.dept_name = &#x27;<span class="built_in">Comp</span>. Sci.&#x27;;</span><br><span class="line">+------------+-----------+</span><br><span class="line">| name       | course_id |</span><br><span class="line">+------------+-----------+</span><br><span class="line">| Srinivasan | CS-<span class="number">101</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">315</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">347</span>    |</span><br><span class="line">| Katz       | CS-<span class="number">101</span>    |</span><br><span class="line">| Katz       | CS-<span class="number">319</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">319</span>    |</span><br><span class="line">+------------+-----------+</span><br><span class="line"><span class="number">8</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h2 id="理解SQL查询的结果应该是什么样的"><a href="#理解SQL查询的结果应该是什么样的" class="headerlink" title="理解SQL查询的结果应该是什么样的"></a>理解SQL查询的结果应该是什么样的</h2><p>通常说来,一个<code>SQL</code>查询的含义可以理解如下:</p>
+<ol>
+<li>为<code>from</code>子句中列出的关系产生<code>笛卡儿积</code>。</li>
+<li>在步骤1的结果上应用<code>where</code>子句中指定的谓词。</li>
+<li>对于步骤2结果中的每个元组,输出<code>select</code>子句中指定的属性(或表达式的结果)。</li>
+</ol>
+<p>上述步骤的顺序有助于**明白一个<code>SQL</code>查询的结果应该是什么样的,**而不是这个结果是怎样被执行的。在<code>SQL</code>的实际实现中不会执行这种形式的查询,它会通过(尽可能)只产生满足<code>where</code>子句谓词的笛卡儿积元素来进行优化执行。我们在后面第12章和第13章学习那样的实现技术。</p>
+<h2 id="要设置合适的where"><a href="#要设置合适的where" class="headerlink" title="要设置合适的where"></a>要设置合适的where</h2><p>当书写查询时,需要小心设置合适的where子句条件。如果在前述SQL查询中省略where子句条件,就会输出<code>笛卡儿积</code>,那是一个巨大的关系</p>
+<!--SSTStop-->
+<h1 id="大学数据库模式"><a href="#大学数据库模式" class="headerlink" title="大学数据库模式"></a>大学数据库模式</h1><p><code>classroom(<u>building</u>,room_number,capacity)</code><br><code>department(<u>dept_name</u>,building,budget)</code><br><code>course(<u>course_id</u>,title,dept_name,credits)</code><br><code>instructor(<u>ID</u>,name,dept_name,salary)</code><br><code>section(<u>course_id,sec_id,semester,year</u>,building,room_number,time_slot_id)</code><br><code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code><br><code>student(<u>ID</u>,name,dept_name,tot_cred)</code><br><code>takes(<u>ID,course_id,sec_id,semester,year</u>,grade)</code><br><code>advisor(<u>s_ID,i_ID</u>)</code><br><code>time_slot(<u>time_slot_id,day,start_time</u>,end_time)</code><br><code>prereq(<u>course_id,prereq_id</u>)</code></p>
+<!--SSTStart-->
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/43da05aa/" title="3.3.2 多关系查询">https://lanlan2017.github.io/ReadingNotes/43da05aa/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b0218f52/" rel="prev" title="3.3 SQL查询的基本结构 3.3.1 单关系查询">
+                  <i class="fa fa-chevron-left"></i> 3.3 SQL查询的基本结构 3.3.1 单关系查询
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b726cd8c/" rel="next" title="3.3.3 自然连接">
+                  3.3.3 自然连接 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/43da05aa/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/43da05aa/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

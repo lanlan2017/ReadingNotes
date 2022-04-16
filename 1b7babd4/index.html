@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="19.4 在Docker容器中运行Spring Boot在分发云中部署的各种应用时，Docker已经成为事实标准。很多云环境都接受以Docker容器的形式部署应用，包括AWS、Microsoft Azure、Google CloudPlatform和Pivotal Web Services（简单举例）。 容器化应用程序（比如使用Docker创建的应用程序）的概念借鉴了现实世界中的联运集装箱。在运输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19.4 在Docker容器中运行Spring Boot">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/1b7babd4/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="19.4 在Docker容器中运行Spring Boot在分发云中部署的各种应用时，Docker已经成为事实标准。很多云环境都接受以Docker容器的形式部署应用，包括AWS、Microsoft Azure、Google CloudPlatform和Pivotal Web Services（简单举例）。 容器化应用程序（比如使用Docker创建的应用程序）的概念借鉴了现实世界中的联运集装箱。在运输">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-22T09:01:05.000Z">
+<meta property="article:modified_time" content="2021-10-22T09:01:05.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/1b7babd4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/1b7babd4/","path":"/1b7babd4/","title":"19.4 在Docker容器中运行Spring Boot"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>19.4 在Docker容器中运行Spring Boot | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#19-4-%E5%9C%A8Docker%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%BF%90%E8%A1%8CSpring-Boot"><span class="nav-number">1.</span> <span class="nav-text">19.4 在Docker容器中运行Spring Boot</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/1b7babd4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="19.4 在Docker容器中运行Spring Boot | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          19.4 在Docker容器中运行Spring Boot
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-22 17:01:05" itemprop="dateCreated datePublished" datetime="2021-10-22T17:01:05+08:00">2021-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC5%E9%83%A8%E5%88%86-%E9%83%A8%E7%BD%B2Spring/" itemprop="url" rel="index"><span itemprop="name">第5部分 部署Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC5%E9%83%A8%E5%88%86-%E9%83%A8%E7%BD%B2Spring/%E7%AC%AC19%E7%AB%A0-%E9%83%A8%E7%BD%B2Spring/" itemprop="url" rel="index"><span itemprop="name">第19章 部署Spring</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/1b7babd4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/1b7babd4/" data-xid="/ReadingNotes/1b7babd4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="19-4-在Docker容器中运行Spring-Boot"><a href="#19-4-在Docker容器中运行Spring-Boot" class="headerlink" title="19.4 在Docker容器中运行Spring Boot"></a>19.4 在Docker容器中运行Spring Boot</h1><p>在分发云中部署的各种应用时，Docker已经成为事实标准。很多云环境都接受以Docker容器的形式部署应用，包括AWS、Microsoft Azure、Google CloudPlatform和Pivotal Web Services（简单举例）。</p>
+<p>容器化应用程序（比如使用Docker创建的应用程序）的概念借鉴了现实世界中的联运集装箱。在运输过程中，不管里面的东西是什么，所有的联运集装箱都有一个标准的尺寸和格式。正因为如此，联运集装箱才能够很容易地堆放在船上、火车上或卡车上。按照类似的方式，容器化的应用程序遵循通用的容器格式，可以在任何地方部署和运行，而不必关心里面的应用是什么。</p>
+<p>尽管创建Docker镜像并不困难，但是Spotify提供了一个Maven插件，借助它我们可以轻而易举地将Spring Boot的构建结果创建为Docker容器。要使用该Docker插件，需要将其添加到Spring Boot项目pom.xml文件的<code>&lt;build&gt;</code>&#x2F;<code>&lt;plugins&gt;</code>代码块下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.spotify<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dockerfile-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">          $&#123;docker.image.prefix&#125;/$&#123;project.artifactId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">buildArgs</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">JAR_FILE</span>&gt;</span>target/$&#123;project.build.finalName&#125;.jar<span class="tag">&lt;/<span class="name">JAR_FILE</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">buildArgs</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>&lt;configuration&gt;</code>代码块下，我们设置了一些属性，用于指导如何创建Docker镜像。<code>&lt;repository&gt;</code>描述了在Docker仓库中该Docker镜像的名称。按照这里的设置，其名称是Maven项目的artifact ID，加上Maven属性docker.image.prefix的值作为前缀。项目的artifact ID是Maven已知的，而前缀属性则需要我们进行设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">docker.image.prefix</span>&gt;</span>tacocloud<span class="tag">&lt;/<span class="name">docker.image.prefix</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以Taco Cloud的配料服务来讲，所形成的Docker镜像在Docker仓库的名称为tacocloud&#x2F;ingredient-service。</p>
+<p>在<code>&lt;buildArgs&gt;</code>元素下面，我们声明镜像要包含Maven构建所生成的JAR文件，在这里使用Maven属性project.build.finalName来确定target目录下JAR文件的名称。</p>
+<p>除了提供给Maven构建文件的信息之外，Docker镜像的所有定义都位于一个名叫Dockerfile的文件中。这个文件指明了新镜像要基于哪个基础镜像、要设置的环境变量、要mount的卷以及最重要的入口点（entry point）。入口点也就是基于该镜像的容器在启动时要执行的命令。对于大多数Spring Boot应用来讲，如下的Dockerfile就是一个很好的起点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line">ENV SPRING_PROFILES_ACTIVE docker</span><br><span class="line">VOLUME /tmp</span><br><span class="line">ARG JAR_FILE</span><br><span class="line">COPY $&#123;JAR_FILE&#125; app.jar</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,\</span><br><span class="line">            &quot;-Djava.security.egd=file:/dev/./urandom&quot;,\</span><br><span class="line">            &quot;-jar&quot;,\</span><br><span class="line">            &quot;/app.jar&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>我们将Docker文件逐行拆分，将会看到它包含如下内容。</p>
+<ul>
+<li>FROM指令声明了新镜像要基于哪个基础镜像。新的镜像会扩展基础镜像。在本例中，基础镜像为openjdk:8-jdk- alpine，这是一个基于OpenJDK 8的容器镜像。</li>
+<li>ENV指令设置了环境变量。我们可以基于激活状态的profile重写一些SpringBoot应用的配置属性，所以在本镜像中，我们将SPRING_PROFILES_ACTIVE环境变量设置为docker，从而确保Spring Boot应用启动时docker是处于激活状态的profile。</li>
+<li>VOLUME指令在容器中创建了一个mount点。在本例中，它在“&#x2F;tmp”创建了一个mount点，所以需要的话可以将数据写入“&#x2F;tmp”目录下。</li>
+<li>ARG指令声明了一个要在构建期传入的参数。在本例中，它声明了名为JAR_FILE的参数，与Maven插件<code>&lt;buildArgs&gt;</code>代码块中的参数是相同的。</li>
+<li>COPY指令会将给定路径下的某个文件复制到另外一个路径下。在本例中，它会将Maven插件中声明的JAR文件复制为容器中名为app.jar的文件。</li>
+<li>ENTRYPOINT描述了容器启动的时候要执行什么操作。它以数组的形式指定了要执行的命令行。在本例中，它使用java命令来运行可执行的app.jar。</li>
+</ul>
+<p>我们着重介绍一下ENV指令。在任何包含Spring Boot应用程序的容器镜像中设置SPRING_PROFILES_ACTIVE环境变量通常都是一个好办法。这样的话，我们可以配置一些仅在Docker下运行应用时有效的bean和配置属性。</p>
+<p>对于配料服务，我们需要将应用程序链接到运行在单独容器中的Mongo数据库。默认情况下，Spring Data会尝试连接localhost上监听端口27017的Mongo数据库。但是，这种做法只有在本地运行的时候才有效，并不适合容器。因此，我们需要配置spring.data.mongodb.host属性，告诉Spring Data要访问哪个主机上的Mongo。</p>
+<p>虽然我们可能还不知道Mongo数据库运行在何处，但是我们可以通过application.yml文件配置Docker特定的配置，让它在docker profile处于激活状态时配置Spring Data连接名为mongo的主机上的Mongo：</p>
+<pre>
+&#45;&#45;&#45;
+spring:
+  profiles: docker
+  data:
+    mongodb:
+      host: mongo
+</pre>
+
+<p>随后，当我们启动Docker容器的时候，会将mongo主机映射到一个在不同容器中运行的Mongo数据库上。现在，我们先来构建容器镜像。借助Maven包装器，执行package和dockerfile:build goal来构建JAR文件，然后构建Docker镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvnw package dockerfile:build</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们可以通过docker images来校验本地镜像仓库中的镜像（为了可读性和适应本书的宽度，这里将CREATED和SIZE列删减掉了）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br><span class="line">REPOSITORY                    TAG        IMAGE ID</span><br><span class="line">tacocloud/ingredient-service  latest     7e8ed20e768e</span><br></pre></td></tr></table></figure>
+
+<p>在启动容器之前，我们需要启动Mongo数据库的容器。如下的命令显示了运行一个名为tacocloud-mongo的新容器，其中包含Mongo 3.7.9数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name tacocloud-mongo -d mongo:3.7.9-xenial</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们终于可以运行配料服务容器了，并链接它到刚刚启动的Mongo容器上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -p 8080:8081 \</span><br><span class="line">             --link tacocloud-mongo:mongo \</span><br><span class="line">             tacocloud/ingredient-service</span><br></pre></td></tr></table></figure>
+
+<p>这里的docker run命令有多个值得介绍的重要组件。</p>
+<ul>
+<li>因为我们配置了容器中的Spring Boot应用运行在8081端口上，所以-p参数可以将内部端口映射到主机的8080端口上。</li>
+<li>–link参数能够将我们的容器链接到名为tacocloud-mongo的容器上，并为其分配mongo主机名，这样Spring Data就可以使用该主机名连接它了。</li>
+<li>最后，我们指定了容器要运行的镜像名称（也就是tacocloud&#x2F;ingredient-service）。</li>
+</ul>
+<p>现在，Docker镜像构建完成并且已经证明可以作为本地容器运行。我们可以更进一步，将镜像推送至Dockerhub或其他Docker镜像仓库。如果你有Dockerhub账号并且已经登录，那么可以使用如下的Maven命令推送镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvnw dockerfile:push</span><br></pre></td></tr></table></figure>
+
+<p>这样的话，我们可以将镜像部署到几乎所有支持Docker容器的环境中，包括AWS、Microsoft Azure和Google Cloud Platform。你可以选择任意的环境并按照平台相关的指令部署Docker镜像。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/1b7babd4/" title="19.4 在Docker容器中运行Spring Boot">https://lanlan2017.github.io/ReadingNotes/1b7babd4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/2a74488e/" rel="prev" title="19.3 推送JAR文件到Cloud Foundry上">
+                  <i class="fa fa-chevron-left"></i> 19.3 推送JAR文件到Cloud Foundry上
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5fb7c972/" rel="next" title="19.5 以终为始">
+                  19.5 以终为始 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/1b7babd4/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/1b7babd4/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

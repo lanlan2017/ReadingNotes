@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="7.6 编写jQuery插件在前面几个章节中，已经介绍了jQuery的大部分的基本应用，同时也看到了一些不错的插件。这一节将介绍如何编写一个插件。 7.6.1 插件的种类编写插件的目的是给已经有的一系列方法或函数做一个封装，以便在其他地方重复使用，方便后期维护和提高开发效率。 jQuery的插件主要分为3种类型。 1．封装对象方法的插件这种插件是将对象方法封装起来，用于对通过选择器获取的jQuer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.6 编写jQuery插件">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/f5a83ee8/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="7.6 编写jQuery插件在前面几个章节中，已经介绍了jQuery的大部分的基本应用，同时也看到了一些不错的插件。这一节将介绍如何编写一个插件。 7.6.1 插件的种类编写插件的目的是给已经有的一系列方法或函数做一个封装，以便在其他地方重复使用，方便后期维护和提高开发效率。 jQuery的插件主要分为3种类型。 1．封装对象方法的插件这种插件是将对象方法封装起来，用于对通过选择器获取的jQuer">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-13T07:03:16.000Z">
+<meta property="article:modified_time" content="2021-12-13T08:10:25.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/f5a83ee8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/f5a83ee8/","path":"/f5a83ee8/","title":"7.6 编写jQuery插件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7.6 编写jQuery插件 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-6-%E7%BC%96%E5%86%99jQuery%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">7.6 编写jQuery插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-1-%E6%8F%92%E4%BB%B6%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">7.6.1 插件的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E5%B0%81%E8%A3%85%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">1．封装对象方法的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%B0%81%E8%A3%85%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">2．封装全局函数的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E9%80%89%E6%8B%A9%E5%99%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">3．选择器插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-2-%E6%8F%92%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">7.6.2 插件的基本要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-3-%E6%8F%92%E4%BB%B6%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">1.3.</span> <span class="nav-text">7.6.3 插件中的闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-4-jQuery%E6%8F%92%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">7.6.4 jQuery插件的机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-5-%E7%BC%96%E5%86%99jQuery%E6%8F%92%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">7.6.5 编写jQuery插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E5%B0%81%E8%A3%85jQuery%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">1．封装jQuery对象方法的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%B0%81%E8%A3%85%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E7%9A%84%E6%8F%92%E4%BB%B6-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">2．封装全局函数的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">3．自定义选择器</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/f5a83ee8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7.6 编写jQuery插件 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.6 编写jQuery插件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-13 15:03:16 / 修改时间：16:10:25" itemprop="dateCreated datePublished" datetime="2021-12-13T15:03:16+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC7%E7%AB%A0-jQuery%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E5%86%99%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">第7章 jQuery插件的使用和写法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/f5a83ee8/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/f5a83ee8/" data-xid="/ReadingNotes/f5a83ee8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="7-6-编写jQuery插件"><a href="#7-6-编写jQuery插件" class="headerlink" title="7.6 编写jQuery插件"></a>7.6 编写jQuery插件</h1><p>在前面几个章节中，已经介绍了jQuery的大部分的基本应用，同时也看到了一些不错的插件。这一节将介绍如何编写一个插件。</p>
+<h2 id="7-6-1-插件的种类"><a href="#7-6-1-插件的种类" class="headerlink" title="7.6.1 插件的种类"></a>7.6.1 插件的种类</h2><p>编写插件的目的是给已经有的一系列方法或函数做一个封装，以便在其他地方重复使用，方便后期维护和提高开发效率。</p>
+<p>jQuery的插件主要分为3种类型。</p>
+<h3 id="1．封装对象方法的插件"><a href="#1．封装对象方法的插件" class="headerlink" title="1．封装对象方法的插件"></a>1．封装对象方法的插件</h3><p>这种插件是将对象方法封装起来，用于对通过选择器获取的jQuery 对象进行操作，是最常见的一种插件。</p>
+<p>据不完全统计，95%以上的jQuery 插件都是封装对象方法的插件。此类插件可以发挥出jQuery选择器的强大优势。有相当一部分的jQuery的方法，都是在 jQuery脚本库内部通过这种形式“插”在内核上的，例如parent()方法、appendTo()方法和addClass()方法等不少DOM操作方法。</p>
+<p>有不少用户对jQuery没有提供color()方法而表示遗憾，不得不用css(“color”)来代替。在后面的例子中将会讲解如何编写一个color()方法的jQuery插件。</p>
+<h3 id="2．封装全局函数的插件"><a href="#2．封装全局函数的插件" class="headerlink" title="2．封装全局函数的插件"></a>2．封装全局函数的插件</h3><p>可以将独立的函数加到 jQuery 命名空间之下。例如第1 章提到的解决冲突用的jQuery. noConflict()方法、常用的jQuery.ajax()方法以及去除首位空格的jQuery.trim()方法等，都是 jQuery内部作为全局函数的插件附加到内核上去的。</p>
+<h3 id="3．选择器插件"><a href="#3．选择器插件" class="headerlink" title="3．选择器插件"></a>3．选择器插件</h3><p>个别情况下，会需要用到选择器插件。虽然 jQuery的选择器十分强大，但还是会需要扩充一些自己喜欢的选择器，例如用：color(red)来选择所有红色字的元素之类的想法。</p>
+<h2 id="7-6-2-插件的基本要点"><a href="#7-6-2-插件的基本要点" class="headerlink" title="7.6.2 插件的基本要点"></a>7.6.2 插件的基本要点</h2><ul>
+<li>jQuery插件的文件名推荐命名为<code>jquery.[插件名].js</code>，以免和其他JavaScript库插件混淆。例如命名为jquery.color.js。</li>
+<li>所有的对象方法都应当附加到jQuery.fn对象上，而所有的全局函数都应当附加到jQuery对象本身上。</li>
+<li>在插件内部，this指向的是当前通过选择器获取的jQuery对象，而不像一般的方法那样，例如click()方法，内部的this指向的是DOM元素。</li>
+<li>可以通过this.each来遍历所有元素。</li>
+<li>所有的方法或函数插件，都应当以分号结尾，否则压缩的时候可能出现问题。为了更稳妥些，甚至可以在插件头部先加上一个分号，以免他人的不规范代码给插件带来影响。具体方法可以参考后面的代码。</li>
+<li>插件应该返回一个jQuery对象，以保证插件的可链式操作。除非插件需要返回的是一些需要获取的量，例如字符串或者数组等。</li>
+<li>避免在插件内部使用$作为jQuery对象的别名，而应使用完整的jQuery来表示。这样可以避免冲突。当然，也可以利用闭包这种技巧来回避这个问题，使插件内部继续使用$作为jQuery的别名。很多插件都是这么做的，本书也会利用这种形式。</li>
+</ul>
+<h2 id="7-6-3-插件中的闭包"><a href="#7-6-3-插件中的闭包" class="headerlink" title="7.6.3 插件中的闭包"></a>7.6.3 插件中的闭包</h2><p>关于闭包，ECMAScript 对其进行了简单的描述：允许使用内部函数（即函数定义和函数表达式位于另一个函数的函数体内），而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数，当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。即内部函数会在外部函数返回后被执行。而当这个内部函数执行时，它仍然必须访问其外部函数的局部变量、参数以及其他内部函数。这些局部变量、参数和函数声明（最初时）的值是外部函数返回时的值，但也会受到内部函数的影响。</p>
+<p>利用闭包的特性，既可以避免内部临时变量影响全局空间，又可以在插件内部继续使用$作为jQuery的别名。常见的jQuery插件都是以下这种形式的：</p>
+<p>[插图]</p>
+<p>首先定义一个匿名函数function(){&#x2F;<em>这里置放代码</em>&#x2F;}，然后用括号括起来，变成（function(){&#x2F;<em>这里置放代码</em>&#x2F;}）这种形式，最后通过()这个运算符来执行。可以传递参数进去，以供内部函数使用。</p>
+<p>[插图]</p>
+<p>上段代码是一种常见的jQuery插件的结构。</p>
+<p>接下来看下面这段jQuery代码：</p>
+<p>[插图]</p>
+<p>这里只是简单地介绍了闭包的概念，显然闭包不是几句话就能讲清楚的。但对于插件的制作来说读者只需要知道所有的插件代码必须放置在下面这两句代码内就可以了。</p>
+<p>[插图]</p>
+<p>如果需要获取更多关于闭包的知识，读者可以自行查阅相关资料。</p>
+<h2 id="7-6-4-jQuery插件的机制"><a href="#7-6-4-jQuery插件的机制" class="headerlink" title="7.6.4 jQuery插件的机制"></a>7.6.4 jQuery插件的机制</h2><p>jQuery提供了两个用于扩展jQuery功能的方法，即jQuery.fn.extend()方法和jQuery.extend()方法。前者用于扩展之前提到的3种类型插件中的第1种，后者用于扩展后两种插件。这两个方法都接受一个参数，类型为Object。Object 对象的“名&#x2F;值对”分别代表“函数或方法名&#x2F;函数主体”。具体内容将会在下面讲解。</p>
+<p>jQuery.extend()方法除了可以用于扩展jQuery对象之外，还有一个很强大的功能，就是用于扩展已有的Object对象。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>用一个或多个其他对象来扩展一个对象，然后返回被扩展的对象。</p>
+<p>例如合并settings对象和options对象，修改并返回settings对象。</p>
+<p>[插图]</p>
+<p>结果为：</p>
+<p>[插图]</p>
+<p>jQuery.extend()方法经常被用于设置插件方法的一系列默认参数，如下面的代码所示：</p>
+<p>[插图]</p>
+<p>如果用户调用foo()方法的时候，在传递的参数options对象中设置了相应的值，那么就使用设置的值，否则使用默认值。代码如下：</p>
+<p>[插图]</p>
+<p>通过使用jQuery.extend()方法，可以很方便地用传入的参数来覆盖默认值。此时，对方法的调用依旧保持一致，只不过要传入的是一个映射而不是一个参数列表。这种机制比传统的每个参数都去检测的方式不仅灵活而且更简洁。此外，使用命名参数意味着再添加新选项也不会影响过去编写的代码，从而使开发者使用起来更加直观明了。</p>
+<h2 id="7-6-5-编写jQuery插件"><a href="#7-6-5-编写jQuery插件" class="headerlink" title="7.6.5 编写jQuery插件"></a>7.6.5 编写jQuery插件</h2><h3 id="1．封装jQuery对象方法的插件"><a href="#1．封装jQuery对象方法的插件" class="headerlink" title="1．封装jQuery对象方法的插件"></a>1．封装jQuery对象方法的插件</h3><ul>
+<li>编写设置和获取颜色的插件。</li>
+</ul>
+<p>首先介绍如何编写一个color()插件。该插件用于实现以下两个功能。<br>（1）设置匹配元素的颜色。<br>（2）获取匹配的元素(元素集合中的第1个)的颜色。</p>
+<p>首先将该插件按规范命名为jquery.color.js。</p>
+<p>然后在JavaScript文件里搭好框架，代码如下：</p>
+<p>[插图]</p>
+<p>由于是对jQuery对象的方法扩展，因此采用扩展第1类插件的方法jQuery.fn.extend()来编写，代码如下：</p>
+<p>[插图]</p>
+<p>这里给这个方法提供一个参数value，如果调用方法的时候传递了value这个参数，那么就是用这个值来设置字体颜色；否则就是获取匹配元素的字体颜色的值。</p>
+<p>首先实现第1个功能，设置字体的颜色。</p>
+<p>只需要简单地调用jQuery提供的css()方法，直接写成this.css(“color”，value)即可。注意，插件内部的this指向的是jQuery对象，而非普通的DOM对象。接下来要注意的是，插件如果不需要返回字符串之类的特定值，应当使其具有可链接性。为此，直接返回这个this对象，由于.css()方法也会返回调用它的对象，即此处的this，因此可以将代码写成：</p>
+<p>[插图]</p>
+<p>接下来实现第2个功能。如果没有给方法传递参数，那么就是获取集合对象中第1个对象的color的值。由于 css()方法本身就具有返回第1个匹配元素的样式值的功能，因此此处无需通过eq()来获取第1个元素。只要将这两个功能结合起来，判断一下value是否是undefined即可。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>此时color()插件的功能已经全部实现了，通过该插件可以获取和设置元素的color值。实际上， css()方法内部已经有判断value是否为undefined的机制，所以才可以根据传递参数的不同而返回不同的值。因此，可以借助css()方法的这个特性来处理该问题。删除if()部分，最终剩余的代码实际上与先前那一段是一样的。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>这样一来，插件也就编写完成了。现在来测试一下该插件。</p>
+<p>构建如下代码，并放入插件以及测试代码。</p>
+<p>[插图]</p>
+<p>运行代码后可以看到图7-23和图7-24所示的效果。</p>
+<p>[插图]</p>
+<center>图7-23 获取第1个元素的color值</center>
+
+
+<p>[插图]</p>
+<center>图7-24 设置元素的color属性为红色</center>
+
+<p>另外，如果要定义一组插件，可以使用如下所示写法：</p>
+<p>[插图]</p>
+<ul>
+<li>表格隔行变色插件</li>
+</ul>
+<p>这里将第5 章的表格隔行变色的代码制作成一个插件，以便于重复使用。表格隔行变色的jQuery代码如下：</p>
+<p>[插图]</p>
+<p>首先把插件方法取名为alterBgColor，然后为该插件方法搭好框架，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>框架完成后，接下来就需要为options定义默认值。默认构建这样（{odd: “odd”，even:” even”， selected:”selected”}）一个 Object。这样就可以通过$(“#sometable”).alterBgColor({odd: “odd”， even:”even”，selected:”selected”})自定义奇偶行的样式类名以及选中后的样式类名。同时，直接使用$(“#sometable”).alterBgColor()就可以应用默认的样式类名。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>如果在后面的程序中需要使用options对象中的属性，可以使用如下方式来获得：</p>
+<p>[插图]</p>
+<p>接下来就需要把这些值放到程序中，来代替先前程序中的固定值。</p>
+<p>最后就是匹配元素的问题了。显然不能直接用<code>$(&#39;tbody&gt;tr&#39;)</code>选择表格行，这样会使页面中全部的<code>&lt;tr&gt;</code>元素都隔行变色。应该使用选择器选中某个表格，执行alterBgColor()方法后，将对应的表格内<code>&lt;tr&gt;</code>元素进行隔行变色。因此，需要把所有通过<code>$(&#39;tbody&gt;tr&#39;)</code>选择的对象改写成<code>$(&#39;tbody&gt;tr&#39;,this)</code>，表示在匹配的元素内（当前表格内）查找，并应用上一步中的默认值。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>在代码的最后，返回this，让这个插件具有可链性。</p>
+<p>此时，插件就完成了。现在来测试这个插件。构造两个表格，id分别为table1和table2，然后使用其中一个<code>&lt;table&gt;</code>调用alterBgColor()方法，以便查看插件是否能独立工作，并且具有可链性。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>从图7-25可以看到，第1个表格没有变化，第2个表格不仅隔行变色，同时表格头部的<code>&lt;th&gt;</code>标签的字体颜色变为红色。</p>
+<p>[插图]</p>
+<center>图7-25 应用插件后的效果</center>
+
+<p>需要注意的是，jQuery的选择符可能会匹配1个或多个元素。因此，在编写插件时必须考虑到这些情况。可以在插件内部调用each()方法来遍历匹配元素，然后执行相应的方法，this会依次引用每个DOM元素。如下jQuery代码所示：</p>
+<p>[插图]</p>
+<h3 id="2．封装全局函数的插件-1"><a href="#2．封装全局函数的插件-1" class="headerlink" title="2．封装全局函数的插件"></a>2．封装全局函数的插件</h3><p>这类插件是在 jQuery 命名空间内部添加一个函数。这类插件很简单，只是普通的函数，没有特别需要注意的地方。</p>
+<p>例如新增两个函数，用于去除左侧和右侧的空格。虽然jQuery已经提供了jQuery.trim()方法来去除两端空格，但在某些情况下，会只希望去除某一侧的空格。</p>
+<p>去除左侧、右侧的空格的函数分别写成如下jQuery代码：</p>
+<p>[插图]</p>
+<ul>
+<li>(text || “”)部分是用于防止传递进来的text这个字符串变量处于未定义之类的特殊状态。如果text是undefined，则返回字符串””，否则返回字符串text。这个处理是为了保证接下来的字符串替换方法replace()方法不会出错。</li>
+<li>运用了正则表达式替换首末的空格。</li>
+</ul>
+<p>函数写完之后，就可以放到jQuery命名空间之下。代码很简单，而且可以批量完成。</p>
+<p>首先构建一个 Object 对象，把函数名和函数都放进去，其中的名&#x2F;值对分别为函数名和函数主体，代码如下：</p>
+<p>[插图]</p>
+<p>然后，利用jQuery.extend()方法直接对jQuery对象进行扩展。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>现在，把代码放到HTML页面中看看有什么效果。代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，效果如图7-26所示。</p>
+<p>[插图]</p>
+<center>图7-26 运行效果</center>
+
+<p>文本框中第1行的字符串左右两侧的空格都被删除。<br>第2行的字符串只有左侧的空格被删除。<br>第3行的字符串只有右侧的空格被删除。</p>
+<p>到这里，第2 种类型的插件就编写完了。该插件只是给 jQuery对象加上两个简单的函数用于去除左侧或者右侧的空格。</p>
+<h3 id="3．自定义选择器"><a href="#3．自定义选择器" class="headerlink" title="3．自定义选择器"></a>3．自定义选择器</h3><p>jQuery 以其强大的选择器著称，但这并不表示其选择器已经尽善尽美。有时候Web 开发者希望有一些更强大的选择器。</p>
+<p>jQuery 提供了一套方法让用户可以通过制作选择器插件来使用自定义选择器，从而使 jQuery的选择器功能更加完善。</p>
+<p>jQuery的选择符解析器首先会使用一组正则表达式来解析选择器，然后针对解析出的每个选择符执行一个函数，称为选择器函数。最后根据这个选择器函数的返回值为true还是 false 来决定是否保留这个元素。这样就可以找到匹配的元素节点。</p>
+<p>下面是一个选择器例子：</p>
+<p>[插图]</p>
+<p>该选择器首先会获取所有的<code>&lt;div&gt;</code>元素，然后隐式遍历这些<code>&lt;div&gt;</code>元素，并逐个将这些<code>&lt;div&gt;</code>元素作为参数，连同括号里的“1”等一些参数（具体见下文）一起传递给gt对应的选择器函数进行判断。如果这个函数返回true，则这个<code>&lt;div&gt;</code>元素保留，如果返回false，则不保留这个<code>&lt;div&gt;</code>元素。这样得到的结果就是一个符合要求的<code>&lt;div&gt;</code>元素的集合。</p>
+<p><code>:gt()</code>选择器在jQuery源文件中的代码如下：</p>
+<p>[插图]</p>
+<p>其中，选择器的函数一共接受3个参数，代码如下：</p>
+<p>[插图]</p>
+<p>第1个参数为a，指向的是当前遍历到的DOM元素。<br>第2个参数为i，指的是当前遍历到的DOM元素的索引值，从0开始。<br>第3个参数m最为特别，它是由jQuery正则解析引擎进一步解析后的产物（用match匹配出来的），是一个数组。</p>
+<ul>
+<li><code>m[0]</code>，以上面的<code>$(&quot;div:gt(1)&quot;)</code>这个例子来讲，是<code>:gt（1）</code>这部分。它是jQuery选择器进一步将要匹配的内容。</li>
+<li><code>m[1]</code>，这里是选择器的引导符，匹配例子中的“:”，即冒号。并非只能使用＂:＂后面跟上选择器，用户还可以自定义其他的选择器引导符。</li>
+<li><code>m[2]</code>，即例子中的gt，确定究竟是调用哪个选择器函数。</li>
+<li><code>m[3]</code>，即例子中括号里的数字“1”，它非常有用，是编写选择器函数最重要的一个参数。</li>
+<li><code>m[4]</code>，上面的例子中没有体现出来，这个比较罕见。例如”div :l(ss(dd))”这样一个选择器中，<code>m[4]</code>就指向了（dd）这部分，注意是带括号的（dd），而不只是dd。同时要注意，此时的<code>m[3]</code>的值是ss(dd)而非ss。</li>
+</ul>
+<p>jQuery已经提供了lt、gt和eq等选择器，但却没有提供l（e 小于等于）、g（e 大于等于）和between （两者之间）之类的选择器。</p>
+<p>接下来，介绍如何编写一个 between 选择器。例如使用<code>$(&quot;div:between(2，5)&quot;)</code>能实现获取索引值为3、4元素的功能。</p>
+<p>首先构建选择器函数。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>函数解释如下。</p>
+<p>第1行，将传递进来的m[3]以逗号为分隔符，转成一个数组。m[3]此时的值应该是“2,5”，是一个字符串。随后放入临时变量tmp中待用。<br>第2行，直接将得到的2和5与i进行比较，i大于2并且小于5的元素都将得以保留。注意，此处用了一个小技巧，通过tmp[0]-0将本来的“2”这个字符串转换成了数字2，然后再与i进行比较。</p>
+<p>接下来，将这个函数扩展成jQuery的选择器。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>这里再次利用 jQuery.extend()方法来对 jQuery 对象的一部分进行扩展。选择器仅仅是<code>jQuery.expr[&quot;:&quot;]</code>对象的一部分，同时也是一个 Object 对象，因此可以直接利用 jQuery.extend()对其进行扩展。</p>
+<p>最后就可以把选择器放入页面中来选取元素了，构建如下代码：</p>
+<p>[插图]</p>
+<p>显示图7-27和图7-28所示的界面。</p>
+<p>[插图]</p>
+<center>图7-27 执行前</center>
+
+
+<p>[插图]</p>
+<center>图7-28 执行后</center>
+
+<p>在图7-28中，索引为3和4的行的背景颜色变成了白色，达到了预期的效果。</p>
+<p>至此，选择器插件编写完了。</p>
+<p>选择器插件中的函数属于运算密集型函数，对执行效率要求很高，读者在编写此类插件的时候，一定要秉承优化再优化的原则，千万不要随便写一个能实现功能的函数就草草了事。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/f5a83ee8/" title="7.6 编写jQuery插件">https://lanlan2017.github.io/ReadingNotes/f5a83ee8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3e6bbaea/" rel="prev" title="7.5 jQuery UI插件">
+                  <i class="fa fa-chevron-left"></i> 7.5 jQuery UI插件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/814c5042/" rel="next" title="7.7 小结_第7章 jQuery插件的使用和写法">
+                  7.7 小结_第7章 jQuery插件的使用和写法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/f5a83ee8/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/f5a83ee8/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

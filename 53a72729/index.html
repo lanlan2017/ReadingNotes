@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="2.2 纠纷不断 规则压制里氏替换原则为良好的继承定义了一个规范，一句简单的定义包含了4层含义。 1.子类必须完全实现父类的方法我们在做系统设计时，经常会定义一个接口或抽象类，然后编码实现，调用类则直接传入接口或抽象类，其实这里已经使用了里氏替换原则。我们举个例子来说明这个原则，大家都打过CS吧，非常经典的FPS类游戏，我们来描述一下里面用到的枪，类图如图2-1所示。  图2-1 CS游戏中的枪支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.2 纠纷不断 规则压制">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/53a72729/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="2.2 纠纷不断 规则压制里氏替换原则为良好的继承定义了一个规范，一句简单的定义包含了4层含义。 1.子类必须完全实现父类的方法我们在做系统设计时，经常会定义一个接口或抽象类，然后编码实现，调用类则直接传入接口或抽象类，其实这里已经使用了里氏替换原则。我们举个例子来说明这个原则，大家都打过CS吧，非常经典的FPS类游戏，我们来描述一下里面用到的枪，类图如图2-1所示。  图2-1 CS游戏中的枪支">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210926174624.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210926175854.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927161652.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927162022.png">
+<meta property="article:published_time" content="2019-09-16T02:40:10.000Z">
+<meta property="article:modified_time" content="2021-09-27T12:02:03.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210926174624.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/53a72729/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/53a72729/","path":"/53a72729/","title":"2.2 纠纷不断 规则压制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2.2 纠纷不断 规则压制 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-%E7%BA%A0%E7%BA%B7%E4%B8%8D%E6%96%AD-%E8%A7%84%E5%88%99%E5%8E%8B%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">2.2 纠纷不断 规则压制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AD%90%E7%B1%BB%E5%BF%85%E9%A1%BB%E5%AE%8C%E5%85%A8%E5%AE%9E%E7%8E%B0%E7%88%B6%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.子类必须完全实现父类的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AD%90%E7%B1%BB%E5%8F%AF%E4%BB%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">2.子类可以有自己的个性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A6%86%E7%9B%96%E6%88%96%E5%AE%9E%E7%8E%B0%E7%88%B6%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E6%97%B6%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%94%BE%E5%A4%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3.覆盖或实现父类的方法时输入参数可以被放大</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%A6%86%E5%86%99%E6%88%96%E5%AE%9E%E7%8E%B0%E7%88%B6%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E6%97%B6%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E5%8F%AF%E4%BB%A5%E8%A2%AB%E7%BC%A9"><span class="nav-number">1.4.</span> <span class="nav-text">4. 覆写或实现父类的方法时输出结果可以被缩</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/53a72729/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2.2 纠纷不断 规则压制 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.2 纠纷不断 规则压制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-16 10:40:10" itemprop="dateCreated datePublished" datetime="2019-09-16T10:40:10+08:00">2019-09-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-27 20:02:03" itemprop="dateModified" datetime="2021-09-27T20:02:03+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">1 第一部分 大旗不挥，谁敢冲锋 ——6大设计原则全新解读</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/%E7%AC%AC2%E7%AB%A0-%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99/" itemprop="url" rel="index"><span itemprop="name">第2章 里氏替换原则</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/53a72729/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/53a72729/" data-xid="/ReadingNotes/53a72729/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="2-2-纠纷不断-规则压制"><a href="#2-2-纠纷不断-规则压制" class="headerlink" title="2.2 纠纷不断 规则压制"></a>2.2 纠纷不断 规则压制</h1><p>里氏替换原则为良好的继承定义了一个规范，一句简单的定义包含了4层含义。</p>
+<h2 id="1-子类必须完全实现父类的方法"><a href="#1-子类必须完全实现父类的方法" class="headerlink" title="1.子类必须完全实现父类的方法"></a>1.子类必须完全实现父类的方法</h2><p>我们在做系统设计时，经常会定义一个接口或抽象类，然后编码实现，调用类则直接传入接口或抽象类，其实这里已经使用了里氏替换原则。我们举个例子来说明这个原则，大家都打过CS吧，非常经典的FPS类游戏，我们来描述一下里面用到的枪，类图如图2-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210926174624.png" alt="image-20210926174624534"></p>
+<center>图2-1 CS游戏中的枪支类图</center>
+
+<p>枪的主要职责是射击，如何射击在各个具体的子类中定义，手枪是单发射程比较近，步枪威力大射程远，机枪用于扫射。在士兵类中定义了一个方法killEnemy，使用枪来杀敌人， 具体使用什么枪来杀敌人，调用的时候才知道，AbstractGun类的源程序如代码清单2-1所示。</p>
+<p>代码清单2-1 枪支的抽象类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractGun</span> &#123;</span><br><span class="line">    <span class="comment">//枪用来干什么的？杀敌！ </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>手枪、步枪、机枪的实现类如代码清单2-2所示。</p>
+<p>代码清单2-2 手枪、步枪、机枪的实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Handgun</span> <span class="keyword">extends</span> <span class="title class_">AbstractGun</span> &#123; </span><br><span class="line">    <span class="comment">// 手枪的特点是携带方便，射程短</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;手枪射击...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Rifle</span> <span class="keyword">extends</span> <span class="title class_">AbstractGun</span> &#123; </span><br><span class="line">    <span class="comment">// 步枪的特点是射程远，威力大</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;步枪射击...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MachineGun</span> <span class="keyword">extends</span> <span class="title class_">AbstractGun</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;机枪扫射...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了枪支，还要有能够使用这些枪支的士兵，其源程序如代码清单2-3所示。</p>
+<p>代码清单2-3 士兵的实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Soldier</span> &#123;</span><br><span class="line">    <span class="comment">//定义士兵的枪支</span></span><br><span class="line">    <span class="keyword">private</span> AbstractGun gun;</span><br><span class="line">    <span class="comment">//给士兵一支枪</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setGun</span><span class="params">(AbstractGun _gun)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.gun = _gun; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">killEnemy</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;士兵开始杀敌人...&quot;</span>);</span><br><span class="line">        gun.shoot();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意粗体部分，定义士兵使用枪来杀敌，但是这把枪是抽象的，具体是手枪还是步枪需要在上战场前（也就是场景中）前通过setGun方法确定。场景类Client的源代码如代码清单2- 4所示。</p>
+<p>代码清单2-4 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//产生三毛这个士兵</span></span><br><span class="line">        <span class="type">Soldier</span> <span class="variable">sanMao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Soldier</span>();</span><br><span class="line">        <span class="comment">//给三毛一支枪</span></span><br><span class="line">        sanMao.setGun(<span class="keyword">new</span> <span class="title class_">Rifle</span>());</span><br><span class="line">        sanMao.killEnemy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有人，有枪，也有场景，运行结果如下所示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">士兵开始杀敌人...</span><br><span class="line">步枪射击...</span><br></pre></td></tr></table></figure>
+<p>在这个程序中，我们给三毛这个士兵一把步枪，然后就开始杀敌了。如果三毛要使用机枪，当然也可以，直接把<code>sanMao.setGun(new Rifle())</code>修改为<code>sanMao.setGun(new MachineGun())</code>即可，在编写程序时Solider士兵类根本就不用知道是哪个型号的枪（子类）被传入。</p>
+<hr>
+<p><strong>注意</strong> 在类中调用其他类时，务必要使用父类或接口，如果不能使用父类或接口，则说明 类的设计已经违背了LSP原则。</p>
+<hr>
+<p>我们再来想一想，如果我们有一个玩具手枪，该如何定义呢？我们先在类图2-1上增加一个类ToyGun，然后继承于AbstractGun类，修改后的类图如图2-2所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210926175854.png" alt="image-20210926175854439"></p>
+<center>图2-2 枪支类图</center>
+
+<p>首先我们想，玩具枪是不能用来射击的，杀不死人的，这个不应该写在shoot方法中。新增加的ToyGun的源代码如代码清单2-5所示。</p>
+<p>代码清单2-5 玩具枪源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ToyGun</span> <span class="keyword">extends</span> <span class="title class_">AbstractGun</span> &#123;</span><br><span class="line">    <span class="comment">//玩具枪是不能射击的，但是编译器又要求实现这个方法，怎么办？虚构一个呗！</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//玩具枪不能射击，这个方法就不实现了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于引入了新的子类，场景类中也使用了该类，Client稍作修改，源代码如代码清单2-6 所示。</p>
+<p>代码清单2-6 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//产生三毛这个士兵</span></span><br><span class="line">    <span class="type">Soldier</span> <span class="variable">sanMao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Soldier</span>();</span><br><span class="line">    sanMao.setGun(<span class="keyword">new</span> <span class="title class_">ToyGun</span>());</span><br><span class="line">    sanMao.killEnemy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改了粗体部分，把玩具枪传递给三毛用来杀敌，代码运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">士兵开始杀敌人...</span><br></pre></td></tr></table></figure>
+<p>坏了，士兵拿着玩具枪来杀敌人，射不出子弹呀！如果在CS游戏中有这种事情发生， 那你就等着被人爆头吧，然后看着自己凄惨地倒地。在这种情况下，我们发现业务调用类已经出现了问题，正常的业务逻辑已经不能运行，那怎么办？好办，有两种解决办法：</p>
+<ul>
+<li>在Soldier类中增加instanceof的判断，如果是玩具枪，就不用来杀敌人。这个方法可以解决问题，但是你要知道，在程序中，每增加一个类，所有与这个父类有关系的类都必须修改，你觉得可行吗？如果你的产品出现了这个问题，因为修正了这样一个Bug，就要求所有与这个父类有关系的类都增加一个判断，客户非跳起来跟你干架不可！你还想要客户忠诚于你吗？显然，这个方案被否定了。</li>
+<li>ToyGun脱离继承，建立一个独立的父类，为了实现代码复用，可以与AbastractGun建立关联委托关系，如图2-3所示。</li>
+</ul>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927161652.png" alt="image-20210927161652579"></p>
+<center>图2-3 玩具枪与真实枪分离的类图</center>
+
+<p>例如，可以在AbstractToy中声明将声音、形状都委托给AbstractGun处理，仿真枪嘛，形状和声音都要和真实的枪一样了，然后两个基类下的子类自由延展，互不影响。</p>
+<p>在Java的基础知识中都会讲到继承，Java的三大特征嘛，封装、继承、多态。继承就是告诉你拥有父类的方法和属性，然后你就可以重写父类的方法。按照继承原则，我们上面的玩具枪继承AbstractGun是绝对没有问题的，玩具枪也是枪嘛，但是在具体应用场景中就要考虑下面这个问题了：子类是否能够完整地实现父类的业务，否则就会出现像上面的拿枪杀敌人时却发现是把玩具枪的笑话。</p>
+<hr>
+<p><strong>注意</strong> 如果子类不能完整地实现父类的方法，或者父类的某些方法在子类中已经发生“畸变”，则建议断开父子继承关系，采用依赖、聚集、组合等关系代替继承。</p>
+<hr>
+<h2 id="2-子类可以有自己的个性"><a href="#2-子类可以有自己的个性" class="headerlink" title="2.子类可以有自己的个性"></a>2.子类可以有自己的个性</h2><p>子类当然可以有自己的行为和外观了，也就是方法和属性，那这里为什么要再提呢？是因为里氏替换原则可以正着用，但是不能反过来用。在子类出现的地方，父类未必就可以胜任。还是以刚才的关于枪支的例子为例，步枪有几个比较“响亮”的型号，比如AK47、AUG 狙击步枪等，把这两个型号的枪引入后的Rifle子类图如图2-4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927162022.png" alt="image-20210927162022717"></p>
+<center>图2-4 增加AK47和AUG后的Rifle子类图</center>
+很简单，AUG继承了Rifle类，狙击手（Snipper）则直接使用AUG狙击步枪，源代码如代码清单2-7所示。
+
+<p>代码清单2-7 AUG狙击枪源码代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AUG</span> <span class="keyword">extends</span> <span class="title class_">Rifle</span> &#123;</span><br><span class="line">    <span class="comment">//狙击枪都携带一个精准的望远镜</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">zoomOut</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;通过望远镜察看敌人...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shoot</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;AUG射击...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有狙击枪就有狙击手，狙击手类的源代码如代码清单2-8所示。</p>
+<p>代码清单2-8 AUG狙击手类的源码代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Snipper</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">killEnemy</span><span class="params">(AUG aug)</span>&#123;</span><br><span class="line">        <span class="comment">//首先看看敌人的情况，别杀死敌人，自己也被人干掉</span></span><br><span class="line">        aug.zoomOut();</span><br><span class="line">        <span class="comment">//开始射击</span></span><br><span class="line">        aug.shoot();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>狙击手，为什么叫Snipper？Snipe翻译过来就是鹬，就是“鹬蚌相争，渔人得利”中的那只鸟，英国贵族到印度打猎，发现这个鹬很聪明，人一靠近就飞走了，没办法就开始伪装、 远程精准射击，于是乎Snipper就诞生了。</p>
+<p>狙击手使用狙击枪来杀死敌人，业务场景Client类的源代码如代码清单2-9所示。</p>
+<p>代码清单2-9 狙击手使用AUG杀死敌人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//产生三毛这个狙击手</span></span><br><span class="line">        <span class="type">Snipper</span> <span class="variable">sanMao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Snipper</span>();</span><br><span class="line">        sanMao.setRifle(<span class="keyword">new</span> <span class="title class_">AUG</span>());</span><br><span class="line">        sanMao.killEnemy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>狙击手使用G3杀死敌人，运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过望远镜察看敌人...</span><br><span class="line">AUG射击...</span><br></pre></td></tr></table></figure>
+<p>在这里，系统直接调用了子类，狙击手是很依赖枪支的，别说换一个型号的枪了，就是换一个同型号的枪也会影响射击，所以这里就直接把子类传递了进来。这个时候，我们能不能直接使用父类传递进来呢？修改一下Client类，如代码清单2-10所示。</p>
+<p>代码清单2-10 使用父类作为参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//产生三毛这个狙击手</span></span><br><span class="line">        <span class="type">Snipper</span> <span class="variable">sanMao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Snipper</span>();</span><br><span class="line">        sanMao.setRifle((AUG)(<span class="keyword">new</span> <span class="title class_">Rifle</span>()));</span><br><span class="line">        sanMao.killEnemy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显示是不行的，会在运行期抛出java.lang.ClassCastException异常，这也是大家经常说的向下转型（downcast）是不安全的，从里氏替换原则来看，就是有子类出现的地方父类未必就可以出现。</p>
+<h2 id="3-覆盖或实现父类的方法时输入参数可以被放大"><a href="#3-覆盖或实现父类的方法时输入参数可以被放大" class="headerlink" title="3.覆盖或实现父类的方法时输入参数可以被放大"></a>3.覆盖或实现父类的方法时输入参数可以被放大</h2><p>方法中的输入参数称为前置条件，这是什么意思呢？大家做过Web Service开发就应该知道有一个“契约优先”的原则，也就是先定义出WSDL接口，制定好双方的开发协议，然后再各自实现。里氏替换原则也要求制定一个契约，就是父类或接口，这种设计方法也叫做Design by Contract（契约设计），与里氏替换原则有着异曲同工之妙。契约制定了，也就同时制定了前置条件和后置条件，前置条件就是你要让我执行，就必须满足我的条件；后置条件就是我执行完了需要反馈，标准是什么。这个比较难理解，我们来看一个例子，我们先定义一个Father类，如代码清单2-11所示。</p>
+<p>代码清单2-11 Father类源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Collection <span class="title function_">doSomething</span><span class="params">(HashMap map)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类被执行...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map.values();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个类非常简单，就是把HashMap转换为Collection集合类型，然后再定义一个子类，源代码如代码清单2-12所示。</p>
+<p>代码清单2-12 子类源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">    <span class="comment">//放大输入参数类型</span></span><br><span class="line">    <span class="keyword">public</span> Collection <span class="title function_">doSomething</span><span class="params">(Map map)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类被执行...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map.values();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意粗体部分，与父类的方法名相同，但又不是覆写（Override）父类的方法。你加个@Override试试看，会报错的，为什么呢？方法名虽然相同，但方法的输入参数不同，就不是覆写，那这是什么呢？是重载（Overload）！不用大惊小怪的，不在一个类就不能是重载了？继承是什么意思，子类拥有父类的所有属性和方法，方法名相同，输入参数类型又不相同，当然是重载了。父类和子类都已经声明了，场景类的调用如代码清单2-13所示。</p>
+<p>代码清单2-13 场景类源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">invoker</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//父类存在的地方，子类就应该能够存在</span></span><br><span class="line">        <span class="type">Father</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Father</span>();</span><br><span class="line">        <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">        f.doSomething(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        invoker();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码运行后的结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">父类被执行...</span><br></pre></td></tr></table></figure>
+<p>根据里氏替换原则，父类出现的地方子类就可以出现，我们把上面的粗体部分修改为子类，如代码清单2-14所示。</p>
+<p>代码清单2-14 子类替换父类后的源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">invoker</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//父类存在的地方，子类就应该能够存在</span></span><br><span class="line">        <span class="type">Son</span> <span class="variable">f</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line">        <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">        f.doSomething(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        invoker();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果还是一样，看明白是怎么回事了吗？父类方法的输入参数是HashMap类型，子类的输入参数是Map类型，也就是说子类的输入参数类型的范围扩大了，子类代替父类传递到调用者中，子类的方法永远都不会被执行。这是正确的，如果你想让子类的方法运行，就必须覆写父类的方法。大家可以这样想，在一个Invoker类中关联了一个父类，调用了一个父类的方法，子类可以覆写这个方法，也可以重载这个方法，前提是要扩大这个前置条件，就是输入参数的类型宽于父类的类型覆盖范围。这样说可能比较难理解，我们再反过来想一下，如果Father类的输入参数类型宽于子类的输入参数类型，会出现什么问题呢？会出现父类存在的地方，子类就未必可以存在，因为一旦把子类作为参数传入，调用者就很可能进入子类的方法范畴。我们把上面的例子修改一下，扩大父类的前置条件，源代码如代码清单2- 15所示。</p>
+<p>代码清单2-15 父类的前置条件较大</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Collection <span class="title function_">doSomething</span><span class="params">(Map map)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类被执行...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map.values();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把父类的前置条件修改为Map类型，我们再修改一下子类方法的输入参数，相对父类缩小输入参数的类型范围，也就是缩小前置条件，源代码如代码清单2-16所示。<br>代码清单2-16 子类的前置条件较小</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">    <span class="comment">//缩小输入参数范围</span></span><br><span class="line">    <span class="keyword">public</span> Collection <span class="title function_">doSomething</span><span class="params">(HashMap map)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类被执行...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map.values();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在父类的前置条件大于子类的前置条件的情况下，业务场景的源代码如代码清单2-17所示。</p>
+<p>代码清单2-17 子类的前置条件较小</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">invoker</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//有父类的地方就有子类</span></span><br><span class="line">        Father f= <span class="keyword">new</span> <span class="title class_">Father</span>();</span><br><span class="line">        <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">        f.doSomething(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        invoker();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">父类被执行...</span><br></pre></td></tr></table></figure>
+<p>那我们再把里氏替换原则引入进来会有什么问题？有父类的地方子类就可以使用，好， 我们把这个Client类修改一下，源代码如代码清单2-18所示。</p>
+<p>代码清单2-18 采用里氏替换原则后的业务场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">invoker</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//有父类的地方就有子类</span></span><br><span class="line">        <span class="type">Son</span> <span class="variable">f</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line">        <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">        f.doSomething(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        invoker();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码运行后的结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">子类被执行...</span><br></pre></td></tr></table></figure>
+<p>完蛋了吧？！子类在没有覆写父类的方法的前提下，子类方法被执行了，这会引起业务逻辑混乱，因为在实际应用中父类一般都是抽象类，子类是实现类，你传递一个这样的实现类就会“歪曲”了父类的意图，引起一堆意想不到的业务逻辑混乱，所<strong>以子类中方法的前置条件必须与超类中被覆写的方法的前置条件相同或者更宽松</strong>。</p>
+<h2 id="4-覆写或实现父类的方法时输出结果可以被缩"><a href="#4-覆写或实现父类的方法时输出结果可以被缩" class="headerlink" title="4. 覆写或实现父类的方法时输出结果可以被缩"></a>4. 覆写或实现父类的方法时输出结果可以被缩</h2><p>这是什么意思呢，父类的一个方法的返回值是一个类型T，子类的相同方法（重载或覆写）的返回值为S，那么里氏替换原则就要求S必须小于等于T，也就是说，要么S和T是同一个类型，要么S是T的子类，为什么呢？分两种情况，如果是覆写，父类和子类的同名方法的输入参数是相同的，两个方法的范围值S小于等于T，这是覆写的要求，这才是重中之重，子类覆写父类的方法，天经地义。如果是重载，则要求方法的输入参数类型或数量不相同，在里氏替换原则要求下，就是子类的输入参数宽于或等于父类的输入参数，也就是说你写的这个方法是不会被调用的，参考上面讲的前置条件。</p>
+<p>采用里氏替换原则的目的就是增强程序的健壮性，版本升级时也可以保持非常好的兼容性。即使增加子类，原有的子类还可以继续运行。在实际项目中，每个子类对应不同的业务含义，使用父类作为参数，传递不同的子类完成不同的业务逻辑，非常完美！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/53a72729/" title="2.2 纠纷不断 规则压制">https://lanlan2017.github.io/ReadingNotes/53a72729/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/73b5386c/" rel="prev" title="2.1 爱恨纠葛的父子关系">
+                  <i class="fa fa-chevron-left"></i> 2.1 爱恨纠葛的父子关系
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/51176ea7/" rel="next" title="2.3 最佳实践">
+                  2.3 最佳实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/53a72729/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/53a72729/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

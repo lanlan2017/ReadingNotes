@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="4.3 保护Web请求Taco Cloud的安全性需求是用户在设计taco和提交订单之前必须要经过认证。但是，主页、登录页和注册页应该对未认证的用户开放。 为了配置这些安全性规则，需要介绍一下WebSecurityConfigurerAdapter的其他configure()方法： 1234@Overrideprotected void configure(HttpSecurity http) t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.3 保护Web请求">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/4fa90c04/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="4.3 保护Web请求Taco Cloud的安全性需求是用户在设计taco和提交订单之前必须要经过认证。但是，主页、登录页和注册页应该对未认证的用户开放。 为了配置这些安全性规则，需要介绍一下WebSecurityConfigurerAdapter的其他configure()方法： 1234@Overrideprotected void configure(HttpSecurity http) t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013211209.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013211236.jpeg">
+<meta property="article:published_time" content="2021-10-13T13:17:25.000Z">
+<meta property="article:modified_time" content="2021-10-13T13:17:25.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013211209.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/4fa90c04/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/4fa90c04/","path":"/4fa90c04/","title":"4.3 保护Web请求"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>4.3 保护Web请求 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-3-%E4%BF%9D%E6%8A%A4Web%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">4.3 保护Web请求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-1-%E4%BF%9D%E6%8A%A4%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">4.3.1 保护请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-2-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E7%99%BB%E5%BD%95%E9%A1%B5"><span class="nav-number">1.2.</span> <span class="nav-text">4.3.2 创建自定义的登录页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-3-%E9%80%80%E5%87%BA"><span class="nav-number">1.3.</span> <span class="nav-text">4.3.3 退出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-4-%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"><span class="nav-number">1.4.</span> <span class="nav-text">4.3.4 防止跨站请求伪造</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/4fa90c04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="4.3 保护Web请求 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.3 保护Web请求
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-13 21:17:25" itemprop="dateCreated datePublished" datetime="2021-10-13T21:17:25+08:00">2021-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC4%E7%AB%A0-%E4%BF%9D%E6%8A%A4Spring/" itemprop="url" rel="index"><span itemprop="name">第4章 保护Spring</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/4fa90c04/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/4fa90c04/" data-xid="/ReadingNotes/4fa90c04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="4-3-保护Web请求"><a href="#4-3-保护Web请求" class="headerlink" title="4.3 保护Web请求"></a>4.3 保护Web请求</h1><p>Taco Cloud的安全性需求是用户在设计taco和提交订单之前必须要经过认证。但是，主页、登录页和注册页应该对未认证的用户开放。</p>
+<p>为了配置这些安全性规则，需要介绍一下WebSecurityConfigurerAdapter的其他configure()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>configure()方法接受一个HttpSecurity对象，能够用来配置在Web级别该如何处理安全性。我们可以使用HttpSecurity配置的功能包括：</p>
+<ul>
+<li>在为某个请求提供服务之前，需要预先满足特定的条件；</li>
+<li>配置自定义的登录页；</li>
+<li>支持用户退出应用；</li>
+<li>预防跨站请求伪造。</li>
+</ul>
+<p>配置HttpSecurity常见的需求就是拦截请求以确保用户具备适当的权限。接下来，我们会确保Taco Cloud的顾客能够满足这些需求。</p>
+<h2 id="4-3-1-保护请求"><a href="#4-3-1-保护请求" class="headerlink" title="4.3.1 保护请求"></a>4.3.1 保护请求</h2><p>我们需要确保只有认证过的用户才能发起对“&#x2F;design”和“&#x2F;orders”的请求，而其他请求对所有用户均可用。如下的configure()实现就能实现这一点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  http</span><br><span class="line">    .authorizeRequests()</span><br><span class="line">      .antMatchers(<span class="string">&quot;/design&quot;</span>, <span class="string">&quot;/orders&quot;</span>)</span><br><span class="line">        .hasRole(<span class="string">&quot;ROLE_USER&quot;</span>)</span><br><span class="line">      .antMatchers(“/”, <span class="string">&quot;/**&quot;</span>).permitAll()</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对authorizeRequests()的调用会返回一个对象（ExpressionInterceptUrlRegistry），基于它我们可以指定URL路径和这些路径的安全需求。在本例中，我们指定了两条安全规则：</p>
+<ul>
+<li>具备ROLE_USER权限的用户才能访问“&#x2F;design”和“&#x2F;orders”；</li>
+<li>其他的请求允许所有用户访问。</li>
+</ul>
+<p>这些规则的顺序是很重要的。声明在前面的安全规则比后面声明的规则有更高的优先级。如果我们交换这两个安全规则的顺序，那么所有的请求都会有permitAll()的规则，对“&#x2F;design”和“&#x2F;orders”声明的规则就不会生效了。</p>
+<p>在声明请求路径的安全需求时，hasRole()和permitAll()只是众多方法中的两个。表4.1列出了所有可用的方法。</p>
+<p>表4.1 用来定义如何保护路径的配置方法</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013211209.jpeg" alt="epub_29101559_32"></p>
+<p>表4.1中的大多数方法为请求处理提供了基本的安全的规则，但它们是自我限制的，也就是只能支持由这些方法所定义的安全规则。除此之外，我们还可以使用access()方法，通过为其提供SpEL表达式来声明更丰富的安全规则。SpringSecurity扩展了SpEL，包含了多个安全相关的值和函数，如表4.2所示。</p>
+<p>表4.2 Spring Security对Spring表达式语言的扩展</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013211236.jpeg" alt="epub_29101559_33"></p>
+<p>我们可以看到，表4.2中大多数的安全规则都对应表4.1中类似的方法。实际上，借助access()方法和hasRole()、permitAll表达式，我们可以将configure()重写为程序清单4.9所示的形式：</p>
+<p>程序清单4.9 使用Spring表达式来定义认证规则</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  http</span><br><span class="line">    .authorizeRequests()</span><br><span class="line">      .antMatchers(<span class="string">&quot;/design&quot;</span>, <span class="string">&quot;/orders&quot;</span>)</span><br><span class="line">        .access(<span class="string">&quot;hasRole(&#x27;ROLE_USER&#x27;)&quot;</span>)</span><br><span class="line">      .antMatchers(“/”, <span class="string">&quot;/**&quot;</span>).access(<span class="string">&quot;permitAll&quot;</span>)</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看上去，这似乎也没什么大不了的。毕竟，这些表达式只是模拟了我们之前通过方法调用已经完成的事情。但是，表达式可以更加灵活。例如，假设（基于某些疯狂的原因）我们只允许具备ROLE_USER权限的用户在星期二创建新taco（我们可以将其称为Taco Tuesday），这样就可以重写表达式。如下的代码展现了已修改的configure()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  http</span><br><span class="line">    .authorizeRequests()</span><br><span class="line">      .antMatchers(<span class="string">&quot;/design&quot;</span>, <span class="string">&quot;/orders&quot;</span>)</span><br><span class="line">        .access(<span class="string">&quot;hasRole(&#x27;ROLE_USER&#x27;) &amp;&amp; &quot;</span> +</span><br><span class="line">          <span class="string">&quot;T(java.util.Calendar).getInstance().get(&quot;</span>+</span><br><span class="line">          <span class="string">&quot;T(java.util.Calendar).DAY_OF_WEEK) == &quot;</span> +</span><br><span class="line">          <span class="string">&quot;T(java.util.Calendar).TUESDAY&quot;</span>)</span><br><span class="line">      .antMatchers(“/”, <span class="string">&quot;/**&quot;</span>).access(<span class="string">&quot;permitAll&quot;</span>)</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用SpEL实现各种各样的安全性限制。我敢打赌，你已经在想象基于SpEL所能实现的那些有趣的安全性限制了。</p>
+<p>Taco Cloud应用的权限可以通过简单使用access()和SpEL表达式来实现，如程序清单4.9所示。现在，我们看一下如何自定义登录页以适应Taco Cloud应用的外观。</p>
+<h2 id="4-3-2-创建自定义的登录页"><a href="#4-3-2-创建自定义的登录页" class="headerlink" title="4.3.2 创建自定义的登录页"></a>4.3.2 创建自定义的登录页</h2><p>默认的登录页已经比最初丑陋的HTTP basic认证对话框好了很多，但是它依然非常简单，并且与Taco Cloud应用其他部分的外观不搭配。</p>
+<p>为了替换内置的登录页，我们首先需要告诉Spring Security自定义登录页的路径是什么。这可以通过调用传入到configure()中的HttpSecurity对象的formLogin()方法来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  http</span><br><span class="line">    .authorizeRequests()</span><br><span class="line">      .antMatchers(<span class="string">&quot;/design&quot;</span>, <span class="string">&quot;/orders&quot;</span>)</span><br><span class="line">        .access(<span class="string">&quot;hasRole(&#x27;ROLE_USER&#x27;)&quot;</span>)</span><br><span class="line">      .antMatchers(“/”, <span class="string">&quot;/**&quot;</span>).access(<span class="string">&quot;permitAll&quot;</span>)</span><br><span class="line">    .and()</span><br><span class="line">      .formLogin()</span><br><span class="line">        .loginPage(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，在调用formLogin()之前，我们通过and()方法将这一部分的配置与前面的配置连接在一起。and()方法表示我们已经完成了授权相关的配置，并且要添加一些其他的HTTP配置。在开始新的配置区域时，我们可以多次调用and()。</p>
+<p>在这个连接之后，我们调用formLogin()开始配置自定义的登录表单。在此之后，对loginPage()的调用声明了我们提供的自定义登录页面的路径。当SpringSecurity断定用户没有认证并且需要登录的时候，它就会将用户重定向到该路径。</p>
+<p>现在，我们需要有一个控制器来处理对该路径的请求。因为我们的登录页非常简单，只有一个视图，没有其他内容，所以我们可以很简单地在WebConfig中将其声明为一个视图控制器。在映射到“&#x2F;”的主页控制器基础之上，如下的addViewControllers()方法声明了登录页面的视图控制器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> &#123;</span><br><span class="line">  registry.addViewController(<span class="string">&quot;/&quot;</span>).setViewName(<span class="string">&quot;home&quot;</span>);</span><br><span class="line">  registry.addViewController(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们需要自己定义登录页的视图。我们目前使用了Thymeleaf作为模板引擎，所以如下的Thymeleaf就能实现我们的要求：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Taco Cloud<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;/images/TacoCloud.png&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;error&#125;&quot;</span>&gt;</span></span><br><span class="line">      Unable to login. Check your username and password.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>New here? Click</span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/register&#125;&quot;</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span> to register.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- tag::thAction[] --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">th:action</span>=<span class="string">&quot;@&#123;/login&#125;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;loginForm&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- end::thAction[] --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>Username: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;password&quot;</span>&gt;</span>Password: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;password&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Login&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个登录页需要关注的事情就是表单提交到了什么地方以及用户名和密码输入域的名称。默认情况下，Spring Security会在“&#x2F;login”路径监听登录请求并且预期的用户名和密码输入域的名称为username和password。但这都是可配置的，举例来说，如下的配置自定义了路径和输入域的名称：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .formLogin()</span><br><span class="line">    .loginPage(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">    .loginProcessingUrl(<span class="string">&quot;/authenticate&quot;</span>)</span><br><span class="line">    .usernameParameter(<span class="string">&quot;user&quot;</span>)</span><br><span class="line">    .passwordParameter(<span class="string">&quot;pwd&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们声明Spring Security要监听对“&#x2F;authenticate”的请求来处理登录信息的提交。同时，用户名和密码的字段名应该是user和pwd。</p>
+<p>默认情况下，登录成功之后，用户将会被导航到Spring Security决定让用户登录之前的页面。如果用户直接访问登录页，那么登录成功之后用户将会被导航至根路径（例如，主页）。但是，我们可以通过指定默认的成功页来更改这种行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .formLogin()</span><br><span class="line">    .loginPage(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">    .defaultSuccessUrl(<span class="string">&quot;/design&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>按照这个配置，用户直接导航至登录页并且成功登录之后将会被定向到“&#x2F;design”页面。</p>
+<p>另外，我们还可以强制要求用户在登录成功之后统一访问设计页面，即便用户在登录之前正在访问其他页面，在登录之后也会被定向到设计页面，这可以通过为defaultSuccessUrl方法传递第二个参数true来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .formLogin()</span><br><span class="line">    .loginPage(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">    .defaultSuccessUrl(<span class="string">&quot;/design&quot;</span>, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们已经完成了自定义的登录页面，接下来我们关注认证功能的另一面，那就是如何让用户退出应用。</p>
+<h2 id="4-3-3-退出"><a href="#4-3-3-退出" class="headerlink" title="4.3.3 退出"></a>4.3.3 退出</h2><p>退出和应用的登录是同等重要的。为了启用退出功能，我们只需在HttpSecurity对象上调用logout方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .logout()</span><br><span class="line">    .logoutSuccessUrl(<span class="string">&quot;/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这样会搭建一个安全过滤器，该过滤器会拦截对“&#x2F;logout”的请求。所以，为了提供退出功能，我们需要为应用的视图添加一个退出表单和按钮：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">th:action</span>=<span class="string">&quot;@&#123;/logout&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Logout&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当用户点击按钮的时候，他们的session将会被清理，这样他们就退出应用了。默认情况下，用户会被重定向到登录页面，这样他们可以重新登录。但是，如果你想要将他们导航至不同的页面，那么可以调用logoutSuccessUrl()指定退出后的不同页面：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .logout()</span><br><span class="line">    .logoutSuccessUrl(<span class="string">&quot;/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，用户在退出之后将会回到主页。</p>
+<h2 id="4-3-4-防止跨站请求伪造"><a href="#4-3-4-防止跨站请求伪造" class="headerlink" title="4.3.4 防止跨站请求伪造"></a>4.3.4 防止跨站请求伪造</h2><p>跨站请求伪造（Cross-Site Request Forgery，CSRF）是一种常见的安全攻击。它会让用户在一个恶意的Web页面上填写信息，然后自动（通常是秘密的）将表单以攻击受害者的身份提交到另外一个应用上。例如，用户看到一个来自攻击者的Web站点的表单，这个站点会自动将数据POST到用户银行Web站点的URL上（这个站点可能设计得很糟糕，无法防御这种类型的攻击），实现转账的操作。用户可能根本不知道发生了攻击，直到他们发现账号上的钱已经不翼而飞。</p>
+<p>为了防止这种类型的攻击，应用可以在展现表单的时候生成一个CSRF token，并放到隐藏域中，然后将其临时存储起来，以便后续在服务器上使用。在提交表单的时候，token将和其他的表单数据一起发送至服务器端。请求会被服务器拦截，并与最初生成的token进行对比。如果token匹配，那么请求将会允许处理；否则，表单肯定是由恶意网站渲染的，因为它不知道服务器所生成的token。</p>
+<p>比较幸运的是，Spring Security提供了内置的CSRF保护。更幸运的是，默认它就是启用的，我们不需要显式配置它。我们唯一需要做的就是确保应用中的每个表单都要有一个名为“_csrf”的字段，它会持有CSRF token。</p>
+<p>Spring Security甚至进一步简化了将token放到请求的“_csrf”属性中这一任务。在Thymeleaf模板中，我们可以按照如下的方式在隐藏域中渲染CSRF token：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;_csrf&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;_csrf.token&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你使用Spring MVC的JSP标签库或者Spring Security的Thymeleaf方言，那么甚至都不用明确包含这个隐藏域（这个隐藏域会自动生成）。</p>
+<p>在Thymeleaf中，我们只需要确保<code>&lt;form&gt;</code>的某个属性带有Thymeleaf属性前缀即可。通常这并不是什么问题，因为我们一般会使用Thymeleaf渲染相对于上下文的路径。例如，为了让Thymeleaf渲染隐藏域，我们只需要使用th:action属性就可以了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">th:action</span>=<span class="string">&quot;@&#123;/login&#125;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;loginForm&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们还可以禁用Spring Security对CSRF的支持，但是我很犹豫是否要为你们展现这个功能。CSRF的防护非常重要，并且很容易在表单中实现，所以我们没有理由禁用它。但是，如果你坚持要禁用，那么可以通过调用disable()来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.and()</span><br><span class="line">  .csrf()</span><br><span class="line">    .disable()</span><br></pre></td></tr></table></figure>
+
+<p>再次强调，不要禁用CSRF防护，对于生产环境的应用来说更是如此。</p>
+<p>Taco Cloud应用所有Web层的安全性都已经配置好了。除此之外，我们还有了一个自定义的登录页并且能够通过基于JPA的用户repository来认证用户。接下来，我们看一下如何获取已登录用户的信息。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/4fa90c04/" title="4.3 保护Web请求">https://lanlan2017.github.io/ReadingNotes/4fa90c04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a4b1bc4a/" rel="prev" title="4.2 配置Spring Security">
+                  <i class="fa fa-chevron-left"></i> 4.2 配置Spring Security
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/9732052e/" rel="next" title="4.4 了解用户是谁">
+                  4.4 了解用户是谁 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/4fa90c04/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/4fa90c04/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

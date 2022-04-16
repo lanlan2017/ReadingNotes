@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="1.3 第一个jQuery驱动的页面了解jQuery能够提供的丰富特性之后,我们可以来看一看这个库的实际应用了。为此,我们需要下载一个jQuery的副本。 1.3.1 下载jQueryjQuery不需要安装,要使用它只需该文件的一个副本,该副本可以放在外部站点上,也可以放在自己的服务器上。由于JavaScript是一种解释型语言,所以不必担心编译和构建。什么时候需要使用jQuery,只要在HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.3 第一个jQuery驱动的页面">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a86b9418/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="1.3 第一个jQuery驱动的页面了解jQuery能够提供的丰富特性之后,我们可以来看一看这个库的实际应用了。为此,我们需要下载一个jQuery的副本。 1.3.1 下载jQueryjQuery不需要安装,要使用它只需该文件的一个副本,该副本可以放在外部站点上,也可以放在自己的服务器上。由于JavaScript是一种解释型语言,所以不必担心编译和构建。什么时候需要使用jQuery,只要在HTML">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-29T16:35:38.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a86b9418/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a86b9418/","path":"/a86b9418/","title":"1.3 第一个jQuery驱动的页面"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1.3 第一个jQuery驱动的页面 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-3-%E7%AC%AC%E4%B8%80%E4%B8%AAjQuery%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">1.3 第一个jQuery驱动的页面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-1-%E4%B8%8B%E8%BD%BDjQuery"><span class="nav-number">1.1.</span> <span class="nav-text">1.3.1 下载jQuery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-2-%E6%9C%AC%E4%B9%A6%E4%BD%BF%E7%94%A8jQuery%E7%9A%84%E5%93%AA%E4%B8%AA%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">1.3.2 本书使用jQuery的哪个版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-3-%E5%9C%A8HTML%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BC%95%E5%85%A5jQuery"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.3 在HTML文档中引入jQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">下载示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-4-%E7%BC%96%E5%86%99jQuery%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">1.3.4 编写jQuery代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9F%A5%E6%89%BE%E8%AF%97%E6%AD%8C%E6%96%87%E6%9C%AC"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 查找诗歌文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8A%A0%E5%85%A5%E6%96%B0%E7%B1%BB"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 加入新类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 执行代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-5-%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C"><span class="nav-number">1.4.4.</span> <span class="nav-text">1.3.5 最终结果</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a86b9418/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1.3 第一个jQuery驱动的页面 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1.3 第一个jQuery驱动的页面
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-30 00:35:38" itemprop="dateCreated datePublished" datetime="2019-06-30T00:35:38+08:00">2019-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC1%E7%AB%A0-jQuery%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">第1章 jQuery入门</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a86b9418/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a86b9418/" data-xid="/ReadingNotes/a86b9418/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-3-第一个jQuery驱动的页面"><a href="#1-3-第一个jQuery驱动的页面" class="headerlink" title="1.3 第一个jQuery驱动的页面"></a>1.3 第一个jQuery驱动的页面</h1><p>了解<code>jQuery</code>能够提供的丰富特性之后,我们可以来看一看这个库的实际应用了。为此,我们需要下载一个<code>jQuery</code>的副本。</p>
+<h2 id="1-3-1-下载jQuery"><a href="#1-3-1-下载jQuery" class="headerlink" title="1.3.1 下载jQuery"></a>1.3.1 下载jQuery</h2><p><code>jQuery</code>不需要安装,要使用它只需该文件的一个副本,该副本可以放在外部站点上,也可以放在自己的服务器上。由于<code>JavaScript</code>是一种解释型语言,所以不必担心编译和构建。什么时候需要使用<code>jQuery</code>,只要在<code>HTML</code>文档中使用<code>&lt;script&gt;</code>元素把它导入进来即可。<br><code>jQuery</code><a target="_blank" rel="noopener" href="http://jquery.com/">官方网站</a>始终都包含该库最新的稳定版本,通过官网的首页就可以下载。官方网站在任何时候都会提供几种不同版本的<code>jQuery</code>库,但其中最适合我们的是该库最新的**未压缩版(uncompressed)**。而在正式发布的页面中,则可以使用压缩版(minified)。<br>随着<code>jQuery</code>的日益流行,很多公司都通过自己的<code>CDN</code>(<code>Content Delivery Networks</code>,内容分发网络)来托管其库文件,让开发人员能更方便地使用它。最典型的就是谷歌(<a target="_blank" rel="noopener" href="https://developers.google.com/speed/libraries/devguide">https://developers.google.com/speed/libraries/devguide</a>)和微软(<a target="_blank" rel="noopener" href="http://www.asp.net/ajaxlibrary/cdn.ashx">http://www.asp.net/ajaxlibrary/cdn.ashx</a>)和<code>jQuery</code>项目自己的服务器(<a target="_blank" rel="noopener" href="http://code.jquery.com/">http://code.jquery.com/</a>),<code>jQuery</code>库文件被放在了强劲、低延时的服务器上,这些服务器遍布全球各地,无论用户在哪个国家,都能以最快速度下载到<code>jQuery</code>。虽然托管在<code>CDN</code>上的文件由于分布式和缓存的原因有速度优势,但在实际开发中还是使用本地副本更方便一些。</p>
+<h2 id="1-3-2-本书使用jQuery的哪个版本"><a href="#1-3-2-本书使用jQuery的哪个版本" class="headerlink" title="1.3.2 本书使用jQuery的哪个版本"></a>1.3.2 本书使用jQuery的哪个版本</h2><p>为了确保在现代浏览器中速度更快,代码更简洁,<code>jQuery</code>从2.0版开始不再支持<code>IE6</code>、<code>IE7</code>和<code>IE8</code>。<br>不过支持这些老版本浏览器也很重要。正因为如此,<code>jQuery</code>开发团队还会继续维护<code>jQuery 1.x</code>版。<br>如果项目中有针对<code>jQuery 1.9</code>之前的版本编写的代码,可以使用<a target="_blank" rel="noopener" href="http://jquery.com/upgrade-guide/1.9/#jquery-migrate-plugin">jQuery迁移插件</a>实现与<code>jQuery 1.10</code>兼容。</p>
+<h2 id="1-3-3-在HTML文档中引入jQuery"><a href="#1-3-3-在HTML文档中引入jQuery" class="headerlink" title="1.3.3 在HTML文档中引入jQuery"></a>1.3.3 在HTML文档中引入jQuery</h2><h3 id="下载示例代码"><a href="#下载示例代码" class="headerlink" title="下载示例代码"></a>下载示例代码</h3><p>如同本书其他<code>HTML</code>、<code>CSS</code>以及<code>JavaScript</code>示例一样,上面的标记只是完整文档的一个片段。如果读者想试一试这些示例,可以从<a target="_blank" rel="noopener" href="http://book.learningjquery.com/">本书网站</a>下载随书代码.</p>
+<p><strong>引用<code>jQuery</code>库文件的<code>&lt;script</code>&gt;标签,必须放在引用自定义脚本文件的<code>&lt;script</code>&gt;标签之前。否则,在我们编写的代码中将引用不到<code>jQuery</code>框架。</strong></p>
+<h2 id="1-3-4-编写jQuery代码"><a href="#1-3-4-编写jQuery代码" class="headerlink" title="1.3.4 编写jQuery代码"></a>1.3.4 编写jQuery代码</h2><h3 id="1-查找诗歌文本"><a href="#1-查找诗歌文本" class="headerlink" title="1. 查找诗歌文本"></a>1. 查找诗歌文本</h3><p><code>jQuery</code>中基本的操作就是选择文档中的某一部分,这是通过<code>$()</code>函数来完成的。通常,<code>$()</code>函数需要一个字符串参数,该字符串参数中可以包含任何**<code>CSS</code>选择符表达式<strong>。在这个例子中,我们想要找到带有<code>poem-stanza</code>类的所有<code>&lt;div&gt;</code>元素,因此选择符非常简单。不过,在本书其他章中,我们还会介绍很多更复杂的选择符表达式。在第2章中,我们要讨论的就是查找文档部分的不同方式。<br>这里用到的</strong><code>$()</code>函数会返回一个新的<code>jQuery</code>对象实例**,它是我们从现在开始就要打交道的基本的构建块。**<code>jQuery</code>对象中会封装零个或多个<code>DOM</code>元素,并允许我们以多种不同的方式与这些<code>DOM</code>元素进行交互**。在这个例子中,我们希望修改页面中这些部分的外观,而为了完成这个任务,就需要改变应用到诗歌文本的类。</p>
+<h3 id="2-加入新类"><a href="#2-加入新类" class="headerlink" title="2. 加入新类"></a>2. 加入新类</h3><p>1本例中,<strong><code>.addClass()</code>方法会将一个<code>CSS</code>类应用到我们选择的页面元素</strong>。<code>.addClass()</code>方法唯一的参数就是要添加的类名。 <code>.addClass()</code>方法及其反方法<code>.removeClass()</code>,为我们探索<code>jQuery</code>支持的各种选择符表达式提供了便利。现在,这个例子只是简单地添加了<code>highlight</code>类,而我们的样式表中为这个类定义的是带边框和灰色背景的斜体文本样式。<br>我们注意到,无需迭代操作就能为所有诗歌中的<code>节</code>添加这个类(所谓<code>节</code>就是类为<code>.poem-stanza</code>的文档部分.)。前面我们提到过,<strong><code>jQuery</code>在<code>.addClass()</code>等方法中使用了<code>隐式迭代机制</code>,因此<code>一次函数调用就可以完成对所有选择的文档部分的修改</code>。</strong></p>
+<h3 id="3-执行代码"><a href="#3-执行代码" class="headerlink" title="3. 执行代码"></a>3. 执行代码</h3><p>综合起来,<code>$()</code>和<code>.addClass()</code>对我们修改诗歌中文本的外观已经够用了。但是,如果将这行代码单独插入文档的头部,不会有任何效果。<strong>通常,<code>JavaScript</code>代码在浏览器初次遇到它们时就会执行</strong>,<strong>而在浏览器处理头部时,<code>HTML</code>还不会呈现样式</strong>。因此,我们需要将代码延迟到<code>DOM</code>可用时再执行。<br>通过使用<code>$(document).ready()</code>方法, <code>jQuery</code>支持我们预定在<code>DOM</code>加载完毕后调用某个函数,而不必等待页面中的图像加载。尽管不使用<code>jQuery</code>,也可以做到这种预定,但<code>$(document).ready()</code>为我们提供了很好的跨浏览器解决方案,涉及如下功能:</p>
+<ul>
+<li>尽可能使用浏览器原生的<code>DOM</code>就绪实现,并以<code>window.onload</code>事件处理程序作为后备;</li>
+<li>可以多次调用<code>$(document).ready()</code>并按照调用它们的顺序执行;</li>
+<li>即便是在浏览器事件发生之后把函数传给<code>$(document).ready()</code>, 这些函数也会执行;</li>
+<li>异步处理事件的预定,必要时脚本可以延迟执行;</li>
+<li>通过重复检查一个几乎与<code>DOM</code>同时可用的方法,在较早版本的浏览器中模拟<code>DOM</code>就绪事件。</li>
+</ul>
+<p><code>$(document).ready()</code>方法的参数可以<code>函数名称</code>,如下面的代码所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function addHighlightClass()  &#123; </span><br><span class="line">  $(&#x27;div.poem-stanza&#x27;).addClass(&#x27;highlight&#x27;); </span><br><span class="line">&#125; </span><br><span class="line">// 使用函数的引用(函数名)作为参数</span><br><span class="line">$(document).ready(addHighlightClass); </span><br></pre></td></tr></table></figure>
+<p>这个方法也可以接收一个<code>匿名函数</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;  </span><br><span class="line">  $(<span class="string">&#x27;div.poem-stanza&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;highlight&#x27;</span>);  </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p>这种<code>匿名函数</code>的写作在<code>jQuery</code>中十分方便,<code>特别适合传递那些不会被重用的函数</code>。而且,与此同时创建的<code>闭包</code>也是一种非常高级和强大的工具。但是,假如处理不当的话,闭包也会给我们带来意想不到的后果以及内存占用问题。附录A详细介绍了闭包。</p>
+<h3 id="1-3-5-最终结果"><a href="#1-3-5-最终结果" class="headerlink" title="1.3.5 最终结果"></a>1.3.5 最终结果</h3><p>在编写好<code>JavaScript</code>代码之后,现在的页面如下图:</p>
+<p>由于<code>JavaScript</code>插入了<code>highlight</code>类,页面中的两节诗歌文本变成了斜体,带有了灰色背景,并且被包含在方框中;这些样式来源于<code>01.css</code>样式表。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a86b9418/" title="1.3 第一个jQuery驱动的页面">https://lanlan2017.github.io/ReadingNotes/a86b9418/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/959ec8ba/" rel="prev" title="1.2 jQuery为什么如此出色">
+                  <i class="fa fa-chevron-left"></i> 1.2 jQuery为什么如此出色
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/8379ecc7/" rel="next" title="1.6 小结">
+                  1.6 小结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a86b9418/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a86b9418/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

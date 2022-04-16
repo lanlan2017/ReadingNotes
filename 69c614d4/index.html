@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="7.1 设计过程概览&amp;nbsp;7.1.1 设计阶段&amp;nbsp;改变物理模式相对简单&amp;nbsp;改变逻辑模式比较困难&amp;nbsp;小结&amp;nbsp;7.1.2 设计选择&amp;nbsp;要避免的数据库模式缺陷&amp;nbsp;1 冗余&amp;nbsp;2 不完整&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.1 设计过程概览">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/69c614d4/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="7.1 设计过程概览&amp;nbsp;7.1.1 设计阶段&amp;nbsp;改变物理模式相对简单&amp;nbsp;改变逻辑模式比较困难&amp;nbsp;小结&amp;nbsp;7.1.2 设计选择&amp;nbsp;要避免的数据库模式缺陷&amp;nbsp;1 冗余&amp;nbsp;2 不完整&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-28T09:16:46.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/69c614d4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/69c614d4/","path":"/69c614d4/","title":"7.1 设计过程概览"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7.1 设计过程概览 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">7.1 设计过程概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-1-%E8%AE%BE%E8%AE%A1%E9%98%B6%E6%AE%B5"><span class="nav-number">2.</span> <span class="nav-text">7.1.1 设计阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E7%89%A9%E7%90%86%E6%A8%A1%E5%BC%8F%E7%9B%B8%E5%AF%B9%E7%AE%80%E5%8D%95"><span class="nav-number">2.1.</span> <span class="nav-text">改变物理模式相对简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E9%80%BB%E8%BE%91%E6%A8%A1%E5%BC%8F%E6%AF%94%E8%BE%83%E5%9B%B0%E9%9A%BE"><span class="nav-number">2.2.</span> <span class="nav-text">改变逻辑模式比较困难</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-2-%E8%AE%BE%E8%AE%A1%E9%80%89%E6%8B%A9"><span class="nav-number">3.</span> <span class="nav-text">7.1.2 设计选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E9%81%BF%E5%85%8D%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F%E7%BC%BA%E9%99%B7"><span class="nav-number">3.1.</span> <span class="nav-text">要避免的数据库模式缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%97%E4%BD%99"><span class="nav-number">3.1.1.</span> <span class="nav-text">1 冗余</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">3.1.2.</span> <span class="nav-text">2 不完整</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/69c614d4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7.1 设计过程概览 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.1 设计过程概览
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-28 17:16:46" itemprop="dateCreated datePublished" datetime="2019-10-28T17:16:46+08:00">2019-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">第二部分 数据库设计</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">第7章 数据库设计和E-R模型</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/7-1-%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A7%88/" itemprop="url" rel="index"><span itemprop="name">7.1 设计过程概览</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/69c614d4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/69c614d4/" data-xid="/ReadingNotes/69c614d4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/69c614d4/#7-1-设计过程概览" class="header_1">7.1 设计过程概览</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#7-1-1-设计阶段" class="header_1">7.1.1 设计阶段</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#改变物理模式相对简单" class="header_2">改变物理模式相对简单</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#改变逻辑模式比较困难" class="header_2">改变逻辑模式比较困难</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#小结" class="header_2">小结</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#7-1-2-设计选择" class="header_1">7.1.2 设计选择</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#要避免的数据库模式缺陷" class="header_2">要避免的数据库模式缺陷</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#1-冗余" class="header_3">1 冗余</a>&nbsp;<br><a href="/ReadingNotes/69c614d4/#2-不完整" class="header_3">2 不完整</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="7-1-设计过程概览"><a href="#7-1-设计过程概览" class="headerlink" title="7.1 设计过程概览"></a>7.1 设计过程概览</h1><p>构建一个数据库应用是一个复杂的任务,包括</p>
+<ul>
+<li><strong>设计数据库模式</strong>,</li>
+<li><strong>设计访问和更新数据的程序</strong>,</li>
+<li>以及<strong>设计控制数据访问的安全模式</strong>。</li>
+</ul>
+<p>用户的需求在设计过程中扮演一个中心角色。本章主要关注于数据库模式的设计,不过本章后面会简要地概括其他几个设计任务。</p>
+<h1 id="7-1-1-设计阶段"><a href="#7-1-1-设计阶段" class="headerlink" title="7.1.1 设计阶段"></a>7.1.1 设计阶段</h1><p>对于小型的应用,由一个理解应用需求的数据库设计者直接决定要构建的关系、关系的属性以及其上的约束,这样也许是可行的。但是,这种直接的设计过程在现实的应用中是困难的,由于现实的应用常常很复杂,通常没有一个人能够理解应用的所有数据需求。<br>数据库设计者必须与应用的用户进行交互以理解应用的需求,把它们以用户能够理解的高级别的形式表示出来,然后再将需求转化为较低级别的设计。<br>一个高层数据模型为数据库设计者提供了一个概念框架,在该框架中以系统的方式定义了数据库用户的数据需求,以及满足这些需求的数据库结构。</p>
+<ul>
+<li><strong>数据库设计的<code>最初阶段</code>需要完整地刻画未来数据库用户的数据需求</strong>。为完成这个任务,数据库设计者需要同应用领域的专家和用户进行深入的沟通。<strong>这一阶段的产品是用户需求规格说明</strong>。虽然存在图形方式的用户需求表示技术,但是在本章中,我们仅限于采用文字的方式来描述用户需求。</li>
+<li>接下来,设计者<strong>选择数据模型</strong>,并采用所选数据模型的概念将这些需求转化为数据库的<strong>概念模式</strong>。<ul>
+<li>在此<strong>概念设计</strong>(<code>conceptual-design</code>)阶段所产生的模式提供了一个对企业的详细综述。我们在本章中将研究的**<code>实体-联系模型</code>通常用于表示<code>概念设计</code>**。用实体-联系模型的术语来说,<strong>概念模式定义了数据库中表示的<code>实体</code>、<code>实体的属性</code>、<code>实体之间的联系</code>,以及<code>实体和联系上的约束</code><strong>。通常,<strong>概念设计阶段会导致实体-联系图的构建</strong>,它提供了对模式的图形化描述。设计者检查此模式以确保所有数据需求都满足,并且互相不冲突。还可以检查该设计以去除冗余的特征。</strong>在这个阶段关注的是描述<code>数据及其联系</code></strong>,而不是定义物理存储细节。</li>
+</ul>
+</li>
+<li>完善的概念模式还指明企业的功能需求。在<strong>功能需求规格说明</strong>(<code>specification of functionalrequirement</code>)中,用户描述将在数据上进行的各类操作(或事务)。操作的例子包括修改或更新数据,搜索并取回特定数据,以及删除数据。在概念设计的这一阶段,设计者可以检查所设计的模式,以确保其满足功能需求。</li>
+<li>从<strong>抽象数据模型</strong>到<strong>数据库实现</strong>的转换过程在最后两个设计阶段中进行。<ul>
+<li>在<strong>逻辑设计阶段</strong>( <code>logical-design phase</code>)中,设计者将高层<code>概念模式</code>映射到将使用的数据库系统的实现<code>数据模型</code>上。实现数据模型通常是<code>关系数据模型</code>,**该阶段通常包括将以<code>实体联系模型</code>定义的概念模式映射到<code>关系模式</code>**。</li>
+<li>最后,设计者将所得到的系统特定的<strong>数据库模式</strong>使用到后续的<strong>物理设计阶段</strong>(<code>physical-design phase</code>)中。在该阶段,指明<strong>数据库的物理特征</strong>,这些特征包括<code>文件组织格式</code>和<code>索引结构的选择</code>,我们将在第10章和第11章讨论这些内容。</li>
+</ul>
+</li>
+</ul>
+<h2 id="改变物理模式相对简单"><a href="#改变物理模式相对简单" class="headerlink" title="改变物理模式相对简单"></a>改变物理模式相对简单</h2><p><strong>在应用建立之后,要改变数据库的<code>物理模式</code>相对地比较简单</strong>。</p>
+<h2 id="改变逻辑模式比较困难"><a href="#改变逻辑模式比较困难" class="headerlink" title="改变逻辑模式比较困难"></a>改变逻辑模式比较困难</h2><p>但是,由于可能影响到应用程序代码中散布的大量的査询和更新操作,因此<strong>改变逻辑模式的任务执行起来常常更加困难</strong>。<br>因此,<strong>在建立后续的数据库应用之前,慎重实施数据库设计阶段是非常重要的</strong>。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>概念设计阶段,得到E-R图</li>
+<li>逻辑设计结果,根据E-R图得到关系模式</li>
+<li>物理设计阶段,指定数据库的物理特征,如文件的组织格式,索引结构的选择</li>
+</ol>
+<h1 id="7-1-2-设计选择"><a href="#7-1-2-设计选择" class="headerlink" title="7.1.2 设计选择"></a>7.1.2 设计选择</h1><p>数据库设计过程的一个主要部分是决定如何在设计中表示各种类型的”事物”,比如人、地方、产品,诸如此类。<br><strong>我们使用实体(<code>eniy</code>)这个术语来指示所有可明确识别的个体</strong>。在一个大学数据库中,实体的例子将包括教师、学生、系、课程和开课°。这些各种各样的实体以多种方式互相<code>关联</code>,而所有这些方式都需要在数据库设计中反映出来。例如,一名学生在一次开课中选课,而一名教师在一次开课中授课,授课和选课就是实体间联系的实例。</p>
+<h2 id="要避免的数据库模式缺陷"><a href="#要避免的数据库模式缺陷" class="headerlink" title="要避免的数据库模式缺陷"></a>要避免的数据库模式缺陷</h2><p>在设计一个数据库模式的时候,我们必须确保避免两个主要的缺陷。</p>
+<h3 id="1-冗余"><a href="#1-冗余" class="headerlink" title="1 冗余"></a>1 冗余</h3><p>一个不好的设计可能会重复信息。例如,如果对于每一次开课我们都存储课程编号和课程名称,那么对于每一次开课我们就冗余地(即多次地、不必要地)存储了课程名称。对每次开课仅存储课程编号,并在一个课程实体中将课程名称和课程编号关联一次就足够了。<br>    - 冗余也可能出现在关系模式中。在目前我们所使用的大学的例子中,我们有一个开课信息的关系和一个课程信息的关系。假设换一个做法,我们只有一个关系,对一门课程的每一次开课我们将全部课程信息(课程编号、课程名、系名、学分)重复一次。很明显,关于课程的信息将冗余地存储。<br>    - 信息的这种冗余表达的最大问题是当对一条信息进行更新但没有将这条信息的所有拷贝都更新时,这条信息的拷贝会变得不一致。例如,拥有同一个课程编号的几次不同的开课可能会拥有不同的课程名称,于是会搞不清楚课程的正确名称是什么。理想的情况下,信息应该只出现在一个地方。</p>
+<h3 id="2-不完整"><a href="#2-不完整" class="headerlink" title="2 不完整"></a>2 不完整</h3><p>一个不好的设计可能会使得企事业机构的某些方面难于甚至无法建模。例如,假设在上述案例(1)中,我们只有对应于开课的实体,而没有对应于课程的实体。从关系的角度说,这就是假设我们有单个关系,对一门课程的每一次开课都重复存储课程的所有信息。那么一门新课程的信息将无法表示,除非开设了该课程。我们可能会尝试将开课信息设置为空值的方法来解决这个有问题的设计。这种绕开问题的措施不仅不吸引人,而且有可能由于主码约束而无法实行。</p>
+<p><strong>仅仅避免不好的设计是不够的</strong>。可能存在大量好的设计,我们必须从中选择一个。作为一个简单的例子,考虑买了某产品的一个客户。该产品的销售是客户和产品之间的联系吗?还是销售本身是一个与客户和产品都相关的实体?这个选择,虽然简单,却可能对企业某些方面建模的好坏有很大的影响。考虑为一个现实企业中的大量实体和联系做类似这样的选择的需要,不难看出数据库设计是一个很有挑战性的问题。事实上我们将看到,它需要科学和”好的品味”的结合。</p>
+<!--SSTStop-->
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/69c614d4/" title="7.1 设计过程概览">https://lanlan2017.github.io/ReadingNotes/69c614d4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/d272dc27/" rel="prev" title="第7章 数据库设计和E-R模型 概述">
+                  <i class="fa fa-chevron-left"></i> 第7章 数据库设计和E-R模型 概述
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/9965d025/" rel="next" title="7.2 实体-联系模型 7.2.1 实体集">
+                  7.2 实体-联系模型 7.2.1 实体集 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/69c614d4/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/69c614d4/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

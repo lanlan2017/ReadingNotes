@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="17.2 探索Admin服务器在将所有的Spring Boot应用注册为Admin服务器的客户端之后，我们就可以使用Admin服务器得到运行中应用的大量信息，包括：  通用的健康信息； 通过Micrometer和“&#x2F;metrics”端点发布的所有指标； 环境属性； 包和类的日志级别； 线程跟踪细节； HTTP请求的跟踪情况； 审计日志。  实际上，几乎Actuator暴露的所有内容我们都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17.2 探索Admin服务器">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a2cd341e/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="17.2 探索Admin服务器在将所有的Spring Boot应用注册为Admin服务器的客户端之后，我们就可以使用Admin服务器得到运行中应用的大量信息，包括：  通用的健康信息； 通过Micrometer和“&#x2F;metrics”端点发布的所有指标； 环境属性； 包和类的日志级别； 线程跟踪细节； HTTP请求的跟踪情况； 审计日志。  实际上，几乎Actuator暴露的所有内容我们都">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203206.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203218.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203230.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203245.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203259.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203346.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203400.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203412.png">
+<meta property="article:published_time" content="2021-10-22T05:54:24.000Z">
+<meta property="article:modified_time" content="2021-10-22T05:54:24.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203206.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a2cd341e/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a2cd341e/","path":"/a2cd341e/","title":"17.2 探索Admin服务器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>17.2 探索Admin服务器 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#17-2-%E6%8E%A2%E7%B4%A2Admin%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">17.2 探索Admin服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-1-%E6%9F%A5%E7%9C%8B%E5%BA%94%E7%94%A8%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%81%A5%E5%BA%B7%E7%8A%B6%E5%86%B5%E5%92%8C%E4%BF%A1%E6%81%AF"><span class="nav-number">1.1.</span> <span class="nav-text">17.2.1 查看应用基本的健康状况和信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-2-%E8%A7%82%E5%AF%9F%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">17.2.2 观察核心指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-3-%E6%8E%A2%E6%9F%A5%E7%8E%AF%E5%A2%83%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">17.2.3 探查环境属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-4-%E6%9F%A5%E7%9C%8B%E5%92%8C%E8%AE%BE%E7%BD%AE%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">17.2.4 查看和设置日志级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-5-%E7%9B%91%E6%8E%A7%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">17.2.5 监控线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-6-%E8%B7%9F%E8%B8%AAHTTP%E8%AF%B7%E6%B1%82"><span class="nav-number">1.6.</span> <span class="nav-text">17.2.6 跟踪HTTP请求</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a2cd341e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="17.2 探索Admin服务器 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          17.2 探索Admin服务器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-22 13:54:24" itemprop="dateCreated datePublished" datetime="2021-10-22T13:54:24+08:00">2021-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC5%E9%83%A8%E5%88%86-%E9%83%A8%E7%BD%B2Spring/" itemprop="url" rel="index"><span itemprop="name">第5部分 部署Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC5%E9%83%A8%E5%88%86-%E9%83%A8%E7%BD%B2Spring/%E7%AC%AC17%E7%AB%A0-%E7%AE%A1%E7%90%86Spring/" itemprop="url" rel="index"><span itemprop="name">第17章 管理Spring</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a2cd341e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a2cd341e/" data-xid="/ReadingNotes/a2cd341e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="17-2-探索Admin服务器"><a href="#17-2-探索Admin服务器" class="headerlink" title="17.2 探索Admin服务器"></a>17.2 探索Admin服务器</h1><p>在将所有的Spring Boot应用注册为Admin服务器的客户端之后，我们就可以使用Admin服务器得到运行中应用的大量信息，包括：</p>
+<ul>
+<li>通用的健康信息；</li>
+<li>通过Micrometer和“&#x2F;metrics”端点发布的所有指标；</li>
+<li>环境属性；</li>
+<li>包和类的日志级别；</li>
+<li>线程跟踪细节；</li>
+<li>HTTP请求的跟踪情况；</li>
+<li>审计日志。</li>
+</ul>
+<p>实际上，几乎Actuator暴露的所有内容我们都可以通过Admin服务器来查看，只不过它的展现形式更加人性化。它包括了图表和钻取信息的过滤器。Admin服务所展现的信息要比本章中看到的多得多，限于篇幅，我们使用本节剩余的内容着重介绍一些Admin服务器的亮点功能。</p>
+<h2 id="17-2-1-查看应用基本的健康状况和信息"><a href="#17-2-1-查看应用基本的健康状况和信息" class="headerlink" title="17.2.1 查看应用基本的健康状况和信息"></a>17.2.1 查看应用基本的健康状况和信息</h2><p>正如我们在16.2.1小节所提到的那样，Actuator会通过“&#x2F;health”和“&#x2F;info”端点提供应用的健康状况和基本信息。Admin服务器在Details选项卡下展现了这些信息，如图17.6所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203206.png" alt="image-20211023203206091"></p>
+<center>图17.6 Spring Boot Admin UI的Details选项卡展现了应用的健康状况和基本信息</center>
+
+<p>滑过Details选项卡的Health和Info部分，我们会在下方看到一些来自应用JVM的统计信息，包括展现处理器、线程和内存使用的图表，如图17.7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203218.png" alt="image-20211023203218420"></p>
+<center>图17.7 在Details选项卡中下方将会看到额外的JVM内部信息（包括处理器、线程和内存统计数据）</center>
+
+<p>图表中所展现的信息再加上Processes、Garbage Collection Pauses下面的指标，可以提供关于应用如何使用JVM资源的有用信息。</p>
+<h2 id="17-2-2-观察核心指标"><a href="#17-2-2-观察核心指标" class="headerlink" title="17.2.2 观察核心指标"></a>17.2.2 观察核心指标</h2><p>在Actuator的所有端点中，“&#x2F;metrics”端点所提供的信息可能最不易于人类阅读了。借助Admin服务器Metrics选项卡下的UI界面，我们可以很容易地消费应用所生成的指标数据。</p>
+<p>在开始的时候，Metrics选项卡并不会展示任何指标。借助页面顶部的表单，我们能够设置想要查看的一个或多个指标。</p>
+<p>在图17.8中，我们监视了http.server.requests分类的两个指标：第一个报告展现了发往“&#x2F;ingredients”端点的HTTP GET请求，并且要求返回状态为200 (OK)；第二个报告展现了所有产生HTTP 404 (NOT FOUND)响应的请求。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203230.png" alt="image-20211023203230801"></p>
+<center>图17.8 在Metrics选项卡下，我们可以监视应用的“/metrics”端点发布的所有指标</center>
+
+<p>关于这些指标，非常棒的一点在于（其实几乎适用于Admin服务器展现的所有内容），这里所展示的是实时数据，会自动更新，无须刷新页面。</p>
+<h2 id="17-2-3-探查环境属性"><a href="#17-2-3-探查环境属性" class="headerlink" title="17.2.3 探查环境属性"></a>17.2.3 探查环境属性</h2><p>Actuator的“&#x2F;env”端点能够返回Spring Boot应用所有可用的环境变量，这些环境变量来源于各种属性源。尽管API端点的JSON格式响应并不难读，但是Admin服务器在Environment选项卡下以更美观的形式进行了展现（见图17.9）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203245.png" alt="image-20211023203245751"></p>
+<center>图17.9 Environment选项卡展现了环境属性，并且包含了重写和过滤值的选项</center>
+
+<p>因为这里可能会有数百个属性，所以可以使用属性名或值对可用属性进行过滤。图17.9展现了根据属性名和&#x2F;或值包含“spring.”进行过滤后的属性列表。通过页面顶部的Environment Manager表单，Admin服务器还允许我们设置或重写环境属性。</p>
+<h2 id="17-2-4-查看和设置日志级别"><a href="#17-2-4-查看和设置日志级别" class="headerlink" title="17.2.4 查看和设置日志级别"></a>17.2.4 查看和设置日志级别</h2><p>Actuator的“&#x2F;loggers”端点对于理解或重写运行中应用的日志级别非常有用。Admin服务器的Loggers选项卡基于“&#x2F;loggers”端点提供了一个非常易于使用的UI页面，进一步简化了应用中的日志管理。图17.10展现了根据org.springframework.boot名称过滤后的loggers。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203259.png" alt="image-20211023203259747"></p>
+<center>图17.10 Loggers选项卡会展示应用中包和类的日志级别，并且允许我们重写它们的级别</center>
+
+<p>默认情况下，Admin服务器会展现所有包和类的日志级别。它们可以通过名称（仅限于类）和&#x2F;或显式配置的日志级别来进行过滤，这里不支持对由根logger继承来的级别进行过滤。</p>
+<h2 id="17-2-5-监控线程"><a href="#17-2-5-监控线程" class="headerlink" title="17.2.5 监控线程"></a>17.2.5 监控线程</h2><p>在应用中，多个线程可以并行运行。尽管“&#x2F;threaddump”端点（在16.2.3小节进行过描述）提供了应用运行中线程状态的快照，但是Spring Boot Admin UI中的Threads选项卡能够实时查看应用中所有的线程（见图17.11）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203346.png" alt="image-20211023203346646"></p>
+<center>图17.11 我们可以使用Admin UI的Threads选项卡实时监控应用的线程</center>
+
+<p>“&#x2F;threaddump”端点只是捕获某个时刻的快照，Threads选项卡中的条形图与之不同，它是持续更新的，展示每个线程的状态：线程可运行的话，是绿色的；等待的话，是黄色的；阻塞的话，是红色的。</p>
+<p>要查看某个线程的细节信息，可以点击列表中的线程行。这样会显示该线程的历史数据，包括线程当前的堆栈。</p>
+<h2 id="17-2-6-跟踪HTTP请求"><a href="#17-2-6-跟踪HTTP请求" class="headerlink" title="17.2.6 跟踪HTTP请求"></a>17.2.6 跟踪HTTP请求</h2><p>Spring Boot Admin UI的Http Traces选项卡（见图17.12）展现了Actuator“&#x2F;httptrace”端点的数据。与“&#x2F;httptrace”端点返回请求时最近的100个请求不同，Http Traces选项卡列出了完整的HTTP请求历史。而且，在我们打开这个选项卡的时候，数据会一直刷新。如果你离开这个选项卡再回来，那么它初始会显示100条最近的请求，但是会从当前时刻开始进行跟踪。</p>
+<p>我们可以看到，Http Traces选项卡包含了一个随时间变化的HTTP流量的堆积图（stacked graph）。这个图使用不同的颜色来表示成功和失败的请求：绿色代表成功，黄色代表客户端错误（例如404级别的HTTP响应），红色代表服务器错误（如500级别的HTTP响应）。如果将鼠标指针移动到图上，就会弹出一个悬停框（如图17.12最右侧所示），显示给定时间分解的请求计数。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203400.png" alt="image-20211023203400650"></p>
+<center>图17.12 Http Traces选项卡会跟踪该应用最近的HTTP流量，包括产生错误的请求信息</center>
+
+<p>在堆积图的下方展现了跟踪历史，应用接收到的每个请求都会对应一行。点击其中一行，就会展开显示该请求的额外数据，包括请求和响应的头信息（见图17.13）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023203412.png" alt="image-20211023203412801"></p>
+<center>图17.13 点击Http Traces选项卡中的请求条目，将会展现该请求额外的详情</center>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a2cd341e/" title="17.2 探索Admin服务器">https://lanlan2017.github.io/ReadingNotes/a2cd341e/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3d3e3b2f/" rel="prev" title="17.1 使用Spring Boot Admin">
+                  <i class="fa fa-chevron-left"></i> 17.1 使用Spring Boot Admin
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/6c5307ad/" rel="next" title="17.3 保护Admin服务器">
+                  17.3 保护Admin服务器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a2cd341e/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a2cd341e/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

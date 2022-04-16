@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="5.2 我的知识你知道得越少越好迪米特法则对类的低耦合提出了明确的要求，其包含以下4层含义。 1. 只和朋友交流迪米特法则还有一个英文解释是：Only talk to your immediate friends（只与直接的朋友通信。）什么叫做直接的朋友呢？每个对象都必然会与其他对象有耦合关系，两个对象之间的耦合就成为朋友关系，这种关系的类型有很多，例如组合、聚合、依赖等。下面我们将举例说明如何才">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.2 我的知识你知道得越少越好">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/43d792f3/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="5.2 我的知识你知道得越少越好迪米特法则对类的低耦合提出了明确的要求，其包含以下4层含义。 1. 只和朋友交流迪米特法则还有一个英文解释是：Only talk to your immediate friends（只与直接的朋友通信。）什么叫做直接的朋友呢？每个对象都必然会与其他对象有耦合关系，两个对象之间的耦合就成为朋友关系，这种关系的类型有很多，例如组合、聚合、依赖等。下面我们将举例说明如何才">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927203555.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204026.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204355.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204707.png">
+<meta property="article:published_time" content="2019-09-17T04:38:04.000Z">
+<meta property="article:modified_time" content="2021-09-27T12:29:05.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927203555.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/43d792f3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/43d792f3/","path":"/43d792f3/","title":"5.2 我的知识你知道得越少越好"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>5.2 我的知识你知道得越少越好 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-2-%E6%88%91%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%A0%E7%9F%A5%E9%81%93%E5%BE%97%E8%B6%8A%E5%B0%91%E8%B6%8A%E5%A5%BD"><span class="nav-number">1.</span> <span class="nav-text">5.2 我的知识你知道得越少越好</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8F%AA%E5%92%8C%E6%9C%8B%E5%8F%8B%E4%BA%A4%E6%B5%81"><span class="nav-number">1.1.</span> <span class="nav-text">1. 只和朋友交流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9C%8B%E5%8F%8B%E9%97%B4%E4%B9%9F%E6%98%AF%E6%9C%89%E8%B7%9D%E7%A6%BB%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">2. 朋友间也是有距离的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%98%AF%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B0%B1%E6%98%AF%E8%87%AA%E5%B7%B1%E7%9A%84"><span class="nav-number">1.3.</span> <span class="nav-text">3. 是自己的就是自己的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8Serializable"><span class="nav-number">1.4.</span> <span class="nav-text">4. 谨慎使用Serializable</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/43d792f3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="5.2 我的知识你知道得越少越好 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5.2 我的知识你知道得越少越好
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-17 12:38:04" itemprop="dateCreated datePublished" datetime="2019-09-17T12:38:04+08:00">2019-09-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-27 20:29:05" itemprop="dateModified" datetime="2021-09-27T20:29:05+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">1 第一部分 大旗不挥，谁敢冲锋 ——6大设计原则全新解读</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/%E7%AC%AC5%E7%AB%A0-%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99/" itemprop="url" rel="index"><span itemprop="name">第5章 迪米特法则</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/43d792f3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/43d792f3/" data-xid="/ReadingNotes/43d792f3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="5-2-我的知识你知道得越少越好"><a href="#5-2-我的知识你知道得越少越好" class="headerlink" title="5.2 我的知识你知道得越少越好"></a>5.2 我的知识你知道得越少越好</h1><p>迪米特法则对类的低耦合提出了明确的要求，其包含以下4层含义。</p>
+<h2 id="1-只和朋友交流"><a href="#1-只和朋友交流" class="headerlink" title="1. 只和朋友交流"></a>1. 只和朋友交流</h2><p>迪米特法则还有一个英文解释是：Only talk to your immediate friends（只与直接的朋友通信。）什么叫做直接的朋友呢？每个对象都必然会与其他对象有耦合关系，两个对象之间的耦合就成为朋友关系，这种关系的类型有很多，例如组合、聚合、依赖等。下面我们将举例说明如何才能做到只与直接的朋友交流。</p>
+<p>传说中有这样一个故事，老师想让体育委员确认一下全班女生来齐没有，就对他说：“你去把全班女生清一下。”体育委员没听清楚，就问道：“呀，……那亲哪个？”老师无语了，我们来看这个笑话怎么用程序来实现，类图如图5-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927203555.png" alt="image-20210927203555499"></p>
+<center>图5-1 老师要求清点女生类图</center>
+
+<p>Teacher类的command方法负责发送命令给体育委员，命令他清点女生，其实现过程如代码清单5-1所示。</p>
+<p>代码清单5-1 老师类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">    <span class="comment">//老师对学生发布命令，清一下女生</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">command</span><span class="params">(GroupLeader groupLeader)</span>&#123;</span><br><span class="line">        <span class="type">List</span> <span class="variable">listGirls</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">        <span class="comment">//初始化女生</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)&#123;</span><br><span class="line">            listGirls.add(<span class="keyword">new</span> <span class="title class_">Girl</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//告诉体育委员开始执行清查任务</span></span><br><span class="line">        groupLeader.countGirls(listGirls);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>老师只有一个方法command，先定义出所有的女生，然后发布命令给体育委员，去清点一下女生的数量。体育委员GroupLeader的实现过程如代码清单5-2所示。</p>
+<p>代码清单5-2 体育委员类实现过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GroupLeader</span> &#123;</span><br><span class="line">    <span class="comment">//清查女生数量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">countGirls</span><span class="params">(List&lt;Girl&gt; listGirls)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;女生数量是：&quot;</span>+listGirls.size());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>老师类和体育委员类都对女生类产生依赖，而且女生类不需要执行任何动作，因此定义一个空类，其实现过程如代码清单5-3所示。</p>
+<p>代码清单5-3 女生类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Girl</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>故事中的三个角色都已经有了，再定义一个场景类来描述这个故事，其实现过程如代码清单5-4所示。</p>
+<p>代码清单5-4 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Teacher teacher= <span class="keyword">new</span> <span class="title class_">Teacher</span>();</span><br><span class="line">        <span class="comment">//老师发布命令</span></span><br><span class="line">        teacher.command(<span class="keyword">new</span> <span class="title class_">GroupLeader</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">女生数量是：20</span><br></pre></td></tr></table></figure>
+
+<p>体育委员按照老师的要求对女生进行了清点，并得出了数量。我们回过头来思考一下这个程序有什么问题，首先确定Teacher类有几个朋友类，它仅有一个朋友类—— GroupLeader。为什么Girl不是朋友类呢？Teacher也对它产生了依赖关系呀！<strong>朋友类的定义是这样的：出现在成员变量、方法的输入输出参数中的类称为成员朋友类</strong>，而出现在方法体内部的类不属于朋友类，而Girl这个类就是出现在command方法体内，因此不属于Teacher类的朋友类。迪米特法则告诉我们一个类只和朋友类交流，但是我们刚刚定义的command方法却与Girl类有了交流，声明了一个<code>List&lt;Girls&gt;</code>动态数组，也就是与一个陌生的类Girl有了交流， 这样就破坏了Teacher的健壮性。方法是类的一个行为，类竟然不知道自己的行为与其他类产生依赖关系，这是不允许的，严重违反了迪米特法则。</p>
+<p>问题已经发现，我们修改一下程序，将类图稍作修改，如图5-2所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204026.png" alt="image-20210927204026382"></p>
+<center>图5-2 修改后的类图</center>
+
+<p>在类图中去掉Teacher对Girl类的依赖关系，修改后的Teacher类如代码清单5-5所示。</p>
+<p>代码清单5-5 修改后的老师类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">    <span class="comment">//老师对学生发布命令，清一下女生</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">command</span><span class="params">(GroupLeader groupLeader)</span>&#123;</span><br><span class="line">        <span class="comment">//告诉体育委员开始执行清查任务</span></span><br><span class="line">        groupLeader.countGirls();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改后的GroupLeader类如代码清代5-6所示。</p>
+<p>代码清单5-6 修改后的体育委员类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GroupLeader</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Girl&gt; listGirls;</span><br><span class="line">    <span class="comment">//传递全班的女生进来</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">GroupLeader</span><span class="params">(List&lt;Girl&gt; _listGirls)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.listGirls = _listGirls;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//清查女生数量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">countGirls</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;女生数量是：&quot;</span>+<span class="built_in">this</span>.listGirls.size());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在GroupLeader类中定义了一个构造函数，通过构造函数传递了依赖关系。同时，对场景类也进行了一些修改，如代码清单5-7所示。</p>
+<p>代码清单5-7 修改后的场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//产生一个女生群体</span></span><br><span class="line">        List&lt;Girl&gt; listGirls = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Girl&gt;();</span><br><span class="line">        <span class="comment">//初始化女生</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">20</span>;i++)&#123;</span><br><span class="line">            listGirls.add(<span class="keyword">new</span> <span class="title class_">Girl</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        Teacher teacher= <span class="keyword">new</span> <span class="title class_">Teacher</span>();</span><br><span class="line">        <span class="comment">//老师发布命令</span></span><br><span class="line">        teacher.command(<span class="keyword">new</span> <span class="title class_">GroupLeader</span>(listGirls));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对程序进行了简单的修改，把Teacher中对<code>List&lt;Girl&gt;</code>的初始化移动到了场景类中，同时在GroupLeader中增加了对Girl的注入，避开了Teacher类对陌生类Girl的访问，降低了系统间的耦合，提高了系统的健壮性。</p>
+<hr>
+<p><strong>注意</strong> 一个类只和朋友交流，不与陌生类交流，不要出现<code>getA().getB().getC().getD()</code>这种情况（在一种极端的情况下允许出现这种访问，即每一个点号后面的返回类型都相同），类与类之间的关系是建立在类间的，而不是方法间，因此一个方法尽量不引入一个类中不存在的对象，当然，JDK API提供的类除外。</p>
+<hr>
+<h2 id="2-朋友间也是有距离的"><a href="#2-朋友间也是有距离的" class="headerlink" title="2. 朋友间也是有距离的"></a>2. 朋友间也是有距离的</h2><p>人和人之间是有距离的，太远关系逐渐疏远，最终形同陌路；太近就相互刺伤。对朋友关系描述最贴切的故事就是：两只刺猬取暖，太远取不到暖，太近刺伤了对方，必须保持一个既能取暖又不刺伤对方的距离。迪米特法则就是对这个距离进行描述，即使是朋友类之间也不能无话不说，无所不知。</p>
+<p>我们在安装软件的时候，经常会有一个导向动作，第一步是确认是否安装，第二步确认License，再然后选择安装目录……这是一个典型的顺序执行动作，具体到程序中就是：调用一个或多个类，先执行第一个方法，然后是第二个方法，根据返回结果再来看是否可以调用第三个方法，或者第四个方法，等等，其类图如图5-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204355.png" alt="image-20210927204354968"></p>
+<center>图5-3 软件安装过程类图</center>
+
+<p>很简单的类图，实现软件安装的过程，其中first方法定义第一步做什么，second方法定义第二步做什么，third方法定义第三步做什么，其实现过程如代码清单5-8所示。</p>
+<p>代码清单5-8 导向类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Wizard</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Random</span> <span class="variable">rand</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>(System.currentTimeMillis());</span><br><span class="line">    <span class="comment">//第一步</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">first</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第一个方法...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//第二步</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">second</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第二个方法...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//第三个方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">third</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第三个方法...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Wizard类中分别定义了三个步骤方法，每个步骤中都有相关的业务逻辑完成指定的任务，我们使用一个随机函数来代替业务执行的返回值。软件安装InstallSoftware类如代码清单5-9所示。</p>
+<p>代码清单5-9 InstallSoftware类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InstallSoftware</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installWizard</span><span class="params">(Wizard wizard)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> wizard.first();</span><br><span class="line">        <span class="comment">//根据first返回的结果，看是否需要执行second </span></span><br><span class="line">        <span class="keyword">if</span>(first&gt;<span class="number">50</span>)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">second</span> <span class="operator">=</span> wizard.second();</span><br><span class="line">            <span class="keyword">if</span>(second&gt;<span class="number">50</span>)&#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">third</span> <span class="operator">=</span> wizard.third();</span><br><span class="line">                <span class="keyword">if</span>(third &gt;<span class="number">50</span>)&#123;</span><br><span class="line">                    wizard.first();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据每个方法执行的结果决定是否继续执行下一个方法，模拟人工的选择操作。场景类如代码清单5-10所示。</p>
+<p>代码清单5-10 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">InstallSoftware</span> <span class="variable">invoker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InstallSoftware</span>();</span><br><span class="line">        invoker.installWizard(<span class="keyword">new</span> <span class="title class_">Wizard</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上程序很简单，运行结果和随机数有关，每次的执行结果都不相同，需要读者自己运行并查看结果。程序虽然简单，但是隐藏的问题可不简单，思考一下程序有什么问题。 Wizard类把太多的方法暴露给InstallSoftware类，两者的朋友关系太亲密了，耦合关系变得异常牢固。如果要将Wizard类中的first方法返回值的类型由int改为boolean，就需要修改InstallSoftware类，从而把修改变更的风险扩散开了。因此，这样的耦合是极度不合适的，我们需要对设计进行重构，重构后的类图如图5-4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210927204707.png" alt="image-20210927204707805"></p>
+<center>图5-4 重构后的软件安装过程类图</center>
+
+<p>在Wizard类中增加一个installWizard方法，对安装过程进行封装，同时把原有的三个public方法修改为private方法，如代码清单5-11所示。</p>
+<p>代码清单5-11 修改后的导向类实现过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Wizard</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Random</span> <span class="variable">rand</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>(System.currentTimeMillis());</span><br><span class="line">    <span class="comment">//第一步</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">first</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第一个方法...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//第二步</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">second</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第二个方法...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//第三个方法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">third</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行第三个方法...&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> rand.nextInt(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//软件安装过程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installWizard</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">first</span> <span class="operator">=</span> <span class="built_in">this</span>.first();</span><br><span class="line">        <span class="comment">//根据first返回的结果，看是否需要执行second </span></span><br><span class="line">        <span class="keyword">if</span>(first&gt;<span class="number">50</span>)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">second</span> <span class="operator">=</span> <span class="built_in">this</span>.second();</span><br><span class="line">            <span class="keyword">if</span>(second&gt;<span class="number">50</span>)&#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">third</span> <span class="operator">=</span> <span class="built_in">this</span>.third();</span><br><span class="line">                <span class="keyword">if</span>(third &gt;<span class="number">50</span>)&#123;</span><br><span class="line">                    <span class="built_in">this</span>.first();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将三个步骤的访问权限修改为private，同时把InstallSoftware中的方法installWizad移动到Wizard方法中。通过这样的重构后，Wizard类就只对外公布了一个public方法，即使要修改first方法的返回值，影响的也仅仅只是Wizard本身，其他类不受影响，这显示了类的高内聚特性。</p>
+<p>对InstallSoftware类进行少量的修改，如代码清单5-12所示。</p>
+<p>代码清单5-12 修改后的InstallSoftware类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InstallSoftware</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installWizard</span><span class="params">(Wizard wizard)</span>&#123;</span><br><span class="line">        <span class="comment">//直接调用</span></span><br><span class="line">        wizard.installWizard();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>场景类Client没有任何改变，如代码清单5-10所示。通过进行重构，类间的耦合关系变弱了，结构也清晰了，变更引起的风险也变小了。</p>
+<p><strong>一个类公开的public属性或方法越多，修改时涉及的面也就越大，变更引起的风险扩散也就越大</strong>。因此，为了保持朋友类间的距离，<strong>在设计时需要反复衡量：是否还可以再减少public方法和属性，是否可以修改为private、package-private（包类型，在类、方法、变量前不加访问权限，则默认为包类型）、protected等访问权限，是否可以加上final关键字等</strong>。</p>
+<hr>
+<p><strong>注意</strong> 迪米特法则要求类“羞涩”一点，<strong>尽量不要对外公布太多的public方法和非静态的public变量，尽量内敛，多使用private、package-private、protected等访问权限</strong>。</p>
+<hr>
+<h2 id="3-是自己的就是自己的"><a href="#3-是自己的就是自己的" class="headerlink" title="3. 是自己的就是自己的"></a>3. 是自己的就是自己的</h2><p>在实际应用中经常会出现这样一个方法：放在本类中也可以，放在其他类中也没有错， 那怎么去衡量呢？你可以坚持这样一个原则：<strong>如果一个方法放在本类中，既不增加类间关系，也对本类不产生负面影响，那就放置在本类中。</strong></p>
+<h2 id="4-谨慎使用Serializable"><a href="#4-谨慎使用Serializable" class="headerlink" title="4. 谨慎使用Serializable"></a>4. 谨慎使用Serializable</h2><p>在实际应用中，这个问题是很少出现的，即使出现也会立即被发现并得到解决。是怎么回事呢？举个例子来说，在一个项目中使用RMI（Remote Method Invocation，远程方法调用）方式传递一个VO（Value Object，值对象），这个对象就必须实现Serializable接口（仅仅是一个标志性接口，不需要实现具体的方法），也就是把需要网络传输的对象进行序列化，否则就会出现NotSerializableException异常。突然有一天，客户端的VO修改了一个属性的访问权限，从private变更为public，访问权限扩大了，如果服务器上没有做出相应的变更，就会报序列化失败，就这么简单。但是这个问题的产生应该属于项目管理范畴，一个类或接口在客户端已经变更了，而服务器端却没有同步更新，难道不是项目管理的失职吗？</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/43d792f3/" title="5.2 我的知识你知道得越少越好">https://lanlan2017.github.io/ReadingNotes/43d792f3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/2b18c70b/" rel="prev" title="5.1 迪米特法则的定义">
+                  <i class="fa fa-chevron-left"></i> 5.1 迪米特法则的定义
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/acee96d2/" rel="next" title="5.3 最佳实践">
+                  5.3 最佳实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/43d792f3/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/43d792f3/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="9.2 Spring Integration功能概览Spring Integration涵盖了大量的集成场景。如果想将所有的内容放到一章中，就像把一头大象装到信封里一样不现实。在这里，我只会向你展示SpringIntegration这头大象的照片，而不是对Spring Integration进行面面俱到的讲解，目的就是让你能够了解它是如何运行的。随后，我们将会再创建一个集成流，为Taco Clou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝蓝站点">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/d22cb2da/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="9.2 Spring Integration功能概览Spring Integration涵盖了大量的集成场景。如果想将所有的内容放到一章中，就像把一头大象装到信封里一样不现实。在这里，我只会向你展示SpringIntegration这头大象的照片，而不是对Spring Integration进行面面俱到的讲解，目的就是让你能够了解它是如何运行的。随后，我们将会再创建一个集成流，为Taco Clou">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015211632.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015211913.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093245.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093412.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093513.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093710.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093824.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093919.png">
+<meta property="og:image" content="https://res.weread.qq.com/wrepub/epub_29101559_61">
+<meta property="article:published_time" content="2022-04-16T08:10:07.795Z">
+<meta property="article:modified_time" content="2022-04-16T08:10:07.796Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015211632.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/d22cb2da/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/d22cb2da/","path":"/d22cb2da/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#9-2-Spring-Integration%E5%8A%9F%E8%83%BD%E6%A6%82%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">9.2 Spring Integration功能概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-1-%E6%B6%88%E6%81%AF%E9%80%9A%E9%81%93"><span class="nav-number">1.1.</span> <span class="nav-text">9.2.1 消息通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-2-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">9.2.2 过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-3-%E8%BD%AC%E6%8D%A2%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">9.2.3 转换器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-4-%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">9.2.4 路由器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-5-%E5%88%87%E5%88%86%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">9.2.5 切分器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-6-%E6%9C%8D%E5%8A%A1%E6%BF%80%E6%B4%BB%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">9.2.6 服务激活器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-7-%E7%BD%91%E5%85%B3"><span class="nav-number">1.7.</span> <span class="nav-text">9.2.7 网关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-8-%E9%80%9A%E9%81%93%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">9.2.8 通道适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-9-%E7%AB%AF%E7%82%B9%E6%A8%A1%E5%9D%97"><span class="nav-number">1.9.</span> <span class="nav-text">9.2.9 端点模块</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/d22cb2da/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-16 16:10:07" itemprop="dateCreated datePublished" datetime="2022-04-16T16:10:07+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第2部分 Spring集成</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/%E7%AC%AC9%E7%AB%A0-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第9章 Spring集成</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/d22cb2da/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/d22cb2da/" data-xid="/ReadingNotes/d22cb2da/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="9-2-Spring-Integration功能概览"><a href="#9-2-Spring-Integration功能概览" class="headerlink" title="9.2 Spring Integration功能概览"></a>9.2 Spring Integration功能概览</h1><p>Spring Integration涵盖了大量的集成场景。如果想将所有的内容放到一章中，就像把一头大象装到信封里一样不现实。在这里，我只会向你展示SpringIntegration这头大象的照片，而不是对Spring Integration进行面面俱到的讲解，目的就是让你能够了解它是如何运行的。随后，我们将会再创建一个集成流，为Taco Cloud应用添加新的功能。</p>
+<p>集成流是由一个或多个如下介绍的组件组成的。在继续编写代码之前，我们先看一下这些组件在集成流中所扮演的角色。</p>
+<ul>
+<li>通道（channel）：将消息从一个元素传递到另一个元素。</li>
+<li>过滤器（filter）：基于某些断言，条件化地允许某些消息通过流。</li>
+<li>转换器（transformer）：改变消息的值和&#x2F;或将消息载荷从一种类型转换成另一种类型。</li>
+<li>路由器（router）：将消息路由至一个或多个通道，通常会基于消息的头信息进行路由。</li>
+<li>切分器（splitter）：将传入的消息切割成两个或更多的消息，然后将每个消息发送至不同的通道；</li>
+<li>聚合器（aggregator）：切分器的反向操作，将来自不同通道的多个消息合并成一个消息。</li>
+<li>服务激活器（service activator）：将消息传递给某个Java方法来进行处理，并将返回值发布到输出通道上。</li>
+<li>通道适配器（channel adapter）：将通道连接到某些外部系统或传输方式，可以接受输入，也可以写出到外部系统。</li>
+<li>网关（gateway）：通过接口将数据传递到集成流中。</li>
+</ul>
+<p>在定义文件写入集成流的时候，我们已经看到过其中的一些组件了。FileWriterGateway是一个网关，通过它，应用可以提交要写入文件的文本。我们还定义了一个转换器，将给定的文本转换成大写的形式，随后，我们定义一个出站通道适配器，它执行将文本写入文件的任务。这个流有两个通道，textInChannel和fileWriterChannel，它们将应用中的其他组件连接在了一起。现在，我们按照承诺快速看一下这些集成流组件。</p>
+<h2 id="9-2-1-消息通道"><a href="#9-2-1-消息通道" class="headerlink" title="9.2.1 消息通道"></a>9.2.1 消息通道</h2><p>消息通道是消息穿行集成通道的一种方式（参见图9.2）。它们是连接SpringIntegration其他组成部分的管道。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015211632.png" alt="image-20211015211632575"></p>
+<center>图9.2 消息通道是集成流中数据在其他组件之间流动的管道</center>
+
+<p>Spring Integration提供了多种通道实现。</p>
+<ul>
+<li>PublishSubscribeChannel：发送到PublishSubscribeChannel的消息会被传递到一个或多个消费者中。如果有多个消费者，它们都会接收到消息。</li>
+<li>QueueChannel：发送到QueueChannel的消息会存储到一个队列中，会按照先进先出（First In First Out，FIFO）的方式被拉取出来。如果有多个消费者，只有其中的一个消费者会接收到消息。</li>
+<li>PriorityChannel：与QueueChannel类似，但它不是FIFO的方式，而是会基于消息的priority头信息被消费者拉取出来。</li>
+<li>RendezvousChannel：与QueueChannel类似，但是发送者会一直阻塞通道，直到消费者接收到消息为止，实际上会同步发送者和消费者。</li>
+<li>DirectChannel：与PublishSubscribeChannel类似，但是消息只会发送至一个消费者，它会在与发送者相同的线程中调用消费者。这种方式允许事务跨通道。</li>
+<li>ExecutorChannel：类似于DirectChannel，但是消息分发是通过TaskExecutor实现的，这样会在与发送者独立的线程中执行。这种通道类型不支持事务跨通道。</li>
+<li>FluxMessageChannel：反应式流的发布者消息通道，基于Reactor项目的Flux。（我们将会在第10章讨论反应式流、Reactor和Flux。）</li>
+</ul>
+<p>在Java配置和Java DSL中，输入通道都是自动创建的，默认使用的是DirectChannel。但是，如果想要使用不同的通道实现，就需要将通道声明为bean并在集成流中引用它。例如，要声明PublishSubscribeChannel，我们需要声明如下的<code>@Bean</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MessageChannel <span class="title function_">orderChannel</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PublishSubscribeChannel</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>随后，我们可以在集成流定义中根据通道名称引用它。例如，这个通道要被一个服务激活器bean所消费，那么我们可以在<code>@ServiceActivator</code>注解的inputChannel属性中引用它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ServiceActivator(inputChannel=&quot;orderChannel&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>或者，使用Java DSL配置风格，我们可以通过调用channel()来引用它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">orderFlow</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      ...</span><br><span class="line">      .channel(<span class="string">&quot;orderChannel&quot;</span>)</span><br><span class="line">      ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很重要的一点需要注意，如果使用QueueChannel，消费者必须配置一个poller。例如，声明一个QueueChannel bean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MessageChannel <span class="title function_">orderChannel</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">QueueChannel</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，我们需要确保消费者配置成轮询该通道的消息。如果是服务激活器，<code>@ServiceActivator</code>注解可能会如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ServiceActivator(inputChannel=&quot;orderChannel&quot;,</span></span><br><span class="line"><span class="meta">                  poller=@Poller(fixedRate=&quot;1000&quot;))</span></span><br></pre></td></tr></table></figure>
+
+<p>在本例中，服务激活器每秒（或者说每1000毫秒）都会轮询名为orderChannel的通道。</p>
+<h2 id="9-2-2-过滤器"><a href="#9-2-2-过滤器" class="headerlink" title="9.2.2 过滤器"></a>9.2.2 过滤器</h2><p>过滤器放置于集成管道的中间，它能够根据断言允许或拒绝消息进入流程的下一步（见图9.3）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015211913.png" alt="image-20211015211913017"></p>
+<center>图9.3 过滤器会基于某个断言允许或拒绝消息在管道中进行处理</center>
+
+<p>例如，假设消息包含了整型的值，它们要通过名为numberChannel的通道进行发布，但是我们只想让偶数进入名为evenNumberChannel的通道。在这种情况下，我们可以使用<code>@Filter</code>注解定义一个过滤器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Filter(inputChannel=&quot;numberChannel&quot;,</span></span><br><span class="line"><span class="meta">        outputChannel=&quot;evenNumberChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">evenNumberFilter</span><span class="params">(Integer number)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> number % <span class="number">2</span> == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作为替代方案，如果使用Java DSL配置风格来定义集成流，那么我们可以按照如下的方式来调用filter()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">evenNumberFlow</span><span class="params">(AtomicInteger integerSource)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      ...</span><br><span class="line">      .&lt;Integer&gt;filter((p) -&gt; p % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">      ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，我们使用lambda表达式来实现过滤器。实际上，filter()方法接受GenericSelector作为参数。这意味着，如果我们的过滤器过于复杂，不适合放到一个简单的lambda表达式中，那么我们可以实现GenericSelector接口作为替代方案。</p>
+<h2 id="9-2-3-转换器"><a href="#9-2-3-转换器" class="headerlink" title="9.2.3 转换器"></a>9.2.3 转换器</h2><p>转换器会对消息执行一些操作，一般会形成不同的消息，有可能还会产生不同的载荷类型（见图9.4）。转换过程可能非常简单，比如执行数字的数学运算或者操作String值。转换也可能会很复杂，比如根据代表ISBN的String值查询并返回对应图书的详细信息。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093245.png" alt="image-20211016093244978"></p>
+<center>图9.4 转换器会改变流经集成流的消息</center>
+
+<p>例如，假设整型值会通过名为numberChannel的通道进行发布，我们希望将这些数字转换成它们的罗马数字形式，以String类型来表示。在这种情况下，我们可以声明一个GenericTransformer类型的bean并为其添加<code>@Transformer</code>注解，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Transformer(inputChannel=&quot;numberChannel&quot;,</span></span><br><span class="line"><span class="meta">             outputChannel=&quot;romanNumberChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> GenericTransformer&lt;Integer, String&gt; <span class="title function_">romanNumTransformer</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> RomanNumbers::toRoman;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Transformer</code>注解可以将这个bean声明为转换器bean，它会从名为numberChannel的通道接收Integer值，然后使用静态方法toRoman()进行转换。（toRoman()是静态方法，定义在名为RomanNumbers的类中，这里通过方法引用来使用它。）转换后的结果会发布到名为romanNumberChannel的通道中。</p>
+<p>在Java DSL配置风格中，调用transform()会更加简单，我们只需将对toRoman()的方法引用传递进来就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">transformerFlow</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      ...</span><br><span class="line">      .transform(RomanNumbers::toRoman)</span><br><span class="line">      ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>尽管在这两个转换器代码中我们都使用了方法引用，但是转换器也可以使用lambda表达式来进行声明。或者，如果转换器足够复杂，需要使用一个单独的类，那么我们可以将其作为一个bean注入流定义中，并将引用传递给transform()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> RomanNumberTransformer <span class="title function_">romanNumberTransformer</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RomanNumberTransformer</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">transformerFlow</span><span class="params">(</span></span><br><span class="line"><span class="params">                    RomanNumberTransformer romanNumberTransformer)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      ...</span><br><span class="line">      .transform(romanNumberTransformer)</span><br><span class="line">      ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们声明了RomanNumberTransformer类型的bean，它本身是SpringIntegration Transformer或GenericTransformer接口的实现。这个bean注入到了transformerFlow()方法中，并且在定义集成流的时候传递给了transform()方法。</p>
+<h2 id="9-2-4-路由器"><a href="#9-2-4-路由器" class="headerlink" title="9.2.4 路由器"></a>9.2.4 路由器</h2><p>路由器能够基于某个路由断言，实现集成流的分支，从而将消息发送至不同的通道上（见图9.5）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093412.png" alt="image-20211016093412464"></p>
+<center>图9.5 路由器会根据应用于消息的断言将消息定向至不同的通道</center>
+
+<p>例如，假设我们有一个名为numberChannel的通道，它会传输整型值。我们想要将带有偶数的消息定向到名为evenChannel的通道，将带有奇数的消息定向到名为oddChannel的通道。要在集成流中创建这样一个路由器，我们可以声明一个AbstractMessageRouter类型的bean，并为其添加<code>@Router</code>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Router(inputChannel=&quot;numberChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> AbstractMessageRouter <span class="title function_">evenOddRouter</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AbstractMessageRouter</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Collection&lt;MessageChannel&gt;</span><br><span class="line">              <span class="title function_">determineTargetChannels</span><span class="params">(Message&lt;?&gt; message)</span> &#123;</span><br><span class="line">      <span class="type">Integer</span> <span class="variable">number</span> <span class="operator">=</span> (Integer) message.getPayload();</span><br><span class="line">      <span class="keyword">if</span> (number % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.singleton(evenChannel());</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> Collections.singleton(oddChannel());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MessageChannel <span class="title function_">evenChannel</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DirectChannel</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MessageChannel <span class="title function_">oddChannel</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DirectChannel</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里定义的AbstractMessageRouter接收名为numberChannel的输入通道的消息，以匿名内部类的形式检查消息的载荷：如果是偶数，就返回名为evenChannel的通道（在路由器bean之后同样以bean的方式进行了声明）；否则，通道载荷中的数字必然是奇数，将会返回名为oddChannel的通道（同样以bean方法的方式进行了声明）。</p>
+<p>在Java DSL风格中，路由器是通过在流定义中调用route()方法来声明的，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">numberRoutingFlow</span><span class="params">(AtomicInteger source)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">    ...</span><br><span class="line">      .&lt;Integer, String&gt;route(n -&gt; n%<span class="number">2</span>==<span class="number">0</span> ? <span class="string">&quot;EVEN&quot;</span>:<span class="string">&quot;ODD&quot;</span>, mapping -&gt; mapping</span><br><span class="line">        .subFlowMapping(<span class="string">&quot;EVEN&quot;</span>, sf -&gt; sf</span><br><span class="line">            .&lt;Integer, Integer&gt;transform(n -&gt; n * <span class="number">10</span>)</span><br><span class="line">            .handle((i,h) -&gt; &#123; ... &#125;)</span><br><span class="line">            )</span><br><span class="line">        .subFlowMapping(<span class="string">&quot;ODD&quot;</span>, sf -&gt; sf</span><br><span class="line">            .transform(RomanNumbers::toRoman)</span><br><span class="line">            .handle((i,h) -&gt; &#123; ... &#125;)</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>尽管我们依然可以定义AbstractMessageRouter并将其传递到route()，但是在这个样例中使用了lambda来确定消息载荷是偶数还是奇数。如果是偶数，就会返回值为EVEN的字符串；如果是奇数，就会返回值为ODD的字符串。然后这些值会用来确定该使用哪个子映射处理消息。</p>
+<h2 id="9-2-5-切分器"><a href="#9-2-5-切分器" class="headerlink" title="9.2.5 切分器"></a>9.2.5 切分器</h2><p>在集成流中，有时候将一个消息切分为多个消息独立处理可能会非常有用。切分器将会负责切分并处理这些消息，如图9.6所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093513.png" alt="image-20211016093512699"></p>
+<center>图9.6 切分器会将消息拆分为两个或更多独立的消息，它们可以由独立的子流分别进行处理</center>
+
+<p>在很多场景中，切分器都非常有用，但是有两种基本的使用场景我们可以使用切分器。</p>
+<ul>
+<li>消息载荷中包含了相同类型条目的一个列表，我们希望将它们作为单独的消息载荷来进行处理。例如，消息中携带了一个商品列表，它们可以切分为多个消息，每个消息的载荷分别对应一件商品。</li>
+<li>消息载荷所携带的信息尽管有所关联，但是可以拆分为两个或更多不同类型的消息。例如，一个购买订单可能会包含投递信息、账单以及商品项的信息。投递细节可以通过某个子流来处理，账单由另一个子流来处理，而商品项由其他的子流来处理。在这种情况下，切分器后面通常会紧跟着一个路由器，它根据消息的载荷类型进行路由，确保数据都由正确的子流来进行处理。</li>
+</ul>
+<p>在我们将消息载荷切分为两个或更多不同类型的消息时，通常定义一个POJO就足够了，它提取传入消息不同的组成部分，并以元素集合的形式返回。</p>
+<p>例如，假设我们想要将带有购买订单的消息切分为两个消息：其中一个携带账单信息，另一个携带商品项的信息。如下的OrderSplitter就可以完成该任务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderSplitter</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> Collection&lt;Object&gt; <span class="title function_">splitOrderIntoParts</span><span class="params">(PurchaseOrder po)</span> &#123;</span><br><span class="line">    ArrayList&lt;Object&gt; parts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    parts.add(po.getBillingInfo());</span><br><span class="line">    parts.add(po.getLineItems());</span><br><span class="line">    <span class="keyword">return</span> parts;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们声明一个OrderSplitter bean，并通过<code>@Splitter</code>注解将其作为集成流的一部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Splitter(inputChannel=&quot;poChannel&quot;,</span></span><br><span class="line"><span class="meta">          outputChannel=&quot;splitOrderChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> OrderSplitter <span class="title function_">orderSplitter</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OrderSplitter</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，购买订单会到达名为poChannel的通道，它们会被OrderSplitter切分。然后，所返回集合中的每个条目都会作为集成流中独立的消息，它们会发布到名为splitOrderChannel的通道上。此时，我们可以在流中声明一个PayloadTypeRouter，将账单信息和商品项分别路由至它们自己的子流上：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Router(inputChannel=&quot;splitOrderChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> MessageRouter <span class="title function_">splitOrderRouter</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">PayloadTypeRouter</span> <span class="variable">router</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PayloadTypeRouter</span>();</span><br><span class="line">  router.setChannelMapping(</span><br><span class="line">      BillingInfo.class.getName(), <span class="string">&quot;billingInfoChannel&quot;</span>);</span><br><span class="line">  router.setChannelMapping(</span><br><span class="line">      List.class.getName(), <span class="string">&quot;lineItemsChannel&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> router;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>顾名思义，PayloadTypeRouter会根据消息的载荷将它们路由至不同的通道。按照这里的配置，载荷为BillingInfo类型的消息将会被路由至名为billingInfoChannel的通道，供后续进行处理。对于商品项来说，它们会放到一个java.util.List集合中，因此，我们将List类型的载荷映射到名为lineItemsChannel的通道中。</p>
+<p>按照目前的状况，流将会被切分成两个子流：一个BillingInfo对象的流，另外一个则是<code>List&lt;LineItem&gt;</code>的流。如果我们想要进一步进行拆分，比如不想处理LineItems的列表，而是想要分别处理每个LineItem，又该怎么办呢？要将商品列表拆分为多个消息，其中每个消息包含一个条目，我们只需要编写一个方法（而不是一个bean）即可。这个方法带有<code>@Splitter</code>注解并且要返回LineItem的集合，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Splitter(inputChannel=&quot;lineItemsChannel&quot;, outputChannel=&quot;lineItemChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> List&lt;LineItem&gt; <span class="title function_">lineItemSplitter</span><span class="params">(List&lt;LineItem&gt; lineItems)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> lineItems;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当带有<code>List&lt;LineItem&gt;</code>载荷的消息抵达名为lineItemsChannel的通道时，消息会进入lineItemSplitter()。按照切分器的规则，这个方法必须要返回切分后条目的集合。在本例中，我们已经有了LineItem的集合，所以我们直接返回这个集合就可以了。这样做的结果就是，集合中的每个LineItem都将会发布到一个消息中，这些消息会被发送到名为lineItemChannel的通道中。</p>
+<p>如果想要使用Java DSL声明相同的splitter&#x2F;router配置，那么我们可以通过调用split()和route()来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> IntegrationFlows</span><br><span class="line">  ...</span><br><span class="line">    .split(orderSplitter())</span><br><span class="line">    .&lt;Object, String&gt; route(</span><br><span class="line">        p -&gt; &#123;</span><br><span class="line">          <span class="keyword">if</span> (p.getClass().isAssignableFrom(BillingInfo.class)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;BILLING_INFO&quot;</span>;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;LINE_ITEMS&quot;</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;, mapping -&gt; mapping</span><br><span class="line">          .subFlowMapping(<span class="string">&quot;BILLING_INFO&quot;</span>, sf -&gt; sf</span><br><span class="line">              .&lt;BillingInfo&gt; handle((billingInfo, h) -&gt; &#123;</span><br><span class="line">                ...</span><br><span class="line">              &#125;))</span><br><span class="line">          .subFlowMapping(<span class="string">&quot;LINE_ITEMS&quot;</span>, sf -&gt; sf</span><br><span class="line">              .split()</span><br><span class="line">              .&lt;LineItem&gt; handle((lineItem, h) -&gt; &#123;</span><br><span class="line">                ...</span><br><span class="line">              &#125;))</span><br><span class="line">        )</span><br><span class="line">    .get();</span><br></pre></td></tr></table></figure>
+
+<p>DSL所组成的流定义相当简洁，但是可能会有点难以理解。它使用与Java配置样例相同的OrderSplitter来切分订单。在订单切分之后，它根据类型将其路由至两个独立的子流。</p>
+<h2 id="9-2-6-服务激活器"><a href="#9-2-6-服务激活器" class="headerlink" title="9.2.6 服务激活器"></a>9.2.6 服务激活器</h2><p>服务激活器接收来自输入通道的消息并将这些消息发送至一个MessageHandler的实现，如图9.7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093710.png" alt="image-20211016093710409"></p>
+<center>图9.7 在接收到消息时，服务激活器会通过MessageHandler调用某个服务</center>
+
+<p>Spring Integration提供了多个开箱即用的MessageHandler（PayloadTypeRouter甚至就是MessageHandler的一个实现），但是我们通常会需要提供一些自定义的实现作为服务激活器。作为样例，如下的代码展现了如何声明MessageHandler bean并将其配置为服务激活器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ServiceActivator(inputChannel=&quot;someChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> MessageHandler <span class="title function_">sysoutHandler</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> message -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Message payload: &quot;</span> + message.getPayload());</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个bean使用了<code>@ServiceActivator</code>注解，表明它会作为一个服务激活器处理来自someChannel通道的消息。对于MessageHandler本身来讲，它是通过一个lambda表达式实现的。这是一个简单的MessageHandler，当得到消息之后，它会将消息的载荷打印至标准输出流。</p>
+<p>另外，我们还可以声明一个服务激活器，让它在返回新载荷之前处理输入消息中的数据。在这种情况下，bean应该是一个GenericHandler，而不是MessageHandler：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ServiceActivator(inputChannel=&quot;orderChannel&quot;,</span></span><br><span class="line"><span class="meta">                  outputChannel=&quot;completeOrder&quot;)</span></span><br><span class="line"><span class="keyword">public</span> GenericHandler&lt;Order&gt; <span class="title function_">orderHandler</span><span class="params">(</span></span><br><span class="line"><span class="params">                             OrderRepository orderRepo)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (payload, headers) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> orderRepo.save(payload);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，服务激活器是一个GenericHandler，会接收载荷为Order类型的消息。当订单抵达时，我们会通过一个repository将它保存起来，并返回保存之后的Order，这个Order随后被发送至名为completeChannel的输出通道。</p>
+<p>你可能已经注意到了，GenericHandler不仅能够得到载荷，还能得到消息头（虽然我们这个样例根本没有用到这些头信息）。我们还可以在Java DSL配置风格中使用服务激活器，此时，只需要将MessageHandler或GenericHandler传递到流定义的handle()方法中即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">someFlow</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">    ...</span><br><span class="line">      .handle(msg -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Message payload: &quot;</span> + msg.getPayload());</span><br><span class="line">      &#125;)</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，MessageHandler会得到一个lambda表达式，但是我们也可以为其提供一个方法引用，甚至是实现了MessageHandler接口的类实例。如果我们为其提供lambda表达式或方法引用，就需要记住它们均接受消息作为其参数。</p>
+<p>类似的，如果服务激活器不想成为流的终点，那么handle()还可以接受GenericHandler。如果要将前面提到的订单保存服务激活器添加进来，我们可以按照如下的形式使用Java DSL配置流：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">orderFlow</span><span class="params">(OrderRepository orderRepo)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">    ...</span><br><span class="line">      .&lt;Order&gt;handle((payload, headers) -&gt; &#123;</span><br><span class="line">          <span class="keyword">return</span> orderRepo.save(payload);</span><br><span class="line">      &#125;)</span><br><span class="line">    ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在使用GenericHandler的时候，lambda表达式或方法引用会接受消息负载和头信息作为参数。如果你选择使用GenericHandler作为流的终点，就需要返回null；否则，出现错误，提示没有指定输出通道。</p>
+<h2 id="9-2-7-网关"><a href="#9-2-7-网关" class="headerlink" title="9.2.7 网关"></a>9.2.7 网关</h2><p>通过网关，应用可以提交数据到集成流中，并且能够可选地接收流的结果作为响应。网关会声明为接口，借助Spring Integration的实现，应用可以调用它来发送消息到集成流中（见图9.8）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093824.png" alt="image-20211016093824376"></p>
+<center>图9.8 服务网关是接口</center>
+
+<p>我们已经见过了消息网关的样例，也就是FileWriterGateway。FileWriterGateway是一个单向的网关，它有一个接受String类型的方法，该方法会将文本写入到文件中，返回void。编写双向的网关同样简单。在编写网关接口的时候，只需确保方法要返回某个值，以便于推送到集成流中。</p>
+<p>作为样例，假设有个网关，它面对的是一个简单的集成流，这个流会接受一个String并将给定的String转换成全大写的形式。这个网关接口大致如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"><span class="keyword">import</span> org.springframework.integration.annotation.MessagingGateway;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@MessagingGateway(defaultRequestChannel=&quot;inChannel&quot;,</span></span><br><span class="line"><span class="meta">                  defaultReplyChannel=&quot;outChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UpperCaseGateway</span> &#123;</span><br><span class="line">  String <span class="title function_">uppercase</span><span class="params">(String in)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最让人开心的是，这个接口不需要实现。Spring Integration会自动在运行时提供一个实现，它会通过特定的通道发送和接收消息。</p>
+<p>当uppercase()被调用的时候，给定的String会发布到集成流中，进入名为inChannel的通道。不管流是如何定义的或者它都干了些什么，当数据进入名为outChannel的通道时，它将会从uppercase()方法返回。</p>
+<p>对于我们这个转换成大写格式的集成流来说，它是一个非常简单的流，只需要一个将String转换成大写格式的步骤就可以。它可以通过Java DSL配置声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">uppercaseFlow</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">    .from(<span class="string">&quot;inChannel&quot;</span>)</span><br><span class="line">    .&lt;String, String&gt; transform(s -&gt; s.toUpperCase())</span><br><span class="line">    .channel(<span class="string">&quot;outChannel&quot;</span>)</span><br><span class="line">    .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照定义，这个流会从进入inChannel通道的数据开始。消息载荷会由转换器进行处理，也就是执行大写操作（通过lambda表达式来定义）。结果形成的消息会被发送到名为outChannel的通道，也就是我们在UpperCaseGateway中声明的答复通道。</p>
+<h2 id="9-2-8-通道适配器"><a href="#9-2-8-通道适配器" class="headerlink" title="9.2.8 通道适配器"></a>9.2.8 通道适配器</h2><p>通道适配器代表了集成流的入口和出口。数据通过入站通道适配器（inboundchannel adapter）进入一个集成流，通过出站通道适配器离开一个集成流，如图9.9所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016093919.png" alt="image-20211016093919555"></p>
+<center>图9.9 通道适配器是集成流的入口和出口</center>
+
+<p>根据要将什么数据源引入集成流，入站通道适配器可以有很多种形式。例如，我们可以声明一个入站通道适配器，将来自AtomicInteger不断递增的数字引入到流中。如果使用Java配置，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@InboundChannelAdapter(</span></span><br><span class="line"><span class="meta">    poller=@Poller(fixedRate=&quot;1000&quot;), channel=&quot;numberChannel&quot;)</span></span><br><span class="line"><span class="keyword">public</span> MessageSource&lt;Integer&gt; <span class="title function_">numberSource</span><span class="params">(AtomicInteger source)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> () -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">GenericMessage</span>&lt;&gt;(source.getAndIncrement());</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>@Bean</code>方法通过<code>@InboundChannelAdapter</code>注解声明了一个入站通道适配器，根据注入的AtomicInteger每隔一秒（也就是1000毫秒）就提交一个数字给名为numberChannel的通道。</p>
+<p>在使用Java配置时，我们可以通过<code>@InboundChannelAdapter</code>注解声明入站通道适配器，而在使用Java DSL定义集成流的时候，我们需要使用from()方法完成同样的事情。如下的流定义程序清单展现了类似的入站通道适配器，它是使用Java DSL定义的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">someFlow</span><span class="params">(AtomicInteger integerSource)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      .from(integerSource, <span class="string">&quot;getAndIncrement&quot;</span>,</span><br><span class="line">          c -&gt; c.poller(Pollers.fixedRate(<span class="number">1000</span>)))</span><br><span class="line">    ...</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通常，通道适配器是由Spring Integration的众多端点模块提供的。假设，我们需要一个入站通道适配器，它会监控一个特定的目录并将写入该目录的文件以消息的形式提交到file-channel通道中。如下的Java配置使用来自Spring Integration的file端点模块实现该功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@InboundChannelAdapter(channel=&quot;file-channel&quot;,</span></span><br><span class="line"><span class="meta">                                           poller=@Poller(fixedDelay=&quot;1000&quot;))</span></span><br><span class="line"><span class="keyword">public</span> MessageSource&lt;File&gt; <span class="title function_">fileReadingMessageSource</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">FileReadingMessageSource</span> <span class="variable">sourceReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReadingMessageSource</span>();</span><br><span class="line">  sourceReader.setDirectory(<span class="keyword">new</span> <span class="title class_">File</span>(INPUT_DIR));</span><br><span class="line">  sourceReader.setFilter(<span class="keyword">new</span> <span class="title class_">SimplePatternFileListFilter</span>(FILE_PATTERN));</span><br><span class="line">  <span class="keyword">return</span> sourceReader;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果使用Java DSL编写同等功能的入站通道适配器，那么我们可以使用Files类的inboundAdapter()。出站通道适配器是集成流的终点，会将最终的消息传递给应用或其他外部系统：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IntegrationFlow <span class="title function_">fileReaderFlow</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      .from(Files.inboundAdapter(<span class="keyword">new</span> <span class="title class_">File</span>(INPUT_DIR))</span><br><span class="line">          .patternFilter(FILE_PATTERN))</span><br><span class="line">      .get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们通常会将服务激活器实现为消息处理器，让它作为出站通道适配器，在数据需要传递给应用本身的时候更是如此。我们已经讨论过服务激活器，所以没有必要重复讨论了。</p>
+<p>但是，需要注意，Spring Integration端点模块为多个通用场景提供了消息处理器。在程序清单9.3中，我们已经见到过一个这种出站通道适配器的样例，即FileWriting MessageHandler。提到Spring Integration端点模块，我们看一下都有哪些直接可用的集成端点模块。</p>
+<h2 id="9-2-9-端点模块"><a href="#9-2-9-端点模块" class="headerlink" title="9.2.9 端点模块"></a>9.2.9 端点模块</h2><p>Spring Integration允许我们创建自己的通道适配器，这一点非常好，但是更棒的是Spring Integration提供了二十多个包含通道适配器（同时包括入站和出站的适配器）的端点模块（见表9.1），用于和各种常见的外部系统实现集成。</p>
+<p>表9.1 Spring Integration提供的二十多个端点模块</p>
+<p><img data-src="https://res.weread.qq.com/wrepub/epub_29101559_61" alt="epub_29101559_61"></p>
+<p>从表9.1我们可以清楚地看到，Spring Integration提供了用途广泛的一组组件，它们能够满足非常多的集成需求。大多数应用程序所使用的只是Spring Integration所提供功能的九牛一毛。需要的话，我们最好还是要知道Spring Integration已经提供了相关的功能。</p>
+<p>另外，我们不可能在一章的篇幅中介绍表9.1中的所有通道适配器。我们已经看到了如何使用文件系统模块写入文件的样例，随后将会看到如何使用Email模块来读取Email。</p>
+<p>对于每个端点模块的通道适配器，我们可以在Java配置中将其声明为bean，也可以在Java DSL配置中通过静态方法的方式引用。我建议你探索一下自己感兴趣的其他端点模块。你会发现它们在使用方式上是非常一致的。现在，我们关注一下Email端点模块，看一下如何将它用到Taco Cloud应用中。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/d22cb2da/" title="">https://lanlan2017.github.io/ReadingNotes/d22cb2da/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/dabd0bf8/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/ab64e3a0/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/d22cb2da/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/d22cb2da/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

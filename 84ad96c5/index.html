@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="6.3 启用数据后端服务正如我们在第3章中所看到的，Spring Data有一种特殊的魔法，它能够基于我们定义的接口自动创建repository实现。但是Spring Data还有另外一项技巧，它能帮助我们定义应用的API。 Spring Data REST是Spring Data家族中的另外一个成员，它会为Spring Data创建的repository自动生成REST API。我们只需要将Sp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.3 启用数据后端服务">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/84ad96c5/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="6.3 启用数据后端服务正如我们在第3章中所看到的，Spring Data有一种特殊的魔法，它能够基于我们定义的接口自动创建repository实现。但是Spring Data还有另外一项技巧，它能帮助我们定义应用的API。 Spring Data REST是Spring Data家族中的另外一个成员，它会为Spring Data创建的repository自动生成REST API。我们只需要将Sp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-14T12:53:25.000Z">
+<meta property="article:modified_time" content="2021-10-14T12:53:25.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/84ad96c5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/84ad96c5/","path":"/84ad96c5/","title":"6.3 启用数据后端服务"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6.3 启用数据后端服务 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-%E5%90%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">6.3 启用数据后端服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-1-%E8%B0%83%E6%95%B4%E8%B5%84%E6%BA%90%E8%B7%AF%E5%BE%84%E5%92%8C%E5%85%B3%E7%B3%BB%E5%90%8D%E7%A7%B0"><span class="nav-number">1.1.</span> <span class="nav-text">6.3.1 调整资源路径和关系名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-2-%E5%88%86%E9%A1%B5%E5%92%8C%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">6.3.2 分页和排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-3-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E7%AB%AF%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">6.3.3 添加自定义的端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-4-%E4%B8%BASpring-Data%E7%AB%AF%E7%82%B9%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">6.3.4 为Spring Data端点添加自定义的超链接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/84ad96c5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6.3 启用数据后端服务 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6.3 启用数据后端服务
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-14 20:53:25" itemprop="dateCreated datePublished" datetime="2021-10-14T20:53:25+08:00">2021-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第2部分 Spring集成</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/%E7%AC%AC6%E7%AB%A0-%E5%88%9B%E5%BB%BAREST%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">第6章 创建REST服务</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/84ad96c5/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/84ad96c5/" data-xid="/ReadingNotes/84ad96c5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="6-3-启用数据后端服务"><a href="#6-3-启用数据后端服务" class="headerlink" title="6.3 启用数据后端服务"></a>6.3 启用数据后端服务</h1><p>正如我们在第3章中所看到的，Spring Data有一种特殊的魔法，它能够基于我们定义的接口自动创建repository实现。但是Spring Data还有另外一项技巧，它能帮助我们定义应用的API。</p>
+<p>Spring Data REST是Spring Data家族中的另外一个成员，它会为Spring Data创建的repository自动生成REST API。我们只需要将Spring Data REST添加到构建文件中，就能得到一套API，它的操作与我们定义repository接口是一致的。</p>
+<p>为了使用Spring Data REST，我们需要将如下的依赖添加到构建文件中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-rest<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>不管你是否相信，对于已经使用Spring Data自动生成repository的项目来说，我们只需要完成这一步就能对外暴露REST API了。将Spring Data REST starter添加到构建文件中之后，应用的自动配置功能会为Spring Data（包括Spring DataJPA、Spring Data Mongo等）创建的所有repository自动创建REST API。</p>
+<p>Spring Data REST所创建的端点和我们自己创建的端点一样好（甚至能够更好一些）。所以，我们可以做一些移除操作，在进行下一步之前将我们已经创建的带有@RestController注解的类移除。</p>
+<p>为了尝试Spring Data REST提供的端点，我们可以启动应用并测试一些URL。基于为Taco Cloud定义的repository，我们可以对taco、配料、订单和用户执行一些GET请求。</p>
+<p>举例来说，我们可以向“&#x2F;ingredients”发送GET请求以获取所有配料。借助curl，我们得到的响应大致如下所示（进行了删减，只显示第一种配料）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8080/ingredients</span><br><span class="line">&#123;</span><br><span class="line">  &quot;_embedded&quot; : &#123;</span><br><span class="line">    &quot;ingredients&quot; : [ &#123;</span><br><span class="line">      &quot;name&quot; : &quot;Flour Tortilla&quot;,</span><br><span class="line">      &quot;type&quot; : &quot;WRAP&quot;,</span><br><span class="line">      &quot;_links&quot; : &#123;</span><br><span class="line">        &quot;self&quot; : &#123;</span><br><span class="line">          &quot;href&quot; : &quot;http://localhost:8080/ingredients/FLTO&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ingredient&quot; : &#123;</span><br><span class="line">          &quot;href&quot; : &quot;http://localhost:8080/ingredients/FLTO&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;_links&quot; : &#123;</span><br><span class="line">    &quot;self&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/ingredients&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;profile&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/profile/ingredients&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>太棒了！我们只不过将一项依赖添加到了构建文件中，这样不但得到了针对配料的端点，而且返回的资源中还包含超链接。我们可以假装成这个API的客户端，使用curl继续访问self链接以获取玉米面薄饼的详情：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://localhost:8080/ingredients/FLTO</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;Flour Tortilla&quot;,</span><br><span class="line">  &quot;type&quot; : &quot;WRAP&quot;,</span><br><span class="line">  &quot;_links&quot; : &#123;</span><br><span class="line">    &quot;self&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/ingredients/FLTO&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;ingredient&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/ingredients/FLTO&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了避免分散注意力，在本书中，我们不再浪费时间深入探究Spring Data REST所创建的每个端点和可选项。但是，我们需要知道，它还支持端点的POST、PUT和DELETE方法。也就是说，你可以发送POST请求至“&#x2F;ingredients”来创建新的配料，也可以发送DELETE请求到“&#x2F;ingredients&#x2F;FLTO”，以便于从菜单中删除玉米面薄饼。</p>
+<p>我们想做的另外一件事可能就是为API设置一个基础路径，这样它们会有不同的端点，避免与我们所编写的控制器产生冲突（实际上，如果我们不删除前面自己创建的IngredientsController，就将会干扰Spring Data REST提供的“&#x2F;ingredients”端点）。为了调整API的基础路径，我们可以设置spring.data.rest.base-path属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  data:</span><br><span class="line">    rest:</span><br><span class="line">      base-path: /api</span><br></pre></td></tr></table></figure>
+
+<p>这项配置会将Spring Data REST端点的基础路径设置为“&#x2F;api”。现在，配料端点将会变成“&#x2F;api&#x2F;ingredients”。我们通过请求taco列表来验证一下这个新的基础路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://localhost:8080/api/tacos</span><br><span class="line">&#123;</span><br><span class="line">  &quot;timestamp&quot;: &quot;2018-02-11T16:22:12.381+0000&quot;,</span><br><span class="line">  &quot;status&quot;: 404,</span><br><span class="line">  &quot;error&quot;: &quot;Not Found&quot;,</span><br><span class="line">  &quot;message&quot;: &quot;No message available&quot;,</span><br><span class="line">  &quot;path&quot;: &quot;/api/tacos&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>哦，天啊！它并没有按照预期那样运行。我们有了Ingredient实体和IngredientRepository接口之后，Spring Data REST就会暴露“&#x2F;api&#x2F;ingredients”。我们也有Taco实体和TacoRepository接口，为什么SpringData REST没有为我们生成“&#x2F;api&#x2F;tacos”端点呢？</p>
+<h2 id="6-3-1-调整资源路径和关系名称"><a href="#6-3-1-调整资源路径和关系名称" class="headerlink" title="6.3.1 调整资源路径和关系名称"></a>6.3.1 调整资源路径和关系名称</h2><p>实际上，Spring Data确实为我们提供了处理taco的端点。虽然Spring Data REST非常聪明，但是在暴露taco端点的时候出现了一点问题。</p>
+<p>当为Spring Data repository创建端点的时候，Spring Data REST会尝试使用相关实体类的复数形式。对于Ingredient实体来说，端点将会是“&#x2F;ingredients”，对于Order和User实体，端点将会是“&#x2F;orders”和“&#x2F;users”。到目前为止，一切运行良好。但有些场景下，比如遇到“taco”的时候，它获取到这个单词，为其生成的复数形式就不太正确了。实际上，Spring Data REST将“taco”的复数形式计算成了“tacoes”，所以，为了向taco发送请求，我们必须将错就错，请求“&#x2F;api&#x2F;tacoes”地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">% curl localhost:8080/api/tacoes</span><br><span class="line">&#123;</span><br><span class="line">  &quot;_embedded&quot; : &#123;</span><br><span class="line">    &quot;tacoes&quot; : [ &#123;</span><br><span class="line">      &quot;name&quot; : &quot;Carnivore&quot;,</span><br><span class="line">      &quot;createdAt&quot; : &quot;2018-02-11T17:01:32.999+0000&quot;,</span><br><span class="line">      &quot;_links&quot; : &#123;</span><br><span class="line">        &quot;self&quot; : &#123;</span><br><span class="line">          &quot;href&quot; : &quot;http://localhost:8080/api/tacoes/2&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;taco&quot; : &#123;</span><br><span class="line">          &quot;href&quot; : &quot;http://localhost:8080/api/tacoes/2&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ingredients&quot; : &#123;</span><br><span class="line">          &quot;href&quot; : &quot;http://localhost:8080/api/tacoes/2/ingredients&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;page&quot; : &#123;</span><br><span class="line">    &quot;size&quot; : 20,</span><br><span class="line">    &quot;totalElements&quot; : 3,</span><br><span class="line">    &quot;totalPages&quot; : 1,</span><br><span class="line">    &quot;number&quot; : 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你肯定会想，我是怎么知道“taco”的复数形式被错误计算成了“tacoes”。实际上，Spring Data REST还暴露了一个主资源（home resource），这个资源包含了所有端点的链接。我们只需要向API的基础路径发送GET请求就能得到它的结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8080/api</span><br><span class="line">&#123;</span><br><span class="line">  &quot;_links&quot; : &#123;</span><br><span class="line">    &quot;orders&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/api/orders&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;ingredients&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/api/ingredients&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;tacoes&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/api/tacoes&#123;?page,size,sort&#125;&quot;,</span><br><span class="line">      &quot;templated&quot; : true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;users&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/api/users&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;profile&quot; : &#123;</span><br><span class="line">      &quot;href&quot; : &quot;http://localhost:8080/api/profile&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个主资源显示了所有实体的链接。除了tacoes链接之外，其他都很好，在这里关系名和URL地址上都是“taco”错误的复数形式。</p>
+<p>好消息是，我们并非必须接受Spring Data REST的这个小错误。通过为Taco添加一个简单的注解，我们就能调整关系名和路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Entity</span><br><span class="line">@RestResource(rel=&quot;tacos&quot;, path=&quot;tacos&quot;)</span><br><span class="line">public class Taco &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RestResource</code>注解能够为实体提供任何我们想要的关系名和路径。在本例中，我们将它们都设置成了“tacos”。现在，我们请求主资源的时候，会看到tacos有了正确的复数形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;tacos&quot; : &#123;</span><br><span class="line">  &quot;href&quot; : &quot;http://localhost:8080/api/tacos&#123;?page,size,sort&#125;&quot;,</span><br><span class="line">  &quot;templated&quot; : true</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>这样就将我们的端点路径整理好了，现在可以向“&#x2F;api&#x2F;tacos”发送请求来操作taco资源了。</p>
+<p>接下来我们看一下使用Spring Data REST端点如何进行排序。</p>
+<h2 id="6-3-2-分页和排序"><a href="#6-3-2-分页和排序" class="headerlink" title="6.3.2 分页和排序"></a>6.3.2 分页和排序</h2><p>你可能已经发现，主资源上的所有链接都提供了可选的page、size和sort参数。默认情况下，请求集合资源（比如“&#x2F;api&#x2F;tacos”）都会返回第一页的20个条目。但是，我们可以通过在请求中指定page和size参数调整具体的页数和每页的数量。</p>
+<p>例如，我们想要请求第一页的taco，但是希望包含5个条目，就可以发送如下的GET请求（使用curl）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl &quot;localhost:8080/api/tacos?size=5&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果taco的数量超过了5个，我们可以通过使用page参数获取第二页的taco：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl &quot;localhost:8080/api/tacos?size=5&amp;page=1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意，page参数是从0开始计算的，也就是说page值为1的时候会请求第二页的数据（你可能会发现，很多命令行shell遇到请求中的&amp;符号会出错，所以我们在前面的curl命令中为整个URL使用了引号）。</p>
+<p>我们可以使用字符串操作来将这些参数拼接到URL上，但是HATEOAS为我们提供了第一页、下一页、上一页和最后一页等链接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&quot;_links&quot; : &#123;</span><br><span class="line">  &quot;first&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/tacos?page=0&amp;size=5&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;self&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/tacos&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;next&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/tacos?page=1&amp;size=5&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;last&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/tacos?page=2&amp;size=5&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;profile&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/profile/tacos&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;recents&quot; : &#123;</span><br><span class="line">    &quot;href&quot; : &quot;http://localhost:8080/api/tacos/recent&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了这些链接，API的客户端就不需要跟踪当前正处于哪一页，也不用将参数自己拼接到URL上了，只需根据名字查找这些页面导航并进行访问就可以了。</p>
+<p>sort参数允许我们根据实体的某个属性对结果进行排序。例如，我们想要获取最近创建的12条taco进行UI展示，就可以混合使用分页和排序参数实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl &quot;localhost:8080/api/tacos?sort=createdAt,desc&amp;page=0&amp;size=12&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，sort参数指定我们要按照createdAt属性进行排序，并且要按照降序进行排列（所以最新的taco会放在最前面）。page和size参数指定我们想要获取第一页的12个taco。</p>
+<p>这恰好是UI展现最近创建的taco所需要的数据。它与我们在本章前文DesignTacoController定义的“&#x2F;design&#x2F;recent”端点大致相同。</p>
+<p>这里还有一个小问题。UI代码需要硬编码才能请求带有指定参数的taco列表。当然，这可以正常运行。但是，如果让客户端太多地了解如何构建API请求，就会在一定程度上增加脆弱性。如果客户端能够从链接列表中查找URL就太好了。如果URL能够更简洁，就像前面看到“&#x2F;design&#x2F;recent”一样，那就更棒了。</p>
+<h2 id="6-3-3-添加自定义的端点"><a href="#6-3-3-添加自定义的端点" class="headerlink" title="6.3.3 添加自定义的端点"></a>6.3.3 添加自定义的端点</h2><p>Spring Data REST能够很好地为执行CRUD操作的Spring Data repository创建端点。但有时候，我们需要脱离默认的CRUD API，创建处理核心问题的端点。</p>
+<p>我们当然可以在带有@RestController注解的bean中实现任意的端点，以此来补充Spring Data REST端点的不足。实际上，我们可以重新启用本章前面提到的DesignTacoController，它依然可以与Spring Data REST提供的端点一起运行。</p>
+<p>但是在编写自己的API控制器时，它们的端点在有些方面会与Spring Data REST的端点脱节：</p>
+<ul>
+<li>我们自己的控制器端点没有映射到Spring Data REST的基础路径下。虽然我们可以强制要求它们映射到任意前缀作为基础路径，包括使用Spring DataREST的基础路径，但是如果基础路径发生变化的话，我们还需要修改控制器的映射，以便于与其匹配。</li>
+<li>在自己控制器所定义的端点中，返回资源时并不会自动包含超链接，与Spring Data REST所返回的资源是不同的。这意味着，客户端无法通过关系名发现自定义的端点。</li>
+</ul>
+<p>我们首先来解决基础路径的问题。Spring Data REST提供了一个新的注解@RepositoryRestController，这个注解可以用到控制器类上，这样控制器类所有映射的基础路径就会与Spring Data REST端点配置的基础路径相同。简而言之，在使用@RepositoryRestController注解的控制器中，所有映射将会具有和spring.data.rest.base-path属性值一样的前缀（我们之前将这个属性的值配置成了“&#x2F;api”）。</p>
+<p>在这里我们会创建一个只包含recentTacos()方法的新控制器，而不是修改已有的DesignTacoController，因为这个旧的控制器包含了多个我们不再需要的方法。程序清单6.7中的RecentTacosController带有@RepositoryRestController注解，表明它会将Spring Data REST的基础路径用到自己的请求映射上。</p>
+<p>程序清单6.7 将Spring Data REST的基础路径用到控制器上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.web.api;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.hateoas.mvc.ControllerLinkBuilder.*;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.PageRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.rest.webmvc.RepositoryRestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.hateoas.Resources;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> tacos.Taco;</span><br><span class="line"><span class="keyword">import</span> tacos.data.TacoRepository;</span><br><span class="line"><span class="meta">@RepositoryRestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RecentTacosController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> TacoRepository tacoRepo;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">RecentTacosController</span><span class="params">(TacoRepository tacoRepo)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.tacoRepo = tacoRepo;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@GetMapping(path=&quot;/tacos/recent&quot;, produces=&quot;application/hal+json&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> ResponseEntity&lt;Resources&lt;TacoResource&gt;&gt; <span class="title function_">recentTacos</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">PageRequest</span> <span class="variable">page</span> <span class="operator">=</span> PageRequest.of(</span><br><span class="line">                          <span class="number">0</span>, <span class="number">12</span>, Sort.by(<span class="string">&quot;createdAt&quot;</span>).descending());</span><br><span class="line">    List&lt;Taco&gt; tacos = tacoRepo.findAll(page).getContent();</span><br><span class="line">    List&lt;TacoResource&gt; tacoResources =</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">TacoResourceAssembler</span>().toResources(tacos);</span><br><span class="line">    Resources&lt;TacoResource&gt; recentResources =</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Resources</span>&lt;TacoResource&gt;(tacoResources);</span><br><span class="line">    recentResources.add(</span><br><span class="line">        linkTo(methodOn(RecentTacosController.class).recentTacos())</span><br><span class="line">            .withRel(<span class="string">&quot;recents&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(recentResources, HttpStatus.OK);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然<code>@GetMapping</code>映射到了“&#x2F;tacos&#x2F;recent”路径，但是类级别的<code>@Repository</code> RestController注解会确保这个路径添加Spring Data REST的基础路径作为前缀。按照我们的配置，recentTacos()方法将会处理针对“&#x2F;api&#x2F;tacos&#x2F;recent”的GET请求。</p>
+<p>需要注意的是，尽管@RepositoryRestController的名称和@RestController非常相似，但是它并没有和@RestController相同的语义。具体来讲，它并不能保证处理器方法返回的值会自动写入响应体中。所以，我们要么为方法添加@ResponseBody注解，要么返回包装响应数据的ResponseEntity。这里我们选择的方案是返回ResponseEntity。</p>
+<p>RecentTacosController准备就绪之后，对“&#x2F;api&#x2F;tacos&#x2F;recent”发送请求最多会返回15条最近创建的taco，此时就不需要在URL中添加分页和排序参数了。但是在请求“&#x2F;api&#x2F;tacos”的时候，这个地址依然没有出现在结果的超链接列表中。</p>
+<h2 id="6-3-4-为Spring-Data端点添加自定义的超链接"><a href="#6-3-4-为Spring-Data端点添加自定义的超链接" class="headerlink" title="6.3.4 为Spring Data端点添加自定义的超链接"></a>6.3.4 为Spring Data端点添加自定义的超链接</h2><p>如果最近taco端点没有出现在“&#x2F;api&#x2F;tacos”所返回的超链接中，那么客户端如何知道该怎样获取最近的taco呢？它要么猜测，要么使用分页和排序参数。无论采用哪种方式，都需要在客户端代码中硬编码，这都不是理想的做法。</p>
+<p>通过声明资源处理器（resource processor）bean，我们可以为Spring DataREST自动包含的链接列表继续添加链接。Spring Data HATEOAS提供了一个ResourceProcessor接口，能够在资源通过API返回之前对其进行操作。对于我们的场景来说，需要一个ResourceProcessor实现，为<code>PagedResources&lt;Resource&lt;Taco&gt;&gt;</code>类型的资源（也就是“&#x2F;api&#x2F;tacos”端点所返回的类型）添加recents链接。程序清单6.8展现了定义这种ResourceProcessor的bean声明方法。</p>
+<p>程序清单6.8 为Spring Data REST端点添加自定义的链接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> ResourceProcessor&lt;PagedResources&lt;Resource&lt;Taco&gt;&gt;&gt;</span><br><span class="line">  <span class="title function_">tacoProcessor</span><span class="params">(EntityLinks links)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResourceProcessor</span>&lt;PagedResources&lt;Resource&lt;Taco&gt;&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> PagedResources&lt;Resource&lt;Taco&gt;&gt; <span class="title function_">process</span><span class="params">(</span></span><br><span class="line"><span class="params">                        PagedResources&lt;Resource&lt;Taco&gt;&gt; resource)</span> &#123;</span><br><span class="line">      resource.add(</span><br><span class="line">          links.linkFor(Taco.class)</span><br><span class="line">               .slash(<span class="string">&quot;recent&quot;</span>)</span><br><span class="line">               .withRel(<span class="string">&quot;recents&quot;</span>));</span><br><span class="line">      <span class="keyword">return</span> resource;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序清单6.8中的ResourceProcessor定义了一个匿名内部类，并将其声明为Spring应用上下文中所创建的bean。Spring HATEOAS会自动发现这个bean（以及其他ResourceProcessor类型的bean）并将其应用到对应的资源上。在本例中，如果控制器返回<code>PagedResources&lt;Resource&lt;Taco&gt;&gt;</code>，就会包含一个最近创建的taco链接。这就包括了对“&#x2F;api&#x2F;tacos”请求的响应。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/84ad96c5/" title="6.3 启用数据后端服务">https://lanlan2017.github.io/ReadingNotes/84ad96c5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/7bd75320/" rel="prev" title="6.2 启用超媒体">
+                  <i class="fa fa-chevron-left"></i> 6.2 启用超媒体
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/4e6b3928/" rel="next" title="6.4 小结_第6章 创建REST服务">
+                  6.4 小结_第6章 创建REST服务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/84ad96c5/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/84ad96c5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

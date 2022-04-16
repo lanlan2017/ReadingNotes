@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="11.3 测试反应式控制器在反应式控制器的测试方面，Spring 5并没有置我们于不顾。实际上，Spring 5引入了WebTestClient。这是一个新的测试工具类，让Spring WebFlux编写的反应式控制器的测试变得非常容易。为了了解如何使用WebTestClient编写测试，我们首先使用它测试11.1.2小节中编写的DesignTacoController中的recentTacos(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11.3 测试反应式控制器">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/fa86e55f/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="11.3 测试反应式控制器在反应式控制器的测试方面，Spring 5并没有置我们于不顾。实际上，Spring 5引入了WebTestClient。这是一个新的测试工具类，让Spring WebFlux编写的反应式控制器的测试变得非常容易。为了了解如何使用WebTestClient编写测试，我们首先使用它测试11.1.2小节中编写的DesignTacoController中的recentTacos(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016222158.jpeg">
+<meta property="article:published_time" content="2021-10-16T14:47:23.000Z">
+<meta property="article:modified_time" content="2021-10-17T03:48:48.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016222158.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/fa86e55f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/fa86e55f/","path":"/fa86e55f/","title":"11.3 测试反应式控制器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>11.3 测试反应式控制器 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#11-3-%E6%B5%8B%E8%AF%95%E5%8F%8D%E5%BA%94%E5%BC%8F%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">11.3 测试反应式控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-1-%E6%B5%8B%E8%AF%95GET%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">11.3.1 测试GET请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-2-%E6%B5%8B%E8%AF%95POST%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">11.3.2 测试POST请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-3-%E4%BD%BF%E7%94%A8%E5%AE%9E%E6%97%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.</span> <span class="nav-text">11.3.3 使用实时服务器进行测试</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/fa86e55f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="11.3 测试反应式控制器 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          11.3 测试反应式控制器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-16 22:47:23" itemprop="dateCreated datePublished" datetime="2021-10-16T22:47:23+08:00">2021-10-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-17 11:48:48" itemprop="dateModified" datetime="2021-10-17T11:48:48+08:00">2021-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/" itemprop="url" rel="index"><span itemprop="name">第3部分 反应式Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/%E7%AC%AC11%E7%AB%A0-%E5%BC%80%E5%8F%91%E5%8F%8D%E5%BA%94%E5%BC%8FAPI/" itemprop="url" rel="index"><span itemprop="name">第11章 开发反应式API</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/fa86e55f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/fa86e55f/" data-xid="/ReadingNotes/fa86e55f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="11-3-测试反应式控制器"><a href="#11-3-测试反应式控制器" class="headerlink" title="11.3 测试反应式控制器"></a>11.3 测试反应式控制器</h1><p>在反应式控制器的测试方面，Spring 5并没有置我们于不顾。实际上，Spring 5引入了WebTestClient。这是一个新的测试工具类，让Spring WebFlux编写的反应式控制器的测试变得非常容易。为了了解如何使用WebTestClient编写测试，我们首先使用它测试11.1.2小节中编写的DesignTacoController中的recentTacos()方法。</p>
+<h2 id="11-3-1-测试GET请求"><a href="#11-3-1-测试GET请求" class="headerlink" title="11.3.1 测试GET请求"></a>11.3.1 测试GET请求</h2><p>对于recentTacos()方法，我们想断言如果针对“&#x2F;design&#x2F;recent”路径发送HTTPGET请求，那么将会得到JSON载荷的响应并且taco的数量不会超过12个。程序清单11.1中的测试类将会是一个很好的起点。</p>
+<p>程序清单11.1 使用WebTestClient测试DesignTacoController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.*;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.mockito.Mockito;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.reactive.server.WebTestClient;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"><span class="keyword">import</span> tacos.Ingredient.Type;</span><br><span class="line"><span class="keyword">import</span> tacos.data.TacoRepository;</span><br><span class="line"><span class="keyword">import</span> tacos.web.api.DesignTacoController;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DesignTacoControllerTest</span> &#123;</span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shouldReturnRecentTacos</span><span class="params">()</span> &#123;</span><br><span class="line">    Taco[] tacos = &#123;</span><br><span class="line">        testTaco(<span class="number">1L</span>), testTaco(<span class="number">2L</span>),</span><br><span class="line">        testTaco(<span class="number">3L</span>), testTaco(<span class="number">4L</span>),           ⇽--- 创建测试数据</span><br><span class="line">        testTaco(<span class="number">5L</span>), testTaco(<span class="number">6L</span>),</span><br><span class="line">        testTaco(<span class="number">7L</span>), testTaco(<span class="number">8L</span>),</span><br><span class="line">        testTaco(<span class="number">9L</span>), testTaco(<span class="number">10L</span>),</span><br><span class="line">        testTaco(<span class="number">11L</span>), testTaco(<span class="number">12L</span>),</span><br><span class="line">        testTaco(<span class="number">13L</span>), testTaco(<span class="number">14L</span>),</span><br><span class="line">        testTaco(<span class="number">15L</span>), testTaco(<span class="number">16L</span>)&#125;;</span><br><span class="line">    Flux&lt;Taco&gt; tacoFlux = Flux.just(tacos);</span><br><span class="line">    <span class="type">TacoRepository</span> <span class="variable">tacoRepo</span> <span class="operator">=</span> Mockito.mock(TacoRepository.class);</span><br><span class="line">    when(tacoRepo.findAll()).thenReturn(tacoFlux);         ⇽--- Mock TacoRepository</span><br><span class="line">    <span class="type">WebTestClient</span> <span class="variable">testClient</span> <span class="operator">=</span> WebTestClient.bindToController(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">DesignTacoController</span>(tacoRepo))</span><br><span class="line">          .build();                               ⇽--- 创建WebTestClient</span><br><span class="line">    testClient.get().uri(<span class="string">&quot;/design/recent&quot;</span>)</span><br><span class="line">      .exchange()                           ⇽--- 请求最近的taco</span><br><span class="line">      .expectStatus().isOk()             ⇽--- 检验预期的响应</span><br><span class="line">      .expectBody()</span><br><span class="line">        .jsonPath(<span class="string">&quot;$&quot;</span>).isArray()</span><br><span class="line">        .jsonPath(<span class="string">&quot;$&quot;</span>).isNotEmpty()</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[^0].id&quot;</span>).isEqualTo(tacos[^<span class="number">0</span>].getId().toString())</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[^0].name&quot;</span>).isEqualTo(<span class="string">&quot;Taco 1&quot;</span>).jsonPath(<span class="string">&quot;$[^1].id&quot;</span>)</span><br><span class="line">        .isEqualTo(tacos[^<span class="number">1</span>].getId().toString()).jsonPath(<span class="string">&quot;$[^1].name&quot;</span>)</span><br><span class="line">        .isEqualTo(<span class="string">&quot;Taco 2&quot;</span>).jsonPath(<span class="string">&quot;$[^11].id&quot;</span>)</span><br><span class="line">        .isEqualTo(tacos[^<span class="number">11</span>].getId().toString())</span><br><span class="line">  ...</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[^11].name&quot;</span>).isEqualTo(<span class="string">&quot;Taco 12&quot;</span>).jsonPath(<span class="string">&quot;$[^12]&quot;</span>)</span><br><span class="line">     .doesNotExist();</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[^12]&quot;</span>).doesNotExist();</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>shouldReturnRecentTacos()方法做的第一件事情就是以<code>Flux&lt;Taco&gt;</code>的形式创建了一些测试数据。这个Flux随后作为mock TacoRepository的findAll()方法的返回值。</p>
+<p>Flux发布的Taco对象是由一个名为testTaco()的方法创建的。这个方法会根据一个数字生成一个Taco，其ID和名称都是基于该数字生成的。testTaco()方法的实现如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Taco <span class="title function_">testTaco</span><span class="params">(Long number)</span> &#123;</span><br><span class="line">    <span class="type">Taco</span> <span class="variable">taco</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Taco</span>();</span><br><span class="line">    taco.setId(UUID.randomUUID());</span><br><span class="line">    taco.setName(<span class="string">&quot;Taco &quot;</span> + number);</span><br><span class="line">    List&lt;IngredientUDT&gt; ingredients = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    ingredients.add(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">IngredientUDT</span>(<span class="string">&quot;INGA&quot;</span>, <span class="string">&quot;Ingredient A&quot;</span>, Type.WRAP));</span><br><span class="line">    ingredients.add(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">IngredientUDT</span>(<span class="string">&quot;INGB&quot;</span>, <span class="string">&quot;Ingredient B&quot;</span>, Type.PROTEIN));</span><br><span class="line">    taco.setIngredients(ingredients);</span><br><span class="line">    <span class="keyword">return</span> taco;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单起见，所有的测试taco都具有两种相同的配料，但是它们的ID和名称是根据传入的数字确定的。</p>
+<p>另外，回到shouldReturnRecentTacos()方法，我们实例化了一个DesignTacoController并将mock TacoRepository注入到了构造器中。这个控制器传递给了WebTestClient. bindToController()方法，以便于生成WebTestClient实例。</p>
+<p>所有的环境搭建工作完成后，我们可以使用WebTestClient提交GET请求至“&#x2F;design&#x2F;recent”并校验响应符合我们的预期。对get().uri(“&#x2F;design&#x2F;recent”)的调用描述了我们想要发送的请求。随后，调用exchange()会提交请求，这个请求将会由WebTestClient绑定的控制器（DesignTacoController）来进行处理。</p>
+<p>最后，我们可以确认响应符合预期。通过调用expectStatus()，我们可以断言响应具有HTTP 200 (OK)状态码。然后，我们多次调用jsonPath()断言响应体中的JSON包含它应该具有的值。最后一个断言检查第12个元素（在基于零开始计数的数组中）是否真的不存在，以此判断结果不超过12个元素。</p>
+<p>如果返回的JSON比较复杂，比如有大量的数据或多层嵌套的数据，那么使用jsonPath()会变得非常烦琐。实际上，为了节省空间，在程序清单11.1中，我省略了很多对jsonPath()的调用。在这种情况下，使用jsonPath()会变得非常枯燥烦琐，WebTestClient提供了json()方法。这个方法可以传入一个String参数（包含响应要对比的JSON）。</p>
+<p>举例来说，假设我们在名为recent-tacos.json的文件中创建了完整的响应JSON并将它放到了类路径的“&#x2F;tacos”路径下，那么我们可以按照如下的方式重写WebTestClient断言：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ClassPathResource</span> <span class="variable">recentsResource</span> <span class="operator">=</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;/tacos/recent-tacos.json&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">recentsJson</span> <span class="operator">=</span> StreamUtils.copyToString(</span><br><span class="line">    recentsResource.getInputStream(), Charset.defaultCharset());</span><br><span class="line">testClient.get().uri(<span class="string">&quot;/design/recent&quot;</span>)</span><br><span class="line">  .accept(MediaType.APPLICATION_JSON)</span><br><span class="line">  .exchange()</span><br><span class="line">  .expectStatus().isOk()</span><br><span class="line">  .expectBody()</span><br><span class="line">    .json(recentsJson);</span><br></pre></td></tr></table></figure>
+
+<p>因为json()接受的是一个String，所以我们必须先将类路径资源加载为String。借助Spring中StreamUtils的copyToString()方法，这一点很容易实现。copyToString()方法返回的String就是我们的请求所预期的响应JSON内容。将其传递给json()方法，我们就能确保控制器会生成正确的输出。</p>
+<p>WebTestClient提供的另外一种可选方案就是它允许将响应体与一个值的列表进行对比。expectBodyList()方法会接受一个代表列表中元素类型的Class或ParameterizedTypeReference，并且会返回ListBodySpec对象，随后可以基于该对象进行断言。借助expectBodyList()，我们可以重写测试类，使用创建mockTacoRepository时的测试数据的子集来进行验证：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">testClient.get().uri(<span class="string">&quot;/design/recent&quot;</span>)</span><br><span class="line">  .accept(MediaType.APPLICATION_JSON)</span><br><span class="line">  .exchange()</span><br><span class="line">  .expectStatus().isOk()</span><br><span class="line">  .expectBodyList(Taco.class)</span><br><span class="line">    .contains(Arrays.copyOf(tacos, <span class="number">12</span>));</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们断言响应体包含了在测试方法开头处所创建的原始Taco数组的前12个元素。</p>
+<h2 id="11-3-2-测试POST请求"><a href="#11-3-2-测试POST请求" class="headerlink" title="11.3.2 测试POST请求"></a>11.3.2 测试POST请求</h2><p>WebTestClient不仅能对控制器发送GET请求，还能用来测试各种HTTP方法，包括GET、POST、PUT、PATCH、DELETE和HEAD方法。表11.1将HTTP方法与WebTestClient的方法进行了映射。</p>
+<center>表11.1 WebTestClient能够测试针对Spring WebFlux控制器的各种请求</center>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016222158.jpeg" alt="epub_29101559_89"></p>
+<p>作为测试Spring WebFlux控制器其他HTTP请求方法的样例，我们看一下针对DesignTacoController的另一个测试。这一次，我们会编写一个对taco创建API的测试，也就是提交POST请求到“&#x2F;design”：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shouldSaveATaco</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">TacoRepository</span> <span class="variable">tacoRepo</span> <span class="operator">=</span> Mockito.mock(</span><br><span class="line">              TacoRepository.class);             ⇽--- 搭建测试数据</span><br><span class="line">  Mono&lt;Taco&gt; unsavedTacoMono = Mono.just(testTaco(<span class="literal">null</span>));</span><br><span class="line">  <span class="type">Taco</span> <span class="variable">savedTaco</span> <span class="operator">=</span> testTaco(<span class="literal">null</span>);</span><br><span class="line">  savedTaco.setId(<span class="number">1L</span>);</span><br><span class="line">  Mono&lt;Taco&gt; savedTacoMono = Mono.just(savedTaco);</span><br><span class="line">  when(tacoRepo.save(any())).thenReturn(savedTacoMono);     ⇽--- mock TacoRepository</span><br><span class="line">  <span class="type">WebTestClient</span> <span class="variable">testClient</span> <span class="operator">=</span> WebTestClient.bindToController(    ⇽--- 创建WebTestClient</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">DesignTacoController</span>(tacoRepo)).build();</span><br><span class="line">  testClient.post()                 ⇽--- POST taco</span><br><span class="line">      .uri(<span class="string">&quot;/design&quot;</span>)</span><br><span class="line">      .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">      .body(unsavedTacoMono, Taco.class)</span><br><span class="line">    .exchange()</span><br><span class="line">    .expectStatus().isCreated()        ⇽--- 校验响应</span><br><span class="line">    .expectBody(Taco.class)</span><br><span class="line">      .isEqualTo(savedTaco);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与上面的测试方法类似，shouldSaveATaco()首先会创建一些测试数据和mockTacoRepository，并且创建了一个WebTestClient并绑定到控制器上。随后，它使用WebTestClient提交POST请求到“&#x2F;design”，并且将请求体声明为application&#x2F;json类型，请求载荷为Taco的JSON序列化形式，放到未保存的Mono中。在执行exchange()之后，测试断言响应状态为HTTP 201 (CREATED)并且响应体中的载荷与已保存的Taco对象相同。</p>
+<h2 id="11-3-3-使用实时服务器进行测试"><a href="#11-3-3-使用实时服务器进行测试" class="headerlink" title="11.3.3 使用实时服务器进行测试"></a>11.3.3 使用实时服务器进行测试</h2><p>到目前为止，我们所编写的测试都依赖于Spring WebFlux的mock实现，所以并不需要真正的服务器。但是，我们可能需要在服务器（如Netty或Tomcat）环境中测试WebFlux控制器，也许还会需要repository或其他的依赖。换句话说，我们有可能要编写集成测试。</p>
+<p>要编写WebTestClient的集成测试，与其他的Spring Boot集成测试类似，我们首先要为测试类添加<code>@RunWith</code>和<code>@SpringBootTest</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DesignTacoControllerWebTest</span> &#123;</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> WebTestClient testClient;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过将webEnvironment属性设置为WebEnvironment.RANDOM_PORT，我们要求Spring启动一个运行时服务器并监听任意选择的端口<br><a href="%E6%88%91%E4%BB%AC%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%B0%86webEnvironment%E8%AE%BE%E7%BD%AE%E4%B8%BAWebEnvironment.DEFINED_PORT%EF%BC%8C%E5%B9%B6%E5%88%A9%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E7%AB%AF%E5%8F%A3%EF%BC%8C%E4%BD%86%E6%98%AF%E5%BC%BA%E7%83%88%E5%BB%BA%E8%AE%AE%E4%B8%8D%E8%A6%81%E8%BF%99%E6%A0%B7%E5%81%9A%E3%80%82%E8%BF%99%E6%A0%B7%E5%81%9A%E7%9A%84%E8%AF%9D%E5%B0%86%E4%BC%9A%E5%B8%A6%E6%9D%A5%E5%B9%B6%E8%A1%8C%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%A3%E5%86%B2%E7%AA%81%E7%9A%84%E9%A3%8E%E9%99%A9%E3%80%82">^1</a>。</p>
+<p>你可能也注意到，我们将WebTestClient自动织入到了测试类中。这不仅意味着我们不用在测试的方法中创建它了，而且在发送请求的时候也不需要指定完整的URL了。这是因为WebTestClient能够知道测试服务器在哪个端口上运行。现在，我们可以使用自动织入的WebTestClient将shouldReturnRecentTacos()重写为集成测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shouldReturnRecentTacos</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">  testClient.get().uri(<span class="string">&quot;/design/recent&quot;</span>)</span><br><span class="line">    .accept(MediaType.APPLICATION_JSON).exchange()</span><br><span class="line">    .expectStatus().isOk()</span><br><span class="line">    .expectBody()</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[?(@.id == &#x27;TACO1&#x27;)].name&quot;</span>)</span><br><span class="line">            .isEqualTo(<span class="string">&quot;Carnivore&quot;</span>)</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[?(@.id == &#x27;TACO2&#x27;)].name&quot;</span>)</span><br><span class="line">            .isEqualTo(<span class="string">&quot;Bovine Bounty&quot;</span>)</span><br><span class="line">        .jsonPath(<span class="string">&quot;$[?(@.id == &#x27;TACO3&#x27;)].name&quot;</span>)</span><br><span class="line">            .isEqualTo(<span class="string">&quot;Veg-Out&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现，这个新版本的shouldReturnRecentTacos()代码要少得多。我们不再需要创建WebTestClient，因为可以使用自动织入的实例。另外，也不需要mockTacoRepository，因为Spring将会创建DesignTacoController实例并将一个真正的TacoRepository注入进来。在新版本的测试方法中，我们使用JSONPath表达式来校验数据库提供的值。</p>
+<p>WebTestClient在测试的时候非常有用，此时我们会消费WebFlux控制器所暴露的API。但是，如果我们的应用本身要消费某个API，又该怎样处理呢？接下来，我们将注意力转向Spring反应式Web的客户端，看一下WebClient如何通过REST客户端来处理反应式类型，如Mono和Flux。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/fa86e55f/" title="11.3 测试反应式控制器">https://lanlan2017.github.io/ReadingNotes/fa86e55f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3d49c070/" rel="prev" title="8.4 小结">
+                  <i class="fa fa-chevron-left"></i> 8.4 小结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/2bd5bea5/" rel="next" title="11.2 定义函数式请求处理器">
+                  11.2 定义函数式请求处理器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/fa86e55f/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/fa86e55f/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.6 模仿用户操作有时候,即使某个事件没有真正发生,但如果能执行绑定到该事件的代码将会很方便。例如,假设我们想让样式转换器在一开始时处于折叠状态。那么,可以通过样式表来隐藏按钮,或者在$(document).ready()处理程序中调用.hide()方法。不过,还有一种方法,就是模拟单击样式转换器,以触发我们设定的折叠机制。 .trigger()方法通过.trigger()方法就可以完成模拟事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.6 模仿用户操作">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/910c0a03/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.6 模仿用户操作有时候,即使某个事件没有真正发生,但如果能执行绑定到该事件的代码将会很方便。例如,假设我们想让样式转换器在一开始时处于折叠状态。那么,可以通过样式表来隐藏按钮,或者在$(document).ready()处理程序中调用.hide()方法。不过,还有一种方法,就是模拟单击样式转换器,以触发我们设定的折叠机制。 .trigger()方法通过.trigger()方法就可以完成模拟事件">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-18T14:22:16.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/910c0a03/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/910c0a03/","path":"/910c0a03/","title":"3.6 模仿用户操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.6 模仿用户操作 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-6-%E6%A8%A1%E4%BB%BF%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">3.6 模仿用户操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger-%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">.trigger()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger-%E6%96%B9%E6%B3%95%E7%AE%80%E5%86%99"><span class="nav-number">1.2.</span> <span class="nav-text">.trigger()方法简写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">响应键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">键盘事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%B1%BB%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%94%A8%E9%80%94"><span class="nav-number">1.3.2.</span> <span class="nav-text">两类键盘事件的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-number">1.3.3.</span> <span class="nav-text">键盘事件的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E5%85%83%E7%B4%A0%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%BE%97%E9%94%AE%E7%9B%98%E7%84%A6%E7%82%B9"><span class="nav-number">1.3.4.</span> <span class="nav-text">什么样的元素可以获得键盘焦点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1"><span class="nav-number">1.3.5.</span> <span class="nav-text">应用事件冒泡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E7%94%A8%E6%88%B7%E6%8C%89%E7%9A%84%E6%98%AF%E5%93%AA%E4%B8%AA%E9%94%AE"><span class="nav-number">1.3.6.</span> <span class="nav-text">如何知道用户按的是哪个键</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">知识总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E4%BA%8B%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.1.</span> <span class="nav-text">模拟事件操作</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/910c0a03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.6 模仿用户操作 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.6 模仿用户操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-18 22:22:16" itemprop="dateCreated datePublished" datetime="2019-07-18T22:22:16+08:00">2019-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC3%E7%AB%A0-%E4%BA%8B%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">第3章 事件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/910c0a03/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/910c0a03/" data-xid="/ReadingNotes/910c0a03/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-6-模仿用户操作"><a href="#3-6-模仿用户操作" class="headerlink" title="3.6 模仿用户操作"></a>3.6 模仿用户操作</h1><p>有时候,即使某个事件没有真正发生,但如果能执行绑定到该事件的代码将会很方便。例如,假设我们想让样式转换器在一开始时处于折叠状态。那么,可以通过样式表来隐藏按钮,或者在<code>$(document).ready()</code>处理程序中调用<code>.hide()</code>方法。不过,还有一种方法,就是模拟单击样式转换器,以触发我们设定的折叠机制。</p>
+<h2 id="trigger-方法"><a href="#trigger-方法" class="headerlink" title=".trigger()方法"></a>.trigger()方法</h2><p><strong>通过<code>.trigger()</code>方法就可以完成模拟事件的操作</strong>,如代码清单3-23所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">trigger</span>(<span class="string">&#x27;click&#x27;</span>); </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p>这样,随着页面加载完成,样式转换器也会被折叠起来,就好像是被单击了一样。<br>如果我们想向禁用<code>JavaScript</code>的用户隐藏一些内容,以实现优雅降级,那么这就是一种非常合适的方式。</p>
+<h2 id="trigger-方法简写"><a href="#trigger-方法简写" class="headerlink" title=".trigger()方法简写"></a>.trigger()方法简写</h2><p><code>.trigger()</code>方法提供了一组与<code>.on()</code>方法相同的简写方法。当使用这些方法而不带参数时,结果将是触发操作而不是绑定行为,如代码清单3-24所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(); </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<h2 id="响应键盘事件"><a href="#响应键盘事件" class="headerlink" title="响应键盘事件"></a>响应键盘事件</h2><p>作为另一个例子,我们还可以向样式转换器中添加键盘快捷方式。当用户输入每种显示样式的第一个字母时,可以让页面像响应按钮被单击一样作出响应。要实现这种功能,需要先了解<code>键盘事件``,键盘事件</code>与鼠标事件稍有不同。</p>
+<h3 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h3><p>键盘事件可以分为两类:</p>
+<ol>
+<li>直接对键盘按键给出响应的事件(<code>keyup</code>和<code>keydown</code>)</li>
+<li>对文本输入给出响应的事件(<code>keypress</code>)。</li>
+</ol>
+<h3 id="两类键盘事件的用途"><a href="#两类键盘事件的用途" class="headerlink" title="两类键盘事件的用途"></a>两类键盘事件的用途</h3><p>输入一个字母的事件可能会对应着几个按键,例如输入大写的X要同时按<code>Shift</code>和<code>X</code>键。虽然各种浏览器的具体实现有所不同,但有一条实践经验还是比较可靠的:<strong>如果想知道用户按了哪个键,应该侦听<code>keyup</code>或<code>keydown</code>事件;如果想知道用户输入的是什么字符,应该侦听<code>keypress</code>事件</strong>。对于这里想要实现的功能而言,我们只想知道用户什么时候按下了<code>D</code>、<code>N</code>或<code>L</code>键,因而就要使用<code>keyup</code>。</p>
+<h3 id="键盘事件的目标"><a href="#键盘事件的目标" class="headerlink" title="键盘事件的目标"></a>键盘事件的目标</h3><p>接下来,需要确定哪个元素应该侦听这个事件。相对于可以通过鼠标指针确定事件目标的鼠标事件而言,这个细节就没有那么明显了。事实上,<strong>键盘事件的目标是当前拥有<code>键盘焦点</code>的元素</strong>。元素的焦点可能会在几种情况下转移,包括单击鼠标和按下<code>Tab</code>键。</p>
+<h3 id="什么样的元素可以获得键盘焦点"><a href="#什么样的元素可以获得键盘焦点" class="headerlink" title="什么样的元素可以获得键盘焦点"></a>什么样的元素可以获得键盘焦点</h3><p>并非所有元素都可以获得焦点,只有那些<code>默认情况下具有键盘驱动行为的元素</code>,如<code>表单字段</code>、<code>链接</code>,以及指定了<code>tabIndex</code>属性的元素<code>才可以获得焦点</code>。</p>
+<h3 id="应用事件冒泡"><a href="#应用事件冒泡" class="headerlink" title="应用事件冒泡"></a>应用事件冒泡</h3><p>对于眼前的例子来说,哪个元素获得焦点其实并不重要,我们只想让转换器在用户按下某个键时能够有所反应。这一次,又可以利用事件冒泡了——因为可以假设所有键盘事件最终都会冒泡到<code>document</code>元素,所以可以把<code>keyup</code>事件直接绑定到该元素。</p>
+<h3 id="如何知道用户按的是哪个键"><a href="#如何知道用户按的是哪个键" class="headerlink" title="如何知道用户按的是哪个键"></a>如何知道用户按的是哪个键</h3><p>最后,需要在<code>keyup</code>处理程序被触发时知道用户按下了哪个键。此时可以检查相应的事件对象,<strong>事件对象的<code>.which</code>属性包含着被按下的那个键的标识符。对于字母键而言,这个标识符就是相应大写字母的<code>ASCII</code>值</strong>。<br>因此,可以为字母和相应的按钮创建一个<code>对象字面量</code>。在用户按下某个键时,可以查找它的标识符是否在这个对象里,如果在则触发单击事件,参见代码清单3-25。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 创建快捷键对象</span></span><br><span class="line">  <span class="keyword">var</span> triggers = &#123;</span><br><span class="line">    <span class="attr">D</span>: <span class="string">&#x27;default&#x27;</span>,</span><br><span class="line">    <span class="attr">N</span>: <span class="string">&#x27;narrow&#x27;</span>,</span><br><span class="line">    <span class="attr">L</span>: <span class="string">&#x27;large&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 注册匿名的键盘事件处理程序</span></span><br><span class="line">  $(<span class="variable language_">document</span>).<span class="title function_">keyup</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 获取按下的键的标识,返回的是键的ASCII码</span></span><br><span class="line">    <span class="keyword">var</span> key = <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(event.<span class="property">which</span>);</span><br><span class="line">    <span class="comment">// 如果是快捷键</span></span><br><span class="line">    <span class="keyword">if</span> (key <span class="keyword">in</span> triggers) &#123;</span><br><span class="line">      <span class="comment">// 点击该快捷键对应的按钮</span></span><br><span class="line">      $(<span class="string">&#x27;#switcher-&#x27;</span> + triggers[key]).<span class="title function_">click</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样,按下这三个键中的任何一个,都会模拟鼠标对相应按钮的单击——前提是键盘事件没有被某些特性(例如<code>Firefox</code>的”在输入时搜索文本”功能)所截取。<br>除了使用<code>.trigger()</code>模拟单击外,下面我们再深入一步,看一看怎样把相关代码提取到一个函数中,以便更多处理程序(<code>click</code>和<code>keyup</code>)可以调用它。尽管在本例中没有必要这样做,但这种技术确实有利于消除冗余代码,参见代码清单3-26。</p>
+<p>最后这次修改整合了本章前面所有的代码示例。我们把整块代码都挪到了<code>$(document).ready()</code>处理程序中,代码看起来没有那么冗长了。</p>
+<!--SSTStop-->
+<!--SSTStart-->
+<h2 id="知识总结"><a href="#知识总结" class="headerlink" title="知识总结"></a>知识总结</h2><h3 id="模拟事件操作"><a href="#模拟事件操作" class="headerlink" title="模拟事件操作"></a>模拟事件操作</h3><ul>
+<li><strong>通过<code>.trigger()</code>方法就可以完成模拟事件的操作</strong></li>
+<li><code>.trigger()</code>方法简写形式:不带参数<code>.事件()</code>方法,例如不带参数的的<code>.click()</code>方法就是在带<code>DOM</code>元素上<code>触发</code>点击事件.</li>
+</ul>
+<p>键盘事件可以分为两类:</p>
+<ol>
+<li>直接对键盘按键给出响应的事件(<code>keyup</code>和<code>keydown</code>)</li>
+<li>对文本输入给出响应的事件(<code>keypress</code>)。</li>
+</ol>
+<p><strong>默认情况下具有键盘驱动行为的元素才可以获得焦点</strong><br><strong>如果想知道用户按了哪个键,应该侦听<code>keyup</code>或<code>keydown</code>事件;如果想知道用户输入的是什么字符,应该侦听<code>keypress</code>事件</strong><br><strong>事件对象的<code>.which</code>属性包含着被按下的那个键的标识符。对于字母键而言,这个标识符就是相应大写字母的<code>ASCII</code>值</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/910c0a03/" title="3.6 模仿用户操作">https://lanlan2017.github.io/ReadingNotes/910c0a03/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b34526ee/" rel="prev" title="4.1 修改内联 CSS">
+                  <i class="fa fa-chevron-left"></i> 4.1 修改内联 CSS
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/4b263c64/" rel="next" title="3.7 小结">
+                  3.7 小结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/910c0a03/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/910c0a03/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

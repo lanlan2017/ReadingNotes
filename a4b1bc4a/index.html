@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="4.2 配置Spring Security多年以来，出现了多种配置Spring Security的方式，包括冗长的基于XML的配置。幸运的是，最近几个版本的Spring Security都支持基于Java的配置，这种方式更加易于阅读和编写。 在本章结束之前，我们会使用基于Java的Spring Security配置完成Taco Cloud安全性需要的所有设置。但是，首先，我们需要编写程序清单4.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.2 配置Spring Security">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="4.2 配置Spring Security多年以来，出现了多种配置Spring Security的方式，包括冗长的基于XML的配置。幸运的是，最近几个版本的Spring Security都支持基于Java的配置，这种方式更加易于阅读和编写。 在本章结束之前，我们会使用基于Java的Spring Security配置完成Taco Cloud安全性需要的所有设置。但是，首先，我们需要编写程序清单4.1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013192219.jpeg">
+<meta property="article:published_time" content="2021-10-13T12:47:17.000Z">
+<meta property="article:modified_time" content="2021-10-13T12:47:17.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013192219.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/","path":"/a4b1bc4a/","title":"4.2 配置Spring Security"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>4.2 配置Spring Security | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-2-%E9%85%8D%E7%BD%AESpring-Security"><span class="nav-number">1.</span> <span class="nav-text">4.2 配置Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-1-%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E7%9A%84%E7%94%A8%E6%88%B7%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">4.2.1 基于内存的用户存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-2-%E5%9F%BA%E4%BA%8EJDBC%E7%9A%84%E7%94%A8%E6%88%B7%E5%AD%98%E5%82%A8"><span class="nav-number">1.2.</span> <span class="nav-text">4.2.2 基于JDBC的用户存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E9%BB%98%E8%AE%A4%E7%9A%84%E7%94%A8%E6%88%B7%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.1.</span> <span class="nav-text">重写默认的用户查询功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BD%AC%E7%A0%81%E5%90%8E%E7%9A%84%E5%AF%86%E7%A0%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用转码后的密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-3-%E4%BB%A5LDAP%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF%E7%9A%84%E7%94%A8%E6%88%B7%E5%AD%98%E5%82%A8"><span class="nav-number">1.3.</span> <span class="nav-text">4.2.3 以LDAP作为后端的用户存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%AF%94%E5%AF%B9"><span class="nav-number">1.3.1.</span> <span class="nav-text">配置密码比对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%BF%9C%E7%A8%8B%E7%9A%84LDAP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">引用远程的LDAP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%9A%84LDAP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">配置嵌入式的LDAP服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-4-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81"><span class="nav-number">1.4.</span> <span class="nav-text">4.2.4 自定义用户认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E9%A2%86%E5%9F%9F%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义用户领域对象和持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%AF%A6%E6%83%85%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.4.2.</span> <span class="nav-text">创建用户详情服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E7%94%A8%E6%88%B7"><span class="nav-number">1.4.3.</span> <span class="nav-text">注册用户</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="4.2 配置Spring Security | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.2 配置Spring Security
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-13 20:47:17" itemprop="dateCreated datePublished" datetime="2021-10-13T20:47:17+08:00">2021-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC4%E7%AB%A0-%E4%BF%9D%E6%8A%A4Spring/" itemprop="url" rel="index"><span itemprop="name">第4章 保护Spring</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a4b1bc4a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a4b1bc4a/" data-xid="/ReadingNotes/a4b1bc4a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>20k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>19 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="4-2-配置Spring-Security"><a href="#4-2-配置Spring-Security" class="headerlink" title="4.2 配置Spring Security"></a>4.2 配置Spring Security</h1><p>多年以来，出现了多种配置Spring Security的方式，包括冗长的基于XML的配置。幸运的是，最近几个版本的Spring Security都支持基于Java的配置，这种方式更加易于阅读和编写。</p>
+<p>在本章结束之前，我们会使用基于Java的Spring Security配置完成Taco Cloud安全性需要的所有设置。但是，首先，我们需要编写程序清单4.1中这个基础的配置类。<br>程序清单4.1 Spring Security的基础配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.security;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web</span><br><span class="line">                        .configuration.EnableWebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web</span><br><span class="line">                    .configuration.WebSecurityConfigurerAdapter;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> <span class="keyword">extends</span> <span class="title class_">WebSecurityConfigurerAdapter</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个基础的安全配置都为我们做了些什么呢？其实并不太多，但是它确实朝着我们所需的安全性需求向前推进了一步。如果此时你再次访问Taco Cloud主页，那么系统依然会提示你进行登录。但是，现在不再是提示HTTP basic认证的对话框，而是会展现如图4.2所示的登录表单。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211013192219.jpeg" alt="epub_29101559_31"></p>
+<center>图4.2 Spring Security为我们免费提供的简单登录页</center>
+
+<div style=" border-style:solid;">提示：在进行手动安全测试的时候，你会发现将浏览器设置为私有或隐身模式会非常有用。这能够确保每次打开一个私有/隐身窗口都会有一个新的会话。每次你都需要重新登录应用，但是你尽可以放心，在安全性方面做得所有变更都会生效，旧会话不会有任何残留，妨碍我们看到变更的效果。</div>
+
+<p>这是一个很小的改进，通过Web页面提示登录（尽管看上去非常简陋）要比HTTPbasic对话框更友好一些。在4.3.2小节，我们将会自定义登录页面。不过，我们现在的任务是配置用户存储，使系统能够处理多个用户。</p>
+<p>事实上，Spring Security为配置用户存储提供了多个可选方案，包括：</p>
+<ul>
+<li>基于内存的用户存储；</li>
+<li>基于JDBC的用户存储；</li>
+<li>以LDAP作为后端的用户存储；</li>
+<li>自定义用户详情服务。</li>
+</ul>
+<p>不管使用哪种用户存储，你都可以通过覆盖WebSecurityConfigurerAdapter基础配置类中定义的configure()方法来进行配置。首先，我们可以将如下的方法添加到SecurityConfig类中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们需要使用指定的AuthenticationManagerBuilder替换上面的省略号，以此来定义在认证过程中如何查找用户。我们先来看一下基于内存的用户存储。</p>
+<h2 id="4-2-1-基于内存的用户存储"><a href="#4-2-1-基于内存的用户存储" class="headerlink" title="4.2.1 基于内存的用户存储"></a>4.2.1 基于内存的用户存储</h2><p>用户信息可以存储在内存之中。假设我们只有数量有限的几个用户，而且这些用户几乎不会发生变化，在这种情况下，将这些用户定义成安全配置的一部分是非常简单的。</p>
+<p>例如，程序清单4.2展示了如何在内存用户存储中配置两个用户，即“buzz”和“woody”。</p>
+<p>程序清单4.2 在内存用户存储中定义用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .inMemoryAuthentication()</span><br><span class="line">      .withUser(<span class="string">&quot;buzz&quot;</span>)</span><br><span class="line">        .password(<span class="string">&quot;infinity&quot;</span>)</span><br><span class="line">        .authorities(<span class="string">&quot;ROLE_USER&quot;</span>)</span><br><span class="line">      .and()</span><br><span class="line">      .withUser(<span class="string">&quot;woody&quot;</span>)</span><br><span class="line">        .password(<span class="string">&quot;bullseye&quot;</span>)</span><br><span class="line">        .authorities(<span class="string">&quot;ROLE_USER&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，AuthenticationManagerBuilder使用构造者（builder）风格的接口来构建认证细节。在本例中，我们在安全配置中调用inMemoryAuthentication()方法来指定用户信息。</p>
+<p>每次调用withUser()都会配置一个用户，这个方法给定的值是用户名，而密码和授权信息是通过password()和authorities()方法来指定的。如程序清单4.2中所示，两个用户都授予了ROLE_USER权限。用户buzz的密码为“infinity”，而woody的密码为“bullseye”。</p>
+<p>对于测试和简单的应用来讲，基于内存的用户存储是很有用的，但是这种方式不能很方便地编辑用户。如果需要新增、移除或变更用户，那么你要对代码做出必要的修改，然后重新构建和部署应用。</p>
+<p>对于Taco Cloud应用来说，我们希望顾客能够在应用中进行注册，并且能够管理自己的用户账号。这明显与内存用户存储的限制不符，所以我们接下来看一下另外一种方式，这种方式允许使用数据库后端作为用户存储。</p>
+<h2 id="4-2-2-基于JDBC的用户存储"><a href="#4-2-2-基于JDBC的用户存储" class="headerlink" title="4.2.2 基于JDBC的用户存储"></a>4.2.2 基于JDBC的用户存储</h2><p>用户信息通常会在关系型数据库中进行维护，基于JDBC的用户存储方案会更加合理一些。程序清单4.3展示了使用JDBC对存储在关系型数据库中的用户信息进行认证所需的Spring Security配置。</p>
+<p>程序清单4.3 基于JDBC用户存储进行认证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">DataSource dataSource;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .jdbcAuthentication()</span><br><span class="line">      .dataSource(dataSource);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里的configure()实现中，调用了AuthenticationManagerBuilder的jdbcAuthentication()方法。我们必须还要设置一个DataSource，这样它才能知道如何访问数据库。这里的DataSource是通过自动装配的技巧获取到的。</p>
+<h3 id="重写默认的用户查询功能"><a href="#重写默认的用户查询功能" class="headerlink" title="重写默认的用户查询功能"></a>重写默认的用户查询功能</h3><p>尽管最少配置能够让一切运转起来，但是它对我们的数据库模式有一些要求，预期某些存储用户数据的表已经存在。更具体来说，下面的代码片段来源于SpringSecurity内部，并展现了当查找用户信息时所执行的SQL查询语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEF_USERS_BY_USERNAME_QUERY</span> <span class="operator">=</span></span><br><span class="line">        <span class="string">&quot;select username,password,enabled &quot;</span> +</span><br><span class="line">        <span class="string">&quot;from users &quot;</span> +</span><br><span class="line">        <span class="string">&quot;where username = ?&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEF_AUTHORITIES_BY_USERNAME_QUERY</span> <span class="operator">=</span></span><br><span class="line">        <span class="string">&quot;select username,authority &quot;</span> +</span><br><span class="line">        <span class="string">&quot;from authorities &quot;</span> +</span><br><span class="line">        <span class="string">&quot;where username = ?&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY</span> <span class="operator">=</span></span><br><span class="line">        <span class="string">&quot;select g.id, g.group_name, ga.authority &quot;</span> +</span><br><span class="line">        <span class="string">&quot;from groups g, group_members gm, group_authorities ga &quot;</span> +</span><br><span class="line">        <span class="string">&quot;where gm.username = ? &quot;</span> +</span><br><span class="line">        <span class="string">&quot;and g.id = ga.group_id &quot;</span> +</span><br><span class="line">        <span class="string">&quot;and g.id = gm.group_id&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在第一个查询中，我们获取了用户的用户名、密码以及是否启用的信息，用来进行用户认证。接下来的查询查找了用户所授予的权限，用来进行鉴权。在最后一个查询中，查找了用户作为群组的成员所授予的权限。</p>
+<p>如果你能够在数据库中定义和填充满足这些查询的表，那么基本上就不需要再做什么额外的事情了。但是，也有可能你的数据库与上述的不一致，那么你会希望在查询上有更多的控制权。如果是这样，那么我们可以按照程序清单4.4所示的方式配置自己的查询：</p>
+<p>程序清单4.4 自定义用户详情查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .jdbcAuthentication()</span><br><span class="line">      .dataSource(dataSource)</span><br><span class="line">      .usersByUsernameQuery(</span><br><span class="line">          <span class="string">&quot;select username, password, enabled from Users &quot;</span> +</span><br><span class="line">          <span class="string">&quot;where username=?&quot;</span>)</span><br><span class="line">      .authoritiesByUsernameQuery(</span><br><span class="line">          <span class="string">&quot;select username, authority from UserAuthorities &quot;</span> +</span><br><span class="line">          <span class="string">&quot;where username=?&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，我们只重写了认证和基本权限的查询语句，但是通过调用groupAuthorities ByUsername()方法，我们也能够将群组权限重写为自定义的查询语句。</p>
+<p>将默认的SQL查询替换为自定义的设计时，很重要的一点就是要遵循查询的基本协议。所有查询都将用户名作为唯一的参数。认证查询会选取用户名、密码以及启用状态信息。权限查询会选取零行或多行包含该用户名及其权限信息的数据。群组权限查询会选取零行或多行数据，每行数据中都会包含群组ID、群组名称以及权限。</p>
+<h3 id="使用转码后的密码"><a href="#使用转码后的密码" class="headerlink" title="使用转码后的密码"></a>使用转码后的密码</h3><p>看一下上面的认证查询，它预期用户密码存储在了数据库之中。这里唯一的问题在于如果密码明文存储，就很容易受到黑客的窃取。但是，如果数据库中的密码进行了转码，那么认证就会失败，因为它与用户提交的明文密码并不匹配。</p>
+<p>为了解决这个问题，我们需要借助passwordEncoder()方法指定一个密码转码器（encoder）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .jdbcAuthentication()</span><br><span class="line">      .dataSource(dataSource)</span><br><span class="line">      .usersByUsernameQuery(</span><br><span class="line">          <span class="string">&quot;select username, password, enabled from Users &quot;</span> +</span><br><span class="line">          <span class="string">&quot;where username=?&quot;</span>)</span><br><span class="line">      .authoritiesByUsernameQuery(</span><br><span class="line">          <span class="string">&quot;select username, authority from UserAuthorities &quot;</span> +</span><br><span class="line">          <span class="string">&quot;where username=?&quot;</span>)</span><br><span class="line">      .passwordEncoder(<span class="keyword">new</span> <span class="title class_">StandardPasswordEncoder</span>(<span class="string">&quot;53cr3t&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>passwordEncoder()方法可以接受Spring Security中PasswordEncoder接口的任意实现。Spring Security的加密模块包括了多个这样的实现。</p>
+<ul>
+<li>BCryptPasswordEncoder：使用bcrypt强哈希加密。</li>
+<li>NoOpPasswordEncoder：不进行任何转码。</li>
+<li>Pbkdf2PasswordEncoder：使用PBKDF2加密。</li>
+<li>SCryptPasswordEncoder：使用scrypt哈希加密。</li>
+<li>StandardPasswordEncoder：使用SHA-256哈希加密。</li>
+</ul>
+<p>上述的代码中使用了StandardPasswordEncoder，但是你可以使用任意一个实现，如果内置的实现无法满足需求时，你甚至可以提供自定义的实现。PasswordEncoder接口非常简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PasswordEncoder</span> &#123;</span><br><span class="line">  String <span class="title function_">encode</span><span class="params">(CharSequence rawPassword)</span>;</span><br><span class="line">  <span class="type">boolean</span> <span class="title function_">matches</span><span class="params">(CharSequence rawPassword, String encodedPassword)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不管你使用哪一个密码转码器，都需要理解一点，即数据库中的密码是永远不会解码的。用户在登录时所采取的策略与之相反，输入的密码会按照相同的算法进行转码，然后与数据库中已经转码过的密码进行对比。这个对比是在PasswordEncoder的matches()方法中进行的。</p>
+<p>最终，我们实现了在数据库中维护Taco Cloud用户数据。但是，我并没有采用jdbcAuthentication()，因为我想到了另外一种认证方案。在介绍该方案之前，我们先看一下如何配置Spring Security依赖另一种通用的用户数据源：使用LDAP（Lightweight Directory Access Protocol，轻量级目录访问协议）访问的用户存储。</p>
+<h2 id="4-2-3-以LDAP作为后端的用户存储"><a href="#4-2-3-以LDAP作为后端的用户存储" class="headerlink" title="4.2.3 以LDAP作为后端的用户存储"></a>4.2.3 以LDAP作为后端的用户存储</h2><p>为了配置Spring Security使用基于LDAP认证，我们可以使用ldapAuthentication()方法。这个方法在功能上类似于jdbcAuthentication()，只不过是LDAP版本。如下的configure()方法展现了LDAP认证的简单配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法userSearchFilter()和groupSearchFilter()用来为基础LDAP查询提供过滤条件，它们分别用于搜索用户和组。默认情况下，对于用户和组的基础查询都是空的，也就是表明搜索会在LDAP层级结构的根开始。但是我们可以通过指定查询基础来改变这个默认行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>userSearchBase()方法为查找用户提供了基础查询。同样的，groupSearchBase()为查找组指定了基础查询。我们声明用户应该在名为people的组织单元下搜索而不是从根开始，而组应该在名为groups的组织单元下搜索。</p>
+<h3 id="配置密码比对"><a href="#配置密码比对" class="headerlink" title="配置密码比对"></a>配置密码比对</h3><p>基于LDAP认证的默认策略是进行绑定操作，直接通过LDAP服务器认证用户。另一种可选的方式是进行比对操作。这涉及将输入的密码发送到LDAP目录上，并要求服务器将这个密码和用户的密码进行比对。因为比对是在LDAP服务器内完成的，实际的密码能保持私密。</p>
+<p>如果你希望通过密码比对进行认证，可以通过声明passwordCompare()方法来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>)</span><br><span class="line">      .passwordCompare();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，在登录表单中提供的密码将会与用户的LDAP条目中的userPassword属性进行比对。如果密码被保存在不同的属性中，可以通过passwordAttribute()方法来声明密码属性的名称：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>)</span><br><span class="line">      .passwordCompare()</span><br><span class="line">      .passwordEncoder(<span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>())</span><br><span class="line">      .passwordAttribute(<span class="string">&quot;passcode&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，我们指定了要与给定密码进行比对的是“passcode”属性。另外，我们还可以指定密码转码器。在进行服务器端密码比对时，有一点非常好，那就是实际的密码在服务器端是私密的。但是进行尝试的密码还是需要通过线路传输到LDAP服务器上，这可能会被黑客所拦截。为了避免这一点，我们可以通过调用passwordEncoder()方法指定加密策略。</p>
+<p>在前面的例子中，密码使用bcrypt密码哈希函数加密。这需要LDAP服务器上的密码也使用bcrypt进行了加密。</p>
+<h3 id="引用远程的LDAP服务器"><a href="#引用远程的LDAP服务器" class="headerlink" title="引用远程的LDAP服务器"></a>引用远程的LDAP服务器</h3><p>到目前为止，我们忽略的一件事就是LDAP和实际的数据在哪里。我们很开心地配置Spring使用LDAP服务器进行认证，但是服务器在哪里呢？</p>
+<p>默认情况下，Spring Security的LDAP认证假设LDAP服务器监听本机的33389端口。但是，如果你的LDAP服务器在另一台机器上，那么可以使用contextSource()方法来配置这个地址：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>)</span><br><span class="line">      .passwordCompare()</span><br><span class="line">      .passwordEncoder(<span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>())</span><br><span class="line">      .passwordAttribute(<span class="string">&quot;passcode&quot;</span>)</span><br><span class="line">      .contextSource()</span><br><span class="line">        .url(<span class="string">&quot;ldap://tacocloud.com:389/dc=tacocloud,dc=com&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>contextSource()方法会返回一个ContextSourceBuilder对象，这个对象除了其他功能以外，还提供了url()方法来指定LDAP服务器的地址。</p>
+<h3 id="配置嵌入式的LDAP服务器"><a href="#配置嵌入式的LDAP服务器" class="headerlink" title="配置嵌入式的LDAP服务器"></a>配置嵌入式的LDAP服务器</h3><p>如果你没有现成的LDAP服务器供认证使用，Spring Security还为我们提供了嵌入式的LDAP服务器。我们不再需要设置远程LDAP服务器的URL，只需通过root()方法指定嵌入式服务器的根前缀就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>)</span><br><span class="line">      .passwordCompare()</span><br><span class="line">      .passwordEncoder(<span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>())</span><br><span class="line">      .passwordAttribute(<span class="string">&quot;passcode&quot;</span>)</span><br><span class="line">      .contextSource()</span><br><span class="line">        .root(<span class="string">&quot;dc=tacocloud,dc=com&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当LDAP服务器启动时，它会尝试在类路径下寻找LDIF文件来加载数据。LDIF（LDAP Data Interchange Format，LDAP数据交换格式）是以文本文件展现LDAP数据的标准方式。每条记录可以有一行或多行，每项包含一个name:value配对信息。记录之间通过空行进行分割。</p>
+<p>如果你不想让Spring从整个根路径下搜索LDIF文件，那么可以通过调用ldif()方法来明确指定加载哪个LDIF文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .ldapAuthentication()</span><br><span class="line">      .userSearchBase(<span class="string">&quot;ou=people&quot;</span>)</span><br><span class="line">      .userSearchFilter(<span class="string">&quot;(uid=&#123;0&#125;)&quot;</span>)</span><br><span class="line">      .groupSearchBase(<span class="string">&quot;ou=groups&quot;</span>)</span><br><span class="line">      .groupSearchFilter(<span class="string">&quot;member=&#123;0&#125;&quot;</span>)</span><br><span class="line">      .passwordCompare()</span><br><span class="line">      .passwordEncoder(<span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>())</span><br><span class="line">      .passwordAttribute(<span class="string">&quot;passcode&quot;</span>)</span><br><span class="line">      .contextSource()</span><br><span class="line">        .root(<span class="string">&quot;dc=tacocloud,dc=com&quot;</span>)</span><br><span class="line">        .ldif(<span class="string">&quot;classpath:users.ldif&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们明确要求LDAP服务器从类路径根目录下的users.ldif文件中加载内容。如果你比较好奇，如下就是一个包含用户数据的LDIF文件，我们可以使用它来加载嵌入式LDAP服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">dn: ou=groups,dc=tacocloud,dc=com</span><br><span class="line">objectclass: top</span><br><span class="line">objectclass: organizationalUnit</span><br><span class="line">ou: groups</span><br><span class="line">dn: ou=people,dc=tacocloud,dc=com</span><br><span class="line">objectclass: top</span><br><span class="line">objectclass: organizationalUnit</span><br><span class="line">ou: people</span><br><span class="line">dn: uid=buzz,ou=people,dc=tacocloud,dc=com</span><br><span class="line">objectclass: top</span><br><span class="line">objectclass: person</span><br><span class="line">objectclass: organizationalPerson</span><br><span class="line">objectclass: inetOrgPerson</span><br><span class="line">cn: Buzz Lightyear</span><br><span class="line">sn: Lightyear</span><br><span class="line">uid: buzz</span><br><span class="line">userPassword: password</span><br><span class="line">dn: cn=tacocloud,ou=groups,dc=tacocloud,dc=com</span><br><span class="line">objectclass: top</span><br><span class="line">objectclass: groupOfNames</span><br><span class="line">cn: tacocloud</span><br><span class="line">member: uid=buzz,ou=people,dc=tacocloud,dc=com</span><br></pre></td></tr></table></figure>
+
+<p>Spring Security内置的用户存储非常便利，并且涵盖了最为常用的用户场景。但是，我们的Taco Cloud应用需要一些特殊的功能。当开箱即用的用户存储无法满足需求的时候，我们就需要创建和配置自定义的用户详情服务。</p>
+<h2 id="4-2-4-自定义用户认证"><a href="#4-2-4-自定义用户认证" class="headerlink" title="4.2.4 自定义用户认证"></a>4.2.4 自定义用户认证</h2><p>在上一章中，我们采用Spring Data JPA作为所有taco、配料和订单数据的持久化方案。所以，采用相同的方式来持久化用户数据是非常有意义的。如果这样做，数据最终应该位于关系型数据库之中。因此，我们可以使用基于JDBC的认证，但更好的办法是使用Spring Data repository来存储用户。</p>
+<p>要事优先，在此之前，我们首先要创建领域对象，以及展现和持久化用户信息的repository接口。</p>
+<h3 id="定义用户领域对象和持久化"><a href="#定义用户领域对象和持久化" class="headerlink" title="定义用户领域对象和持久化"></a>定义用户领域对象和持久化</h3><p>当Taco Cloud的顾客注册应用的时候，它们需要提供除用户名和密码之外的更多信息。他们会提供全名、地址和电话号码。这些信息可以用于各种目的，包括预先填充表单（更不用说潜在的市场销售机会）。</p>
+<p>为了捕获这些信息，我们要创建程序清单4.5所示的User类：</p>
+<p>程序清单4.5 定义用户实体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GenerationType;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.GrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.authority.</span><br><span class="line">                                          SimpleGrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"><span class="keyword">import</span> lombok.AccessLevel;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">implements</span> <span class="title class_">UserDetails</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="meta">@GeneratedValue(strategy=GenerationType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String username;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String password;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String fullname;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String street;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String city;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String state;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String zip;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String phoneNumber;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> Collection&lt;? <span class="keyword">extends</span> <span class="title class_">GrantedAuthority</span>&gt; getAuthorities() &#123;</span><br><span class="line">    <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> <span class="title class_">SimpleGrantedAuthority</span>(<span class="string">&quot;ROLE_USER&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonLocked</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isCredentialsNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEnabled</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可能也发现了，User类要比第3章所定义的实体都更加复杂。除了定义了一些属性之外，User类还实现了Spring Security的UserDetails接口。</p>
+<p>通过实现UserDetails接口，我们能够提供更多信息给框架，比如用户都被授予了哪些权限以及用户的账号是否可用。</p>
+<p>getAuthorities()方法应该返回用户被授予权限的一个集合。各种is…Expired()方法要返回一个boolean值，表明用户的账号是否可用或过期。</p>
+<p>对于User实体来说，getAuthorities()方法只是简单地返回一个集合，这个集合表明所有的用户都被授予了ROLE_USER权限。至少就现在来说，Taco Cloud没有必要禁用用户，所以所有的is…Expired()方法均返回true，表明用户是处于活跃状态的。</p>
+<p>User实体定义完之后，我们就可以定义repository接口了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.CrudRepository;</span><br><span class="line"><span class="keyword">import</span> tacos.User;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span> <span class="keyword">extends</span> <span class="title class_">CrudRepository</span>&lt;User, Long&gt; &#123;</span><br><span class="line">  User <span class="title function_">findByUsername</span><span class="params">(String username)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除了扩展CrudRepository所得到的CRUD操作之外，UserRepository接口还定义了一个findByUsername()方法（将会在用户详情服务中用到，以便于根据用户名查找User）。</p>
+<p>就像我们在第3章中所学到的那样，Spring Data JPA会在运行时自动生成这个接口的实现。所以，我们现在就可以编写使用该repository的用户详情接口了。</p>
+<h3 id="创建用户详情服务"><a href="#创建用户详情服务" class="headerlink" title="创建用户详情服务"></a>创建用户详情服务</h3><p>Spring Security的UserDetailsService是一个相当简单直接的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserDetailsService</span> &#123;</span><br><span class="line">  UserDetails <span class="title function_">loadUserByUsername</span><span class="params">(String username)</span></span><br><span class="line">                     <span class="keyword">throws</span> UsernameNotFoundException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>正如我们所看到的，这个接口的实现会得到一个用户的用户名，并且要么返回查找到的UserDetails对象，要么在根据用户名无法得到任何结果的情况下抛出Username NotFoundException。</p>
+<p>因为我们的User类实现了UserDetails，并且UserRepository提供了findByUsername()方法，所以它们非常适合用在UserDetailsService实现中。程序清单4.6展现了Taco Cloud应用中将会用到的用户详情服务。</p>
+<p>程序清单4.6 声明自定义的用户详情服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.security;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.</span><br><span class="line">                                              UserDetailsService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.</span><br><span class="line">                                       UsernameNotFoundException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> tacos.User;</span><br><span class="line"><span class="keyword">import</span> tacos.data.UserRepository;</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserRepositoryUserDetailsService</span></span><br><span class="line">        <span class="keyword">implements</span> <span class="title class_">UserDetailsService</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> UserRepository userRepo;</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">UserRepositoryUserDetailsService</span><span class="params">(UserRepository userRepo)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.userRepo = userRepo;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> UserDetails <span class="title function_">loadUserByUsername</span><span class="params">(String username)</span></span><br><span class="line">      <span class="keyword">throws</span> UsernameNotFoundException &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userRepo.findByUsername(username);</span><br><span class="line">    <span class="keyword">if</span> (user != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UsernameNotFoundException</span>(</span><br><span class="line">                    <span class="string">&quot;User &#x27;&quot;</span> + username + <span class="string">&quot;&#x27; not found&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UserRepositoryUserDetailsService通过构造器将UserRepository注入进来。然后，在loadByUsername()方法中，它调用了UserRepository的findByUsername()方法来查找User。</p>
+<p>loadByUsername()方法有一个简单的规则：它决不能返回null。因此，如果调用findByUsername()返回null，那么loadByUsername()将会抛出UsernameNotFoundException；否则，将会返回查找到的User。</p>
+<p>我们注意到UserRepositoryUserDetailsService上添加了<code>@Service</code>。这是Spring的另外一个构造型（stereotype）注解，它表明这个类要包含到Spring的组件扫描中，所以我们不需要再明确将这个类声明为bean了。Spring将会自动发现它并将其初始化为一个bean。</p>
+<p>但是，我们依然需要将这个自定义的用户详情服务与Spring Security配置在一起。因此，我们再次回到configure()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> UserDetailsService userDetailsService;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .userDetailsService(userDetailsService);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们只是简单地调用userDetailsService()方法，并将自动装配到SecurityConfig中的UserDetailsService实例传递了进去。</p>
+<p>像基于JDBC的认证一样，我们可以（也应该）配置一个密码转码器，这样在数据库中的密码将是转码过的。我们首先需要声明一个PasswordEncoder类型的bean，然后通过调用passwordEncoder()方法将它注入到用户详情服务中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> PasswordEncoder <span class="title function_">encoder</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">StandardPasswordEncoder</span>(<span class="string">&quot;53cr3t&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">  auth</span><br><span class="line">    .userDetailsService(userDetailsService)</span><br><span class="line">    .passwordEncoder(encoder());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们讨论一下configure()方法中比较重要的最后一行。看上去，我们调用了encoder()方法，并将返回值传递给passwordEncoder()。实际上，encoder()方法带有<code>@Bean</code>注解，它将用来在Spring应用上下文中声明PasswordEncoderbean。对于encoder()的任何调用都会被拦截，并且会返回应用上下文中的bean实例。</p>
+<p>现在，我们已经有了自定义的用户详情服务，它会通过JPA repository读取用户信息，接下来我们需要一种将用户存放到数据库中的办法。为了做到这一点，我们需要为Taco Cloud创建一个注册页面，供用户注册本应用。</p>
+<h3 id="注册用户"><a href="#注册用户" class="headerlink" title="注册用户"></a>注册用户</h3><p>尽管在安全性方面，Spring Security会为我们处理很多事情，但是它没有直接涉及用户注册的流程，所以我们需要借助Spring MVC的一些技能来完成这个任务。程序清单4.7所示的RegistrationController类会负责展现和处理注册表单。</p>
+<p>尽管在安全性方面，Spring Security会为我们处理很多事情，但是它没有直接涉及用户注册的流程，所以我们需要借助Spring MVC的一些技能来完成这个任务。程序清单4.7所示的RegistrationController类会负责展现和处理注册表单。</p>
+<p>程序清单4.7 用户注册控制器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.security;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.password.PasswordEncoder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> tacos.data.UserRepository;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/register&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RegistrationController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> UserRepository userRepo;</span><br><span class="line">  <span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">RegistrationController</span><span class="params">(</span></span><br><span class="line"><span class="params">      UserRepository userRepo, PasswordEncoder passwordEncoder)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.userRepo = userRepo;</span><br><span class="line">    <span class="built_in">this</span>.passwordEncoder = passwordEncoder;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@GetMapping</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">registerForm</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;registration&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@PostMapping</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">processRegistration</span><span class="params">(RegistrationForm form)</span> &#123;</span><br><span class="line">    userRepo.save(form.toUser(passwordEncoder));</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;redirect:/login&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与很多典型的Spring MVC控制器类似，RegistrationController使用<code>@Controller</code>注解表明它是一个控制器，并且允许组件扫描功能发现它。它还使用了<code>@RequestMapping</code>注解，这样就能处理路径为“&#x2F;register”的请求了。具体来讲，对“&#x2F;register”的GET请求会由registerForm()方法来处理，它只是简单地返回一个逻辑视图名registration。程序清单4.8展现了定义registration视图的Thymeleaf模板。</p>
+<p>程序清单4.8 注册表单的Thymeleaf视图</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Taco Cloud<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Register<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;/images/TacoCloud.png&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">th:action</span>=<span class="string">&quot;@&#123;/register&#125;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;registerForm&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;username&quot;</span>&gt;</span>Username: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;password&quot;</span>&gt;</span>Password: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;confirm&quot;</span>&gt;</span>Confirm password: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;confirm&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;fullname&quot;</span>&gt;</span>Full name: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fullname&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;street&quot;</span>&gt;</span>Street: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;street&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;city&quot;</span>&gt;</span>City: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;city&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;state&quot;</span>&gt;</span>State: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;state&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;zip&quot;</span>&gt;</span>Zip: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;zip&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;phone&quot;</span>&gt;</span>Phone: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;phone&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Register&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当表单提交的时候，processRegistration()方法会处理HTTP POST请求。ProcessRegistration()方法得到的RegistrationForm对象绑定了请求的数据，该类的定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.security;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.password.PasswordEncoder;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> tacos.User;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RegistrationForm</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line">  <span class="keyword">private</span> String password;</span><br><span class="line">  <span class="keyword">private</span> String fullname;</span><br><span class="line">  <span class="keyword">private</span> String street;</span><br><span class="line">  <span class="keyword">private</span> String city;</span><br><span class="line">  <span class="keyword">private</span> String state;</span><br><span class="line">  <span class="keyword">private</span> String zip;</span><br><span class="line">  <span class="keyword">private</span> String phone;</span><br><span class="line">  <span class="keyword">public</span> User <span class="title function_">toUser</span><span class="params">(PasswordEncoder passwordEncoder)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>(</span><br><span class="line">        username, passwordEncoder.encode(password),</span><br><span class="line">        fullname, street, city, state, zip, phone);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就其大部分内容而言，RegistrationForm就是一个简单的支持Lombok类，具有一些相关的属性。但是，toUser()方法使用这些属性创建了一个新的User对象，processRegistration()使用注入的UserRepository保存了该对象。</p>
+<p>你肯定已经发现RegistrationController注入了一个PasswordEncoder，这其实就是我们在前面所声明的PasswordEncoder。在处理表单提交的时候，RegistrationController将其传递给toUser()方法，在将密码保存到数据库之前，会使用它对密码进行转码。通过这种方式，用户的密码可以以转码后的形式写入到数据库中，用户详情服务就能基于转码后的密码对用户进行认证了。</p>
+<p>现在，Taco Cloud应用已经有了完整的用户注册和认证功能。但是，如果你现在启动应用，就会发现我们无法进入注册页面，也不会提示进行登录。这是因为在默认情况下，所有的请求都需要认证。接下来，我们看一下Web请求是如何被拦截和保护的，这样我们才能解决这个先有鸡还是先有蛋的诡异问题。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/" title="4.2 配置Spring Security">https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/611a0b7e/" rel="prev" title="4.1 启用Spring Security">
+                  <i class="fa fa-chevron-left"></i> 4.1 启用Spring Security
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/4fa90c04/" rel="next" title="4.3 保护Web请求">
+                  4.3 保护Web请求 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a4b1bc4a/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a4b1bc4a/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

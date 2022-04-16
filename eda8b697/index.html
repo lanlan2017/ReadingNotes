@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.3 案例研究—某网站的超链接和图片提示效果在这一节中，将以某网站的超链接和图片提示效果为例，来理解和巩固jQuery中的DOM操作。 1．超链接提示效果在现代的浏览器中，它们已经自带了超链接提示，只需在超链接中加入 title 属性就可以了。HTML代码如下： [插图] 然而这个提示效果的响应速度是非常缓慢的，考虑到良好的人机交互，需要的是当鼠标移动到超链接的那一瞬间就出现提示。这时就需要移除">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.3 案例研究—某网站的超链接和图片提示效果">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/eda8b697/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.3 案例研究—某网站的超链接和图片提示效果在这一节中，将以某网站的超链接和图片提示效果为例，来理解和巩固jQuery中的DOM操作。 1．超链接提示效果在现代的浏览器中，它们已经自带了超链接提示，只需在超链接中加入 title 属性就可以了。HTML代码如下： [插图] 然而这个提示效果的响应速度是非常缓慢的，考虑到良好的人机交互，需要的是当鼠标移动到超链接的那一瞬间就出现提示。这时就需要移除">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-12T11:56:11.000Z">
+<meta property="article:modified_time" content="2021-12-12T11:57:29.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/eda8b697/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/eda8b697/","path":"/eda8b697/","title":"3.3 案例研究—某网站的超链接和图片提示效果"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.3 案例研究—某网站的超链接和图片提示效果 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6%E2%80%94%E6%9F%90%E7%BD%91%E7%AB%99%E7%9A%84%E8%B6%85%E9%93%BE%E6%8E%A5%E5%92%8C%E5%9B%BE%E7%89%87%E6%8F%90%E7%A4%BA%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">3.3 案例研究—某网站的超链接和图片提示效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%8E%E8%B6%85%E9%93%BE%E6%8E%A5%E6%8F%90%E7%A4%BA%E6%95%88%E6%9E%9C"><span class="nav-number">1.1.</span> <span class="nav-text">1．超链接提示效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%8E%E5%9B%BE%E7%89%87%E6%8F%90%E7%A4%BA%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.</span> <span class="nav-text">2．图片提示效果</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/eda8b697/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.3 案例研究—某网站的超链接和图片提示效果 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.3 案例研究—某网站的超链接和图片提示效果
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-12 19:56:11 / 修改时间：19:57:29" itemprop="dateCreated datePublished" datetime="2021-12-12T19:56:11+08:00">2021-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC3%E7%AB%A0-jQuery%E4%B8%AD%E7%9A%84DOM%E6%93%8D%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">第3章 jQuery中的DOM操作</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/eda8b697/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/eda8b697/" data-xid="/ReadingNotes/eda8b697/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-3-案例研究—某网站的超链接和图片提示效果"><a href="#3-3-案例研究—某网站的超链接和图片提示效果" class="headerlink" title="3.3 案例研究—某网站的超链接和图片提示效果"></a>3.3 案例研究—某网站的超链接和图片提示效果</h1><p>在这一节中，将以某网站的超链接和图片提示效果为例，来理解和巩固jQuery中的DOM操作。</p>
+<h2 id="1．超链接提示效果"><a href="#1．超链接提示效果" class="headerlink" title="1．超链接提示效果"></a>1．超链接提示效果</h2><p>在现代的浏览器中，它们已经自带了超链接提示，只需在超链接中加入 title 属性就可以了。HTML代码如下：</p>
+<p>[插图]</p>
+<p>然而这个提示效果的响应速度是非常缓慢的，考虑到良好的人机交互，需要的是当鼠标移动到超链接的那一瞬间就出现提示。这时就需要移除<code>&lt;a&gt;</code>标签中的title提示效果，自己动手做一个类似功能的提示。</p>
+<p>[插图]</p>
+<center>图3-37 超链接提示效果</center>
+
+<p>首先在空白的页面上，添加两个普通超链接和两个带有class的超链接。</p>
+<p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>然后为class为tooltip的超链接添加mouseover和mouseout事件，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>实现这个效果的具体思路如下。<br>（1）当鼠标滑入超链接。<br>① 创建一个<code>&lt;div&gt;</code>元素，<code>&lt;div&gt;</code>元素的内容为title属性的值。<br>② 将创建的元素追加到文档中。<br>③ 为它设置x坐标和y坐标，使它显示在鼠标位置的旁边。</p>
+<p>（2）当鼠标滑出超链接时，移除<code>&lt;div&gt;</code>元素。<br>根据分析的思路，写出如下jQuery代码：</p>
+<p>[插图]</p>
+<p>运行效果，如图3-38所示。</p>
+<p>此时的效果有两个问题：首先是当鼠标滑过后，<code>&lt;a&gt;</code>标签中的title属性的提示也会出现；其次是设置x坐标和y坐标的问题，由于自制的提示与鼠标的距离太近，有时候会引起无法提示的问题（鼠标焦点变化引起mouseout事件）。</p>
+<p>[插图]</p>
+<center>图3-38 超链接提示</center>
+
+<p>为了移除<code>&lt;a&gt;</code>标签中自带的title提示功能，需要进行以下几个步骤。</p>
+<p>（1）当鼠标滑入时，给对象添加一个新属性，并把title的值传给这个属性，然后清空属性title的值。<br>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>（2）当鼠标滑出时，再把对象的myTitle属性的值又赋给属性title。<br>jQuery代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：为什么当鼠标滑出时，要把属性值又赋给属性title呢？因为当鼠标滑出时，需要考虑再次滑入时的属性title值，如果不将myTitle的值重新赋给title属性，当再次滑入时，title的值就为空了。</div>
+
+<p>为了解决第2个问题（自制的提示与鼠标的距离太近，有时候会引起无法提示的问题），需要重新设置提示元素的top和left的值，代码如下所示，为top增加了10px，为left增加了20px。</p>
+<p>[插图]</p>
+<p>解决这两个问题后，完整的代码如下：</p>
+<p>[插图]</p>
+<p>此时，鼠标滑入和滑出显示已经没问题了，但当鼠标在超链接上移动时，提示效果并不会跟着鼠标移动。如果需要提示效果跟随鼠标一起移动，可以为超链接加上一个mousemove事件，jQuery代码如下：</p>
+<p>[插图]</p>
+<center>图3-39 提示效果</center>
+
+<p>[插图]</p>
+<p>这样，当鼠标在超链接上移动时，提示效果也会跟着一起移动了。</p>
+<p>到此，超链接提示效果就完成了，完整的jQuery代码如下：</p>
+<p>[插图]</p>
+<h2 id="2．图片提示效果"><a href="#2．图片提示效果" class="headerlink" title="2．图片提示效果"></a>2．图片提示效果</h2><p>稍微修改上面的代码，就可以做出一个图片的提示效果。</p>
+<p>首先在空白网页中加入图片，HTML代码如下：</p>
+<p>[插图]</p>
+<p>设置样式后，初始化效果如图3-40所示。</p>
+<p>[插图]</p>
+<center>图3-40 初始化效果</center>
+
+<p>参考前面的超链接提示效果的代码，只需要将创建的<code>&lt;div&gt;</code>元素的代码由</p>
+<p>[插图]</p>
+<p>改为</p>
+<p>[插图]</p>
+<p>就可以了。当鼠标滑过图片后，显示效果如图3-41所示。</p>
+<p>[插图]</p>
+<center>图3-41 图片提示效果</center>
+
+<p>为了使效果更为人性化，还需要为图片增加说明文字，即提示出来的大图片下面出现图片相应的介绍文字。</p>
+<p>可以根据超链接的title属性值来获得图片相应的介绍文字，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>然后将它追加到<code>&lt;div&gt;</code>元素中，代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：在判断this.myTitle是否为" "时，使用了三元运算。三元运算结构为：Boolean？值1 : 值2。它的第1个参数必须为布尔值。当然三元运算也可以用“if(){ }else{ }”代替，例如：
+[插图]
+</div>
+
+<p>这样，图片提示效果就完成了，当鼠标滑过图片时，图片会出现预览的大图，大图下面还会有介绍文字。效果如图3-42所示。</p>
+<p>[插图]</p>
+<center>图3-42 图片提示效果</center>
+
+<p>完整的jQuery代码如下：</p>
+<p>[插图]</p>
+<p>到此，超链接提示和图片提示效果就都完成了。此处仅仅用了 jQuery 中的几个DOM 操作方法，就完成了很友好的动态提示效果。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/eda8b697/" title="3.3 案例研究—某网站的超链接和图片提示效果">https://lanlan2017.github.io/ReadingNotes/eda8b697/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/eab74ccd/" rel="prev" title="3.0 第3章  jQuery中的DOM操作 3.1 DOM操作的分类">
+                  <i class="fa fa-chevron-left"></i> 3.0 第3章  jQuery中的DOM操作 3.1 DOM操作的分类
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/24adb982/" rel="next" title="3.4小结_第3章 jQuery中的DOM操作">
+                  3.4小结_第3章 jQuery中的DOM操作 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/eda8b697/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/eda8b697/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

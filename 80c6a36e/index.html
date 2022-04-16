@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="4.4.5 参照完整性&amp;nbsp;参照完整性是什么&amp;nbsp;什么是外码&amp;nbsp;参照完整性约束&amp;nbsp;参照完整性约束和外码约束的区别&amp;nbsp;个人总结&amp;nbsp;references子句&amp;nbsp;references子句指定的被参照关系的属性列表必须是候选码&amp;nbsp;参照的属性不是候选码 的情况&amp;nbsp;外码定义 示例&amp;nbsp;违反参照完整性约束时的做法&amp;nbsp;做法1 拒绝&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.4.5 参照完整性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/80c6a36e/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="4.4.5 参照完整性&amp;nbsp;参照完整性是什么&amp;nbsp;什么是外码&amp;nbsp;参照完整性约束&amp;nbsp;参照完整性约束和外码约束的区别&amp;nbsp;个人总结&amp;nbsp;references子句&amp;nbsp;references子句指定的被参照关系的属性列表必须是候选码&amp;nbsp;参照的属性不是候选码 的情况&amp;nbsp;外码定义 示例&amp;nbsp;违反参照完整性约束时的做法&amp;nbsp;做法1 拒绝&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-21T04:27:47.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/80c6a36e/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/80c6a36e/","path":"/80c6a36e/","title":"4.4.5 参照完整性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>4.4.5 参照完整性 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-5-%E5%8F%82%E7%85%A7%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">4.4.5 参照完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E7%85%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">参照完整性是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%96%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">什么是外码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E7%85%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.3.</span> <span class="nav-text">参照完整性约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E7%85%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F%E5%92%8C%E5%A4%96%E7%A0%81%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">参照完整性约束和外码约束的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.1.</span> <span class="nav-text">个人总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references%E5%AD%90%E5%8F%A5"><span class="nav-number">1.5.</span> <span class="nav-text">references子句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#references%E5%AD%90%E5%8F%A5%E6%8C%87%E5%AE%9A%E7%9A%84%E8%A2%AB%E5%8F%82%E7%85%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8%E5%BF%85%E9%A1%BB%E6%98%AF%E5%80%99%E9%80%89%E7%A0%81"><span class="nav-number">1.5.1.</span> <span class="nav-text">references子句指定的被参照关系的属性列表必须是候选码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E7%85%A7%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%8D%E6%98%AF%E5%80%99%E9%80%89%E7%A0%81-%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.6.</span> <span class="nav-text">参照的属性不是候选码 的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E7%A0%81%E5%AE%9A%E4%B9%89-%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.</span> <span class="nav-text">外码定义 示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9D%E5%8F%8D%E5%8F%82%E7%85%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F%E6%97%B6%E7%9A%84%E5%81%9A%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">违反参照完整性约束时的做法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E6%B3%951-%E6%8B%92%E7%BB%9D"><span class="nav-number">1.8.1.</span> <span class="nav-text">做法1 拒绝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E6%B3%952-%E4%BF%AE%E6%94%B9%E5%8F%82%E7%85%A7%E5%85%B3%E7%B3%BB%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84%E6%9D%A5%E6%81%A2%E5%A4%8D%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">1.8.2.</span> <span class="nav-text">做法2 修改参照关系中的元组来恢复完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">级联删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E6%9B%B4%E6%96%B0"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">级联更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BA%E7%A9%BA%E6%88%96%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">设置为空或默认值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E6%9B%B4%E6%96%B0%E6%88%96%E5%88%A0%E9%99%A4%E4%BC%9A%E4%BC%A0%E9%80%92"><span class="nav-number">1.8.3.</span> <span class="nav-text">级联更新或删除会传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E6%9B%B4%E6%96%B0%E6%88%96%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4%E4%B9%9F%E6%97%A0%E6%B3%95%E8%A7%A3%E5%86%B3-%E5%88%99%E6%92%A4%E9%94%80%E6%89%80%E6%9C%89%E7%BA%A7%E8%81%94%E6%93%8D%E4%BD%9C"><span class="nav-number">1.8.4.</span> <span class="nav-text">级联更新或级联删除也无法解决 则撤销所有级联操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E7%A0%81%E5%8F%AF%E4%BB%A5%E4%B8%BAnull"><span class="nav-number">1.9.</span> <span class="nav-text">外码可以为null</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/80c6a36e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="4.4.5 参照完整性 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.4.5 参照完整性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-21 12:27:47" itemprop="dateCreated datePublished" datetime="2019-10-21T12:27:47+08:00">2019-10-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/" itemprop="url" rel="index"><span itemprop="name">第4章 中级SQL</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC4%E7%AB%A0-%E4%B8%AD%E7%BA%A7SQL/4-4-%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" itemprop="url" rel="index"><span itemprop="name">4.4 完整性约束</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/80c6a36e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/80c6a36e/" data-xid="/ReadingNotes/80c6a36e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/80c6a36e/#4-4-5-参照完整性" class="header_1">4.4.5 参照完整性</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#参照完整性是什么" class="header_2">参照完整性是什么</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#什么是外码" class="header_2">什么是外码</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#参照完整性约束" class="header_2">参照完整性约束</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#参照完整性约束和外码约束的区别" class="header_2">参照完整性约束和外码约束的区别</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#个人总结" class="header_3">个人总结</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#references子句" class="header_2">references子句</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#references子句指定的被参照关系的属性列表必须是候选码" class="header_3">references子句指定的被参照关系的属性列表必须是候选码</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#参照的属性不是候选码-的情况" class="header_2">参照的属性不是候选码 的情况</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#外码定义-示例" class="header_2">外码定义 示例</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#违反参照完整性约束时的做法" class="header_2">违反参照完整性约束时的做法</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#做法1-拒绝" class="header_3">做法1 拒绝</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#做法2-修改参照关系中的元组来恢复完整性" class="header_3">做法2 修改参照关系中的元组来恢复完整性</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#级联删除" class="header_4">级联删除</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#级联更新" class="header_4">级联更新</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#设置为空或默认值" class="header_4">设置为空或默认值</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#级联更新或删除会传递" class="header_3">级联更新或删除会传递</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#级联更新或级联删除也无法解决-则撤销所有级联操作" class="header_3">级联更新或级联删除也无法解决 则撤销所有级联操作</a>&nbsp;<br><a href="/ReadingNotes/80c6a36e/#外码可以为null" class="header_2">外码可以为null</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="4-4-5-参照完整性"><a href="#4-4-5-参照完整性" class="headerlink" title="4.4.5 参照完整性"></a>4.4.5 参照完整性</h1><h2 id="参照完整性是什么"><a href="#参照完整性是什么" class="headerlink" title="参照完整性是什么"></a>参照完整性是什么</h2><p>我们常常希望<strong>保证在一个关系中给定属性集上的取值也在另一关系的特定属性集的取值中出现</strong>。这种情况称为<strong>参照完整性</strong>(<code>referential integrity</code>)。<br>正如我们此前在<code>3.2.2</code>节所见,外码可以用作为<code>SQL</code>中<code>create table</code>语句一部分的<code>foreign key</code>子句来声明。<br>我们用大学数据库<code>SQL DLL</code>定义的一部分来说明外码声明:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> course(</span><br><span class="line">    course_id <span class="type">varchar</span>(<span class="number">8</span>), </span><br><span class="line">    title <span class="type">varchar</span>(<span class="number">50</span>), </span><br><span class="line">    dept_name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    credits <span class="type">numeric</span>(<span class="number">2</span>,<span class="number">0</span>) <span class="keyword">check</span> (credits <span class="operator">&gt;</span> <span class="number">0</span>),</span><br><span class="line">    <span class="keyword">primary</span> key (course_id),</span><br><span class="line">    <span class="keyword">foreign</span> key (dept_name)</span><br><span class="line">        <span class="keyword">references</span> department(dept_name)</span><br><span class="line">        <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">set</span> <span class="keyword">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><code>course</code>表的定义中有一个声明”<code>foreign key(dept_name) references department</code>“。这个外码声明表示,在每个课程元组中指定的系名必须在<code>department</code>关系中存在。没有这个约束,就可能会为一门课程指定一个不存在的系名。</p>
+<h2 id="什么是外码"><a href="#什么是外码" class="headerlink" title="什么是外码"></a>什么是外码</h2><p>更一般地,令关系<code>r1</code>和<code>r2</code>的属性集分别为<code>R1</code>和<code>R2</code>,主码分别为<code>K1</code>和<code>K2</code>。如果要求对<code>r2</code>中任意元组<code>t2</code>,均存在<code>r1</code>中元组<code>t1</code>使得<code>t1.K1=t2.α</code>,我们称<code>R2</code>的子集<code>α</code>为参照关系<code>r1</code>中<code>K1</code>的外码(<code>foreigkey</code>)。</p>
+<h2 id="参照完整性约束"><a href="#参照完整性约束" class="headerlink" title="参照完整性约束"></a>参照完整性约束</h2><p>这种要求称为<strong>参照完整性约束</strong>(<code>referential-intergrity constraint)</code>或<strong>子集依赖</strong>( <code>subset dependency</code>)。</p>
+<p><strong>子集依赖</strong>这种称法是由于上述参照完整性可以表示为这样一种要求:<code>r2</code>中<code>α</code>上的取值集合必须是<code>r1</code>中<code>K1</code>上的取值集合的<code>子集</code>。<br>请注意,为使参照完整性约束有意义,<code>α</code>和<code>K1</code>必须是相容的属性集;也就是说,<br>要么<code>α</code>等于<code>K1</code>,<br>要么它们必须包含相同数目的属性,并且对应属性的类型必须相容(这里我们假设<code>α</code>和<code>K,</code>是有序的)。</p>
+<h2 id="参照完整性约束和外码约束的区别"><a href="#参照完整性约束和外码约束的区别" class="headerlink" title="参照完整性约束和外码约束的区别"></a>参照完整性约束和外码约束的区别</h2><ul>
+<li>默认情况下,<code>SQL</code>中**<code>外码参照的是</code>被参照表中的<code>主码属性</code>**。</li>
+<li>不同于外码约束,<strong>参照完整性约束</strong>通常<strong>不要求<code>K1</code>是<code>r1</code>的主码</strong>;其结果是,<code>r1</code>中可能有不止个元组在属性<code>K1</code>上取值相同。</li>
+</ul>
+<h3 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h3><ul>
+<li>参照完整性约束要求有就行了,这可能会有重复.</li>
+<li>外码约束不仅要有,还要唯一</li>
+</ul>
+<h2 id="references子句"><a href="#references子句" class="headerlink" title="references子句"></a>references子句</h2><p><code>SQL</code>还支持一个<strong>可以<code>显式指定被参照关系的属性列表</code>的<code>references</code>子句</strong>。</p>
+<h3 id="references子句指定的被参照关系的属性列表必须是候选码"><a href="#references子句指定的被参照关系的属性列表必须是候选码" class="headerlink" title="references子句指定的被参照关系的属性列表必须是候选码"></a>references子句指定的被参照关系的属性列表必须是候选码</h3><p>然而,这个指定的属性列表必须声明为被参照关系的<strong>候选码</strong>,要么使用<code>primary key</code>约束,要么使用<code>unique</code>约束。</p>
+<h2 id="参照的属性不是候选码-的情况"><a href="#参照的属性不是候选码-的情况" class="headerlink" title="参照的属性不是候选码 的情况"></a>参照的属性不是候选码 的情况</h2><p>在更为普遍的参照完整性约束形式中,被<strong>参照的属性不必是候选码</strong>,这样的形式还<strong>不能在<code>SQL</code>中直接声明</strong>。<code>SQL</code>标准提供了另外的结构用于实现这样的约束,<code>4.4.7</code>节将描述这样的结构。</p>
+<h2 id="外码定义-示例"><a href="#外码定义-示例" class="headerlink" title="外码定义 示例"></a>外码定义 示例</h2><p>我们可以使用如下的简写形式作为属性定义的一部分,并声明该属性为外码:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">depr_name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="keyword">references</span> department</span><br></pre></td></tr></table></figure>
+<h2 id="违反参照完整性约束时的做法"><a href="#违反参照完整性约束时的做法" class="headerlink" title="违反参照完整性约束时的做法"></a>违反参照完整性约束时的做法</h2><h3 id="做法1-拒绝"><a href="#做法1-拒绝" class="headerlink" title="做法1 拒绝"></a>做法1 拒绝</h3><p>当违反参照完整性约束时,通常的处理是拒绝执行导致完整性破坏的操作(即进行更新操作的事务被回滚)。</p>
+<h3 id="做法2-修改参照关系中的元组来恢复完整性"><a href="#做法2-修改参照关系中的元组来恢复完整性" class="headerlink" title="做法2 修改参照关系中的元组来恢复完整性"></a>做法2 修改参照关系中的元组来恢复完整性</h3><p>但是,在<code>foreign key</code>子句中可以指明:如果被参照关系上的删除或更新动作违反了约束,那么系统必须<strong>采取一些步骤通过修改参照关系中的元组来恢复完整性约束</strong>,而不是拒绝这样的动作。考虑在关系<code>course</code>上的如下完整性约束定义:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> course(</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">foreign</span> key (dept_name)</span><br><span class="line">        <span class="keyword">references</span> department(dept_name)</span><br><span class="line">        <span class="keyword">on</span> <span class="keyword">delete</span> cascade</span><br><span class="line">        <span class="keyword">on</span> <span class="keyword">update</span> cascade,</span><br><span class="line">    ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="级联删除"><a href="#级联删除" class="headerlink" title="级联删除"></a>级联删除</h4><p>由于有了与外码声明相关联的<code>on delete cascade</code>子句,<br>如果删除<code>department</code>中的元组导致了此参照完整性约束被违反,则删除并不被系统拒绝,<br>而是对<code>course</code>关系作”级联”删除,即删除course关系中参照<code>被删除系名</code>的元组。</p>
+<h4 id="级联更新"><a href="#级联更新" class="headerlink" title="级联更新"></a>级联更新</h4><p>类似地,如果更新被参照字段时违反了约束,则更新操作并不被系统拒绝,<br>而是将<code>course</code>中参照的元组的<code>dept_name</code>字段也改为新值。</p>
+<h4 id="设置为空或默认值"><a href="#设置为空或默认值" class="headerlink" title="设置为空或默认值"></a>设置为空或默认值</h4><p><code>SQL</code>还允许<code>foreign key</code>子句指明除<code>cascade</code>以外的其他动作,例如:</p>
+<ul>
+<li>用<code>set null</code>代替上面的<code>cascade</code>,这样如果约束被违反:可将参照域(<code>dept_name</code>)置为<code>null</code>,</li>
+<li>用<code>set default</code>代替上面的<code>cascade</code>,这样如果约束被违反:可将参照域(<code>dept_name</code>)置为<strong>域的默认值</strong>。</li>
+</ul>
+<h3 id="级联更新或删除会传递"><a href="#级联更新或删除会传递" class="headerlink" title="级联更新或删除会传递"></a>级联更新或删除会传递</h3><p>如果存在涉及多个关系的外码依赖链,则在链一端所做的删除或更新可能传至整个链。</p>
+<h3 id="级联更新或级联删除也无法解决-则撤销所有级联操作"><a href="#级联更新或级联删除也无法解决-则撤销所有级联操作" class="headerlink" title="级联更新或级联删除也无法解决 则撤销所有级联操作"></a>级联更新或级联删除也无法解决 则撤销所有级联操作</h3><p>如果个级联更新或删除导致的对约束的违反不能通过进一步的级联操作解决,则系统中止该事务。于是,该事务所做的所有改变及级联动作将被撤销。</p>
+<h2 id="外码可以为null"><a href="#外码可以为null" class="headerlink" title="外码可以为null"></a>外码可以为null</h2><ul>
+<li>空值使得<code>SQL</code>中参照约束的语义复杂化了。外码中的属性允许为<code>null,</code>只要它们没有被声明为<code>not null</code>。</li>
+<li>如果给定元组中<code>外码</code>的所有列上均取<code>非空值</code>,则对该元组采用外码约束的通常定义。</li>
+<li>如果某外码列为<code>null</code>,则该元组自动被认为满足约束</li>
+<li>这样的规定有时不一定是正确的选择,因此<code>SQL</code>也提供一些结构使你可以改变对空值的处理，我们在此不讨论这样的结构。</li>
+</ul>
+<!--SSTStop-->
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/80c6a36e/" title="4.4.5 参照完整性">https://lanlan2017.github.io/ReadingNotes/80c6a36e/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/84fd5ff1/" rel="prev" title="4.4.2 not null约束 4.4.3 unique约束 4.4.4 check子句">
+                  <i class="fa fa-chevron-left"></i> 4.4.2 not null约束 4.4.3 unique约束 4.4.4 check子句
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/224c5d49/" rel="next" title="4.4.6 事务中对完整性约束的违反">
+                  4.4.6 事务中对完整性约束的违反 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/80c6a36e/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/80c6a36e/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

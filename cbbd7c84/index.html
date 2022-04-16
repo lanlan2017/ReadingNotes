@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="33.3 包装模式群PK我们讲了这么多的设计模式，大家有没有发觉在很多的模式中有些角色是不干活的？它们只是充当黔首作用，你有问题，找我，但我不处理，我让其他人处理。最典型的就是代理模式了，代理角色接收请求然后传递到被代理角色处理。门面模式也是一样，门面角色的任务就是把请求转发到子系统。类似这种结构的模式还有很多，我们先给这种类型的模式定义一个名字，叫做包装模式（wrapping pattern）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="33.3 包装模式群PK">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/cbbd7c84/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="33.3 包装模式群PK我们讲了这么多的设计模式，大家有没有发觉在很多的模式中有些角色是不干活的？它们只是充当黔首作用，你有问题，找我，但我不处理，我让其他人处理。最典型的就是代理模式了，代理角色接收请求然后传递到被代理角色处理。门面模式也是一样，门面角色的任务就是把请求转发到子系统。类似这种结构的模式还有很多，我们先给这种类型的模式定义一个名字，叫做包装模式（wrapping pattern）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930204514.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930204858.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930213500.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930213931.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-09-30T13:45:31.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930204514.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/cbbd7c84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/cbbd7c84/","path":"/cbbd7c84/","title":"33.3 包装模式群PK"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>33.3 包装模式群PK | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#33-3-%E5%8C%85%E8%A3%85%E6%A8%A1%E5%BC%8F%E7%BE%A4PK"><span class="nav-number">1.</span> <span class="nav-text">33.3 包装模式群PK</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#33-3-1-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">33.3.1 代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-3-2-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">33.3.2 装饰模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-3-3-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">33.3.3 适配器模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-3-4-%E6%A1%A5%E6%A2%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">33.3.4 桥梁模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-3-5-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.5.</span> <span class="nav-text">33.3.5 最佳实践</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/cbbd7c84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="33.3 包装模式群PK | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          33.3 包装模式群PK
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-27 19:57:33" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-30 21:45:31" itemprop="dateModified" datetime="2021-09-30T21:45:31+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/" itemprop="url" rel="index"><span itemprop="name">3 第三部分 谁的地盘谁做主 ——设计模式PK</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/%E7%AC%AC33%E7%AB%A0-%E8%B7%A8%E6%88%98%E5%8C%BAPK/" itemprop="url" rel="index"><span itemprop="name">第33章 跨战区PK</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/cbbd7c84/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/cbbd7c84/" data-xid="/ReadingNotes/cbbd7c84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="33-3-包装模式群PK"><a href="#33-3-包装模式群PK" class="headerlink" title="33.3 包装模式群PK"></a>33.3 包装模式群PK</h1><p>我们讲了这么多的设计模式，大家有没有发觉在很多的模式中有些角色是不干活的？它们只是充当黔首作用，你有问题，找我，但我不处理，我让其他人处理。最典型的就是代理模式了，代理角色接收请求然后传递到被代理角色处理。门面模式也是一样，门面角色的任务就是把请求转发到子系统。类似这种结构的模式还有很多，我们先给这种类型的模式定义一个名字，叫做包装模式（wrapping pattern）。注意，包装模式是一组模式而不是一个。包装模式包括哪些设计模式呢？包装模式包括：装饰模式、适配器模式、门面模式、代理模式、桥梁模式。下面我们通过一组例子来说明这五个包装模式的区别。</p>
+<h2 id="33-3-1-代理模式"><a href="#33-3-1-代理模式" class="headerlink" title="33.3.1 代理模式"></a>33.3.1 代理模式</h2><p>现在很多明星都有经纪人，一般有什么事他们都会说：“你找我的经纪人谈好了”，下面我们就看看这一过程怎么模拟。假设有一个追星族想找明星签字，我们看看采用代理模式怎么实现。代理模式是包装模式中的最一般的实现，类图如图33-6所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930204514.png" alt="image-20210930204514221"></p>
+<center>图33-6 追星族找明星签字</center>
+类图很简单，就是一个简单的代理模式，我们来看明星的定义，明星接口如代码清单33-29所示。
+
+<p>代码清单33-29 明星接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="comment">//明星都会签名</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sign</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>明星只有一个行为：签字。我们来看明星的实现，如代码清单33-30所示。</p>
+<p>代码清单33-30 明星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singer</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sign</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;明星签字：我是XXX大明星&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经纪人与明星应该有相同的行为，比如说签名，虽然经纪人不签名，但是他把你要签名的笔记本、衣服、CD等传递过去让真正的明星签字，经纪人如代码清单33-31所示。</p>
+<p>代码清单33-31 经纪人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Agent</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="comment">//定义是谁的经纪人</span></span><br><span class="line">    <span class="keyword">private</span> IStar star;</span><br><span class="line">    <span class="comment">//构造函数传递明星</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Agent</span><span class="params">(IStar _star)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.star = _star;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//经纪人是不会签字的，签字了歌迷也不认</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sign</span><span class="params">()</span> &#123;</span><br><span class="line">        star.sign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应该非常明确地指出一个经纪人是谁的代理，因此要在构造函数中接收一个明星对象， 确定是要做这个明星的代理。我们再来看看追星族是怎么找明星签字的，如代码清单33-32所示。</p>
+<p>代码清单33-32 追星族</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Idolater</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//崇拜的明星是谁</span></span><br><span class="line">        <span class="type">IStar</span> <span class="variable">star</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singer</span>();</span><br><span class="line">        <span class="comment">//找到明星的经纪人</span></span><br><span class="line">        <span class="type">IStar</span> <span class="variable">agent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Agent</span>(star);</span><br><span class="line">        System.out.println(<span class="string">&quot;追星族：我是你的崇拜者，请签名！&quot;</span>);</span><br><span class="line">        <span class="comment">//签字</span></span><br><span class="line">        agent.sign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单，找到明星的代理，然后明星就签字了。运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">追星族：我是你的崇拜者，请签名！ </span><br><span class="line">明星签字：我是XXX大明星</span><br></pre></td></tr></table></figure>
+<p>看看我们的程序逻辑，我们是找明星的经纪人签字，真实签字的是明星，经纪人只是把这个请求传递给明星处理而已，这是普通的代理模式的典型应用。</p>
+<h2 id="33-3-2-装饰模式"><a href="#33-3-2-装饰模式" class="headerlink" title="33.3.2 装饰模式"></a>33.3.2 装饰模式</h2><p>明星也都是一步一步地奋斗出来的，谁都不是一步就成为大明星的。甚至一些演员通过粉饰自己给观众一个好的印象，现在我们就来看怎么粉饰一个演员，如图33-7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930204858.png" alt="image-20210930204858856"></p>
+<center>图33-7 演技修饰</center>
+
+<p>下面我们就来看看这些过程如何实现，先看明星接口，如代码清单33-33所示。</p>
+<p>代码清单33-33 明星接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="comment">//演戏</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来看看我们的主角，如代码清单33-34所示。</p>
+<p>代码清单33-34 假明星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FreakStar</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;演中：演技很拙劣&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看看这个明星是怎么粉饰的，先定义一个抽象装饰类，如代码清单33-35所示。</p>
+<p>代码清单33-35 抽象装饰类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Decorator</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="comment">//粉饰的是谁</span></span><br><span class="line">    <span class="keyword">private</span> IStar star;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Decorator</span><span class="params">(IStar _star)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.star = _star;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.star.act();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前后两次修饰，开演前毫无忌惮地吹嘘，如代码清单33-36所示。</p>
+<p>代码清单33-36 吹大话</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HotAir</span> <span class="keyword">extends</span> <span class="title class_">Decorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HotAir</span><span class="params">(IStar _star)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_star);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;演前：夸夸其谈，没有自己不能演的角色&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.act();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大家发现这个明星演技不好的时候，他拼命找借口，说是那天天气不好、心情不好等， 如代码清单33-37所示。</p>
+<p>代码清单33-37 抵赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Deny</span> <span class="keyword">extends</span> <span class="title class_">Decorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Deny</span><span class="params">(IStar _star)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_star);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>.act();</span><br><span class="line">        System.out.println(<span class="string">&quot;演后：百般抵赖，死不承认&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们建立一个场景把这种情况展示一下，如代码清单33-38所示。</p>
+<p>代码清单33-38 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//定义出所谓的明星</span></span><br><span class="line">        <span class="type">IStar</span> <span class="variable">freakStar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FreakStar</span>();</span><br><span class="line">        <span class="comment">//看看他是怎么粉饰自己的</span></span><br><span class="line">        <span class="comment">//演前吹嘘自己无所不能</span></span><br><span class="line">        freakStar = <span class="keyword">new</span> <span class="title class_">HotAir</span>(freakStar);</span><br><span class="line">        <span class="comment">//演完后，死不承认自己演的不好</span></span><br><span class="line">        freakStar = <span class="keyword">new</span> <span class="title class_">Deny</span>(freakStar);</span><br><span class="line">        System.out.println(<span class="string">&quot;====看看一些虚假明星的形象====&quot;</span>);</span><br><span class="line">        freakStar.act();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">====看看一些虚假明星的形象==== </span><br><span class="line">演前：夸夸其谈，没有自己不能演的角色 </span><br><span class="line">演中：演技很拙劣 </span><br><span class="line">演后：百般抵赖，死不承认</span><br></pre></td></tr></table></figure>
+<h2 id="33-3-3-适配器模式"><a href="#33-3-3-适配器模式" class="headerlink" title="33.3.3 适配器模式"></a>33.3.3 适配器模式</h2><p>我们知道在演艺圈中还存在一种情况：替身，替身也是演员，只是普通的演员而已，在一段戏中，前十五分钟是明星本人，后十五分钟也是明星本人，就中间的五分钟是替身，那这个场景该怎么描述呢？注意中间那五分钟，这个时候一个普通演员被导演认为是明星演员，我们来看类图，如图33-8所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930213500.png" alt="image-20210930213500367"></p>
+<p>图33-8 替身演员类图</p>
+<p>导演找了一个普通演员作为明星的替身，不过观众看到的还是明星的身份。我们来看代码，首先看明星接口，如代码清单33-39所示。</p>
+<p>代码清单33-39 明星接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="comment">//明星都要演戏</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(String context)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来看一个具体的电影明星，他的主要职责就是演戏，如代码清单33-40所示。</p>
+<p>代码清单33-40 电影明星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FilmStar</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(String context)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;明星演戏：&quot;</span> + context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再来看普通演员，明星就那么多，但是普通演员非常多，我们看其接口，如代码清单33-41所示。</p>
+<p>代码清单33-41 普通演员接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IActor</span> &#123;</span><br><span class="line">    <span class="comment">//普通演员演戏</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">playact</span><span class="params">(String contet)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>普通演员也是演员，是要演戏的，我们来看一个普通演员的实现，如代码清单33-42所示。</p>
+<p>代码清单33-42 普通演员</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnknownActor</span> <span class="keyword">implements</span> <span class="title class_">IActor</span> &#123;</span><br><span class="line">    <span class="comment">//普通演员演戏</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">playact</span><span class="params">(String context)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;普通演员：&quot;</span>+context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来看替身该怎么编写，如代码清单33-43所示。</p>
+<p>代码清单33-43 替身演员</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Standin</span> <span class="keyword">implements</span> <span class="title class_">IStar</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> IActor actor;</span><br><span class="line">    <span class="comment">//替身是谁</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Standin</span><span class="params">(IActor _actor)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.actor = _actor;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(String context)</span> &#123;</span><br><span class="line">        actor.playact(context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个通用的替身，哪个普通演员能担任哪个明星的替身是由导演决定的，导演想让谁当就让谁当，我们来看导演，如代码清单33-44所示。</p>
+<p>代码清单33-44 导演类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">direcotr</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;=======演戏过程模拟==========&quot;</span>);</span><br><span class="line">        <span class="comment">//定义一个大明星</span></span><br><span class="line">        <span class="type">IStar</span> <span class="variable">star</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilmStar</span>();</span><br><span class="line">        star.act(<span class="string">&quot;前十五分钟，明星本人演戏&quot;</span>);</span><br><span class="line">        <span class="comment">//导演把一个普通演员当做明星演员来用</span></span><br><span class="line">        <span class="type">IActor</span> <span class="variable">actor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UnknownActor</span>();</span><br><span class="line">        IStar standin= <span class="keyword">new</span> <span class="title class_">Standin</span>(actor);</span><br><span class="line">        standin.act(<span class="string">&quot;中间五分钟，替身在演戏&quot;</span>);</span><br><span class="line">        star.act(<span class="string">&quot;后十五分钟，明星本人演戏&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">=======演戏过程模拟========== </span><br><span class="line">明星演戏：前十五分钟，明星本人演戏 </span><br><span class="line">普通演员：中间五分钟，替身在演戏 </span><br><span class="line">明星演戏：后十五分钟，明星本人演戏</span><br></pre></td></tr></table></figure>
+<h2 id="33-3-4-桥梁模式"><a href="#33-3-4-桥梁模式" class="headerlink" title="33.3.4 桥梁模式"></a>33.3.4 桥梁模式</h2><p>我们继续说明星圈的事情，现在明星类型太多了，比如电影明星、电视明星、歌星、体育明星、网络明星等，每个类型的明星都有明确的职责，电影明星的主要工作就是演电影， 电视明星的主要工作就是演电视剧或者主持电视节目。再看看现在的明星，单一发展的基本没有，主持人出专辑、体育明星演电影、歌星拍戏等太平常了，我们就用程序来表现一下多元化情形，如图33-9所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930213931.png" alt="image-20210930213931585"></p>
+<center>图33-9 各类明星描述</center>
+
+<p>图33-9中定义了一个抽象明星AbsStar，然后产生出各个具体类型的明星，比如电影明星FilmStar、歌星Singer，当然还可以继续扩展下去。这里还定义了一个抽象的行为AbsAction，描述明星所具有的活动，比如演电影、唱歌等，在这种设计下，明星可以扩展，明星的活动也可以扩展，非常灵活。我们先来看明星的活动，抽象活动如代码清单33- 45所示。</p>
+<p>代码清单33-45 抽象活动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsAction</span> &#123;</span><br><span class="line">    <span class="comment">//每个活动都有描述</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">desc</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单，只有一个活动的描述，由子类来实现。我们来看演电影和唱歌两个活动，分别如代码清单33-46、33-47所示。</p>
+<p>代码清单33-46 演电影</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActFilm</span> <span class="keyword">extends</span> <span class="title class_">AbsAction</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">desc</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;演出精彩绝伦的电影&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码清单33-47 唱歌</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sing</span> <span class="keyword">extends</span> <span class="title class_">AbsAction</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">desc</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;唱出优美的歌曲&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>各种精彩的活动都有了，我们再来看抽象明星，它是所有明星的代表，如代码清单33- 48所示。</p>
+<p>代码清单33-48 抽象明星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsStar</span> &#123;</span><br><span class="line">    <span class="comment">//一个明星参加哪些活动</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> AbsAction action;</span><br><span class="line">    <span class="comment">//通过构造函数传递具体活动</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbsStar</span><span class="params">(AbstAction _action)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.action = _action;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//每个明星都有自己的主要工作</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doJob</span><span class="params">()</span>&#123;</span><br><span class="line">        action.desc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>明星都有自己的主要活动（或者是主要工作），我们在抽象明星中只是定义明星有活动，具体有什么活动由各个子类实现。我们再来看电影明星，如代码清单33-49所示。</p>
+<p>代码清单33-49 电影明星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FilmStar</span> <span class="keyword">extends</span> <span class="title class_">AbsStar</span> &#123;</span><br><span class="line">    <span class="comment">//默认的电影明星的主要工作是拍电影</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FilmStar</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(<span class="keyword">new</span> <span class="title class_">ActFilm</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//也可以重新设置一个新职业</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FilmStar</span><span class="params">(AbsAction _action)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_action);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//细化电影明星的职责</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doJob</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n======影星的工作=====&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.doJob();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>电影明星的本职工作就应该是演电影，因此就有了一个无参构造函数来定义电影明星的默认工作，如果明星要客串一下去唱歌也可以，有参构造解决了该问题。歌星的实现与此相同，如代码清单33-50所示。</p>
+<p>代码清单33-50 歌星</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singer</span> <span class="keyword">extends</span> <span class="title class_">AbsStar</span> &#123;</span><br><span class="line">    <span class="comment">//歌星的默认活动是唱歌</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Singer</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(<span class="keyword">new</span> <span class="title class_">Sing</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//也可以重新设置一个新职业</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Singer</span><span class="params">(AbsAction _action)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_action);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//细化歌星的职责</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doJob</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;\n======歌星的工作=====&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.doJob();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们使用电影明星和歌星来作为代表，这两类明星也是我们经常听到或看到的，下面建立一个场景类来模拟一下明星的事迹，如代码清单33-51所示。</p>
+<p>代码清单33-51 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//声明一个电影明星</span></span><br><span class="line">        <span class="type">AbsStar</span> <span class="variable">zhangSan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FilmStar</span>();</span><br><span class="line">        <span class="comment">//声明一个歌星</span></span><br><span class="line">        <span class="type">AbsStar</span> <span class="variable">liSi</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singer</span>();</span><br><span class="line">        <span class="comment">//展示一下各个明星的主要工作</span></span><br><span class="line">        zhangSan.doJob();</span><br><span class="line">        liSi.doJob();</span><br><span class="line">        <span class="comment">//当然，也有部分明星不务正业，比如歌星演戏</span></span><br><span class="line">        liSi = <span class="keyword">new</span> <span class="title class_">Singer</span>(<span class="keyword">new</span> <span class="title class_">ActFilm</span>());</span><br><span class="line">        liSi.doJob();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">======影星的工作===== </span><br><span class="line">演出精彩绝伦的电影 </span><br><span class="line">======歌星的工作===== </span><br><span class="line">唱出优美的歌曲 </span><br><span class="line">======歌星的工作===== </span><br><span class="line">演出精彩绝伦的电影</span><br></pre></td></tr></table></figure>
+<p>好了，各类明星都有自己的本职工作，但是偶尔客串一个其他类型的活动也是允许的， 如此设计后，明星就可以不用固定在自己的本职工作上，而是向其他方向发展，比如影视歌三栖明星。</p>
+<p>门面模式我们在其他章节已经讲解得比较多了，本小节就不再赘述。</p>
+<h2 id="33-3-5-最佳实践"><a href="#33-3-5-最佳实践" class="headerlink" title="33.3.5 最佳实践"></a>33.3.5 最佳实践</h2><p>5个包装模式是大家在系统设计中经常会用到的模式，它们具有相似的特征：都是通过 委托的方式对一个对象或一系列对象（例如门面模式）施行包装，有了包装，设计的系统才 更加灵活、稳定，并且极具扩展性。从实现的角度来看，它们都是代理的一种具体表现形 式，我们来看看它们在使用场景上有什么区别。</p>
+<p>代理模式主要用在不希望展示一个对象内部细节的场景中，比如一个远程服务不需要把远程连接的所有细节都暴露给外部模块，通过增加一个代理类，可以很轻松地实现被代理类的功能封装。此外，代理模式还可以用在一个对象的访问需要限制的场景中，比如AOP。</p>
+<p>装饰模式是一种特殊的代理模式，它倡导的是在不改变接口的前提下为对象增强功能， 或者动态添加额外职责。就扩展性而言，它比子类更加灵活，例如在一个已经运行的项目中，可以很轻松地通过增加装饰类来扩展系统的功能。</p>
+<p>适配器模式的主要意图是接口转换，把一个对象的接口转换成系统希望的另外一个接口，这里的系统指的不仅仅是一个应用，也可能是某个环境，比如通过接口转换可以屏蔽外界接口，以免外界接口深入系统内部，从而提高系统的稳定性和可靠性。</p>
+<p>桥梁模式是在抽象层产生耦合，解决的是自行扩展的问题，它可以使两个有耦合关系的对象互不影响地扩展，比如对于使用笔画图这样的需求，可以采用桥梁模式设计成用什么笔 （铅笔、毛笔）画什么图（圆形、方形）的方案，至于以后需求的变更，如增加笔的类型， 增加图形等，对该设计来说是小菜一碟。</p>
+<p>门面模式是一个粗粒度的封装，它提供一个方便访问子系统的接口，不具有任何的业务逻辑，仅仅是一个访问复杂系统的快速通道，没有它，子系统照样运行，有了它，只是更方便访问而已。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/cbbd7c84/" title="33.3 包装模式群PK">https://lanlan2017.github.io/ReadingNotes/cbbd7c84/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/7ca547d2/" rel="prev" title="34.1 搬移UNIX的命令">
+                  <i class="fa fa-chevron-left"></i> 34.1 搬移UNIX的命令
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5d072450/" rel="next" title="32.3 观察者模式VS责任链模式">
+                  32.3 观察者模式VS责任链模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/cbbd7c84/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/cbbd7c84/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

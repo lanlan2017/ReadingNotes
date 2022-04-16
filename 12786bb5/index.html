@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="实例&amp;nbsp;客户端发送给服务器的数据格式&amp;nbsp;服务器反馈的数据格式&amp;nbsp;常见协议&amp;nbsp;小结&amp;nbsp;网络编程示例&amp;nbsp;质数判别示例&amp;nbsp;客户端程序功能：&amp;nbsp;服务器端程序功能：&amp;nbsp;客户端发送协议格式：&amp;nbsp;服务器端发送协议格式：&amp;nbsp;以TCP方式实现&amp;nbsp;客户端程序&amp;nbsp;服务器端实现&amp;nbsp;服务器逻辑线程&amp;nbsp;运行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7网络协议">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/12786bb5/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="实例&amp;nbsp;客户端发送给服务器的数据格式&amp;nbsp;服务器反馈的数据格式&amp;nbsp;常见协议&amp;nbsp;小结&amp;nbsp;网络编程示例&amp;nbsp;质数判别示例&amp;nbsp;客户端程序功能：&amp;nbsp;服务器端程序功能：&amp;nbsp;客户端发送协议格式：&amp;nbsp;服务器端发送协议格式：&amp;nbsp;以TCP方式实现&amp;nbsp;客户端程序&amp;nbsp;服务器端实现&amp;nbsp;服务器逻辑线程&amp;nbsp;运行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/FPsEGIo.png">
+<meta property="article:published_time" content="2018-08-18T13:24:12.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/FPsEGIo.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/12786bb5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/12786bb5/","path":"/12786bb5/","title":"7网络协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7网络协议 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">客户端发送给服务器的数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8D%E9%A6%88%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">服务器反馈的数据格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">常见协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">网络编程示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A8%E6%95%B0%E5%88%A4%E5%88%AB%E7%A4%BA%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">质数判别示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">5.1.</span> <span class="nav-text">客户端程序功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">服务器端程序功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">5.3.</span> <span class="nav-text">客户端发送协议格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%91%E9%80%81%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">5.4.</span> <span class="nav-text">服务器端发送协议格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5TCP%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.5.</span> <span class="nav-text">以TCP方式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F"><span class="nav-number">5.5.1.</span> <span class="nav-text">客户端程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.6.</span> <span class="nav-text">服务器端实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%BB%E8%BE%91%E7%BA%BF%E7%A8%8B"><span class="nav-number">5.7.</span> <span class="nav-text">服务器逻辑线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%A6%82%E4%B8%8B"><span class="nav-number">5.8.</span> <span class="nav-text">运行结果如下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E6%95%B0%E5%AD%97%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="nav-number">6.</span> <span class="nav-text">猜数字小游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="nav-number">6.1.</span> <span class="nav-text">客户端程序功能列表：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="nav-number">6.2.</span> <span class="nav-text">服务器端程序功能列表：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%AD%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">6.3.</span> <span class="nav-text">其中客户端程序协议格式如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%AD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">6.4.</span> <span class="nav-text">其中服务器端程序协议格式如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">6.5.</span> <span class="nav-text">客户端程序实现代码如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F"><span class="nav-number">6.6.</span> <span class="nav-text">服务器控制程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E7%BA%BF%E7%A8%8B"><span class="nav-number">6.7.</span> <span class="nav-text">逻辑线程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/12786bb5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7网络协议 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7网络协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-18 21:24:12" itemprop="dateCreated datePublished" datetime="2018-08-18T21:24:12+08:00">2018-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">java 网络编程</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/12786bb5/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/12786bb5/" data-xid="/ReadingNotes/12786bb5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/12786bb5/#实例" class="header_2">实例</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端发送给服务器的数据格式" class="header_3">客户端发送给服务器的数据格式</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器反馈的数据格式" class="header_3">服务器反馈的数据格式</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#常见协议" class="header_2">常见协议</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#小结" class="header_2">小结</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#网络编程示例" class="header_2">网络编程示例</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#质数判别示例" class="header_2">质数判别示例</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端程序功能：" class="header_3">客户端程序功能：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器端程序功能：" class="header_3">服务器端程序功能：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端发送协议格式：" class="header_3">客户端发送协议格式：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器端发送协议格式：" class="header_3">服务器端发送协议格式：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#以TCP方式实现" class="header_3">以TCP方式实现</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端程序" class="header_4">客户端程序</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器端实现" class="header_3">服务器端实现</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器逻辑线程" class="header_3">服务器逻辑线程</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#运行结果如下" class="header_3">运行结果如下</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#猜数字小游戏" class="header_2">猜数字小游戏</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端程序功能列表：" class="header_3">客户端程序功能列表：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器端程序功能列表：" class="header_3">服务器端程序功能列表：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#其中客户端程序协议格式如下：" class="header_3">其中客户端程序协议格式如下：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#其中服务器端程序协议格式如下：" class="header_3">其中服务器端程序协议格式如下：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#客户端程序实现代码如下：" class="header_3">客户端程序实现代码如下：</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#服务器控制程序" class="header_3">服务器控制程序</a>&nbsp;<br><a href="/ReadingNotes/12786bb5/#逻辑线程" class="header_3">逻辑线程</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<p>参考：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/springcsc/archive/2009/12/03/1616413.html">http://www.cnblogs.com/springcsc/archive/2009/12/03/1616413.html</a><br>对于需要从事网络编程的程序员来说，网络协议是一个需要深刻理解的概念。那么什么是网络协议呢？</p>
+<p><strong>网络协议是指对于网络中传输的数据格式的规定。</strong>对于网络编程初学者来说，没有必要深入了解TCP&#x2F;IP协议簇，所以对于初学者来说去读大部头的《TCP&#x2F;IP协议》也不是一件很合适的事情，因为深入了解TCP&#x2F;IP协议是网络编程提高阶段，也是深入网络编程底层时才需要做的事情。<br>对于一般的网络编程来说，更多的是关心网络上传输的逻辑数据内容，也就是更多的是应用层上的网络协议，所以后续的内容均以实际应用的数据为基础来介绍网络协议的概念。</p>
+<p>那么什么是网络协议呢，下面看一个简单的例子。春节晚会上“小沈阳”和赵本山合作的小品《不差钱》中，小沈阳和赵本山之间就设计了一个协议，协议的内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果点的菜价钱比较贵是，就说没有。</span><br></pre></td></tr></table></figure>
+<p>按照该协议的规定，就有了下面的对话：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">赵本山：<span class="number">4</span>斤的龙虾</span><br><span class="line">小沈阳：(经过判断，得出价格比较高)，没有</span><br><span class="line">赵本山：鲍鱼</span><br><span class="line">小沈阳：(经过判断，得出价格比较高)，没有</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这就是一种双方达成的一种协议约定，其实这种约定的实质和网络协议的实质是一样的。<strong>网络协议的实质也是客户端程序和服务器端程序对于数据的一种约定，只是由于以计算机为基础，所以更多的是使用数字来代表内容，这样就显得比较抽象一些。</strong></p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>下 面再举一个简单的例子，介绍一些基础的网络协议设计的知识。例如需要设计一个简单的网络程序：网络计算器。也就是在客户端输入需要计算的数字和运算符，在 服务器端实现计算，并将计算的结果反馈给客户端。在这个例子中，就需要约定两个数据格式：<strong>客户端发送给服务器端的数据格式，以及服务器端反馈给客户端的数 据格式。</strong></p>
+<h3 id="客户端发送给服务器的数据格式"><a href="#客户端发送给服务器的数据格式" class="headerlink" title="客户端发送给服务器的数据格式"></a>客户端发送给服务器的数据格式</h3><p>可能你觉得这个比较简单，例如客户端输入的数字依次是<code>12</code>和<code>432</code>，输入的运算符是加号，可能最容易想到的数据格式是形成字符串“<code>12+432</code>”，这样格式的确比较容易阅读，但是服务器端在进行计算时，逻辑就比较麻烦，因为需要首先拆分该字符串，然后才能进行计算，所以可用的数据格式就有了一下几种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“<span class="number">12</span>，<span class="number">432</span>，+”     格式为：第一个数字，第二个数字，运算符</span><br><span class="line">“<span class="number">12</span>，+，<span class="number">432</span>”     格式为：第一个数字，运算符，第二个数字</span><br></pre></td></tr></table></figure>
+<p>其实以上两种数据格式很接近，比较容易阅读，在服务器端收到该数据格式以后，使用“<code>，</code>”为分隔符分割字符串即可。</p>
+<p>假设对于运算符再进行一次约定，例如约定数字<code>0</code>代表加法<code>+</code>，<code>1</code>代表减法<code>-</code>，2代表乘法<code>*</code>，3代表除法<code>/</code>，整体格式遵循以上第一种格式，则上面的数字生产的协议数据为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“<span class="number">12</span>，<span class="number">432</span>，<span class="number">0</span>”</span><br></pre></td></tr></table></figure>
+<p>这就是一种基本的发送的协议约定了。</p>
+<h3 id="服务器反馈的数据格式"><a href="#服务器反馈的数据格式" class="headerlink" title="服务器反馈的数据格式"></a>服务器反馈的数据格式</h3><p>另 外一个需要设计的协议格式就是服务器端反馈的数据格式，其实服务器端主要反馈计算结果，但是在实际接受数据时，有可能存在格式错误的情况，这样就需要简单 的设计一下服务器端反馈的数据格式了。例如规定，如果发送的数据格式正确，则反馈结果，否则反馈字符串“错误”。这样就有了以下的数据格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">客户端：“<span class="number">1</span>,<span class="number">111</span>,<span class="number">1</span>”     服务器端：”-<span class="number">110</span>”</span><br><span class="line">客户端：“<span class="number">123</span>,<span class="number">23</span>,<span class="number">0</span>”    服务器端：“<span class="number">146</span>”</span><br><span class="line">客户端：“<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>”       服务器端：“错误”</span><br></pre></td></tr></table></figure>
+<p>这样就设计出了一种最最基本的网络协议格式，从该示例中可以看出，<strong>网络协议就是一种格式上的约定，可以根据逻辑的需要约定出各种数据格式</strong>，在进行设计时一般遵循“简单、通用、容易解析”的原则进行。</p>
+<p>而对于复杂的网络程序来说，需要传输的数据种类和数据量都比较大，这样只需要依次设计出每种情况下的数据格式即可，例如QQ程序，在该程序中需要进行传输的网络数据种类很多，那么在设计时就可以遵循：登录格式、注册格式、发送消息格式等等，一一进行设计即可。所以对于复杂的网络程序来说，只是增加了更多的命令格式，在实际设计时的工作量增加不是太大。</p>
+<p>不管怎么说，在网络编程中，<strong>对于同一个网络程序来说，一般都会涉及到两个网络协议格式：客户端发送数据格式和服务器端反馈数据格式</strong>，在实际设计时，需要一一对应。这就是最基本的网络协议的知识。</p>
+<p>网络协议设计完成以后，在进行网络编程时，就需要根据设计好的协议格式，在程序中进行对应的编码了，客户端程序和服务器端程序需要进行协议处理的代码分别如下。</p>
+<p>客户端程序需要完成的处理为：</p>
+<ul>
+<li><pre><code>客户端发送协议格式的生成
+</code></pre>
+</li>
+<li><pre><code>服务器端反馈数据格式的解析
+</code></pre>
+</li>
+</ul>
+<p>服务器端程序需要完成的处理为：</p>
+<ul>
+<li><pre><code>服务器端反馈协议格式的生成
+</code></pre>
+</li>
+<li><pre><code>客户端发送协议格式的解析
+</code></pre>
+</li>
+</ul>
+<p>这里的<strong>生成是指将计算好的数据，转换成规定的数据格式</strong>，这里的<strong>解析指，从反馈的数据格式中拆分出需要的数据。</strong>在进行对应的代码编写时，严格遵循协议约定即可。</p>
+<p>所以，对于程序员来说，在进行网络程序编写时，需要首先根据逻辑的需要设计网络协议格式，然后遵循协议格式约定进行协议生成和解析代码的编写，最后使用网络编程技术实现整个网络编程的功能。</p>
+<p>由于各种网络程序使用不同的协议格式，所以不同网络程序的客户端之间无法通用。</p>
+<h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><p>而对于常见协议的格式，例如</p>
+<ul>
+<li><code>HTTP(Hyper Text Transfer Protocol</code>，超文本传输协议)、</li>
+<li><code>FTP(File Transfer Protocol</code>，文件传输协议)，</li>
+<li><code>SMTP(Simple Mail Transfer Protocol</code>，简单邮件传输协议)等等，</li>
+</ul>
+<p>都有通用的规定，具体可以查阅相关的<code>RFC</code>文档。</p>
+<p>最后，对于一种网络程序来说，网络协议格式是该程序最核心的技术秘密，因为一旦协议格式泄漏，则任何一个人都可以根据该格式进行客户端的编写，这样将影响服务器端的实现，也容易出现一些其它的影响。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>关于网络编程基本的技术就介绍这么多，该部分介绍了网络编程的基础知识，以及Java语言对于网络编程的支持，网络编程的步骤等，并详细介绍了TCP方式网络编程和UDP方式网络编程在Java语言中的实现。</p>
+<p>网络协议也是网络程序的核心，所以在实际开始进行网络编程时，设计一个良好的协议格式也是必须进行的工作。</p>
+<h2 id="网络编程示例"><a href="#网络编程示例" class="headerlink" title="网络编程示例"></a>网络编程示例</h2><p>“实践出真知”，所以在进行技术学习时，还是需要进行很多的练习，才可以体会技术的奥妙，下面通过两个简单的示例，演示网络编程的实际使用。</p>
+<h2 id="质数判别示例"><a href="#质数判别示例" class="headerlink" title="质数判别示例"></a>质数判别示例</h2><p>该示例实现的功能是质数判断，<strong>程序实现的功能为客户端程序接收用户输入的数字，然后将用户输入的内容发送给服务器端，服务器端判断客户端发送的数字是否是质数，并将判断的结果反馈给客户端，客户端根据服务器端的反馈显示判断结果。</strong></p>
+<p><strong>质数的规则是</strong>：<strong>最小的质数是2，只能被1和自身整除的<code>自然数</code>。当用户输入小于2的数字，以及输入的内容不是自然数时，都属于非法输入。</strong></p>
+<p>网络程序的功能都分为客户端程序和服务器端程序实现，下面先描述一下每个程序分别实现的功能：</p>
+<h3 id="客户端程序功能："><a href="#客户端程序功能：" class="headerlink" title="客户端程序功能："></a>客户端程序功能：</h3><ul>
+<li>接收用户控制台输入</li>
+<li>判断输入内容是否合法</li>
+<li>按照协议格式生成发送数据</li>
+<li>发送数据</li>
+<li>接收服务器端反馈</li>
+<li>解析服务器端反馈信息，并输出</li>
+</ul>
+<h3 id="服务器端程序功能："><a href="#服务器端程序功能：" class="headerlink" title="服务器端程序功能："></a>服务器端程序功能：</h3><ul>
+<li>接收客户端发送数据</li>
+<li>按照协议格式解析数据</li>
+<li>判断数字是否是质数</li>
+<li>根据判断结果，生成协议数据</li>
+<li>将数据反馈给客户端</li>
+</ul>
+<p>分解好了网络程序的功能以后，就可以设计网络协议格式了，如果该程序的功能比较简单，所以设计出的协议格式也不复杂。</p>
+<h3 id="客户端发送协议格式："><a href="#客户端发送协议格式：" class="headerlink" title="客户端发送协议格式："></a>客户端发送协议格式：</h3><ul>
+<li>将用户输入的数字转换为字符串，再将字符串转换为byte数组即可。</li>
+<li>例如用户输入16，则转换为字符串“16”，使用getBytes转换为byte数组。</li>
+<li>客户端发送“quit”字符串代表结束连接<h3 id="服务器端发送协议格式："><a href="#服务器端发送协议格式：" class="headerlink" title="服务器端发送协议格式："></a>服务器端发送协议格式：</h3></li>
+<li>反馈数据长度为1个字节。数字0代表是质数，1代表不是质数，2代表协议格式错误。</li>
+<li>例如客户端发送数字12，则反馈1，发送13则反馈0，发送0则反馈2。</li>
+</ul>
+<p>功能设计完成以后，就可以分别进行客户端和服务器端程序的编写了，在编写完成以后联合起来进行调试即可。</p>
+<p>下面分别以TCP方式和UDP方式实现该程序，注意其实现上的差异。不管使用哪种方式实现，客户端都可以多次输入数据进行判断。对于UDP方式来说，不需要向服务器端发送quit字符串。</p>
+<h3 id="以TCP方式实现"><a href="#以TCP方式实现" class="headerlink" title="以TCP方式实现"></a>以TCP方式实现</h3><h4 id="客户端程序"><a href="#客户端程序" class="headerlink" title="客户端程序"></a>客户端程序</h4><p>以TCP方式实现的客户端程序代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> example1;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 以TCP方式实现的质数判断客户端程序</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TCPPrimeClient</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> BufferedReader br;</span><br><span class="line">    <span class="keyword">static</span> Socket socket;</span><br><span class="line">    <span class="keyword">static</span> InputStream is;</span><br><span class="line">    <span class="keyword">static</span> OutputStream os;</span><br><span class="line">    <span class="comment">/**服务器IP*/</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">HOST</span> <span class="operator">=</span> <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line">    <span class="comment">/**服务器端端口*/</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">10005</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        init(); <span class="comment">//初始化</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;请输入数字：&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> readInput(); <span class="comment">//读取输入</span></span><br><span class="line">            <span class="keyword">if</span>(isQuit(input))</span><br><span class="line">            &#123; <span class="comment">//判读是否结束</span></span><br><span class="line">                <span class="type">byte</span>[] b = <span class="string">&quot;quit&quot;</span>.getBytes();</span><br><span class="line">                send(b);</span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">//结束程序</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(checkInput(input))</span><br><span class="line">            &#123; <span class="comment">//校验合法</span></span><br><span class="line">                <span class="comment">//发送数据</span></span><br><span class="line">                send(input.getBytes());</span><br><span class="line">                <span class="comment">//接收数据</span></span><br><span class="line">                <span class="type">byte</span>[] data = receive();</span><br><span class="line">                <span class="comment">//解析反馈数据</span></span><br><span class="line">                parse(data);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;输入不合法，请重新输入！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        close(); <span class="comment">//关闭流和连接</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 初始化</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123;</span><br><span class="line">            br = <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in));</span><br><span class="line">            socket = <span class="keyword">new</span> <span class="title class_">Socket</span>(HOST,PORT);</span><br><span class="line">            is = socket.getInputStream();</span><br><span class="line">            os = socket.getOutputStream();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取客户端输入</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">readInput</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> br.readLine();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 判断是否输入quit</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> input 输入内容</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> true代表结束，false代表不结束</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isQuit</span><span class="params">(String input)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(input == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">&quot;quit&quot;</span>.equalsIgnoreCase(input))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 校验输入</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> input 用户输入内容</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> true代表输入符合要求，false代表不符合</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkInput</span><span class="params">(String input)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(input == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> Integer.parseInt(input);</span><br><span class="line">            <span class="keyword">if</span>(n &gt;= <span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">//输入不是整数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 向服务器端发送数据</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> data 数据内容</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">send</span><span class="params">(<span class="type">byte</span>[] data)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            os.write(data);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 接收服务器端反馈</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> 反馈数据</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">byte</span>[] receive()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">byte</span>[] b = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> is.read(b);</span><br><span class="line">            <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[n];</span><br><span class="line">            <span class="comment">//复制有效数据</span></span><br><span class="line">            System.arraycopy(b, <span class="number">0</span>, data, <span class="number">0</span>, n);</span><br><span class="line">            <span class="keyword">return</span> data;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;&#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 解析协议数据</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> data 协议数据</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">parse</span><span class="params">(<span class="type">byte</span>[] data)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(data == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器端反馈数据不正确！&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">byte</span> <span class="variable">value</span> <span class="operator">=</span> data[<span class="number">0</span>]; <span class="comment">//取第一个byte</span></span><br><span class="line">        <span class="comment">//按照协议格式解析</span></span><br><span class="line">        <span class="keyword">switch</span>(value)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            System.out.println(<span class="string">&quot;质数&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            System.out.println(<span class="string">&quot;不是质数&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            System.out.println(<span class="string">&quot;协议格式错误&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 关闭流和连接</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            br.close();</span><br><span class="line">            is.close();</span><br><span class="line">            os.close();</span><br><span class="line">            socket.close();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在该代码中，将程序的功能使用方法进行组织，使得结构比较清晰，核心的逻辑流程在main方法中实现。</p>
+<h3 id="服务器端实现"><a href="#服务器端实现" class="headerlink" title="服务器端实现"></a>服务器端实现</h3><p>以TCP方式实现的服务器端的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> example1;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 以TCP方式实现的质数判别服务器端</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TCPPrimeServer</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">10005</span>;</span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">ss</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> </span><br><span class="line">        &#123;</span><br><span class="line">            ss = <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(PORT);</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器端已启动：&quot;</span>);</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">s</span> <span class="operator">=</span> ss.accept();</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">PrimeLogicThread</span>(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;</span><br><span class="line">        <span class="keyword">finally</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span> </span><br><span class="line">            &#123;</span><br><span class="line">                ss.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e2) &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="服务器逻辑线程"><a href="#服务器逻辑线程" class="headerlink" title="服务器逻辑线程"></a>服务器逻辑线程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line">package example1;</span><br><span class="line">import java.io.*;</span><br><span class="line">import java.net.*;</span><br><span class="line">/**</span><br><span class="line">* 实现质数判别逻辑的线程</span><br><span class="line">*/</span><br><span class="line">public class PrimeLogicThread extends Thread </span><br><span class="line">&#123;</span><br><span class="line">    Socket socket;</span><br><span class="line">    InputStream is;</span><br><span class="line">    OutputStream os;</span><br><span class="line">    public PrimeLogicThread(Socket socket)</span><br><span class="line">    &#123;</span><br><span class="line">        this.socket = socket;</span><br><span class="line">        init();</span><br><span class="line">        start();</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    * 初始化</span><br><span class="line">    */</span><br><span class="line">    private void init()</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            is = socket.getInputStream();</span><br><span class="line">            os = socket.getOutputStream();</span><br><span class="line">        &#125;catch(Exception e)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void run()</span><br><span class="line">    &#123;</span><br><span class="line">        while(true)</span><br><span class="line">        &#123;</span><br><span class="line">            //接收客户端反馈</span><br><span class="line">            byte[] data = receive();</span><br><span class="line">            //判断是否是退出</span><br><span class="line">            if(isQuit(data))</span><br><span class="line">            &#123;</span><br><span class="line">                break; //结束循环</span><br><span class="line">            &#125;</span><br><span class="line">            //逻辑处理</span><br><span class="line">            byte[] b = logic(data);</span><br><span class="line">            //反馈数据</span><br><span class="line">            send(b);</span><br><span class="line">        &#125;</span><br><span class="line">        close();</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    * 接收客户端数据</span><br><span class="line">    * @return 客户端发送的数据</span><br><span class="line">    */</span><br><span class="line">    private byte[] receive()</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] b = new byte[1024];</span><br><span class="line">        try </span><br><span class="line">        &#123;</span><br><span class="line">            int n = is.read(b);</span><br><span class="line">            byte[] data = new byte[n];</span><br><span class="line">            //复制有效数据</span><br><span class="line">            System.arraycopy(b, 0, data, 0, n);</span><br><span class="line">            return data;</span><br><span class="line">        &#125; catch (Exception e)&#123;&#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    * 向客户端发送数据</span><br><span class="line">    * @param data 数据内容</span><br><span class="line">    */</span><br><span class="line">    private void send(byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            os.write(data);</span><br><span class="line">        &#125;catch(Exception e)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    * 判断是否是quit</span><br><span class="line">    * @return 是返回true，否则返回false</span><br><span class="line">    */</span><br><span class="line">    private boolean isQuit(byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        if(data == null)</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            String s = new String(data);</span><br><span class="line">            if(s.equalsIgnoreCase(&quot;quit&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private byte[] logic(byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        //反馈数组</span><br><span class="line">        byte[] b = new byte[1];</span><br><span class="line">        //校验参数</span><br><span class="line">        if(data == null)</span><br><span class="line">        &#123;</span><br><span class="line">            b[0] = 2;</span><br><span class="line">            return b;</span><br><span class="line">        &#125;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            //转换为数字</span><br><span class="line">            String s = new String(data);</span><br><span class="line">            int n = Integer.parseInt(s);</span><br><span class="line">            //判断是否是质数</span><br><span class="line">            if(n &gt;= 2)</span><br><span class="line">            &#123;</span><br><span class="line">                boolean flag = isPrime(n);</span><br><span class="line">                if(flag)</span><br><span class="line">                &#123;</span><br><span class="line">                    b[0] = 0;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    b[0] = 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                b[0] = 2; //格式错误</span><br><span class="line">                System.out.println(n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            b[0] = 2;</span><br><span class="line">        &#125;</span><br><span class="line">        return b;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    *</span><br><span class="line">    * @param n</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">    private boolean isPrime(int n)</span><br><span class="line">    &#123;</span><br><span class="line">        boolean b = true;</span><br><span class="line">        for(int i = 2;i &lt;= Math.sqrt(n);i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(n % i == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                b = false;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return b;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">    * 关闭连接</span><br><span class="line">    */</span><br><span class="line">    private void close()</span><br><span class="line">    &#123;</span><br><span class="line">        try </span><br><span class="line">        &#123;</span><br><span class="line">            is.close();</span><br><span class="line">            os.close();</span><br><span class="line">            socket.close();</span><br><span class="line">        &#125; catch (Exception e)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>本示例使用的服务器端的结构和前面示例中的结构一致，只是逻辑线程的实现相对来说要复杂一些，在线程类中的logic方法中实现了服务器端逻辑，根据客户端发送过来的数据，判断是否是质数，然后根据判断结果按照协议格式要求，生成客户端反馈数据，实现服务器端要求的功能。</p>
+<h3 id="运行结果如下"><a href="#运行结果如下" class="headerlink" title="运行结果如下"></a>运行结果如下</h3><p><img data-src="https://i.imgur.com/FPsEGIo.png" alt="运行结果"></p>
+<h2 id="猜数字小游戏"><a href="#猜数字小游戏" class="headerlink" title="猜数字小游戏"></a>猜数字小游戏</h2><p>下面这个示例是一个猜数字的控制台小游戏。该游戏的规则是：<strong>当客户端第一次连接到服务器端时，服务器端生产一个【0，50】之间的随机数字，然后客户端输入数字来猜该数字，每次客户端输入数字以后，发送给服务器端，服务器端判断该客户端发送的数字和随机数字的关系，并反馈比较结果，客户端总共有5次猜的机会，猜中时提示猜中，当输入”quit”时结束程序。</strong></p>
+<p>和前面的示例类似，在进行网络程序开发时，首先需要分解一下功能的实现，觉得功能是在客户端程序中实现还是在服务器端程序中实现。区分的规则一般是：</p>
+<ul>
+<li>客户端 程序实现接收用户输入等界面功能，并实现一些基础的校验降低服务器端的压力，</li>
+<li>而将程序核心的逻辑以及数据存储等功能放在服务器端进行实现。<br>遵循该原则划分 的客户端和服务器端功能如下所示。</li>
+</ul>
+<h3 id="客户端程序功能列表："><a href="#客户端程序功能列表：" class="headerlink" title="客户端程序功能列表："></a>客户端程序功能列表：</h3><ul>
+<li>接收用户控制台输入</li>
+<li>判断输入内容是否合法</li>
+<li>按照协议格式发送数据</li>
+<li>根据服务器端的反馈给出相应提示</li>
+</ul>
+<h3 id="服务器端程序功能列表："><a href="#服务器端程序功能列表：" class="headerlink" title="服务器端程序功能列表："></a>服务器端程序功能列表：</h3><ul>
+<li>接收客户端发送数据</li>
+<li>按照协议格式解析数据</li>
+<li>判断发送过来的数字和随机数字的关系</li>
+<li>根据判断结果生产协议数据</li>
+<li>将生产的数据反馈给客户端</li>
+</ul>
+<p>在该示例中，实际使用的网络命令也只有两条，所以显得协议的格式比较简单。</p>
+<h3 id="其中客户端程序协议格式如下："><a href="#其中客户端程序协议格式如下：" class="headerlink" title="其中客户端程序协议格式如下："></a>其中客户端程序协议格式如下：</h3><ul>
+<li>将用户输入的数字转换为字符串，然后转换为byte数组</li>
+<li>发送“quit”字符串代表退出<h3 id="其中服务器端程序协议格式如下："><a href="#其中服务器端程序协议格式如下：" class="headerlink" title="其中服务器端程序协议格式如下："></a>其中服务器端程序协议格式如下：</h3><code>反馈长度为1个字节，数字0代表相等(猜中)，1代表大了，2代表小了，其它数字代表错误。</code></li>
+</ul>
+<p>实现该程序的代码比较多，下面分为客户端程序实现和服务器端程序实现分别进行列举。</p>
+<h3 id="客户端程序实现代码如下："><a href="#客户端程序实现代码如下：" class="headerlink" title="客户端程序实现代码如下："></a>客户端程序实现代码如下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">package guess;</span><br><span class="line"></span><br><span class="line">import java.net.*;</span><br><span class="line">import java.io.*;</span><br><span class="line">/**</span><br><span class="line"> * 猜数字客户端</span><br><span class="line"> */</span><br><span class="line">public class TCPClient</span><br><span class="line">&#123;</span><br><span class="line">    public static void main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        Socket socket = null;</span><br><span class="line">        OutputStream os = null;</span><br><span class="line">        InputStream is = null;</span><br><span class="line">        BufferedReader br = null;</span><br><span class="line">        byte[] data = new byte[2];</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            // 建立连接</span><br><span class="line">            socket = new Socket(&quot;127.0.0.1&quot;, 10001);</span><br><span class="line">            // 发送数据</span><br><span class="line">            os = socket.getOutputStream();</span><br><span class="line">            // 读取反馈数据</span><br><span class="line">            is = socket.getInputStream();</span><br><span class="line">            // 键盘输入流</span><br><span class="line">            br = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">            // 多次输入</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                System.out.println(&quot;请输入数字：&quot;);</span><br><span class="line">                // 接收输入</span><br><span class="line">                String s = br.readLine();</span><br><span class="line">                // 结束条件</span><br><span class="line">                if (s.equals(&quot;quit&quot;))</span><br><span class="line">                &#123;</span><br><span class="line">                    os.write(&quot;quit&quot;.getBytes());</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                // 校验输入是否合法</span><br><span class="line">                boolean b = true;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    Integer.parseInt(s);</span><br><span class="line">                &#125; catch (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    b = false;</span><br><span class="line">                &#125;</span><br><span class="line">                if (b)</span><br><span class="line">                &#123; // 输入合法</span><br><span class="line">                    // 发送数据</span><br><span class="line">                    os.write(s.getBytes());</span><br><span class="line">                    // 接收反馈</span><br><span class="line">                    is.read(data);</span><br><span class="line">                    // 判断</span><br><span class="line">                    switch (data[0])</span><br><span class="line">                    &#123;</span><br><span class="line">                        case 0 :</span><br><span class="line">                            System.out.println(&quot;相等！祝贺你！&quot;);</span><br><span class="line">                            break;</span><br><span class="line">                        case 1 :</span><br><span class="line">                            System.out.println(&quot;大了！&quot;);</span><br><span class="line">                            break;</span><br><span class="line">                        case 2 :</span><br><span class="line">                            System.out.println(&quot;小了！&quot;);</span><br><span class="line">                            break;</span><br><span class="line">                        default :</span><br><span class="line">                            System.out.println(&quot;其它错误！&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    // 提示猜的次数</span><br><span class="line">                    System.out.println(&quot;你已经猜了&quot; + data[1] + &quot;次！&quot;);</span><br><span class="line">                    // 判断次数是否达到5次</span><br><span class="line">                    if (data[1] &gt;= 5)</span><br><span class="line">                    &#123;</span><br><span class="line">                        System.out.println(&quot;你挂了！&quot;);</span><br><span class="line">                        // 给服务器端线程关闭的机会</span><br><span class="line">                        os.write(&quot;quit&quot;.getBytes());</span><br><span class="line">                        // 结束客户端程序</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else</span><br><span class="line">                &#123; // 输入错误</span><br><span class="line">                    System.out.println(&quot;输入错误！&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                // 关闭连接</span><br><span class="line">                br.close();</span><br><span class="line">                is.close();</span><br><span class="line">                os.close();</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (Exception e)</span><br><span class="line">            &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在该示例中，首先建立一个到<code>IP</code>地址为<code>127.0.0.1</code>的端口为<code>10001</code>的连接，然后进行各个流的初始化工作，将逻辑控制的代码放入在一个<code>while</code>循环中，这样可以在客户端多次进行输入。在循环内部，首先判断用户输入的是否为<code>quit</code>字符串，如果是则结束程序，如果输入不是<code>quit</code>，则首先校验输入的是否是数字，如果不是数字则直接输出“输入错误！”并继续接收用户输入，如果是数字则发送给服务器端，并根据服务器端的反馈显示相应的提示信息。最后关闭流和连接，结束客户端程序。</p>
+<p>服务器端程序的实现还是分为服务器控制程序和逻辑线程，实现的代码分别如下：</p>
+<h3 id="服务器控制程序"><a href="#服务器控制程序" class="headerlink" title="服务器控制程序"></a>服务器控制程序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> guess;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* TCP连接方式的服务器端</span></span><br><span class="line"><span class="comment">* 实现功能：接收客户端的数据，判断数字关系</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TCPServer</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//监听端口</span></span><br><span class="line">            <span class="type">ServerSocket</span> <span class="variable">ss</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">10001</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器已启动：&quot;</span>);</span><br><span class="line">            <span class="comment">//逻辑处理</span></span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//获得连接</span></span><br><span class="line">                <span class="type">Socket</span> <span class="variable">s</span> <span class="operator">=</span> ss.accept();</span><br><span class="line">                <span class="comment">//启动线程处理</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">LogicThread</span>(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="逻辑线程"><a href="#逻辑线程" class="headerlink" title="逻辑线程"></a>逻辑线程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">package guess;</span><br><span class="line">import java.net.*;</span><br><span class="line">import java.io.*;</span><br><span class="line">import java.util.*;</span><br><span class="line">/**</span><br><span class="line">* 逻辑处理线程</span><br><span class="line">*/</span><br><span class="line">public class LogicThread extends Thread </span><br><span class="line">&#123;</span><br><span class="line">    Socket s;</span><br><span class="line">    static Random r = new Random();</span><br><span class="line">    public LogicThread(Socket s)</span><br><span class="line">    &#123;</span><br><span class="line">        this.s = s;</span><br><span class="line">        start(); //启动线程</span><br><span class="line">    &#125;</span><br><span class="line">    public void run()</span><br><span class="line">    &#123;</span><br><span class="line">        //生成一个[0，50]的随机数</span><br><span class="line">        int randomNumber = Math.abs(r.nextInt() % 51);</span><br><span class="line">        //用户猜的次数</span><br><span class="line">        int guessNumber = 0;</span><br><span class="line">        InputStream is = null;</span><br><span class="line">        OutputStream os = null;</span><br><span class="line">        byte[] data = new byte[2];</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            //获得输入流</span><br><span class="line">            is = s.getInputStream();</span><br><span class="line">            //获得输出流</span><br><span class="line">            os = s.getOutputStream();</span><br><span class="line">            while(true)</span><br><span class="line">            &#123; //多次处理</span><br><span class="line">                //读取客户端发送的数据</span><br><span class="line">                byte[] b = new byte[1024];</span><br><span class="line">                int n = is.read(b);</span><br><span class="line">                String send = new String(b,0,n);</span><br><span class="line">                //结束判别</span><br><span class="line">                if(send.equals(&quot;quit&quot;))</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                //解析、判断</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    int num = Integer.parseInt(send);</span><br><span class="line">                    //处理</span><br><span class="line">                    guessNumber++; //猜的次数增加1</span><br><span class="line">                    data[1] = (byte)guessNumber;</span><br><span class="line">                    //判断</span><br><span class="line">                    if(num &gt; randomNumber)</span><br><span class="line">                    &#123;</span><br><span class="line">                        data[0] = 1;</span><br><span class="line">                    &#125;else if(num &lt; randomNumber)&#123;</span><br><span class="line">                        data[0] = 2;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        data[0] = 0;</span><br><span class="line">                        //如果猜对</span><br><span class="line">                        guessNumber = 0; //清零</span><br><span class="line">                        randomNumber = Math.abs(r.nextInt() % 51);</span><br><span class="line">                    &#125;</span><br><span class="line">                    //反馈给客户端</span><br><span class="line">                    os.write(data);</span><br><span class="line">                &#125;catch(Exception e)&#123; //数据格式错误</span><br><span class="line">                    data[0] = 3;</span><br><span class="line">                    data[1] = (byte)guessNumber;</span><br><span class="line">                    os.write(data); //发送错误标识</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                os.flush();   //强制发送</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally&#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                is.close();</span><br><span class="line">                os.close();</span><br><span class="line">                s.close();</span><br><span class="line">            &#125;catch(Exception e)&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原文链接: <a target="_blank" rel="noopener" href="https://www.lansheng.net.cn/blog/12786bb5/">7网络协议</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/12786bb5/" title="7网络协议">https://lanlan2017.github.io/ReadingNotes/12786bb5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b6cecc51/" rel="prev" title="UDP网络编程">
+                  <i class="fa fa-chevron-left"></i> UDP网络编程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/c1fee13e/" rel="next" title="DatagramSocket类">
+                  DatagramSocket类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/12786bb5/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/12786bb5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

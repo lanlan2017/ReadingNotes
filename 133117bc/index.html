@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.2 jQuery中的DOM操作为了能全面地讲解DOM操作，首先需要构建一个网页。因为每一张网页都能用DOM表示出来，而每一份DOM都可以看作一棵DOM树。构建的网页效果如图3-1所示。 [插图] 图3-1 构建的网页  HTML代码如下： [插图] 根据上面的网页结构构建出一棵DOM树，如图3-2所示。 [插图] 图3-2 DOM结构  接下来，对DOM的各种操作都将围绕这棵DOM树而展开。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.2 jQuery中的DOM操作">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/133117bc/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.2 jQuery中的DOM操作为了能全面地讲解DOM操作，首先需要构建一个网页。因为每一张网页都能用DOM表示出来，而每一份DOM都可以看作一棵DOM树。构建的网页效果如图3-1所示。 [插图] 图3-1 构建的网页  HTML代码如下： [插图] 根据上面的网页结构构建出一棵DOM树，如图3-2所示。 [插图] 图3-2 DOM结构  接下来，对DOM的各种操作都将围绕这棵DOM树而展开。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-12T11:03:44.000Z">
+<meta property="article:modified_time" content="2021-12-12T11:57:29.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/133117bc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/133117bc/","path":"/133117bc/","title":"3.2 jQuery中的DOM操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.2 jQuery中的DOM操作 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-jQuery%E4%B8%AD%E7%9A%84DOM%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">3.2 jQuery中的DOM操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-1-%E6%9F%A5%E6%89%BE%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">3.2.1 查找节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">1．查找元素节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E6%9F%A5%E6%89%BE%E5%B1%9E%E6%80%A7%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.2.</span> <span class="nav-text">2．查找属性节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-2-%E5%88%9B%E5%BB%BA%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">3.2.2 创建节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">1．创建元素节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%88%9B%E5%BB%BA%E6%96%87%E6%9C%AC%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">2．创建文本节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E5%88%9B%E5%BB%BA%E5%B1%9E%E6%80%A7%E8%8A%82%E7%82%B9"><span class="nav-number">1.2.3.</span> <span class="nav-text">3．创建属性节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-3-%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">3.2.3 插入节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-4-%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">3.2.4 删除节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8Eremove-%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">1．remove()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8Edetach-%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">2．detach()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8Eempty-%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">3．empty()方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-5-%E5%A4%8D%E5%88%B6%E8%8A%82%E7%82%B9"><span class="nav-number">1.5.</span> <span class="nav-text">3.2.5 复制节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-6-%E6%9B%BF%E6%8D%A2%E8%8A%82%E7%82%B9"><span class="nav-number">1.6.</span> <span class="nav-text">3.2.6 替换节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-7-%E5%8C%85%E8%A3%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.7.</span> <span class="nav-text">3.2.7 包裹节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8EwrapAll-%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.1.</span> <span class="nav-text">1．wrapAll()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8EwrapInner-%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.2.</span> <span class="nav-text">2．wrapInner()方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-8-%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="nav-number">1.8.</span> <span class="nav-text">3.2.8 属性操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E8%8E%B7%E5%8F%96%E5%B1%9E%E6%80%A7%E5%92%8C%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.8.1.</span> <span class="nav-text">1．获取属性和设置属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7"><span class="nav-number">1.8.2.</span> <span class="nav-text">2．删除属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-9-%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.</span> <span class="nav-text">3.2.9 样式操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E8%8E%B7%E5%8F%96%E6%A0%B7%E5%BC%8F%E5%92%8C%E8%AE%BE%E7%BD%AE%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.1.</span> <span class="nav-text">1．获取样式和设置样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E8%BF%BD%E5%8A%A0%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.2.</span> <span class="nav-text">2．追加样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E7%A7%BB%E9%99%A4%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.3.</span> <span class="nav-text">3．移除样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%8E%E5%88%87%E6%8D%A2%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.4.</span> <span class="nav-text">4．切换样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%8E%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E6%9F%90%E4%B8%AA%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.5.</span> <span class="nav-text">5．判断是否含有某个样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-10-%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96HTML%E3%80%81%E6%96%87%E6%9C%AC%E5%92%8C%E5%80%BC"><span class="nav-number">1.10.</span> <span class="nav-text">3.2.10 设置和获取HTML、文本和值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8Ehtml-%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.1.</span> <span class="nav-text">1．html()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8Etext-%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.2.</span> <span class="nav-text">2．text()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8Eval-%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.3.</span> <span class="nav-text">3．val()方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-11-%E9%81%8D%E5%8E%86%E8%8A%82%E7%82%B9"><span class="nav-number">1.11.</span> <span class="nav-text">3.2.11 遍历节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8Echildren-%E6%96%B9%E6%B3%95"><span class="nav-number">1.11.1.</span> <span class="nav-text">1．children()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8Enext-%E6%96%B9%E6%B3%95"><span class="nav-number">1.11.2.</span> <span class="nav-text">2．next()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8Eprev-%E6%96%B9%E6%B3%95"><span class="nav-number">1.11.3.</span> <span class="nav-text">3．prev()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%8Esiblings-%E6%96%B9%E6%B3%95"><span class="nav-number">1.11.4.</span> <span class="nav-text">4．siblings()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%8Eclosest"><span class="nav-number">1.11.5.</span> <span class="nav-text">5．closest()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%EF%BC%8Eparent-%EF%BC%8Cparents-%E4%B8%8Eclosest-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.11.6.</span> <span class="nav-text">6．parent()，parents()与closest()的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-12-CSS-DOM%E6%93%8D%E4%BD%9C"><span class="nav-number">1.12.</span> <span class="nav-text">3.2.12 CSS-DOM操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8Eoffset-%E6%96%B9%E6%B3%95"><span class="nav-number">1.12.1.</span> <span class="nav-text">1．offset()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8Eposition-%E6%96%B9%E6%B3%95"><span class="nav-number">1.12.2.</span> <span class="nav-text">2．position()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8EscrollTop-%E6%96%B9%E6%B3%95%E5%92%8CscrollLeft-%E6%96%B9%E6%B3%95"><span class="nav-number">1.12.3.</span> <span class="nav-text">3．scrollTop()方法和scrollLeft()方法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/133117bc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.2 jQuery中的DOM操作 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.2 jQuery中的DOM操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-12 19:03:44 / 修改时间：19:57:29" itemprop="dateCreated datePublished" datetime="2021-12-12T19:03:44+08:00">2021-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC3%E7%AB%A0-jQuery%E4%B8%AD%E7%9A%84DOM%E6%93%8D%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">第3章 jQuery中的DOM操作</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/133117bc/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/133117bc/" data-xid="/ReadingNotes/133117bc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-2-jQuery中的DOM操作"><a href="#3-2-jQuery中的DOM操作" class="headerlink" title="3.2 jQuery中的DOM操作"></a>3.2 jQuery中的DOM操作</h1><p>为了能全面地讲解DOM操作，首先需要构建一个网页。因为每一张网页都能用DOM表示出来，而每一份DOM都可以看作一棵DOM树。构建的网页效果如图3-1所示。</p>
+<p>[插图]</p>
+<center>图3-1 构建的网页</center>
+
+<p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>根据上面的网页结构构建出一棵DOM树，如图3-2所示。</p>
+<p>[插图]</p>
+<center>图3-2 DOM结构</center>
+
+<p>接下来，对DOM的各种操作都将围绕这棵DOM树而展开。</p>
+<h2 id="3-2-1-查找节点"><a href="#3-2-1-查找节点" class="headerlink" title="3.2.1 查找节点"></a>3.2.1 查找节点</h2><p>使用jQuery在文档树上查找节点非常容易，可以通过在第2章介绍的jQuery选择器来完成。</p>
+<h3 id="1．查找元素节点"><a href="#1．查找元素节点" class="headerlink" title="1．查找元素节点"></a>1．查找元素节点</h3><p>获取元素节点并打印出它的文本内容，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>以上代码获取了<code>&lt;ul&gt;</code>元素里第2个<code>&lt;li&gt;</code>节点，并将它的文本内容“橘子”打印出来，效果如图3-3所示。</p>
+<p>[插图]</p>
+<center>图3-3 查找元素节点</center>
+
+<h3 id="2．查找属性节点"><a href="#2．查找属性节点" class="headerlink" title="2．查找属性节点"></a>2．查找属性节点</h3><p>利用 jQuery 选择器查找到需要的元素之后，就可以使用 attr()方法来获取它的各种属性的值。attr()方法的参数可以是一个，也可以是两个。当参数是一个时，则是要查询的属性的名字，例如：</p>
+<p>获取属性节点并打印出它的文本内容，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>以上代码获取了<code>&lt;p&gt;</code>节点，并将它的title属性的值打印出来，效果如图3-4所示。</p>
+<p>[插图]</p>
+<center>图3-4 查找属性节点</center>
+
+<h2 id="3-2-2-创建节点"><a href="#3-2-2-创建节点" class="headerlink" title="3.2.2 创建节点"></a>3.2.2 创建节点</h2><p>从第3.2.1小节可知，用jQuery选择器能够快捷而轻松地查找到文档中的某个特定的元素节点，然后可以用attr()方法来获取元素的各种属性的值。</p>
+<p>真正的DOM操作并非这么简单。在DOM操作中，常常需要动态创建HTML内容，使文档在浏览器里的呈现效果发生变化，并且达到各种各样的人机交互的目的。</p>
+<h3 id="1．创建元素节点"><a href="#1．创建元素节点" class="headerlink" title="1．创建元素节点"></a>1．创建元素节点</h3><p>例如要创建两个<code>&lt;li&gt;</code>元素节点，并且要把它们作为<code>&lt;ul&gt;</code>元素节点的子节点添加到DOM节点树上。完成这个任务需要两个步骤。<br>（1）创建两个<code>&lt;li&gt;</code>新元素。<br>（2）将这两个新元素插入文档中。</p>
+<p>第（1）个步骤可以使用jQuery的工厂函数$()来完成，格式如下：</p>
+<p>[插图]</p>
+<p><code>$(html)</code>方法会根据传入的HTML标记字符串，创建一个DOM对象，并将这个DOM对象包装成一个jQuery对象后返回。</p>
+<p>首先创建两个<code>&lt;li&gt;</code>元素，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>然后将这两个新元素插入文档中，可以使用jQuery中的append()等方法（将在第3.2.3小节进行介绍）。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：
+（1）动态创建的新元素节点不会被自动添加到文档中，而是需要使用其他方法将其插入文档中。
+（2）当创建单个元素时，要注意闭合标签和使用标准的XHTML格式。例如创建一个`<p>`元素，可以用<code>&#36;&#40;&#34;&#60;&#112;&#47;&#62;&#34;&#41;</code>或者<code>&#36;&#40;&#34;&#60;&#112;&#62;&#60;&#47;&#112;&#62;&#34;&#41;</code>，但不要使用<code>&#36;&#40;&#34;&#60;&#112;&#62;&#34;&#41;</code>或者大写的<code>&#36;&#40;&#34;&#60;&#80;&#47;&#62;&#34;&#41;</code>。</div>
+
+<p>运行代码后，新创建的<code>&lt;li&gt;</code>元素将被添加到网页中，因为暂时没有在它们内部添加任何文本，所以只能看到<code>&lt;li&gt;</code>元素默认的“· ”，如图3-5所示。</p>
+<p>[插图]</p>
+<center>图3-5 创建元素节点</center>
+
+<h3 id="2．创建文本节点"><a href="#2．创建文本节点" class="headerlink" title="2．创建文本节点"></a>2．创建文本节点</h3><p>已经创建了两个<code>&lt;li&gt;</code>元素节点并把它们插入文档中了。此时需要为创建的元素节点添加文本内容。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>如以上代码所示，创建文本节点就是在创建元素节点时直接把文本内容写出来，然后使用append()等方法将它们添加到文档中就可以了。</p>
+<p>创建的<code>&lt;li&gt;</code>节点显示到网页中的效果如图3-6所示。</p>
+<p>[插图]</p>
+<center>图3-6 创建文本节点</center>
+
+<div style="border:1px solid;"><strong>注意</strong>：无论<code>$(html)</code>中的HTML代码多么复杂，都可以使用相同的方式来创建。例如<code>$("<li><em>这是</em><b>一个</b><a href='#' >复杂的组合</a></li>")</code>；</div>
+
+<h3 id="3．创建属性节点"><a href="#3．创建属性节点" class="headerlink" title="3．创建属性节点"></a>3．创建属性节点</h3><p>创建属性节点与创建文本节点类似，也是直接在创建元素节点时一起创建。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，效果如图3-7所示。</p>
+<p>[插图]</p>
+<center>图3-7 创建属性节点</center>
+
+<p>读者也许会发现图3-7与图3-6显示的效果没有什么区别，但事实上两者还是有差别的，可以通过Firebug工具来查看比较。</p>
+<div style="border:1px solid;"><strong>注意</strong>：Firebug工具是FireFox浏览器的一个插件，它不仅能查看网页的文档结构，还能查看CSS、JavaScript等，是开发者必不可少的工具之一。具体介绍见附录Firebug。</div>
+
+<p>图3-6的网页内容在Firebug工具下显示的效果如图3-8所示。</p>
+<p>[插图]</p>
+<center>图3-8 新增的元素没有属性节点</center>
+
+<p>图3-7的网页内容在Firebug工具下显示的效果如图3-9所示。</p>
+<p>[插图]</p>
+<center>图3-9 新增的元素有title属性节点</center>
+
+<p>通过比较图3-8和图3-9对应的代码，发现图3-9的代码中最后两个<code>&lt;li&gt;</code>元素多了名为“title”的属性节点。由此可以判断，创建的元素的文本节点和属性节点都已经添加到网页中了。</p>
+<p>由此可见用jQuery来动态创建HTML元素是非常简单、方便和灵活的。</p>
+<h2 id="3-2-3-插入节点"><a href="#3-2-3-插入节点" class="headerlink" title="3.2.3 插入节点"></a>3.2.3 插入节点</h2><p>动态创建 HTML 元素并没有实际用处，还需要将新创建的元素插入文档中。将新创建的节点插入文档最简单的办法是，让它成为这个文档的某个节点的子节点。前面使用了一个插入节点的方</p>
+<p>法append()，它会在元素内部追加新创建的内容。</p>
+<p>将新创建的节点插入某个文档的方法并非只有一种，在 jQuery 中还提供了其他几种插入节点的方法，如表3-1所示。读者可以根据实际需求灵活地做出多种选择。</p>
+<center>表3-1 插入节点的方法</center>
+
+
+<p>[插图]</p>
+<p>这些插入节点的方法不仅能将新创建的DOM元素插入到文档中，也能对原有的DOM元素进行移动。</p>
+<p>例如利用它们创建新元素并对其进行插入操作。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，网页呈现效果如图3-10所示。</p>
+<p>[插图]</p>
+<center>图3-10 插入节点</center>
+
+<p>例如利用它们对原有的DOM元素进行移动。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，网页呈现效果如图3-12所示。</p>
+<p>[插图]</p>
+<center>图3-12 移动之后</center>
+
+<h2 id="3-2-4-删除节点"><a href="#3-2-4-删除节点" class="headerlink" title="3.2.4 删除节点"></a>3.2.4 删除节点</h2><p>如果文档中某一个元素多余，那么应将其删除。jQuery 提供了三种删除节点的方法，即remove()，detach()和empty()。</p>
+<h3 id="1．remove-方法"><a href="#1．remove-方法" class="headerlink" title="1．remove()方法"></a>1．remove()方法</h3><p>作用是从DOM中删除所有匹配的元素，传入的参数用于根据jQuery表达式来筛选元素。例如删除图3-11中<code>&lt;ul&gt;</code>节点中的第2个<code>&lt;li&gt;</code>元素节点，jQuery代码如下：</p>
+<p>[插图]</p>
+<center>图3-11 移动之前</center>
+
+<p>[插图]</p>
+<p>运行代码后效果如图3-13所示。</p>
+<p>[插图]</p>
+<center>图3-13 删除节点</center>
+
+<p>当某个节点用remove()方法删除后，该节点所包含的所有后代节点将同时被删除。这个方法的返回值是一个指向已被删除的节点的引用，因此可以在以后再使用这些元素。下面的jQuery 代码说明元素用remove()方法删除后，还是可以继续使用的。</p>
+<p>[插图]</p>
+<p>可以直接使用appendTo()方法的特性来简化以上代码，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>[插图]</p>
+<center>图3-14 元素并未从jQuery对象中删除</center>
+
+<p>另外remove()方法也可以通过传递参数来选择性地删除元素，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，效果如图3-15所示。</p>
+<p>[插图]</p>
+<center>图3-15 有选择性地删除元素</center>
+
+<p>在Firebug工具中查看源代码，如图3-16所示。</p>
+<p>[插图]</p>
+<center>图3-16 删除后的源文件</center>
+
+<h3 id="2．detach-方法"><a href="#2．detach-方法" class="headerlink" title="2．detach()方法"></a>2．detach()方法</h3><p>detach()和remove()一样，也是从DOM中去掉所有匹配的元素。但需要注意的是，这个方法不会把匹配的元素从 jQuery 对象中删除，因而可以在将来再使用这些匹配的元素。与 remove()不同的是，所有绑定的事件、附加的数据等都会保留下来。</p>
+<p>通过下面的例子，可以知道它与remove()方法的区别，jQuery代码如下：</p>
+<p>[插图]</p>
+<h3 id="3．empty-方法"><a href="#3．empty-方法" class="headerlink" title="3．empty()方法"></a>3．empty()方法</h3><p>严格来讲，empty()方法并不是删除节点，而是清空节点，它能清空元素中的所有后代节点。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>当运行代码后，第2个<code>&lt;li&gt;</code>元素的内容被清空了，只剩下<code>&lt;li&gt;</code>标签默认的符号“·”，效果如图3-17所示。</p>
+<p>[插图]</p>
+<center>图3-17 清空元素</center>
+
+<p>在Firebug工具中查看源代码，如图3-18所示。</p>
+<p>[插图]</p>
+<center>图3-18 清空后的源文件</center>
+
+<h2 id="3-2-5-复制节点"><a href="#3-2-5-复制节点" class="headerlink" title="3.2.5 复制节点"></a>3.2.5 复制节点</h2><p>复制节点也是常用的DOM操作之一，例如图3-19所示的某个购物网站的效果，用户不仅可以通过单击商品下方的“选择”按钮购买相应的产品，也可以通过鼠标拖动商品并将其放到购物车中。这个商品拖动功能就是用的复制节点，将用户选择的商品所处的节点元素复制一次，并将其跟随鼠标移动，从而达到以下购物效果。</p>
+<p>[插图]</p>
+<center>图3-19 购物网站的复制节点功能</center>
+
+<p>继续沿用之前的例子，如果单击<code>&lt;li&gt;</code>元素后需要再复制一个<code>&lt;li&gt;</code>元素，可以使用clone()方法来完成，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>在页面中单击“菠萝”后，列表最下方出现新节点“菠萝”，效果如图3-20所示。</p>
+<p>[插图]</p>
+<center>图3-20 复制节点</center>
+
+<p>复制节点后，被复制的新元素并不具有任何行为。如果需要新元素也具有复制功能（本例中是单击事件），可以使用如下jQuery代码：</p>
+<p>[插图]</p>
+<p>在clone()方法中传递了一个参数true，它的含义是复制元素的同时复制元素中所绑定的事件。因此该元素的副本也同样具有复制功能（本例中是单击事件）。</p>
+<h2 id="3-2-6-替换节点"><a href="#3-2-6-替换节点" class="headerlink" title="3.2.6 替换节点"></a>3.2.6 替换节点</h2><p>如果要替换某个节点，jQuery提供了相应的方法，即replaceWith()和replaceAll()。</p>
+<p>replaceWith()方法的作用是将所有匹配的元素都替换成指定的HTML或者DOM元素。例如要将网页中“<code>&lt;p title=&quot;选择你最喜欢的水果.&quot;&gt;你最喜欢的水果是?&lt;/p&gt;</code>”替换成“<code>&lt;strong&gt;你最不喜欢的水果是？&lt;/strong&gt;</code>”，可以使用如下jQuery代码：</p>
+<p>[插图]</p>
+<p>也可以使用jQuery中另一个方法replaceAll()来实现，该方法与replaceWith()方法的作用相同，只是颠倒了replaceWith()操作，可以使用如下jQuery代码实现同样的功能：</p>
+<p>[插图]</p>
+<p>这两句jQuery代码都会实现图3-21所示的效果。</p>
+<p>[插图]</p>
+<center>图3-21 替换节点</center>
+
+<div style="border:1px solid;"><strong>注意</strong>：如果在替换之前，已经为元素绑定事件，替换后原先绑定的事件将会与被替换的元素一起消失，需要在新元素上重新绑定事件。</div>
+
+<h2 id="3-2-7-包裹节点"><a href="#3-2-7-包裹节点" class="headerlink" title="3.2.7 包裹节点"></a>3.2.7 包裹节点</h2><p>如果要将某个节点用其他标记包裹起来，jQuery提供了相应的方法，即wrap()。该方法对于需要在文档中插入额外的结构化标记非常有用，而且它不会破坏原始文档的语义。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>得到的结果如下：</p>
+<p>[插图]</p>
+<p>在Firebug工具中查看源文件，效果如图3-22所示。</p>
+<p>[插图]</p>
+<center>图3-22 包裹节点源文件</center>
+
+<p>包裹节点操作还有其他两个方法，即wrapAll()和wrapInner()。</p>
+<h3 id="1．wrapAll-方法"><a href="#1．wrapAll-方法" class="headerlink" title="1．wrapAll()方法"></a>1．wrapAll()方法</h3><p>该方法会将所有匹配的元素用一个元素来包裹。它不同于wrap()方法，wrap()方法是将所有的元素进行单独的包裹。</p>
+<p>为了使效果更突出，在网页中再加入一个<code>&lt;strong&gt;</code>元素。</p>
+<p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>如果使用wrap()方法包裹<code>&lt;strong&gt;</code>元素，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>将会得到如下结果：</p>
+<p>[插图]</p>
+<p>用Firebug工具查看源文件的效果如图3-23所示。</p>
+<p>[插图]</p>
+<center>图3-23 用wrap()方法包裹节点源文件</center>
+
+<p>使用wrapAll()方法包裹<code>&lt;strong&gt;</code>元素，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>则会得到如下结果：</p>
+<p>[插图]</p>
+<p>[插图]</p>
+<p>用Firebug工具查看源文件的效果如图3-24所示。</p>
+<p>[插图]</p>
+<center>图3-24 用wrapAll()方法包裹节点源文件</center>
+
+<div style="border:1px solid;"><strong>注意</strong>：如果被包裹的多个元素间有其它元素，其它元素会被放到包裹元素之后。</div>
+
+<h3 id="2．wrapInner-方法"><a href="#2．wrapInner-方法" class="headerlink" title="2．wrapInner()方法"></a>2．wrapInner()方法</h3><p>该方法将每一个匹配的元素的子内容（包括文本节点）用其他结构化的标记包裹起来。例如可以使用它来包裹<code>&lt;strong&gt;</code>标签的子内容，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，发现<code>&lt;strong&gt;</code>标签内的内容被一对<code>&lt;b&gt;</code>标签包裹了，结果如下：</p>
+<p>[插图]</p>
+<p>使用Firebug工具查看网页结构，显示效果如图3-25所示。</p>
+<p>[插图]</p>
+<center>图3-25 用wrapInner()方法包裹节点源文件</center>
+
+<h2 id="3-2-8-属性操作"><a href="#3-2-8-属性操作" class="headerlink" title="3.2.8 属性操作"></a>3.2.8 属性操作</h2><p>在jQuery中，用attr()方法来获取和设置元素属性，removeAttr()方法来删除元素属性。</p>
+<h3 id="1．获取属性和设置属性"><a href="#1．获取属性和设置属性" class="headerlink" title="1．获取属性和设置属性"></a>1．获取属性和设置属性</h3><p>如果要获取<code>&lt;p&gt;</code>元素的属性title，那么只需要给attr()方法传递一个参数，即属性名称。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>如果要设置<code>&lt;p&gt;</code>元素的属性title的值，也可以使用同一个方法，不同的是，需要传递两个参数即属性名称和对应的值。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>如果需要一次性为同一个元素设置多个属性，可以使用下面的代码来实现：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：jQuery 中的很多方法都是同一个函数实现获取（getter）和设置（setter）的，例如上面的attr()方法，既能设置元素属性的值，也能获取元素属性的值。类似的还有html()、text()、height()、width()、val()和css()等方法。</div>
+
+<h3 id="2．删除属性"><a href="#2．删除属性" class="headerlink" title="2．删除属性"></a>2．删除属性</h3><p>在某些情况下，需要删除文档中某个元素的特定属性，可以使用 removeAttr()方法来完成该任务。</p>
+<p>如果需要删除<code>&lt;p&gt;</code>元素的title属性，可以使用下面的代码实现：</p>
+<p>[插图]</p>
+<p>运行代码后，<code>&lt;p&gt;</code>元素的title属性将被删除。此时<code>&lt;p&gt;</code>元素的HTML结构由</p>
+<p>[插图]</p>
+<p>变为</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：jQuery1.6中新增了prop()和removeProp()，分别用来获取在匹配的元素集中的第一个元素的属性值和为匹配的元素删除设置的属性。</div>
+
+<h2 id="3-2-9-样式操作"><a href="#3-2-9-样式操作" class="headerlink" title="3.2.9 样式操作"></a>3.2.9 样式操作</h2><h3 id="1．获取样式和设置样式"><a href="#1．获取样式和设置样式" class="headerlink" title="1．获取样式和设置样式"></a>1．获取样式和设置样式</h3><p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>在上面的代码中，class也是<code>&lt;p&gt;</code>元素的属性，因此获取class和设置class都可以使用attr()方法来完成。</p>
+<p>例如使用attr()方法来获取<code>&lt;p&gt;</code>元素的class，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>也可以使用attr()方法来设置<code>&lt;p&gt;</code>元素的class，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，上面的HTML代码将变为如下结构：</p>
+<p>[插图]</p>
+<p>上面的代码是将原来的class（myClass）替换为新的class（high）。如果此处需要的是“追加”效果，class属性变为“myClass high”，即myClass和high两种样式的叠加，那么我们可以使用addClass()方法。</p>
+<h3 id="2．追加样式"><a href="#2．追加样式" class="headerlink" title="2．追加样式"></a>2．追加样式</h3><p>jQuery提供了专门的addClass()方法来追加样式。为了使例子更容易理解，首先在<code>&lt;style&gt;</code>标签里添加另一组样式：</p>
+<p>[插图]</p>
+<p>然后在网页中添加一个“追加class类”的按钮，按钮的事件代码如下：</p>
+<p>[插图]</p>
+<p>最后当单击“追加class类”按钮时，<code>&lt;p&gt;</code>元素样式就会变为斜体，而先前的红色字体也会变为蓝色，显示效果如图3-26所示。</p>
+<p>[插图]</p>
+<center>图3-26 addClass()方法</center>
+
+<p>在Firebug工具中查看class代码如图3-27所示。</p>
+<p>[插图]</p>
+<center>图3-27 class代码</center>
+
+<p>此时<code>&lt;p&gt;</code>元素同时拥有两个class值，即“high”和“another”。在CSS中有以下两条规定。<br>（1）如果给一个元素添加了多个class值，那么就相当于合并了它们的样式。<br>（2）如果有不同的class设定了同一样式属性，则后者覆盖前者。</p>
+<p>在上例中，相当于给<code>&lt;p&gt;</code>元素添加了如下样式：</p>
+<p>[插图]</p>
+<p>在以上的样式中，存在两个“color”属性，而后面的“color”属性会覆盖前面的“color”属性，因此最终的“color”属性的值为“blue”，而不是“red”。</p>
+<p>样式最终呈现为：</p>
+<p>[插图]</p>
+<p>追加样式和设置样式的区别如表3-2所示。</p>
+<center>表3-2 attr()和addClass()的区别</center>
+
+
+<p>[插图]</p>
+<h3 id="3．移除样式"><a href="#3．移除样式" class="headerlink" title="3．移除样式"></a>3．移除样式</h3><p>在上面的例子中，为<code>&lt;p&gt;</code>元素追加了another样式。此时<code>&lt;p&gt;</code>元素的HTML代码变为：</p>
+<p>[插图]</p>
+<p>如果用户单击某个按钮时，要删除 class的某个值，那么可以使用与addClass()方法相反的removeClass()方法来完成，它的作用是从匹配的元素中删除全部或者指定的class。</p>
+<p>例如可以使用如下的jQuery代码来删除<code>&lt;p&gt;</code>元素中值为“high”的class：</p>
+<p>[插图]</p>
+<p>输出结果为：</p>
+<p>[插图]</p>
+<p>如果要把<code>&lt;p&gt;</code>元素的两个class都删除，就要使用两次removeClass()方法，代码如下：</p>
+<p>[插图]</p>
+<p>jQuery提供了更简单的方法。可以以空格的方式删除多个class名，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>另外，还可以利用removeClass()方法的一个特性来完成同样的效果。当它不带参数时，就会将class的值全部删除，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>此时，<code>&lt;p&gt;</code>元素的HTML结构为：</p>
+<p>[插图]</p>
+<h3 id="4．切换样式"><a href="#4．切换样式" class="headerlink" title="4．切换样式"></a>4．切换样式</h3><p>在第2章的案例研究中介绍了一个方法，即toggle()，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>toggle()方法此处的作用是交替执行代码③和代码④两个函数，如果元素原来是显示的，则隐藏它；如果元素原来是隐藏的，则显示它。此时，toggle()方法主要是控制行为上的重复切换。</p>
+<p>另外jQuery还提供了一个toggleClass()方法控制样式上的重复切换。如果类名存在则删除它，如果类名不存在则添加它。</p>
+<p>例如对<code>&lt;p&gt;</code>元素进行toggleClass()方法操作。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<p>当单击“切换样式”按钮后，<code>&lt;p&gt;</code>元素的HTML代码由</p>
+<p>[插图]</p>
+<p>变为</p>
+<p>[插图]</p>
+<p>当再次单击“切换样式”按钮后，<code>&lt;p&gt;</code>元素的HTML代码又返回原来的状态：</p>
+<p>[插图]</p>
+<p>当不断单击“切换样式”按钮时，<code>&lt;p&gt;</code>元素的class的值就会在“myClass”和“myClass another”之间重复切换。</p>
+<h3 id="5．判断是否含有某个样式"><a href="#5．判断是否含有某个样式" class="headerlink" title="5．判断是否含有某个样式"></a>5．判断是否含有某个样式</h3><p>hasClass()可以用来判断元素中是否含有某个class，如果有，则返回true，否则返回false。</p>
+<p>例如可以使用下面的代码来判断<code>&lt;p&gt;</code>元素中是否含有“another”的class：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：这个方法是为了增强代码可读性而产生的。在jQuery内部实际上是调用了is()方法来完成这个功能的。该方法等价于如下代码：`$("p").is(".another")`；</div>
+
+<h2 id="3-2-10-设置和获取HTML、文本和值"><a href="#3-2-10-设置和获取HTML、文本和值" class="headerlink" title="3.2.10 设置和获取HTML、文本和值"></a>3.2.10 设置和获取HTML、文本和值</h2><h3 id="1．html-方法"><a href="#1．html-方法" class="headerlink" title="1．html()方法"></a>1．html()方法</h3><p>此方法类似于JavaScript中的innerHTML属性，可以用来读取或者设置某个元素中的HTML内容。</p>
+<p>为了更清楚地展示效果，将<code>&lt;p&gt;</code>元素的HTML代码改成：</p>
+<p>[插图]</p>
+<p>然后用html()方法对<code>&lt;p&gt;</code>元素进行操作：</p>
+<p>[插图]</p>
+<p>运行代码后，效果如图3-28所示。</p>
+<p>[插图]</p>
+<center>图3-28 获取`<p>`元素的HTML代码</center>
+
+<p>如果需要设置某元素的HTML 代码，那么也可以使用该方法，不过需要为它传递一个参数。例如要设置<code>&lt;p&gt;</code>元素的HTML代码，可以使用如下代码：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：html()方法可以用于XHTML文档，但不能用于XML文档。</div>
+
+<h3 id="2．text-方法"><a href="#2．text-方法" class="headerlink" title="2．text()方法"></a>2．text()方法</h3><p>此方法类似于JavaScript中的innerText属性，可以用来读取或者设置某个元素中的文本内容。继续使用以上的HTML代码：</p>
+<p>[插图]</p>
+<p>用text()方法对<code>&lt;p&gt;</code>元素进行操作：</p>
+<p>[插图]</p>
+<p>运行代码后，效果如图3-29所示：</p>
+<p>[插图]</p>
+<center>图3-29 获取`<p>`元素的文本内容</center>
+
+<p>与 html()方法一样，如果需要为某元素设置文本内容，那么也需要传递一个参数。例如对<code>&lt;p&gt;</code>元素设置文本内容，代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：（1）JavaScript中的innerText属性并不能在Firefox浏览器下运行，而jQuery的text()方法支持所有的浏览器。（2）text()方法对HTML文档和XML文档都有效。</div>
+
+<h3 id="3．val-方法"><a href="#3．val-方法" class="headerlink" title="3．val()方法"></a>3．val()方法</h3><p>此方法类似于 JavaScript 中的value 属性，可以用来设置和获取元素的值。无论元素是文本框，下拉列表还是单选框，它都可以返回元素的值。如果元素为多选，则返回一个包含所有选择的值的数组。</p>
+<p>如图3-30所示，这是某网站的邮箱登录界面，默认状态下，邮箱地址文本框和邮箱密码框内分别有“请输入邮箱地址”和“请输入邮箱密码”的提示。</p>
+<p>[插图]</p>
+<center>图3-30 默认状态</center>
+
+<p>当将鼠标聚焦到邮箱地址文本框时，文本框内的“请输入邮箱地址”文字将被清空，效果如图3-31所示。</p>
+<p>[插图]</p>
+<center>图3-31 当地址文本框获得鼠标焦点时</center>
+
+<p>如果此时未在邮箱地址框中输入任何内容，而将鼠标焦点直接聚焦到密码输入框，则会发现密码框内的提示文字被清空了，同时邮箱地址输入框的提示也被还原了，效果如图3-32所示。</p>
+<p>[插图]</p>
+<center>图3-32 当地址框中未输入任何内容时，将鼠标焦点移动到密码框</center>
+
+<p>要实现以上例子展示的功能，可以使用val()方法。实现步骤如下。</p>
+<p>第1步：设计网页的基本结构。在页面中添加两个文本框，分别对两个文本框设置id，同时设置它们的默认值为“请输入邮箱地址”和“请输入邮箱密码”。</p>
+<p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>呈现的网页效果如图3-33所示。</p>
+<p>[插图]</p>
+<center>图3-33 初始化效果</center>
+
+<p>第2步：对“地址框”进行操作。</p>
+<p>当地址框获取鼠标焦点时，如果地址框的值为“请输入邮箱地址”，则将地址框中的值清空。可以使用如下的jQuery代码：</p>
+<p>[插图]</p>
+<p>当地址框失去鼠标焦点时，如果地址框的值为空，则将地址框的值设置为“请输入邮箱地址”。可以使用如下的jQuery代码：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：focus()方法相当于JavaScript中的onfocus()方法，作用是处理获得焦点时的事件。blur()方法相当于JavaScript中的onblur()方法，作用是处理失去焦点时的事件。</div>
+
+<p>第3步：对“密码框”进行操作，实现过程与“地址框”相同。</p>
+<p>此时，类似于YAHOO邮箱登录框的提示效果就完成了。完整代码如下：</p>
+<p>[插图]</p>
+<p>在该例子中，也可以使用表单元素的defaultValue属性来实现同样的功能，defaultValue属性包含该表单元素的初始值。代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：this指向当前的文本框，“this.defaultValue”就是当前文本框的默认值。</div>
+
+<p>通过上面的例子可以发现val()方法不仅能设置元素的值，同时也能获取元素的值。另外，val()方法还有另外一个用处，就是它能使select（下拉列表框）、checkbox（多选框）和radio（单选框）相应的选项被选中，在表单操作中会经常用到。</p>
+<p>下面构建一个网页来演示val()方法的选中功能。</p>
+<p>HTML代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，显示效果如图3-34所示。</p>
+<p>[插图]</p>
+<center>图3-34 初始化</center>
+
+<p>该网页中一些元素是默认选中的，可以通过 val()方法来改变它们的选中项。如果要使第1个下拉框的第2项被选中，可以用以下jQuery代码实现：</p>
+<p>[插图]</p>
+<p>如果要使下拉列表的第2项和第3项被选中，可以用以下jQuery代码实现：</p>
+<p>[插图]</p>
+<p>依照上面类似的写法，下面的代码可以使多选框和单选框被选中，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，显示效果如图3-35所示。</p>
+<p>[插图]</p>
+<center>图3-35 设置多选框和单选框</center>
+
+<div style="border:1px solid;"><strong>注意</strong>：在上面这个例子中，可以使用val()方法，也可以使用attr()方法来实现同样的功能。</div>
+
+<p>[插图]</p>
+<h2 id="3-2-11-遍历节点"><a href="#3-2-11-遍历节点" class="headerlink" title="3.2.11 遍历节点"></a>3.2.11 遍历节点</h2><h3 id="1．children-方法"><a href="#1．children-方法" class="headerlink" title="1．children()方法"></a>1．children()方法</h3><p>该方法用于取得匹配元素的子元素集合。</p>
+<p>此处使用本章开头所画的那颗DOM树的结构，如图3-36所示。</p>
+<p>[插图]</p>
+<center>图3-36 DOM树</center>
+
+<p>根据DOM树的结构，可以知道各个元素之间的关系以及它们子节点的个数。<code>&lt;body&gt;</code>元素下有<code>&lt;p&gt;</code>和<code>&lt;ul&gt;</code>两个子元素，<code>&lt;p&gt;</code>元素没有子元素，<code>&lt;ul&gt;</code>元素有3个<code>&lt;li&gt;</code>子元素。</p>
+<p>下面使用children()方法来获取匹配元素的所有子元素的个数。</p>
+<p>jQuery代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：children()方法只考虑子元素而不考虑其他后代元素。</div>
+
+<h3 id="2．next-方法"><a href="#2．next-方法" class="headerlink" title="2．next()方法"></a>2．next()方法</h3><p>该方法用于取得匹配元素后面紧邻的同辈元素。</p>
+<p>从 DOM 树的结构中可以知道<code>&lt;p&gt;</code>元素的下一个同辈节点是<code>&lt;ul&gt;</code>，因此可以通过next()方法来获取<code>&lt;ul&gt;</code>元素，代码如下：</p>
+<p>[插图]</p>
+<p>得到的结果将是：</p>
+<p>[插图]</p>
+<h3 id="3．prev-方法"><a href="#3．prev-方法" class="headerlink" title="3．prev()方法"></a>3．prev()方法</h3><p>该方法用于取得匹配元素前面紧邻的同辈元素。</p>
+<p>从DOM树的结构中可以知道<code>&lt;ul&gt;</code>元素的上一个同辈节点是<code>&lt;p&gt;</code>，因此可以通过prev()方法来获取<code>&lt;p&gt;</code>元素，代码如下：</p>
+<p>[插图]</p>
+<p>得到的结果将是：</p>
+<p>[插图]</p>
+<h3 id="4．siblings-方法"><a href="#4．siblings-方法" class="headerlink" title="4．siblings()方法"></a>4．siblings()方法</h3><p>该方法用于取得匹配元素前后所有的同辈元素。</p>
+<p>在第1章导航栏的例子中有段代码如下：</p>
+<p>[插图]</p>
+<p>上面的代码中就用到了 siblings()方法，当时是为了获取匹配元素的兄弟节点，即获取匹配元素的同辈元素。</p>
+<p>以DOM树的结构为例。<code>&lt;ul&gt;</code>元素和<code>&lt;p&gt;</code>元素互为同辈元素，<code>&lt;ul&gt;</code>元素下的3个<code>&lt;li&gt;</code>元素也互为同辈元素。如果要获取<code>&lt;p&gt;</code>元素的同辈元素，则可以使用如下代码：</p>
+<p>[插图]</p>
+<p>得到的结果将是：</p>
+<p>[插图]</p>
+<h3 id="5．closest"><a href="#5．closest" class="headerlink" title="5．closest()"></a>5．closest()</h3><p>该方法用于取得最近的匹配元素。首先检查当前元素是否匹配，如果匹配则直接返回元素本身。如果不匹配则向上查找父元素，逐级向上直到找到匹配选择器的元素。如果什么都没找到则返回一个空的jQuery对象。</p>
+<p>比如，给点击的目标元素的最近的li元素添加颜色，可以使用如下代码：</p>
+<p>[插图]</p>
+<h3 id="6．parent-，parents-与closest-的区别"><a href="#6．parent-，parents-与closest-的区别" class="headerlink" title="6．parent()，parents()与closest()的区别"></a>6．parent()，parents()与closest()的区别</h3><p>parent()，parents()与closest()方法两两之间有类似又有不同，在此简短的区分一下这三个方法。如表3-3所示。读者可以根据实际需求灵活地选择使用哪个方法。</p>
+<center>表3-3 parent()，parents()与closest()的区别</center>
+
+
+<p>[插图]</p>
+<p>除此之外，在 jQuery 中还有很多遍历节点的方法，例如 find()、filter()、nextAll()和prevAll()等，此处不再赘述，读者可以查看附录的jQuery 速查表文档。值得注意的是，这些遍历 DOM 方法有一个共同点，都可以使用jQuery表达式作为它们的参数来筛选元素。</p>
+<h2 id="3-2-12-CSS-DOM操作"><a href="#3-2-12-CSS-DOM操作" class="headerlink" title="3.2.12 CSS-DOM操作"></a>3.2.12 CSS-DOM操作</h2><p>CSS-DOM技术简单来说就是读取和设置style对象的各种属性。style属性很有用，但最大不足是无法通过它来提取到通过外部CSS设置的样式信息，然而在jQuery中，这些都是非常的简单。</p>
+<p>可以直接利用css()方法获取元素的样式属性，jQuery代码如下：</p>
+<p>[插图]</p>
+<p>无论color属性是外部CSS导入，还是直接拼接在HTML元素里（内联），css()方法都可以获取到属性style里的其他属性的值。</p>
+<p>也可以直接利用css()方法设置某个元素的单个样式，例如：</p>
+<p>[插图]</p>
+<p>与attr()方法一样，css()方法也可以同时设置多个样式属性，代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：（1）如果值是数字，将会被自动转化为像素值。（2）在css()方法中，如果属性中带有“-”符号，例如font-size和background-color属性，如果在设置这些属性的值的时候不带引号，那么就要用驼峰式写法，例如：`$("p").css({ fontSize : "30px" , backgroundColor : "#888888" })`如果带上了引号，既可以写成“font-size”，也可以写成“fontSize”。总之建议大家加上引号，养成良好的习惯。</div>
+
+<p>对透明度的设置，可以直接使用opacity属性，jQuery已经处理好了兼容性的问题，如下代码所示，将<code>&lt;p&gt;</code>元素的透明度设置为半透明：</p>
+<p>[插图]</p>
+<p>如果需要获取某个元素的height属性，则可以通过如下jQuery代码实现：</p>
+<p>[插图]</p>
+<p>在jQuery中还有另外一种方法也可以获取元素的高度，即height()。它的作用是取得匹配元素当前计算的高度值（px）。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>height()方法也能用来设置元素的高度，如果传递的值是一个数字，则默认单位为px。如果要用其他单位（例如em），则必须传递一个字符串。jQuery代码如下：</p>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：（1）在jQuery 1.2版本以后的height()方法可以用来获取window和document的高度。（2）两者的区别是：css()方法获取的高度值与样式的设置有关，可能会得到"auto"，也可能得到"10px"之类的字符串；而 height()方法获取的高度值则是元素在页面中的实际高度，与样式的设置无关，并且不带单位。</div>
+
+<p>与height()方法对应的还有一个width()方法，它可以取得匹配元素的宽度值（px）。</p>
+<p>[插图]</p>
+<p>同样，width()方法也能用来设置元素的宽度。</p>
+<p>[插图]</p>
+<p>此外，在CSS-DOM中，关于元素定位有以下几个经常使用的方法。</p>
+<h3 id="1．offset-方法"><a href="#1．offset-方法" class="headerlink" title="1．offset()方法"></a>1．offset()方法</h3><p>它的作用是获取元素在当前视窗的相对偏移，其中返回的对象包含两个属性，即top和left，它只对可见元素有效。例如用它来获取<code>&lt;p&gt;</code>元素的的偏移量，jQuery代码如下：</p>
+<p>[插图]</p>
+<h3 id="2．position-方法"><a href="#2．position-方法" class="headerlink" title="2．position()方法"></a>2．position()方法</h3><p>它的作用是获取元素相对于最近的一个position样式属性设置为relative或者absolute的祖父节点的相对偏移，与 offset()一样，它返回的对象也包括两个属性，即 top和left。jQuery代码如下：</p>
+<p>[插图]</p>
+<h3 id="3．scrollTop-方法和scrollLeft-方法"><a href="#3．scrollTop-方法和scrollLeft-方法" class="headerlink" title="3．scrollTop()方法和scrollLeft()方法"></a>3．scrollTop()方法和scrollLeft()方法</h3><p>这两个方法的作用分别是获取元素的滚动条距顶端的距离和距左侧的距离。例如使用下面的代码获取<code>&lt;p&gt;</code>元素的滚动条距离：</p>
+<p>[插图]</p>
+<p>另外，可以为这两个方法指定一个参数，控制元素的滚动条滚动到指定位置。例如使用如下代码控制元素内的滚动条滚动到距顶端300和距左侧300的位置：</p>
+<p>[插图]</p>
+<p>至此，已经将jQuery中常用的DOM操作（包括DOM Core，HTML-DOM和CSS-DOM）都已经介绍完毕。以下将结合这些方法，研究一个融合了DOM操作的实例。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/133117bc/" title="3.2 jQuery中的DOM操作">https://lanlan2017.github.io/ReadingNotes/133117bc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/7dc445f6/" rel="prev" title="2.8 小结">
+                  <i class="fa fa-chevron-left"></i> 2.8 小结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/eab74ccd/" rel="next" title="3.0 第3章  jQuery中的DOM操作 3.1 DOM操作的分类">
+                  3.0 第3章  jQuery中的DOM操作 3.1 DOM操作的分类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/133117bc/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/133117bc/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

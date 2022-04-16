@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="7.4 从实体集中删除冗余属性&amp;nbsp;老师-系联系集&amp;nbsp;学生-系联系集&amp;nbsp;总体设计&amp;nbsp;实体集&amp;nbsp;联系集&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.4 从实体集中删除冗余属性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="7.4 从实体集中删除冗余属性&amp;nbsp;老师-系联系集&amp;nbsp;学生-系联系集&amp;nbsp;总体设计&amp;nbsp;实体集&amp;nbsp;联系集&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-06T09:04:10.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/","path":"/7ecbb3b1/","title":"7.4 从实体集中删除冗余属性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7.4 从实体集中删除冗余属性 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-4-%E4%BB%8E%E5%AE%9E%E4%BD%93%E9%9B%86%E4%B8%AD%E5%88%A0%E9%99%A4%E5%86%97%E4%BD%99%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">7.4 从实体集中删除冗余属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%81%E5%B8%88-%E7%B3%BB%E8%81%94%E7%B3%BB%E9%9B%86"><span class="nav-number">1.1.</span> <span class="nav-text">老师-系联系集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E7%94%9F-%E7%B3%BB%E8%81%94%E7%B3%BB%E9%9B%86"><span class="nav-number">1.2.</span> <span class="nav-text">学生-系联系集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">总体设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">实体集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E7%B3%BB%E9%9B%86"><span class="nav-number">2.2.</span> <span class="nav-text">联系集</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7.4 从实体集中删除冗余属性 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.4 从实体集中删除冗余属性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-06 17:04:10" itemprop="dateCreated datePublished" datetime="2019-11-06T17:04:10+08:00">2019-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">第二部分 数据库设计</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">第7章 数据库设计和E-R模型</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/%E7%AC%AC7%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CE-R%E6%A8%A1%E5%9E%8B/7-4-%E4%BB%8E%E5%AE%9E%E4%BD%93%E9%9B%86%E4%B8%AD%E5%88%A0%E9%99%A4%E5%86%97%E4%BD%99%E5%B1%9E%E6%80%A7/" itemprop="url" rel="index"><span itemprop="name">7.4 从实体集中删除冗余属性</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/7ecbb3b1/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/7ecbb3b1/" data-xid="/ReadingNotes/7ecbb3b1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/7ecbb3b1/#7-4-从实体集中删除冗余属性" class="header_1">7.4 从实体集中删除冗余属性</a>&nbsp;<br><a href="/ReadingNotes/7ecbb3b1/#老师-系联系集" class="header_2">老师-系联系集</a>&nbsp;<br><a href="/ReadingNotes/7ecbb3b1/#学生-系联系集" class="header_2">学生-系联系集</a>&nbsp;<br><a href="/ReadingNotes/7ecbb3b1/#总体设计" class="header_1">总体设计</a>&nbsp;<br><a href="/ReadingNotes/7ecbb3b1/#实体集" class="header_2">实体集</a>&nbsp;<br><a href="/ReadingNotes/7ecbb3b1/#联系集" class="header_2">联系集</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<h1 id="7-4-从实体集中删除冗余属性"><a href="#7-4-从实体集中删除冗余属性" class="headerlink" title="7.4 从实体集中删除冗余属性"></a>7.4 从实体集中删除冗余属性</h1><p>当我们**使用E-R模型设计数据库时,我们通常<code>从确定那些应当包含的实体集开始</code>**。例如,在我们迄今所讨论的大学机构中,我们想要包含如 <code>student</code>和 <code>instructor</code>等实体集。当决定好实体集后,我们必须挑选适当的属性,这些属性要表示我们在数据库中所捕获的不同的值。在大学机构中,我们为<code>instructor</code>实体集设计了包括<code>ID</code>,<code>name</code>, <code>dept_name</code>以及 <code>salary</code>几个属性,我们还可以增加 <code>phone_number</code>,<code>office_number</code>, <code>home_page</code>等属性。要包含哪些属性的选择决定于了解企业结构的设计者。</p>
+<p>一旦选择好实体和它们相应的属性,不同实体间的联系集就建立起来了。这些联系集有可能会导致不同实体集中的<strong>属性冗余</strong>,并需要将其从原始实体集中删除。</p>
+<p>为了说明这一点,考虑实体集<code>instructor</code>和<code>department</code></p>
+<ul>
+<li>实体集<code>instructor</code>包含属性<code>ID</code>,<code>name</code>, <code>dept_name</code>以及<code>salary</code>,其中<code>ID</code>构成主码</li>
+<li>实体集<code>department</code>包含属性<code>dept_name</code>, <code>building</code>以及<code>budget</code>,其中<code>dept_name</code>构成主码。</li>
+</ul>
+<h2 id="老师-系联系集"><a href="#老师-系联系集" class="headerlink" title="老师-系联系集"></a>老师-系联系集</h2><p>我们用关联<code>instructor</code>和<code>department</code>的<strong>联系集</strong><code>inst_dept</code>对每个<code>教师</code>都有一个关联的<code>系</code>的情况建模。<br>属性<code>dept_name</code>在两个实体集中都出现了。由于它是实体集<code>department</code>的主码,因此它在实体集<code>instructor</code>中是冗余的,需要将其移除。</p>
+<p>从实体集<code>instructor</code>中移除属性<code>dept_name</code>可能不是那么直观,因为我们在前几章所用到的关系<code>instructor</code>中具有<code>dept_name</code>属性。我们将在后面看到,当我们从E-R图构建一个关系模式时,只有当每个教师最多只与一个系关联时,属性<code>dept_name</code>才会添加到关系<code>instructor</code>中。如果一个教师有多个关联的系时,教师与系之间的联系会记录在一个单独的关系<code>inst_dept</code>中。<br>将<code>教师</code>和<code>系</code>之间的关联统一看成联系,而不是<code>instructor</code>的一个属性,使得逻辑关系明确,并有助于避免过早地假设每个教师只与一个系关联。</p>
+<h2 id="学生-系联系集"><a href="#学生-系联系集" class="headerlink" title="学生-系联系集"></a>学生-系联系集</h2><p>类似地,实体集<code>student</code>通过联系集<code>student_dept</code>与实体集<code>department</code>关联,因而<code>student</code>中不需要<code>dept_name</code>属性。</p>
+<p>作为另一个例子,考虑<strong>开课</strong>(<code>section</code>)和<strong>开课的时段</strong>。每个<strong>时段</strong>都由<code>time_slot_id</code>标识,并且和上课时间的集合相关联,每次上课时间都由星期几,开始时间以及结束时间标识。我们打算使用多值复合属性对上课时间集合建模。假设我们对实体集<code>section</code>和<code>time_slot</code>按以下方式建模:</p>
+<ul>
+<li><strong>实体集</strong><code>section</code>包含属性<code>course_id</code>,<code>sec_id</code>, <code>semester</code>,<code>year</code>, <code>building</code>,<code>room_number</code>以及<code>time_slot_id</code>,其中<code>(course_id,sec_id,year,semester)</code>构成主码。</li>
+<li><strong>实体集</strong><code>time_slot</code>包含主码属性<code>time_slot_id</code>,以及一个<strong>多值复合属性</strong><code>&#123;(day,sant_time,end_time)&#125;</code></li>
+</ul>
+<p>这些实体通过<strong>联系集</strong><code>sec_time_slot</code>相互关联。</p>
+<p>属性<code>time_slot_id</code>在两个实体集中均出现。由于它是实体集<code>time_slot</code>的主码,因此它在实体集<code>section</code>中是冗余的,并且需要将其删除。</p>
+<p>作为最后的例子,<br>假设我们有一个<strong>实体集</strong><code>classroon</code>,包含属性<code>building</code>,<code>room_number</code>以及<code>capacity</code>,主码由<code>building</code>和<code>room_number</code>组成。<br>再假设我们有一个<strong>联系集</strong><code>sec_class</code>,将<code>section</code>和<code>classroom</code>关联在起。那么属性<code>&#123;building, room_number&#125;</code>在实体集<code>section</code>中是冗余的。</p>
+<h1 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h1><p><strong>一个好的实体-联系设计不包含冗余的属性</strong>。</p>
+<h2 id="实体集"><a href="#实体集" class="headerlink" title="实体集"></a>实体集</h2><p>对于我们的大学的例子,我们在下面列出实体集以及它们的属性,主码以下划线标明。</p>
+<ul>
+<li><code>classroom</code>:包含属性<code>(<u>building</u>,<u>room_number</u>,capacity)</code></li>
+<li><code>department</code>:包含属性<code>(<u>dept_name</u>,building, budget)</code>。</li>
+<li><code>course</code>:包含属性<code>(<u>course_id</u>, title, credits)</code>。</li>
+<li><code>instructor</code>:包含属性<code>(<u>ID</u>,name, salary)</code>。</li>
+<li><code>section</code>:包含属性<code>(<u>course_id</u>, <u>sec_id</u>, <u>semester</u>,<u>year</u>)</code>。</li>
+<li><code>student</code>:包含属性<code>(<u>ID</u>,name, tot_cred)</code>。</li>
+<li><code>time_slot</code>:包含属性<code>(<u>time_slot_id</u>,&#123;(day, start_time, end_time)&#125;)</code>。</li>
+</ul>
+<h2 id="联系集"><a href="#联系集" class="headerlink" title="联系集"></a>联系集</h2><p>我们设计的联系集如下。</p>
+<ul>
+<li><code>inst_dept</code>:关联教师和系</li>
+<li><code>stud_dept</code>:关联学生和系。</li>
+<li><code>teaches</code>:关联教师和开课。</li>
+<li><code>takes</code>:关联学生和开课,包含描述性属性<code>grade</code></li>
+<li><code>course_dept</code>:关联课程和系。</li>
+<li><code>sec_course</code>:关联开课和课程。</li>
+<li><code>sec_class</code>:关联开课和教室。</li>
+<li><code>sec_time_slot</code>:关联开课和时段</li>
+<li><code>advisor</code>:关联学生和教师。</li>
+<li><code>prereg</code>:关联课程和先修课程。</li>
+</ul>
+<p>你可以验证<strong>没有任何一个实体集包含由联系集而造成冗余的属性</strong>;另外,你可以验证我们此前在第2章的图2-8中看到的大学数据库关系模式中的所有的信息(除了约束)全部包含在上述的设计中,只是关系设计中的几个属性被<code>ER</code>设计中的联系所替代。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/" title="7.4 从实体集中删除冗余属性">https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3a2eb64a/" rel="prev" title="7.3.3 码">
+                  <i class="fa fa-chevron-left"></i> 7.3.3 码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f9bf95b0/" rel="next" title="7.5 实体-联系图">
+                  7.5 实体-联系图 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/7ecbb3b1/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/7ecbb3b1/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

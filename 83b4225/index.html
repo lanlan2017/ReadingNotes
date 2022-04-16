@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="2.1 展现信息从根本上来讲，Taco Cloud是一个可以在线订购taco的地方。但是，除此之外，Taco Cloud允许客户展现其创意，能够让他们通过丰富的配料（ingredient）设计自己的taco。 因此，Taco Cloud需要有一个页面为taco艺术家展现都可以选择哪些配料。可选的配料可能随时会发生变化，所以不能将它们硬编码到HTML页面中。我们应该从数据库中获取可用的配料并将其传递">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.1 展现信息">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/83b4225/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="2.1 展现信息从根本上来讲，Taco Cloud是一个可以在线订购taco的地方。但是，除此之外，Taco Cloud允许客户展现其创意，能够让他们通过丰富的配料（ingredient）设计自己的taco。 因此，Taco Cloud需要有一个页面为taco艺术家展现都可以选择哪些配料。可选的配料可能随时会发生变化，所以不能将它们硬编码到HTML页面中。我们应该从数据库中获取可用的配料并将其传递">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005162402.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005162717.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005163051.jpeg">
+<meta property="article:published_time" content="2021-10-05T08:31:51.000Z">
+<meta property="article:modified_time" content="2021-10-05T08:31:51.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005162402.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/83b4225/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/83b4225/","path":"/83b4225/","title":"2.1 展现信息"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2.1 展现信息 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-%E5%B1%95%E7%8E%B0%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">2.1 展现信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-1-%E6%9E%84%E5%BB%BA%E9%A2%86%E5%9F%9F%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">2.1.1 构建领域类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-2-%E5%88%9B%E5%BB%BA%E6%8E%A7%E5%88%B6%E5%99%A8%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">2.1.2 创建控制器类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86GET%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">处理GET请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A9%E6%AD%A3%E7%A1%AE%E7%9A%84%E4%BA%8B%E6%83%85%E5%8F%98%E5%BE%97%E6%9B%B4%E5%AE%B9%E6%98%93"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">让正确的事情变得更容易</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-3-%E8%AE%BE%E8%AE%A1%E8%A7%86%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text">2.1.3 设计视图</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/83b4225/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2.1 展现信息 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.1 展现信息
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-05 16:31:51" itemprop="dateCreated datePublished" datetime="2021-10-05T16:31:51+08:00">2021-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC2%E7%AB%A0-%E5%BC%80%E5%8F%91Web%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">第2章 开发Web应用</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/83b4225/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/83b4225/" data-xid="/ReadingNotes/83b4225/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="2-1-展现信息"><a href="#2-1-展现信息" class="headerlink" title="2.1 展现信息"></a>2.1 展现信息</h1><p>从根本上来讲，Taco Cloud是一个可以在线订购taco的地方。但是，除此之外，Taco Cloud允许客户展现其创意，能够让他们通过丰富的配料（ingredient）设计自己的taco。</p>
+<p>因此，Taco Cloud需要有一个页面为taco艺术家展现都可以选择哪些配料。可选的配料可能随时会发生变化，所以不能将它们硬编码到HTML页面中。我们应该从数据库中获取可用的配料并将其传递给页面，进而展现给客户。</p>
+<p>在Spring Web应用中，获取和处理数据是控制器的任务，而将数据渲染到HTML中并在浏览器中展现则是视图的任务。为了支撑taco的创建页面，我们需要构建如下组件。</p>
+<ul>
+<li>用来定义taco配料属性的领域类。</li>
+<li>用来获取配料信息并将其传递至视图的Spring MVC控制器类。</li>
+<li>用来在用户的浏览器中渲染配料列表的视图模板。</li>
+</ul>
+<p>这些组件之间的关系如图2.1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005162402.jpeg" alt="epub_29101559_17"></p>
+<center>图2.1 典型的Spring MVC请求流</center>
+
+<p>因为本章主要关注Spring的Web框架，所以我们会将数据库相关的内容放到第3章中进行讲解。现在的控制器只负责向视图提供配料。在第3章中，我们会重新改造这个控制器，让它能够与repository协作，从数据库中获取配料数据。</p>
+<p>在编写控制器和视图之前，我们首先确定一下用来表示配料的领域类型，它会为我们开发Web组件奠定基础。</p>
+<h2 id="2-1-1-构建领域类"><a href="#2-1-1-构建领域类" class="headerlink" title="2.1.1 构建领域类"></a>2.1.1 构建领域类</h2><p>应用的领域指的是它所要解决的主题范围：也就是会影响到对应用理解的理念和概念[^1]。在Tao Cloud应用中，领域对象包括taco设计、组成这些设计的配料、顾客以及顾客所下的订单。作为开始，我们首先关注taco的配料。</p>
+<p>在我们的领域中，taco配料是非常简单的对象。每种配料都有一个名称和类型，以便于对其进行可视化的分类（蛋白质、奶酪、酱汁等）。每种配料还有一个ID，这样的话对它的引用就能非常容易和明确。如下的Ingredient类定义了我们所需的领域对象。</p>
+<p>程序清单2.1 定义taco配料</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ingredient</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String id;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Type type;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> <span class="title class_">Type</span> &#123;</span><br><span class="line">    WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，这是一个非常普通的Java领域类，它定义了描述配料所需的3个属性。在程序清单2.1中，Ingredient类最不寻常的一点是它似乎缺少了常见的getter和setter方法，以及equals()、hashCode()、toString()等方法。</p>
+<p>在程序清单2.1中没有这些方法，部分原因是节省空间，此外还因为我们使用了名为Lombok的库（这是一个非常棒的库，它能够在运行时动态生成这些方法）。实际上，类级别的<code>@Data</code>注解就是由Lombok提供的，它会告诉Lombok生成所有缺失的方法，同时还会生成所有以final属性作为参数的构造器。通过使用Lombok，我们能够让Ingredient的代码简洁明了。</p>
+<p>Lombok并不是Spring库，但是它非常有用，我发现如果没有它，开发工作将很难开展。当我需要在书中将代码示例编写得短小简洁时，它简直成了我的救星。</p>
+<p>要使用Lombok，首先要将其作为依赖添加到项目中。如果你使用Spring ToolSuite，那么只需要用右键点击pom.xml，并从Spring上下文菜单选项中选择“Edit Starters”。在第1章中看到的选择依赖的对话框将会再次出现（见图1.4），这样的话我们就有机会添加依赖或修改已选择的依赖了。找到Lombok选项，并确保它处于已选中的状态，然后点击“OK”，Spring Tool Suite会自动将其添加到构建规范中。</p>
+<p>另外，你也可以在pom.xml中通过如下条目进行手动添加：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个依赖将会在开发阶段为你提供Lombok注解（例如@Data），并且会在运行时进行自动化的方法生成。但是，我们还需要将Lombok作为扩展添加到IDE上，否则IDE将会报错，提示缺少方法和final属性没有赋值。参见Lombok项目页面，以查阅如何在你所选择的IDE上安装Lombok。</p>
+<p>我相信你会发现Lombok非常有用，但你也要知道，它是可选的。在开发Spring应用的时候，它并不是必备的，所以如果你不想使用它的话，完全可以手动编写这些缺失的方法。当你完成之后，我们将会在应用中添加一些控制器，让它们来处理Web请求。</p>
+<h2 id="2-1-2-创建控制器类"><a href="#2-1-2-创建控制器类" class="headerlink" title="2.1.2 创建控制器类"></a>2.1.2 创建控制器类</h2><p>在Spring MVC框架中，控制器是重要的参与者。它们的主要职责是处理HTTP请求，要么将请求传递给视图以便于渲染HTML（浏览器展现），要么直接将数据写入响应体（RESTful）。在本章中，我们将会关注使用视图来为Web浏览器生成内容的控制器。在第6章中，我们将会看到如何以REST API的形式编写控制器来处理请求。</p>
+<p>对于Taco Cloud应用来说，我们需要一个简单的控制器，它要完成如下功能。</p>
+<ul>
+<li>处理路径为“&#x2F;design”的HTTP GET请求。</li>
+<li>构建配料的列表。</li>
+<li>处理请求，并将配料数据传递给要渲染为HTML的视图模板，发送给发起请求的Web浏览器。</li>
+</ul>
+<p>程序清单2.2中的DesignTacoController类解决了这些需求。</p>
+<p>程序清单2.2 初始的Spring控制器类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.web;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> javax.validation.Valid;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.ui.Model;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.Errors;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> tacos.Taco;</span><br><span class="line"><span class="keyword">import</span> tacos.Ingredient;</span><br><span class="line"><span class="keyword">import</span> tacos.Ingredient.Type;</span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/design&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DesignTacoController</span> &#123;</span><br><span class="line">  <span class="meta">@GetMapping</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">showDesignForm</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    List&lt;Ingredient&gt; ingredients = Arrays.asList(</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;FLTO&quot;</span>, <span class="string">&quot;Flour Tortilla&quot;</span>, Type.WRAP),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;COTO&quot;</span>, <span class="string">&quot;Corn Tortilla&quot;</span>, Type.WRAP),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;GRBF&quot;</span>, <span class="string">&quot;Ground Beef&quot;</span>, Type.PROTEIN),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;CARN&quot;</span>, <span class="string">&quot;Carnitas&quot;</span>, Type.PROTEIN),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;TMTO&quot;</span>, <span class="string">&quot;Diced Tomatoes&quot;</span>, Type.VEGGIES),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;LETC&quot;</span>, <span class="string">&quot;Lettuce&quot;</span>, Type.VEGGIES),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;CHED&quot;</span>, <span class="string">&quot;Cheddar&quot;</span>, Type.CHEESE),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;JACK&quot;</span>, <span class="string">&quot;Monterrey Jack&quot;</span>, Type.CHEESE),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;SLSA&quot;</span>, <span class="string">&quot;Salsa&quot;</span>, Type.SAUCE),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">Ingredient</span>(<span class="string">&quot;SRCR&quot;</span>, <span class="string">&quot;Sour Cream&quot;</span>, Type.SAUCE)</span><br><span class="line">    );</span><br><span class="line">    Type[] types = Ingredient.Type.values();</span><br><span class="line">    <span class="keyword">for</span> (Type type : types) &#123;</span><br><span class="line">      model.addAttribute(type.toString().toLowerCase(),</span><br><span class="line">          filterByType(ingredients, type));</span><br><span class="line">    &#125;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;design&quot;</span>, <span class="keyword">new</span> <span class="title class_">Taco</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;design&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">private</span> List&lt;Ingredient&gt; <span class="title function_">filterByType</span><span class="params">(</span></span><br><span class="line"><span class="params">      &lt;Ingredient&gt; ingredients, Type type)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> ingredients</span><br><span class="line">         .stream()</span><br><span class="line">         .filter(x -&gt; x.getType().equals(type))</span><br><span class="line">         .collect(Collectors.toList());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于DesignTacoController，我们先要注意在类级别所应用的注解。首先是<code>@Slf4j</code>，这是Lombok所提供的注解，在运行时，它会在这个类中自动生成一个SLF4J（Simple Logging Facade for Java）Logger。这个简单的注解和在类中通过如下代码显式声明的效果是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> org.slf4j.<span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span></span><br><span class="line">    org.slf4j.LoggerFactory.getLogger(DesignTacoController.class);</span><br></pre></td></tr></table></figure>
+
+<p>随后，我们将会用到这个Logger。</p>
+<p>DesignTacoController用到的下一个注解是<code>@Controller。</code>这个注解会将这个类识别为控制器，并且将其作为组件扫描的候选者，所以Spring会发现它并自动创建一个DesignTacoController实例，并将该实例作为Spring应用上下文中的bean。</p>
+<p>DesignTacoController还带有<code>@RequestMapping</code>注解。当<code>@RequestMapping</code>注解用到类级别的时候，它能够指定该控制器所处理的请求类型。在本例中，它规定DesignTacoController将会处理路径以“&#x2F;design”开头的请求。</p>
+<h3 id="处理GET请求"><a href="#处理GET请求" class="headerlink" title="处理GET请求"></a>处理GET请求</h3><p>修饰showDesignForm()方法的<code>@GetMapping</code>注解对类级别的<code>@RequestMapping</code>进行了细化。<code>@GetMapping</code>结合类级别的<code>@RequestMapping，</code>指明当接收到对“&#x2F;design”的HTTP GET请求时，将会调用showDesignForm()来处理请求。</p>
+<p>@GetMapping是一个相对较新的注解，是在Spring 4.3引入的。在Spring 4.3之前，你可能需要使用方法级别的<code>@RequestMapping</code>注解作为替代：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(method=RequestMethod.GET)</span></span><br></pre></td></tr></table></figure>
+
+<p>显然，<code>@GetMapping</code>更加简洁，并且指明了它的目标HTTP方法。<code>@GetMapping</code>只是诸多请求映射注解中的一个。表2.1列出了Spring MVC中所有可用的请求映射注解。</p>
+<p>表2.1 Spring MVC的请求映射注解</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005162717.jpeg" alt="epub_29101559_19"></p>
+<hr>
+<h4 id="让正确的事情变得更容易"><a href="#让正确的事情变得更容易" class="headerlink" title="让正确的事情变得更容易"></a>让正确的事情变得更容易</h4><p>在为控制器方法声明请求映射时，越具体越好。这意味着至少要声明路径（或者从类级别的<code>@RequestMapping</code>继承一个路径）以及它所处理的HTTP方法。</p>
+<p>但是更长的@<code>RequestMapping(method=RequestMethod.GET)</code>注解很容易让开发人员采取懒惰的方式，也就是忽略掉method属性。幸亏有了Spring 4.3的新注解，正确的事情变得更容易了，我们的输入变得更少了。</p>
+<p>新的请求映射注解具有和<code>@RequestMapping</code>完全相同的属性，所以我们可以在使用<code>@RequestMapping</code>的任何地方使用它们。</p>
+<p>通常，我喜欢只在类级别上使用<code>@RequestMapping，</code>以便于指定基本路径。在每个处理器方法上，我会使用更具体的<code>@GetMapping</code>、<code>@PostMapping</code>等注解。</p>
+<hr>
+<p>现在，我们已经知道showDesignForm()方法会处理请求，接下来我们看一下方法体，看它都做了些什么工作。这个方法构建了一个Ingredient对象的列表。现在，这个列表是硬编码的。当我们学习第3章的时候，会从数据库中获取可用taco配料并将其放到列表中。</p>
+<p>配料列表准备就绪之后，showDesignForm()方法接下来的几行代码会根据配料类型过滤列表。配料类型的列表会作为属性添加到Model对象上，这个对象是以参数的形式传递给showDesignForm()方法的。Model对象负责在控制器和展现数据的视图之间传递数据。实际上，放到Model属性中的数据将会复制到ServletResponse的属性中，这样视图就能在这里找到它们了。showDesignForm()方法最后返回“design”，这是视图的逻辑名称，会用来将模型渲染到视图上。</p>
+<p>我们的DesignTacoController已经具备雏形了。如果你现在运行应用并在浏览器上访问“&#x2F;design”路径，DesignTacoController的showDesignForm()将会被调用，它会从repository中获取数据并放到模型中，然后将请求传递给视图。但是，我们现在还没有定义视图，请求将会遇到很糟糕的问题，也就是HTTP 404（NotFound）。为了解决这个问题，我们将注意力切换到视图上，在这里数据将会使用HTML进行装饰，以便于在用户的Web浏览器中进行展现。</p>
+<h2 id="2-1-3-设计视图"><a href="#2-1-3-设计视图" class="headerlink" title="2.1.3 设计视图"></a>2.1.3 设计视图</h2><p>在控制器完成它的工作之后，现在就该视图登场了。Spring提供了多种定义视图的方式，包括JavaServer Pages（JSP）、Thymeleaf、FreeMarker、Mustache和基于Groovy的模板。就现在来讲，我们会使用Thymeleaf，这也是我们在第1章开启这个项目时的选择。我们会在第2.5节考虑其他的可选方案。</p>
+<p>为了使用Thymeleaf，我们需要添加另外一个依赖到项目构建中。如下的<code>&lt;dependency&gt;</code>条目使用了Spring Boot的Thymeleaf starter，从而能够让Thymeleaf渲染我们将要创建的视图：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在运行时，Spring Boot的自动配置功能会发现Thymeleaf在类路径中，因此会为Spring MVC创建支撑Thymeleaf视图的bean。</p>
+<p>像Thymeleaf这样的视图库在设计时是与特定的Web框架解耦的。这样的话，它们无法感知Spring的模型抽象，因此无法与控制器放到Model中的数据协同工作。但是，它们可以与Servlet的request属性协作。所以，在Spring将请求转移到视图之前，它会把模型数据复制到request属性中，Thymeleaf和其他的视图模板方案就能访问到它们了。</p>
+<p>Thymeleaf模板就是增加一些额外元素属性的HTML，这些属性能够指导模板如何渲染request数据。举例来说，如果有一个请求属性的key为“message”，我们想要使用Thymeleaf将其渲染到一个HTML <code>&lt;p&gt;</code>标签中，那么在Thymeleaf模板中我们可以这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span>placeholder message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当模板渲染成HTML的时候，<code>&lt;p&gt;</code>元素体将会被替换为Servlet Request中key为“message”的属性值。“th:text”是Thymeleaf命名空间中的属性，它会执行这个替换过程。${}会告诉它要使用某个请求属性（在本例中，也就是“message”）中的值。</p>
+<p>Thymeleaf还提供了一个属性“th:each”，它会迭代一个元素集合，为集合中的每个条目渲染HTML。在我们设计视图展现模型中的配料列表时，这就非常便利了。举例来说，如果只想渲染“wrap”配料的列表，我们可以使用如下的HTML片段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Designate your wrap:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;wrap&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们在<code>&lt;div&gt;</code>标签中使用<code>th:each</code>属性，这样的话就能针对wrap request属性所对应集合中的每个元素重复渲染<code>&lt;div&gt;</code>了。在每次迭代的时候，配料元素都会绑定到一个名为ingredient的Thymeleaf变量上。</p>
+<p>在<code>&lt;div&gt;</code>元素中，有一个<code>&lt;input&gt;</code>复选框元素，还有一个为复选框提供标签的<code>&lt;span&gt;</code>元素。复选框使用<code>Thymeleaf</code>的<code>th:value</code>来为渲染出的<code>&lt;input&gt;</code>元素设置<code>value</code>属性，这里会将其设置为所找到的<code>ingredient</code>的<code>id</code>属性。<code>&lt;span&gt;</code>元素使用<code>th:text</code>将“<code>INGREDIENT</code>”占位符文本替换为<code>ingredient</code>的<code>name</code>属性。</p>
+<p>当用实际的模型数据进行渲染的时候，其中一个<code>&lt;div&gt;</code>迭代的渲染结果可能会如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;FLTO&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>Flour Tortilla<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>最终，上述的Thymeleaf片段会成为一大段HTML表单的一部分，我们taco艺术家用户会通过这个表单来提交其美味的作品。完整的Thymeleaf模板会包括所有的配料类型，表单如程序清单2.3所示：</p>
+<p>程序清单2.3 设计taco的完整页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Taco Cloud<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/styles.css&#125;&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Design your taco!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;/images/TacoCloud.png&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">th:object</span>=<span class="string">&quot;$&#123;design&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;grid&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ingredient-group&quot;</span> <span class="attr">id</span>=<span class="string">&quot;wraps&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Designate your wrap:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;wrap&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag">     /&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ingredient-group&quot;</span> <span class="attr">id</span>=<span class="string">&quot;proteins&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Pick your protein:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;protein&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag">     /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ingredient-group&quot;</span> <span class="attr">id</span>=<span class="string">&quot;cheeses&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Choose your cheese:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;cheese&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag">     /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ingredient-group&quot;</span> <span class="attr">id</span>=<span class="string">&quot;veggies&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Determine your veggies:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;veggies&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag">     /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;ingredient-group&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sauces&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Select your sauce:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">&quot;ingredient : $&#123;sauce&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;ingredients&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;ingredient.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag">     /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;ingredient.name&#125;&quot;</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Name your taco creation:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">th:field</span>=<span class="string">&quot;*&#123;name&#125;&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>Submit your taco<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们会为各种类型的配料重复定义<code>&lt;div&gt;</code>片段。另外，我们还包含了一个<code>Submit</code>按钮，以及用户用来定义其作品名称的输入域。</p>
+<p>值得注意的是，完整的模板包含了一个Taco Cloud的logo图片以及对样式表的<code>&lt;link&gt;</code>引用[^2]。在这两个场景中，都使用了Thymeleaf的<code>@&#123;&#125;</code>操作符，用来生成一个相对上下文的路径，以便于引用我们需要的静态制件（artifact）。正如我们在第1章中所学到的，在Spring Boot应用中，静态内容要放到根路径的“&#x2F;static”目录下。</p>
+<p>我们的控制器和视图已经完成了，现在我们可以将应用启动起来，看一下我们的劳动成果。运行Spring Boot应用有很多种方式。在第1章中，我为你首先展示了如何将应用构建成一个可执行的JAR文件，然后通过java –jar命令来运行这个JAR。我还展示了如何直接通过mvn spring-boot:run构建命令来运行应用。</p>
+<p>不管你采用哪种方式来启动Taco Cloud应用，在启动之后都可以通过 <a target="_blank" rel="noopener" href="http://localhost:8080/design">http://localhost:8080/design</a> 来进行访问。你将会看到如图2.2所示的一个页面。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211005163051.jpeg" alt="epub_29101559_21"></p>
+<center>图2.2 渲染之后的taco设计页面</center>
+
+<p>这看上去非常不错！访问你站点的taco艺术家可以看到一个表单，这个表单中包含了各种taco配料，他们可以使用这些配料创建自己的杰作。但是当他们点击Submit Your Taco按钮的时候会发生什么呢？</p>
+<p>我们的DesignTacoController还没有为接收创建taco的请求做好准备。如果提交设计表单，用户就会遇到一个错误（具体来讲，将会是一个HTTP 405错误：Request Method “POST” Not Supported）。接下来，我们通过编写一些处理表单提交的控制器代码来修正这个错误。</p>
+<p>[^1]: 如果你想更深入地了解应用领域，我推荐你阅读Eric Evans的《领域驱动设计》（ISBN978-7-115-37675-6，人民邮电出版社出版）。<br>[^2]: 样式表的内容与我们的讨论无关，它只是包含了让配料两列显示的样式，避免出现一个很长的配料列表。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/83b4225/" title="2.1 展现信息">https://lanlan2017.github.io/ReadingNotes/83b4225/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/406f1aa0/" rel="prev" title="2.0 第2章 开发Web应用">
+                  <i class="fa fa-chevron-left"></i> 2.0 第2章 开发Web应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/ab3ae1ea/" rel="next" title="2.2 处理表单提交">
+                  2.2 处理表单提交 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/83b4225/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/83b4225/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="实例042 反转数组中元素的顺序实例说明反转数组就是以相反的顺序把原有数组的内容重新排序。本实例在GUI窗体中演示反转数组中元素的顺序。运行本实例,首先在界面的文本框内输入数组元素,每个元素使用空格分隔,然后单击界面上的“反转数组元素”按钮,程序将对数组进行反转运算,并把运算过程中对数组的改变显示在窗体中。实例的运行效果如图516所示。 反转和倒序排序的区别脚下留神:“反转”并不等于“倒序排序”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实例042 反转数组中元素的顺序">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/19708d32/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="实例042 反转数组中元素的顺序实例说明反转数组就是以相反的顺序把原有数组的内容重新排序。本实例在GUI窗体中演示反转数组中元素的顺序。运行本实例,首先在界面的文本框内输入数组元素,每个元素使用空格分隔,然后单击界面上的“反转数组元素”按钮,程序将对数组进行反转运算,并把运算过程中对数组的改变显示在窗体中。实例的运行效果如图516所示。 反转和倒序排序的区别脚下留神:“反转”并不等于“倒序排序”。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-14T17:50:32.000Z">
+<meta property="article:modified_time" content="2020-09-14T17:50:32.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/19708d32/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/19708d32/","path":"/19708d32/","title":"实例042 反转数组中元素的顺序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>实例042 反转数组中元素的顺序 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B042-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">实例042 反转数组中元素的顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E8%BD%AC%E5%92%8C%E5%80%92%E5%BA%8F%E6%8E%92%E5%BA%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.</span> <span class="nav-text">反转和倒序排序的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">技术要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swing%E8%AE%BE%E7%BD%AE%E7%BB%84%E5%90%88%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.6.</span> <span class="nav-text">Swing设置组合快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E8%8F%9C%E5%8D%95-%E8%AE%BE%E7%BD%AEalt-X%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.6.1.</span> <span class="nav-text">为菜单 设置alt+X快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E8%8F%9C%E5%8D%95%E9%A1%B9%E8%AE%BE%E7%BD%AE%E7%BB%84%E5%90%88%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.6.2.</span> <span class="nav-text">为菜单项设置组合快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%8C%89%E9%92%AE%E8%AE%BE%E7%BD%AECtrl-xxx%E7%BB%84%E5%90%88%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.6.3.</span> <span class="nav-text">为按钮设置Ctrl+xxx组合快捷键</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/19708d32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="实例042 反转数组中元素的顺序 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实例042 反转数组中元素的顺序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-15 01:50:32" itemprop="dateCreated datePublished" datetime="2020-09-15T01:50:32+08:00">2020-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/7-Java%E7%BB%8F%E5%85%B8%E7%BC%96%E7%A8%8B300%E4%BE%8B/" itemprop="url" rel="index"><span itemprop="name">7 Java经典编程300例</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/7-Java%E7%BB%8F%E5%85%B8%E7%BC%96%E7%A8%8B300%E4%BE%8B/%E7%AC%AC5%E7%AB%A0-%E6%95%B0%E7%BB%84%E5%8F%8A%E5%85%B6%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">第5章 数组及其常用操作</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/19708d32/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/19708d32/" data-xid="/ReadingNotes/19708d32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="实例042-反转数组中元素的顺序"><a href="#实例042-反转数组中元素的顺序" class="headerlink" title="实例042 反转数组中元素的顺序"></a>实例042 反转数组中元素的顺序</h1><h2 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h2><p>反转数组就是以相反的顺序把原有数组的内容重新排序。本实例在<code>GUI</code>窗体中演示反转数组中元素的顺序。运行本实例,首先在界面的文本框内输入数组元素,每个元素使用空格分隔,然后单击界面上的“反转数组元素”按钮,程序将对数组进行反转运算,并把运算过程中对数组的改变显示在窗体中。实例的运行效果如图516所示。</p>
+<h2 id="反转和倒序排序的区别"><a href="#反转和倒序排序的区别" class="headerlink" title="反转和倒序排序的区别"></a>反转和倒序排序的区别</h2><p>脚下留神:“反转”并不等于“倒序排序”。</p>
+<ul>
+<li>“反转”只是将数组元素的顺序进行颠倒,并不对其执行排序操作;</li>
+<li>而“倒序排序”则是对数组中的元素进行从大到小的排序。</li>
+</ul>
+<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">reverseArray</span><span class="params">(<span class="type">int</span>[] array)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> temp;</span><br><span class="line">    <span class="type">int</span> i_thFromLast;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length / <span class="number">2</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 计算倒数第i个元素的索引</span></span><br><span class="line">        i_thFromLast = array.length - <span class="number">1</span> - i;</span><br><span class="line">        <span class="comment">// 将第i个元素和倒数第i个元素交换</span></span><br><span class="line">        temp = array[i];</span><br><span class="line">        array[i] = array[i_thFromLast];</span><br><span class="line">        array[i_thFromLast] = temp;</span><br><span class="line">        printSwapStep(array, i_thFromLast, i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="技术要点"><a href="#技术要点" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例的核心技术是使用了数组反转算法。反转算法的基本思想比较简单,也很好理解,思路就是:</p>
+<ul>
+<li>把数组最后一个元素与第一个元素替换,</li>
+<li>倒数第二个元素与第二个元素替换,</li>
+<li>依此类推,直到把所有数组元素反转替换。</li>
+</ul>
+<p>反转数组元素是对数组两边的元素进行替换,所以只需要循环数组长度的半数。例如,对长度为6的一维数组进行反转,只需要循环6&#x2F;2,即3次,具体的反转过程如图517所示</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"><span class="keyword">import</span> java.awt.EventQueue;</span><br><span class="line"><span class="keyword">import</span> java.awt.GridBagConstraints;</span><br><span class="line"><span class="keyword">import</span> java.awt.GridBagLayout;</span><br><span class="line"><span class="keyword">import</span> java.awt.Insets;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.KeyEvent;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JButton;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JComponent;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JMenu;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JMenuBar;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JMenuItem;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JPanel;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JTextArea;</span><br><span class="line"><span class="keyword">import</span> javax.swing.KeyStroke;</span><br><span class="line"><span class="keyword">import</span> javax.swing.UIManager;</span><br><span class="line"><span class="keyword">import</span> javax.swing.border.EmptyBorder;</span><br><span class="line"><span class="keyword">import</span> javax.swing.border.TitledBorder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReverseArray</span> <span class="keyword">extends</span> <span class="title class_">JFrame</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ReverseButtonListener</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span></span><br><span class="line">        &#123;</span><br><span class="line">            String[] arrayStrs = textAreaInput.getText().split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">            <span class="type">int</span>[] array = <span class="keyword">new</span> <span class="title class_">int</span>[arrayStrs.length];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                array[i] = Integer.parseInt(arrayStrs[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            reverseArray(array);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">reverseArray</span><span class="params">(<span class="type">int</span>[] array)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> temp;</span><br><span class="line">            <span class="type">int</span> i_thFromLast;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length / <span class="number">2</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 计算倒数第i个元素的索引</span></span><br><span class="line">                i_thFromLast = array.length - <span class="number">1</span> - i;</span><br><span class="line">                <span class="comment">// 将第i个元素和倒数第i个元素交换</span></span><br><span class="line">                temp = array[i];</span><br><span class="line">                array[i] = array[i_thFromLast];</span><br><span class="line">                array[i_thFromLast] = temp;</span><br><span class="line">                printSwapStep(array, i_thFromLast, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">printSwapStep</span><span class="params">(<span class="type">int</span>[] array, <span class="type">int</span> i_thFromLast, <span class="type">int</span> i)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; array.length; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (j == i)</span><br><span class="line">                &#123;</span><br><span class="line">                    textAreaShow.append(<span class="string">&quot;[&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                textAreaShow.append(String.valueOf(array[j]));</span><br><span class="line">                <span class="keyword">if</span> (j == i_thFromLast)</span><br><span class="line">                &#123;</span><br><span class="line">                    textAreaShow.append(<span class="string">&quot;]&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j &lt; array.length - <span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    textAreaShow.append(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            textAreaShow.append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">5911081012919816847L</span>;</span><br><span class="line">    <span class="keyword">private</span> JPanel contentPane;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">JTextArea</span> <span class="variable">textAreaShow</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JTextArea</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">JTextArea</span> <span class="variable">textAreaInput</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JTextArea</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">JMenuBar</span> <span class="variable">menuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">JMenu</span> <span class="variable">menu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;菜单&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">JMenuItem</span> <span class="variable">menuItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;退出&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Launch the application.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span></span><br><span class="line">    &#123;</span><br><span class="line">        EventQueue.invokeLater(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="type">ReverseArray</span> <span class="variable">frame</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReverseArray</span>();</span><br><span class="line">                    frame.setVisible(<span class="literal">true</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e)</span><br><span class="line">                &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Create the frame.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ReverseArray</span><span class="params">()</span> &#123;</span><br><span class="line">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">        setBounds(<span class="number">100</span>, <span class="number">100</span>, <span class="number">450</span>, <span class="number">300</span>);</span><br><span class="line">        contentPane = <span class="keyword">new</span> <span class="title class_">JPanel</span>();</span><br><span class="line">        menuItem.addActionListener(<span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span></span><br><span class="line">            &#123;</span><br><span class="line">                dispose();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 为菜单设置alt+f快捷键(助记符)</span></span><br><span class="line">        menu.setMnemonic(<span class="string">&#x27;F&#x27;</span>);</span><br><span class="line">        <span class="type">GridBagConstraints</span> <span class="variable">gbc_menuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line">        gbc_menuBar.anchor = GridBagConstraints.EAST;</span><br><span class="line">        gbc_menuBar.gridx = <span class="number">0</span>;</span><br><span class="line">        gbc_menuBar.gridy = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        contentPane.add(menuBar, gbc_menuBar);</span><br><span class="line">        menuBar.add(menu);</span><br><span class="line">        menu.add(menuItem);</span><br><span class="line">        <span class="comment">// 为菜单项设置快捷键</span></span><br><span class="line">        <span class="type">KeyStroke</span> <span class="variable">Ctrl_Shift_W</span> <span class="operator">=</span> KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK);</span><br><span class="line">        menuItem.setAccelerator(Ctrl_Shift_W);</span><br><span class="line"></span><br><span class="line">        contentPane.setBorder(<span class="keyword">new</span> <span class="title class_">EmptyBorder</span>(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>));</span><br><span class="line">        setContentPane(contentPane);</span><br><span class="line">        <span class="type">GridBagLayout</span> <span class="variable">gbl_contentPane</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagLayout</span>();</span><br><span class="line">        gbl_contentPane.columnWidths = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        gbl_contentPane.rowHeights = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        gbl_contentPane.columnWeights = <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;<span class="number">1.0</span>, Double.MIN_VALUE&#125;;</span><br><span class="line">        gbl_contentPane.rowWeights = <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, Double.MIN_VALUE&#125;;</span><br><span class="line">        contentPane.setLayout(gbl_contentPane);</span><br><span class="line"></span><br><span class="line">        <span class="type">JPanel</span> <span class="variable">panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>();</span><br><span class="line">        panel.setBorder(<span class="keyword">new</span> <span class="title class_">TitledBorder</span>(UIManager.getBorder(<span class="string">&quot;TitledBorder.border&quot;</span>),</span><br><span class="line">                <span class="string">&quot;\u8F93\u5165\u6570\u7EC4\u5143\u7D20,\u4EE5\u82F1\u6587\u9017\u53F7\u5206\u9694,\u5982:1,2,3,4,5&quot;</span>, TitledBorder.LEFT,</span><br><span class="line">                TitledBorder.TOP, <span class="literal">null</span>, <span class="keyword">new</span> <span class="title class_">Color</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)));</span><br><span class="line">        <span class="type">GridBagConstraints</span> <span class="variable">gbc_panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line">        gbc_panel.fill = GridBagConstraints.BOTH;</span><br><span class="line">        gbc_panel.insets = <span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">        gbc_panel.gridx = <span class="number">0</span>;</span><br><span class="line">        gbc_panel.gridy = <span class="number">1</span>;</span><br><span class="line">        contentPane.add(panel, gbc_panel);</span><br><span class="line">        <span class="type">GridBagLayout</span> <span class="variable">gbl_panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagLayout</span>();</span><br><span class="line">        gbl_panel.columnWidths = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        gbl_panel.rowHeights = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        gbl_panel.columnWeights = <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;<span class="number">1.0</span>, Double.MIN_VALUE&#125;;</span><br><span class="line">        gbl_panel.rowWeights = <span class="keyword">new</span> <span class="title class_">double</span>[]&#123;<span class="number">0.0</span>, Double.MIN_VALUE&#125;;</span><br><span class="line">        panel.setLayout(gbl_panel);</span><br><span class="line"></span><br><span class="line">        <span class="type">GridBagConstraints</span> <span class="variable">gbc_textAreaInput</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line">        gbc_textAreaInput.fill = GridBagConstraints.BOTH;</span><br><span class="line">        gbc_textAreaInput.gridx = <span class="number">0</span>;</span><br><span class="line">        gbc_textAreaInput.gridy = <span class="number">0</span>;</span><br><span class="line">        panel.add(textAreaInput, gbc_textAreaInput);</span><br><span class="line"></span><br><span class="line">        <span class="type">JButton</span> <span class="variable">buttonReverse</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;反转数组&quot;</span>);</span><br><span class="line">        <span class="comment">// 为按钮绑定组合快捷键</span></span><br><span class="line">        buttonReverse.registerKeyboardAction(<span class="keyword">new</span> <span class="title class_">ReverseButtonListener</span>(), KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK),</span><br><span class="line">                JComponent.WHEN_IN_FOCUSED_WINDOW);</span><br><span class="line">        buttonReverse.addActionListener(<span class="keyword">new</span> <span class="title class_">ReverseButtonListener</span>());</span><br><span class="line">        <span class="type">GridBagConstraints</span> <span class="variable">gbc_buttonReverse</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line">        gbc_buttonReverse.insets = <span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">        gbc_buttonReverse.gridx = <span class="number">0</span>;</span><br><span class="line">        gbc_buttonReverse.gridy = <span class="number">2</span>;</span><br><span class="line">        contentPane.add(buttonReverse, gbc_buttonReverse);</span><br><span class="line"></span><br><span class="line">        <span class="type">GridBagConstraints</span> <span class="variable">gbc_textAreaShow</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line">        gbc_textAreaShow.insets = <span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">        gbc_textAreaShow.fill = GridBagConstraints.BOTH;</span><br><span class="line">        gbc_textAreaShow.gridx = <span class="number">0</span>;</span><br><span class="line">        gbc_textAreaShow.gridy = <span class="number">3</span>;</span><br><span class="line">        contentPane.add(textAreaShow, gbc_textAreaShow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Swing设置组合快捷键"><a href="#Swing设置组合快捷键" class="headerlink" title="Swing设置组合快捷键"></a>Swing设置组合快捷键</h2><h3 id="为菜单-设置alt-X快捷键"><a href="#为菜单-设置alt-X快捷键" class="headerlink" title="为菜单 设置alt+X快捷键"></a>为菜单 设置alt+X快捷键</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">JMenu</span> <span class="variable">menu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;菜单&quot;</span>);</span><br><span class="line">......</span><br><span class="line"><span class="comment">// 为菜单设置alt+f快捷键(助记符)</span></span><br><span class="line">menu.setMnemonic(<span class="string">&#x27;F&#x27;</span>);</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="为菜单项设置组合快捷键"><a href="#为菜单项设置组合快捷键" class="headerlink" title="为菜单项设置组合快捷键"></a>为菜单项设置组合快捷键</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">JMenuItem</span> <span class="variable">menuItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;退出&quot;</span>);</span><br><span class="line">........</span><br><span class="line">menuItem.addActionListener(<span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span></span><br><span class="line">    &#123;</span><br><span class="line">        dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 为菜单项设置Ctrl+Shif+W快捷键</span></span><br><span class="line"><span class="type">KeyStroke</span> <span class="variable">Ctrl_Shift_W</span> <span class="operator">=</span> KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK);</span><br><span class="line">menuItem.setAccelerator(Ctrl_Shift_W);</span><br><span class="line">........</span><br></pre></td></tr></table></figure>
+<h3 id="为按钮设置Ctrl-xxx组合快捷键"><a href="#为按钮设置Ctrl-xxx组合快捷键" class="headerlink" title="为按钮设置Ctrl+xxx组合快捷键"></a>为按钮设置Ctrl+xxx组合快捷键</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="comment">// 反转数组按钮的时间监听器</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ReverseButtonListener</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span></span><br><span class="line">    &#123;</span><br><span class="line">        String[] arrayStrs = textAreaInput.getText().split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        <span class="type">int</span>[] array = <span class="keyword">new</span> <span class="title class_">int</span>[arrayStrs.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            array[i] = Integer.parseInt(arrayStrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        reverseArray(array);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">reverseArray</span><span class="params">(<span class="type">int</span>[] array)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> temp;</span><br><span class="line">        <span class="type">int</span> i_thFromLast;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length / <span class="number">2</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 计算倒数第i个元素的索引</span></span><br><span class="line">            i_thFromLast = array.length - <span class="number">1</span> - i;</span><br><span class="line">            <span class="comment">// 将第i个元素和倒数第i个元素交换</span></span><br><span class="line">            temp = array[i];</span><br><span class="line">            array[i] = array[i_thFromLast];</span><br><span class="line">            array[i_thFromLast] = temp;</span><br><span class="line">            printSwapStep(array, i_thFromLast, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">printSwapStep</span><span class="params">(<span class="type">int</span>[] array, <span class="type">int</span> i_thFromLast, <span class="type">int</span> i)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; array.length; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (j == i)</span><br><span class="line">            &#123;</span><br><span class="line">                textAreaShow.append(<span class="string">&quot;[&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            textAreaShow.append(String.valueOf(array[j]));</span><br><span class="line">            <span class="keyword">if</span> (j == i_thFromLast)</span><br><span class="line">            &#123;</span><br><span class="line">                textAreaShow.append(<span class="string">&quot;]&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j &lt; array.length - <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                textAreaShow.append(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        textAreaShow.append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">......</span><br><span class="line"><span class="type">JButton</span> <span class="variable">buttonReverse</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;反转数组&quot;</span>);</span><br><span class="line"><span class="comment">// 为按钮设置事件监听器</span></span><br><span class="line">buttonReverse.addActionListener(<span class="keyword">new</span> <span class="title class_">ReverseButtonListener</span>());</span><br><span class="line"><span class="comment">// 为按钮绑定组合快捷键</span></span><br><span class="line">buttonReverse.registerKeyboardAction(<span class="keyword">new</span> <span class="title class_">ReverseButtonListener</span>(), KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK),</span><br><span class="line">        JComponent.WHEN_IN_FOCUSED_WINDOW);</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/19708d32/" title="实例042 反转数组中元素的顺序">https://lanlan2017.github.io/ReadingNotes/19708d32/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3f0ede52/" rel="prev" title="实例041 使用sort()方法对数组排序">
+                  <i class="fa fa-chevron-left"></i> 实例041 使用sort()方法对数组排序
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/27f55655/" rel="next" title="实例040 使用直接插入法对数组排序">
+                  实例040 使用直接插入法对数组排序 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/19708d32/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/19708d32/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="关于本书编写《Spring实战（第5版）》的目的是让读者学会使用Spring框架、Spring Boot以及Spring生态系统中各种辅助部分构建令人赞叹的应用程序。本书首先介绍如何使用Spring和Spring Boot开发基于Web、以数据库作为后端的Java应用；随后进行必要的扩展，展现如何与其他应用进行集成、使用反应式类型进行编程，以及将应用拆分为离散的微服务；最后讨论如何准备应用的部署。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3 关于本书_Spring实战(第5版)">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/873f91b0/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="关于本书编写《Spring实战（第5版）》的目的是让读者学会使用Spring框架、Spring Boot以及Spring生态系统中各种辅助部分构建令人赞叹的应用程序。本书首先介绍如何使用Spring和Spring Boot开发基于Web、以数据库作为后端的Java应用；随后进行必要的扩展，展现如何与其他应用进行集成、使用反应式类型进行编程，以及将应用拆分为离散的微服务；最后讨论如何准备应用的部署。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-03T10:59:11.000Z">
+<meta property="article:modified_time" content="2021-10-03T12:00:19.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/873f91b0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/873f91b0/","path":"/873f91b0/","title":"3 关于本书_Spring实战(第5版)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3 关于本书_Spring实战(第5版) | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">关于本书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%81%E5%BA%94%E8%AF%A5%E9%98%85%E8%AF%BB%E8%BF%99%E6%9C%AC%E4%B9%A6"><span class="nav-number">1.1.</span> <span class="nav-text">谁应该阅读这本书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%9C%AC%E4%B9%A6%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%84%E7%BB%87%E7%9A%84%EF%BC%9A%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">这本书是如何组织的：路线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">关于代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%9C%A8%E7%BA%BF%E8%B5%84%E6%BA%90"><span class="nav-number">1.4.</span> <span class="nav-text">其他在线资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%9C%E8%80%85"><span class="nav-number">1.5.</span> <span class="nav-text">关于作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%B0%81%E9%9D%A2"><span class="nav-number">1.6.</span> <span class="nav-text">关于封面</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/873f91b0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3 关于本书_Spring实战(第5版) | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3 关于本书_Spring实战(第5版)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-10-03 18:59:11 / 修改时间：20:00:19" itemprop="dateCreated datePublished" datetime="2021-10-03T18:59:11+08:00">2021-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC0%E9%83%A8%E5%88%86-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81-%E8%AF%91%E8%80%85%E5%BA%8F-%E5%85%B3%E4%BA%8E%E6%9C%AC%E4%B9%A6-%E5%89%8D%E8%A8%80-%E8%87%B4%E8%B0%A2-%E8%B5%84%E6%BA%90%E4%B8%8E%E6%94%AF%E6%8C%81/" itemprop="url" rel="index"><span itemprop="name">第0部分 内容提要 译者序 关于本书 前言 致谢 资源与支持</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/873f91b0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/873f91b0/" data-xid="/ReadingNotes/873f91b0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h1><p>编写《Spring实战（第5版）》的目的是让读者学会使用Spring框架、Spring Boot以及Spring生态系统中各种辅助部分构建令人赞叹的应用程序。本书首先介绍如何使用Spring和Spring Boot开发基于Web、以数据库作为后端的Java应用；随后进行必要的扩展，展现如何与其他应用进行集成、使用反应式类型进行编程，以及将应用拆分为离散的微服务；最后讨论如何准备应用的部署。</p>
+<p>尽管Spring生态系统中的每个项目都提供了完善的文档，但是本书所做的是所有参考文档都无法做到的事情：提供一个实用的、项目驱动的指南，将Spring的各种元素组合起来形成一个真正的应用。</p>
+<h2 id="谁应该阅读这本书"><a href="#谁应该阅读这本书" class="headerlink" title="谁应该阅读这本书"></a>谁应该阅读这本书</h2><p>《Spring实战（第5版）》适用于刚刚开始学习Spring Boot和Spring框架的Java开发人员，也适用于想要超越基础知识并学习Spring新特性的经验丰富的Spring开发者。</p>
+<h2 id="这本书是如何组织的：路线图"><a href="#这本书是如何组织的：路线图" class="headerlink" title="这本书是如何组织的：路线图"></a>这本书是如何组织的：路线图</h2><p>本书分成了5个部分，共计19章。<br>第1部分涵盖构建Spring应用的基础话题。</p>
+<ul>
+<li>第1章介绍Spring和Spring Boot以及如何初始化Spring项目。在本章中，我们迈出构建Spring应用的第一步，在本书后续各章中，我们会对这个应用进行扩展。</li>
+<li>第2章讨论如何使用Spring MVC构建应用的Web层。在本章中，我们将会构建处理Web请求的控制器以及在浏览器中渲染信息的视图。</li>
+<li>第3章会深入探讨Spring应用的后端，在这里数据会持久化到关系型数据库中。</li>
+<li>在第4章中，我们会使用Spring Security认证用户并防止未认证的用户访问应用。</li>
+<li>第5章介绍如何使用Spring Boot的配置属性功能来配置Spring应用。我们还会学习如何使用profile选择性地应用配置。</li>
+</ul>
+<p>第2部分讨论如何将Spring应用与其他应用进行集成。</p>
+<ul>
+<li>第6章延续第2章对Spring MVC的讨论，我们将会学习如何在Spring中编写REST API。</li>
+<li>第7章讨论了和第6章相对立的主题，展现Spring应用如何消费REST API。</li>
+<li>第8章会讨论如何使用异步通信技术让Spring应用发送和接收消息，这里会用到Java Message Service、RabbitMQ或Kafka。</li>
+<li>第9章讨论如何使用Spring Integration进行声明式的应用集成。</li>
+</ul>
+<p>第3部分探讨Spring对反应式编程提供的全新支持。</p>
+<ul>
+<li>第10章介绍Reactor项目。这是一个反应式编程库，支撑了Spring 5的反应式特性。</li>
+<li>第11章重新探讨REST API开发，介绍全新的Web框架Spring WebFlux。该框架借用了很多Spring MVC的理念，但是为Web开发提供了新的反应式模型。</li>
+<li>第12章将会看一下如何使用Spring Data编写反应式数据持久化，我们将会读取和写入Cassandra与Mongo数据库。</li>
+</ul>
+<p>第4部分将会拆分单体应用模型，介绍Spring Cloud和微服务开发。</p>
+<ul>
+<li>第13章会深入介绍服务发现，组合使用Spring和Netflix的注册中心实现Spring微服务的注册和发现。</li>
+<li>第14章将展现如何在配置服务器中实现中心化的应用配置，从而实现跨微服务共享配置。</li>
+<li>第15章会介绍Hystrix的断路器模式。它能够让微服务在面临失败时更有弹性。</li>
+</ul>
+<p>在第5部分中，我们将会讨论如何做好将应用投入生产环境的准备，并看一下如何进行部署。</p>
+<ul>
+<li>第16章会介绍Spring Boot Actuator。它是Spring Boot的一个扩展，通过REST端点的形式暴露Spring应用内部的运行状况。</li>
+<li>第17章将会介绍如何使用Spring Boot Admin。它是构建在Actuator之上的一个用户友好的基于浏览器的管理应用。</li>
+<li>第18章将会讨论如何将Spring bean暴露为JMX MBean以及如何消费它们。</li>
+<li>在第19章中，我们会看到如何将Spring应用部署到各种生产环境中。</li>
+</ul>
+<p>通常来讲，刚刚接触Spring的开发人员应该从第1章开始，并按顺序阅读每一章；经验丰富的Spring开发人员可能更愿意在任何感兴趣的时候参与进来。即便如此，每一章都是建立在前一章内容的基础上的，所以如果从中间开始阅读，那么可能会漏掉一些上下文信息。</p>
+<h2 id="关于代码"><a href="#关于代码" class="headerlink" title="关于代码"></a>关于代码</h2><p>本书包含许多源代码的样例，有的是编号的程序清单，有的是普通文本内嵌的源码。在这两种情况下，源代码都使用固定宽度的字体排版，以便将其与普通文本分开。有时代码也会使用粗体显示，以便于强调此处代码与本章前面步骤的变更，比如为已有的代码行添加新的特性。</p>
+<p>在许多情况下，原始源代码会重新格式化；我们添加了换行符和重新缩进，以适应书中可用的页面空间。在极少数情况下，这样做依然是不够的，在这种情况下程序清单会包括换行符(➥)。此外，当在文中描述代码的时候，源码中的注释通常会被移除。许多程序清单会有代码标注，用来突出强调重要的概念。</p>
+<p>本书中样例的源码可以通过异步社区的本书页面下载。</p>
+<h2 id="其他在线资源"><a href="#其他在线资源" class="headerlink" title="其他在线资源"></a>其他在线资源</h2><p>还需要其他帮助吗？</p>
+<ul>
+<li>Spring的Web站点有很多有用的起步指南（其中一部分就是由本书的作者编写的）。</li>
+<li>StackOverflow上的Spring标签和Spring Boot是一个询问Spring问题和帮助别人的好地方。帮助解决别人的Spring问题是学习Spring的好办法。</li>
+</ul>
+<h2 id="关于作者"><a href="#关于作者" class="headerlink" title="关于作者"></a>关于作者</h2><p>克雷格·沃斯（Craig Walls）是Pivotal的首席工程师。他是Spring框架的热心推动者，经常在本地用户组和会议上发言，撰写关于Spring的文章。在不琢磨代码的时候，Craig正在计划去迪士尼世界或迪士尼乐园的下一次旅行，他希望尽可能多地陪伴他的妻子和两个女儿。</p>
+<h2 id="关于封面"><a href="#关于封面" class="headerlink" title="关于封面"></a>关于封面</h2><p>《Spring实战（第5版）》的封面人物是“Le Caraco”，也就是约旦西南部卡拉克（Karak）省的居民。该省的首府是Al-Karak，那里的山顶有座城堡，对死海和周边的平原有着极佳的视野。这幅图出自1796年出版的法国旅游图书，Encyclopédiedes Voyages，由J.G.St.Sauveur编写。在那时，为了娱乐而去旅游还是相对新鲜的做法，而像这样的旅游指南是很流行的，它能够让旅行家和足不出户的人们了解法国其他地区和国外的居民。</p>
+<p>Encyclopédiedes Voyages中多种多样的图画生动描绘了200年前世界上各个城镇和地区的独特魅力。在那时，相隔几十千米的两个地区着装就不相同，可以通过着装判断人们究竟属于哪个地区。这本旅行指南展现了那个时代和其他历史时代的隔离感和距离感，这与我们这个运动过度的时代是截然不同的。</p>
+<p>从那以后，服装风格发生了改变，富有地方特色的多样性开始淡化。现在，有时很难说一个洲的居民和其他洲的居民有什么不同。可能，从积极的方面来看，我们用原来文化和视觉上的多样性换来了个人风格的多变性，或者可以说是更为多样化和有趣的知识科技生活。这本旅行指南中的图片反映了两个世纪前各个地区生活的多样性，我们现在用图书封面的方式对其进行了再现。Manning出版社的员工都认为这是计算机行业中一个很有意思的创意。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/873f91b0/" title="3 关于本书_Spring实战(第5版)">https://lanlan2017.github.io/ReadingNotes/873f91b0/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f91e82cb/" rel="prev" title="2 译者序_Spring实战(第5版)">
+                  <i class="fa fa-chevron-left"></i> 2 译者序_Spring实战(第5版)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/c5e590c2/" rel="next" title="第1部分 Spring基础">
+                  第1部分 Spring基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/873f91b0/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/873f91b0/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

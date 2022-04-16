@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="37.1 MVC框架的实现相信这本书的读者对Struts的使用是得心应手了，也明白MVC框架有诸如视图与逻辑解耦、灵活稳定、业务逻辑可重用等优点，而且还对其他的MVC框架（例如JSF、Spring MVC、WebWork）也了解一点。SSH（Struts+Spring+Hibernate）框架是Java项目常用的框架，作为一个Java开发人员，应该对SSH框架很熟悉了！我们今天就学Struts怎么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="37.1 MVC框架的实现">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/714d2c87/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="37.1 MVC框架的实现相信这本书的读者对Struts的使用是得心应手了，也明白MVC框架有诸如视图与逻辑解耦、灵活稳定、业务逻辑可重用等优点，而且还对其他的MVC框架（例如JSF、Spring MVC、WebWork）也了解一点。SSH（Struts+Spring+Hibernate）框架是Java项目常用的框架，作为一个Java开发人员，应该对SSH框架很熟悉了！我们今天就学Struts怎么">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213321.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213507.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213719.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213950.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001215149.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001215608.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001220257.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-10-01T14:11:13.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213321.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/714d2c87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/714d2c87/","path":"/714d2c87/","title":"37.1 MVC框架的实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>37.1 MVC框架的实现 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#37-1-MVC%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">37.1 MVC框架的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-1-MVC%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">37.1.1 MVC的系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-2-%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">37.1.2 模型管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-3-%E5%80%BC%E6%A0%88"><span class="nav-number">1.3.</span> <span class="nav-text">37.1.3 值栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-4-%E8%A7%86%E5%9B%BE%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">37.1.4 视图管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-5-%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">1.5.</span> <span class="nav-text">37.1.5 工具类</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/714d2c87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="37.1 MVC框架的实现 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          37.1 MVC框架的实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-27 19:57:33" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-01 22:11:13" itemprop="dateModified" datetime="2021-10-01T22:11:13+08:00">2021-10-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/5-%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86-%E6%89%A9%E5%B1%95%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">5 第五部分 扩展篇</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/5-%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86-%E6%89%A9%E5%B1%95%E7%AF%87/%E7%AC%AC37%E7%AB%A0-MVC%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">第37章 MVC框架</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/714d2c87/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/714d2c87/" data-xid="/ReadingNotes/714d2c87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="37-1-MVC框架的实现"><a href="#37-1-MVC框架的实现" class="headerlink" title="37.1 MVC框架的实现"></a>37.1 MVC框架的实现</h1><p>相信这本书的读者对Struts的使用是得心应手了，也明白MVC框架有诸如视图与逻辑解耦、灵活稳定、业务逻辑可重用等优点，而且还对其他的MVC框架（例如JSF、Spring MVC、WebWork）也了解一点。SSH（Struts+Spring+Hibernate）框架是Java项目常用的框架，作为一个Java开发人员，应该对SSH框架很熟悉了！我们今天就学Struts怎么用！我们要讲的是MVC框架如何设计，你可以设计一个新的MVC框架与Struts抗衡。</p>
+<p>在开始设计MVC框架前，首先要对MVC框架做一个简单的介绍。MVC（Model ViewController）的中文名称叫做模型视图控制器模型，就是因为它的英文名字太流行了， 中文名字反而被忽略了。它诞生于20世纪80年代，原本是为桌面应用程序建立起来的一个框架，现在反而在Web应用中大放异彩（其实也可以把B&#x2F;S认为是C&#x2F;S的瘦化结构），MVC框架的目的是通过控制器C将模型M（代表的是业务数据和业务逻辑）和视图V（人机交互的界面）实现代码分离，从而使同一个逻辑或行为或数据可以具有不同的表现形式，或者是同样的应用逻辑共享相同、不同视图。比如，可以用IE浏览器访问某应用网站（页面格式遵守HTML标准），也可以用手机通过WAP浏览器访问（页面格式遵守WML格式），对MVC框架来说，后台的程序（也就是模型）不用做任何修改，只是使用的视图不同而已。MVC框架如图37-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213321.png" alt="image-20211001213320931"></p>
+<center>图37-1 MVC框架示意图</center>
+该框架是Model2的结构。MVC框架有两个版本，一个是Model1，也就是MVC的第一个版本，它的视图中存在着大量的流程控制和代码开发，也就是控制器和视图还具有部分的耦合。也有人不认为Model1属于MVC框架，那也说得通，因为在JSP页面中融合了控制器和视图的功能，这其实就是早期的开发模式，开发一堆的JSP页面，然后再开发一堆的JavaBean，JavaBean就是模型了，它只是把JSP和JavaBean拆分开了。Model2版本则提倡视图和模型的彻底分离，视图仅仅负责展示服务，不再参与业务的行为和数据处理。我们举例来说明MVC框架是如何图37-1 MVC框架示意图控制器（Controller）视图（View）模型 （Model）第37章运行的。
+
+<p>在做Web开发时，例如开发一个数据展示界面，从一张表中把数据全部读出，然后展示到页面上，也是一个简单的表格，其中页面展示的格式就是视图V，怎么从数据库中取得数据则是模型M，那控制器C是做什么的呢？它负责把接收的浏览器的请求转发通知模型M处理，然后组合视图V，最终反馈一个带数据的视图到用户端，数据处理流程如图37-2所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213507.png" alt="image-20211001213507728"></p>
+<center>图37-2 MVC框架的逻辑流</center>
+浏览器通过HTTP协议发出数据请求①，由控制器接收请求，通过路径②委托给数据模型处理，模型通过与逻辑层和持久层的交互（路径③④），把处理结果反馈给控制器（路径 ⑤），控制器根据结果组装视图（路径⑥⑦），并最终反馈给浏览器可以接受的HTML数据 （路径⑧）。整体MVC框架还是比较简单的，但它带来的优点非常多。
+
+<ul>
+<li>高重用性</li>
+</ul>
+<p>一个模型可以有多个视图，比如同样是一批数据，可以是柱状展示，也可以是条形展示，还可以是波形展示。同样，多个模型也可以共享一个视图，同样是一个登录界面，不同用户看到的菜单数量（模型中的数据）不同，或者不同业务权限级别的用户在同一个视图中展示。</p>
+<ul>
+<li>低耦合</li>
+</ul>
+<p>因为模型和视图分离，两者没有耦合关系，所以可以独立地扩展和修改而不会产生相互影响。</p>
+<ul>
+<li>快速开发和便捷部署</li>
+</ul>
+<p>模型和视图分离，可以使各个开发人员自由发挥，做视图的人员和开发模型的人员可以制订自己的计划，然后在控制器的协作下实现完整的应用逻辑。</p>
+<p>MVC框架还有很多优点，本章主要不是讲解MVC技术，主要是通过讲解设计MVC框架 来说明设计模式该怎么应用，所以想了解更详细的MVC框架信息请自行查阅资料。</p>
+<h2 id="37-1-1-MVC的系统架构"><a href="#37-1-1-MVC的系统架构" class="headerlink" title="37.1.1 MVC的系统架构"></a>37.1.1 MVC的系统架构</h2><p>我们设计的MVC框架包含以下模块：核心控制器（FilterDispatcher）、拦截器 （Interceptor）、过滤器（Filter）、模型管理器（Model Action）、视图管理器（View Provider）等，基本上一个MVC框架上常用的功能我们都具备了，系统架构如图37-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213719.png" alt="image-20211001213719199"></p>
+<center>图37-3 MVC系统架构</center>
+
+<p>各个模块的职责如下：</p>
+<ul>
+<li>核心控制器</li>
+</ul>
+<p>MVC框架的入口，负责接收和反馈HTTP请求。</p>
+<ul>
+<li>过滤器</li>
+</ul>
+<p>Servlet容器内的过滤器，实现对数据的过滤处理。由于它是容器内的，因此必须依靠容 器才能运行，它是容器的一项功能，与容器息息相关，本章就不详细讲述了。</p>
+<ul>
+<li>拦截器</li>
+</ul>
+<p>对进出模型的数据进行过滤，它不依赖系统容器，只过滤MVC框架内的业务数据。</p>
+<ul>
+<li>模型管理器</li>
+</ul>
+<p>提供一个模型框架，该框架内的所有业务操作都应该是无状态的，不关心容器对象，例如Session、线程池等。</p>
+<ul>
+<li>视图管理器</li>
+</ul>
+<p>管理所有的视图，例如提供多语言的视图等。</p>
+<ul>
+<li>辅助工具</li>
+</ul>
+<p>它其实就是一大堆的辅助管理工具，比如文件管理、对象管理等。</p>
+<p>在我们的MVC框架中，核心控制器是最重要的，我们就先从它着手。核心控制器使用了Servlet容器的过滤器技术，需要编写一个过滤器，所有进入MVC框架的请求都需要经过核心控制器的转发，类图如图37-4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001213950.png" alt="image-20211001213950390"></p>
+<p>图37-4 核心控制器类图</p>
+<p>由于类图中的部分输入参数类型较长，省略了，请读者仔细看代码。首先阅读FilterDispatcher代码，如代码清单37-1所示。</p>
+<p>代码清单37-1 核心控制器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FilterDispatcher</span> <span class="keyword">implements</span> <span class="title class_">Filter</span> &#123;</span><br><span class="line">    <span class="comment">//定义一个值栈辅助类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ValueStackHelper</span> <span class="variable">valueStackHelper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ValueStackHelper</span>();</span><br><span class="line">    <span class="comment">//应用IActionDispatcher</span></span><br><span class="line">    <span class="type">IActionDispather</span> <span class="variable">actionDispatcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActionDispatcher</span>();</span><br><span class="line">    <span class="comment">//servlet销毁时要做的事情</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//过滤器必须实现的方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">        <span class="comment">//转换为HttpServletRequest</span></span><br><span class="line">        <span class="type">HttpServletRequest</span> <span class="variable">req</span> <span class="operator">=</span> (HttpServletRequest)request;</span><br><span class="line">        <span class="type">HttpServletResponse</span> <span class="variable">res</span> <span class="operator">=</span> (HttpServletResponse)response;</span><br><span class="line">        <span class="comment">//传递到其他过滤器处理</span></span><br><span class="line">        chain.doFilter(req, res);</span><br><span class="line">        <span class="comment">//获得从HTTP请求的ACTION名称</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">actionName</span> <span class="operator">=</span> getActionNameFromURI(req);</span><br><span class="line">        <span class="comment">//对ViewManager的应用</span></span><br><span class="line">        <span class="type">ViewManager</span> <span class="variable">viewManager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewManager</span>(actionName);</span><br><span class="line">        <span class="comment">//所有参数放入值栈</span></span><br><span class="line">        <span class="type">ValueStack</span> <span class="variable">valueStack</span> <span class="operator">=</span> valueStackHelper.putIntoStack(req);</span><br><span class="line">        <span class="comment">//把所有的请求传递给ActionDispatcher处理</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span>actionDispatcher.actionInvoke(actionName);</span><br><span class="line">        <span class="type">String</span> <span class="variable">viewPath</span> <span class="operator">=</span> viewManager.getViewPath(result);</span><br><span class="line">        <span class="comment">//直接转向</span></span><br><span class="line">        <span class="type">RequestDispatcher</span> <span class="variable">rd</span> <span class="operator">=</span> req.getRequestDispatcher(viewPath);</span><br><span class="line">        rd.forward(req, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 1、检查XML配置文件是否正确 </span></span><br><span class="line"><span class="comment">        * 2、启动监控程序，观察配置文件是否正确 </span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//通过url获得actionName</span></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">getActionNameFromURI</span><span class="params">(HttpServletRequest req)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> (String) req.getRequestURI();</span><br><span class="line">        <span class="type">String</span> <span class="variable">actionName</span> <span class="operator">=</span> path.substring(path.lastIndexOf(<span class="string">&quot;/&quot;</span>) + <span class="number">1</span>, path.lastIndexOf(<span class="string">&quot;.&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> actionName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们按照系统的执行顺序来讲解，首先在容器的配置文件中需要配置该过滤器，以tomcat为例，配置如代码清单37-2所示。</p>
+<p>代码清单37-2 核心控制器的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>FilterDispatcher<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>FilterDispatcher<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>&#123;包名&#125;.FilterDispatcher<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>FilterDispatcher<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这里定义了对所有以.do结尾的请求进行拦截，拦截后由FilterDispatcher的doFilter方法处理。过滤器是在启动时自动初始化，初始化完毕后立刻调用inti方法，在init方法中我们做了两件事情。</p>
+<ul>
+<li>检查XML配置文件</li>
+</ul>
+<p>所有的Action与视图的对应关系是在配置文件中配置的，因此若配置文件出错，该应用应该停止响应，这就需要在启动时对XML文件进行完整性检查和语法分析。</p>
+<ul>
+<li>启动监视器</li>
+</ul>
+<p>配置文件随时都可以修改，但是它修改后不应该需要重新启动应用才能生效，否则对系统的正常运行有非常大的影响，因此这里要使用到Listener（监听）行为了。</p>
+<p>init方法需要做的这两件事情是非常重要的，而且都还包含了几种不同的设计模式。首 先我们来看检查XML配置文件如何实现。先看我们定义的XML格式（框架中应该定义一个 DTD文件，XML文件的模板，读者可以自行实现），如代码清单37-3所示。</p>
+<p>代码清单37-3 XML配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">&quot;loginAction&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&#123;类名全路径&#125;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;execute&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">&quot;success&quot;</span>&gt;</span>/index2.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">&quot;fail&quot;</span>&gt;</span>/index.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>读者思考一下该怎么检查这个XML文件，有两个不同的检查策略：一是检查XML文件的语法是否正确；二是框架逻辑检查，这是什么意思呢？比如我们在XML文件中配置了一个类A，它只有一个方法methodA，在method中编写的配置文件为method&#x3D;”methoda”，方法名写错了，那这样的配置是肯定不能运行的，需要框架逻辑检查把它揪出来。这两种不同的算法是完全可以替换的，而且很有必要替换，逻辑检查在应用启动的时候需要对所有的类进行过滤处理，牺牲的是效率，这在测试机上没有问题，在生产机上要花20分钟才能把一个应用启动起来，在分秒必争的业务系统中这是不允许的，因此就要求该算法可以退休，想用的时候 （测试机环境）就用，不想用的时候（生产环境）就不用，想到什么模式了吗？策略模式， 这两个算法都是对同样的源文件进行检查，只是算法不同，当然可以相互替换了。类图比较简单，就不再画了，我们直接看代码，抽象策略如代码清单37-4所示。</p>
+<p>代码清单37-4 XML文件校验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IXmlValidate</span> &#123;</span><br><span class="line">    <span class="comment">//只有一个方法，检查XML是否符合条件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validate</span><span class="params">(String xmlPath)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据一个指定的路径，对XML进行校验，返回校验结果。普通XML校验如代码清单37-5 所示。</p>
+<p>代码清单37-5 普通XML校验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonXmlValidate</span> <span class="keyword">implements</span> <span class="title class_">IXmlValidate</span> &#123;</span><br><span class="line">    <span class="comment">//XML语法检查，比如是否少写了一个结束标志</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validate</span><span class="params">(String xmlPath)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于读写XML文件一般使用DOM4J或者JDOM，都提供对XML文件的语法校验功能，不符合XML语法（比如一个节点少写了结束标志<code>&lt;/node&gt;</code>）的文件是不能解析的，读者可以在自己编写框架时使用该类型工具。</p>
+<p>框架的逻辑算法如代码清单37-6所示。</p>
+<p>代码清单37-6 框架逻辑校验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogicXmlValidate</span> <span class="keyword">implements</span> <span class="title class_">IXmlValidate</span> &#123;</span><br><span class="line">    <span class="comment">//检查xmlPath是否符合逻辑，比如不会出现一个类中没有的方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validate</span><span class="params">(String xmlPath)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>逻辑校验相对比较复杂，它的逻辑流程如下：</p>
+<ul>
+<li>读取XML文件。</li>
+<li>使用反射技术初始化一个对象（配置文件中的class属性值）。</li>
+<li>检查是否存在配置文件中配置的方法。</li>
+<li>检查方法的返回值是否是String，并且无输入参数，同时必须继承指定类或接口。</li>
+</ul>
+<p>逻辑校验需要把所有的对象都初始化一遍，在Action类较多的情况下，效率较低，但它可以提前发现出现访问异常的情况，把问题解决在萌芽状态。我们继续来看两个策略的场景类，如代码清单37-7所示。</p>
+<p>代码清单37-7 策略的场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Checker</span> &#123;</span><br><span class="line">    <span class="comment">//使用哪一个策略</span></span><br><span class="line">    <span class="keyword">private</span> IXmlValidate validate;</span><br><span class="line">    <span class="comment">//xml配置文件的路径</span></span><br><span class="line">    String xmlPath;</span><br><span class="line">    <span class="comment">//构造函数传递</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Checker</span><span class="params">(IXmlValidate _validate)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.validate = _validate;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setXmlPath</span><span class="params">(String _xmlPath)</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">this</span>.xmlPath = _xmlPath;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//检查</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">check</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> validate.validate(xmlPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与通用策略模式稍有不同，每个模式在实际应用环境中都有其个性，很少出现完全照搬一个模式的情况，灵活应用设计模式才是关键。</p>
+<p>在FilterDispatcher的init方法中，我们刚刚说它有两个职责：第一个职责是XML文件校验，这个我们完成了；第二个职责是启动监控程序。问题是要监控什么呢？监控XML有没有被修改，如果修改了就立刻通知校验程序对它进行校验。这就又用到了观察者模式：发现文件被修改，它立刻通知检查者处理，该片段的类图如图37-5所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001215149.png" alt="image-20211001215149343"></p>
+<center>图37-5 XML文件监控类图</center>
+
+<p>为什么要在这里定义一个Watchable接口呢？它表示所有可以监视的资源，比如数据库、日志文件、磁盘空间等。我们来看代码，监听接口如代码清单37-8所示。</p>
+<p>代码清单37-8 监听接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Watchable</span> &#123;</span><br><span class="line">    <span class="comment">//监听</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">watch</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件监听者是观察者模式的被观察者，它一旦发现文件发生变化立刻通知观察者，如代码清单37-9所示。</p>
+<p>代码清单37-9 文件监听者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileWatcher</span> <span class="keyword">extends</span> <span class="title class_">Observable</span> <span class="keyword">implements</span> <span class="title class_">Watchable</span>&#123;</span><br><span class="line">    <span class="comment">//是否要重新加载XML文件</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">isReload</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//启动监视</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">watch</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//启动一个线程，每隔15秒扫描一下文件，发现文件日期被修改，立刻通知观察者</span></span><br><span class="line">        <span class="built_in">super</span>.addObserver(<span class="keyword">new</span> <span class="title class_">Checker</span>());</span><br><span class="line">        <span class="built_in">super</span>.setChanged();</span><br><span class="line">        <span class="built_in">super</span>.notifyObservers(isReload);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于框架是在操作系统之上运行的，文件变化时操作系统是不会通知应用系统的，因此我们能做的就是启动一个线程监视一批文件，发现文件改变了，立刻通知相关的处理者，它虽然有时间延迟，但对于一个应用框架来说是非常有必要的，避免了重启应用才能使配置生效的情况。</p>
+<p>读者可能很疑惑，这种死循环的监控方式会不会对性能产生影响，答案是不会！为什么呢？</p>
+<p>检查一个文件的时间一般是毫秒级的，相对于我们设置的运行周期（比如15秒执行一次）是一个非常微小的运行时间，对应用不会产生任何影响。大家都在使用Log4j进行日志处理，它有一个线程是每5秒检查一次日志是否满，大家觉得性能受影响了吗？基本上性能影响可以忽略不计。</p>
+<p>由于Checker还要作为观察者，因此它要实现Observer接口，同时实现update方法，如代码清单37-10所示。</p>
+<p>代码清单37-10 修正后的检查者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Checker</span> <span class="keyword">implements</span> <span class="title class_">Observer</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">(Observable arg0, Object arg1)</span> &#123;</span><br><span class="line">        <span class="comment">//检查是否符合条件</span></span><br><span class="line">        arg1 = check();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止，我们把init方法已经讲解完毕，它是在容器初始化时调用。有一个HTTP请求发送过来，容器调用我们编写的doFilter方法。仔细看一下我们的代码，其中有这样一句话：Chain.doFilter(req,res)，这句话是什么意思呢？是说让后续的过滤器先运行，等它们运行完毕后该过滤器再运行，应该想到这是一个责任链模式，它的类型是FilterChain。Servlet 容器把所有的过滤器组合在一起形成了一个过滤器链，它是怎么做到的呢？容器启动的时候，把所有的过滤器都初始化完毕，然后根据它们在web.xml中的配置顺序，从上向下组装一个过滤器链。注意所有的过滤器都必须实现Filter接口，这是建立过滤器链的首要前提。</p>
+<p>我们再回过头来仔细看看类图，是不是有点熟悉？对，类似于中介者模式，我们并没有把中介者传递到各个同事类，只是我们采用中介者模式的思想，把中介者的职责分发出去由各个同事类来处理。</p>
+<h2 id="37-1-2-模型管理器"><a href="#37-1-2-模型管理器" class="headerlink" title="37.1.2 模型管理器"></a>37.1.2 模型管理器</h2><p>模型管理器是整个MVC框架的难点，在这里我们会看到非常多的设计模式。我们在核心控制器的类图中看到有一个IActionDispatcher接口，它实现的模型行为分发是一个门面模式，如代码清单37-11所示。</p>
+<p>代码清单37-11 模型行为分发接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IActionDispather</span> &#123;</span><br><span class="line">    <span class="comment">//根据Action的名字，返回处理结果</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">actionInvoke</span><span class="params">(String actionName)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的职责非常简单，得到actionName就执行，熟悉Struts的读者可能很清楚这个方法是非常复杂的，它要从配置文件中找到执行对象，然后执行方法，还要考虑值栈、异常等，非常复杂。我们这里就有一个方法，它对外提供一个门面，所有的访问都是通过该门面来完成， 其实现类如代码清单37-12所示。</p>
+<p>代码清单37-12 模型分发实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActionDispather</span> <span class="keyword">implements</span> <span class="title class_">IActionDispather</span> &#123;</span><br><span class="line">    <span class="comment">//需要执行的Action</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ActionManager</span> <span class="variable">actionManager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActionManager</span>();</span><br><span class="line">    <span class="comment">//拦截器链</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Interceptors&gt; listInterceptors = InterceptorFactory.createInterceptors();</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">actionInvoke</span><span class="params">(String actionName)</span> &#123;</span><br><span class="line">        <span class="comment">//前置拦截器</span></span><br><span class="line">        <span class="keyword">return</span> actionManager.execAction(actionName);</span><br><span class="line">        <span class="comment">//后置拦截器</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它是一个非常简单的类，对外部提供统一封装好的行为。模型管理器的类图如图37-6所示。</p>
+<p>首先说ActionManager类，它负责管理所有的行为类Action，那就必须定义一个行为类的接口或抽象类，如代码清单37-13所示。</p>
+<p>代码清单37-13 抽象Action</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ActionSupport</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">SUCCESS</span> <span class="operator">=</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">FAIL</span> <span class="operator">=</span> <span class="string">&quot;fail&quot;</span>;</span><br><span class="line">    <span class="comment">//默认的执行方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">execute</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001215608.png" alt="image-20211001215608539"></p>
+<center>图37-6 模型管理器类图</center>
+抽象的ActionSupport类看起来很简单，其实它可不简单，所有的模型行为都继承该类， 它之所以提供一个默认的execute方法，是因为在xml的配置文件中，可以省略掉method="XXX"这句话，默认就是调用该方法。它还有一个非常重要的行为：对象映射，把HTTP传递过来的字符串映射到一个业务对象上，我们会在值栈中详细讲解。
+
+<p>读者可能很疑惑，Action的操作是需要获得环境数据的，比如HTTPServletRequest的数据，还有系统中的Session数据，单单一个ActionManager如何获得这些数据呢？通过值栈，在值栈中保存着该Action需要的所有数据。</p>
+<p>我们再来看ActionManager类，如代码清单37-14所示。</p>
+<p>代码清单37-14 Action管理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActionManager</span> &#123;</span><br><span class="line">    <span class="comment">//执行Action的指定方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">execAction</span><span class="params">(String actionName)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就这么简单吗？非也，其中的参数actionName指xml配置中的name属性值，它与从HTTP 传递过来的请求对象是一致的，根据HTTP传递过来的actionName在xml文件中查找对应的节点（Node）,然后就可以获取到该类的名称和方法，通过动态代理的方式执行该方法，在这里我们使用到了代理模式。</p>
+<p>有读者可能听说过反射是影响性能的，它提供解释型操作。是这样的，但是实际应用还没有这么高的要求，把数据库设计得优秀一点，系统架构多考虑一点，提升的性能远比这个多。</p>
+<p>然后我们再来看拦截器，拦截器和过滤器的区别就是：拦截器可以脱离容器（J2EE容器）运行，而过滤器不行。拦截器的目的是对数据和行为进行过滤，符合条件的才可以执行Action，或者是在Action执行完毕后，调用拦截器进行回收处理。我们定义一个抽象的拦截器，如代码清单37-15所示。</p>
+<p>代码清单37-15 抽象拦截器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractInterceptor</span> &#123;</span><br><span class="line">    <span class="comment">//获得当前的值栈</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ValueStack</span> <span class="variable">valueStack</span> <span class="operator">=</span> ValueStackHelper.getValueStack();</span><br><span class="line">    <span class="comment">//拦截器类型：前置、后置、环绕</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">type</span> <span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">    <span class="comment">//当前的值栈</span></span><br><span class="line">    <span class="keyword">protected</span> ValueStack <span class="title function_">getValueStack</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> valueStack;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//拦截处理</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">exec</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//根据type不同，处理方式也不同</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//拦截器类型</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">setType</span><span class="params">(<span class="type">int</span> type)</span>;</span><br><span class="line">    <span class="comment">//子类实现的拦截器</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">intercept</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这怎么和Struts的拦截器不相同呀！是的，Struts的拦截器的拦截方法intercept是要接收一个ActionInvocation对象，这里却没有，我们主要是讲解模式，是为了技术实现，而类似Struts 的MVC框架属于工业级别的应用框架，考虑了太多的外界因素。拦截器分为三种。</p>
+<ul>
+<li>前置拦截器</li>
+</ul>
+<p>在Action调用前执行，对Action需要的场景数据进行过滤或重构。</p>
+<ul>
+<li>后置拦截器</li>
+</ul>
+<p>在Action调用后执行，负责回收场景，或对Action的后续事务进行处理。</p>
+<ul>
+<li>环绕拦截器</li>
+</ul>
+<p>在Action调用前后都执行。</p>
+<p>我们的框架在这里使用了一个模板方法模式，开发者继承AbstractInterceptor后，只要完成两个职责即可：定义拦截类型（setType）和实现拦截器要拦截的方法（intercept），不用考虑它到底如何调用ActionInvocation，相对来说简单又实用。</p>
+<p>有拦截器就肯定有拦截器链，多个拦截器组合在一起就成了拦截器链，如代码清单37- 16所示。</p>
+<p>代码清单37-16 拦截器链</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Interceptors</span> <span class="keyword">implements</span> <span class="title class_">Iterable</span>&lt;AbstractInterceptor&gt; &#123;</span><br><span class="line">    <span class="comment">//根据拦截器列表建立一个拦截器链</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Interceptors</span><span class="params">(ArrayList&lt;AbstractInterceptor&gt; list)</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//列出所有的拦截器</span></span><br><span class="line">    <span class="keyword">public</span> Iterator&lt;AbstractInterceptor&gt; <span class="title function_">iterator</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//拦截器链的执行方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">intercept</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//委托拦截器执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它实现了Iterable接口，提供了一个方便遍历拦截器的方法，这是迭代器模式。同时，由于是一个链结构，我们就想到了责任链，这里确实也是一个责任链模式，只是核心控制器上的过滤链是Servlet容器自己实现的，而拦截器链则需要我们自己编码实现。代码不复杂，读者可以参考责任链章节。</p>
+<p>这里还有两个很有意思的方法。我们来看构造函数，它通过一个容纳有拦截器的动态数组生成一个拦截器链，它是一个自激行为，在XML文件中配置一个拦截器，其中包含多个拦截器，我们的构造函数就是这样的用途，自己建立一条链，而不是父类或者高层模块。再看intercept方法，链中每个节点都是一个拦截器，都有一个intercept方法，拦截器链中的intercept方法行为是委托第一个节点拦截器的intercept方法，然后所有的拦截器都会按照顺序执行一遍，这一点和我们的责任链模式是不同的，责任链模式是只要有节点处理就可以认为是结束，后续节点可以不再参与处理。</p>
+<p>Struts还实现了方法拦截器，只要继承MethodFilterInterceptor即可，主要使用了反射技 术，有兴趣的话可以看看源代码。注意我们这里使用了拦截器链而不像Struts那样是拦截器 栈，一字之差，系统设计差别可就大了。</p>
+<hr>
+<p>注意 拦截器是会影响系统性能的，所有的Action在执行前后都会被拦截器过滤一遍，即使不符合拦截条件的也会被检查一遍，所以非必要情况不要使用拦截器。</p>
+<hr>
+<p>由于在XML配置文档中有太多的拦截器链，因此需要有一个工厂来创建它，否则太烦琐。如代码清单37-17所示。</p>
+<p>代码清单37-17 拦截器链工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InterceptorFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;Interceptors&gt; <span class="title function_">createInterceptors</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//根据配置文件创建出所有的拦截器链</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的作用是根据配置文件一次性地创建出所有的拦截器，很简单的工厂方法模式。如果读者还记得我们刚刚讲的配置文件更新问题的话，应该想到这里也应该有一个观察者，配置文件修改了，拦截器链当然也要重建了，确实应该有这样一个观察者，读者可以自行思考如何实现。</p>
+<h2 id="37-1-3-值栈"><a href="#37-1-3-值栈" class="headerlink" title="37.1.3 值栈"></a>37.1.3 值栈</h2><p>值栈按道理说应该很简单，就是把HTTP传递过来的String字符串压到堆栈中。听起来很简单，实现起来就比较有难度了，它要完成两个职责。</p>
+<ul>
+<li>管理堆栈</li>
+</ul>
+<p>不仅仅是出栈、入栈这么简单，它要管理栈中数据，同时还要允许前置拦截器对栈中数据进行修改，限制后置拦截器对栈的修改，还要把栈中数据与HTTPServletRequest中的数据建立关联。</p>
+<ul>
+<li>值映射</li>
+</ul>
+<p>从HTTP传递过来的数据都是字符串结构，那怎么才能转化成一个业务对象呢？比如在页面上有一个登录框，输入用户名（userName）和密码（password）。提交到MVC框架中怎么才能转为一个User对象呢？这也是值栈要完成的职责。</p>
+<p>这里说一下值映射，怎么实现一个值的映射，这也是一个反射操作的结果。首先是HTTP传递过来的参数名称中要明确映射到哪一个对象，例如使用点号(.)区分，点号前是对象名称，点号后是属性名，如此规定后就可以轻松地处理了。由于使用的模式较少，这里就不再赘述。读者若有兴趣可以考虑使用一些开源工具，比如dozer等。</p>
+<h2 id="37-1-4-视图管理器"><a href="#37-1-4-视图管理器" class="headerlink" title="37.1.4 视图管理器"></a>37.1.4 视图管理器</h2><p>视图管理器的功能很单一，按照模型指定的要求返回视图，在这里用到的主要模式就是桥梁模式，如果大家做过多语言的开发就非常清楚了，比如一个外部网站，提供中日英三种语言版本，我们不可能每个语言都写一套页面吧。一般是定义一个语言资源文件，然后视图根据不同的语言环境加载不同的语言。我们先来说视图，它包含三部分。</p>
+<ul>
+<li>静态页面</li>
+</ul>
+<p>比如图片放在什么地方，字体大小是什么样子，菜单应该放置在什么地方，这部分工作是由前台人员开发的，不涉及业务逻辑和业务数据。</p>
+<ul>
+<li>动态页面元素</li>
+</ul>
+<p>它指的是在一个固定场景下不发生变化但在异构场景中发生变化的元素，其中语言就属于动态页面元素，还有为使用不同浏览器而开发的代码。比如浏览器IE、Firefox、Chrome 等，虽然基本上都是符合HTML，但是还有一些细节差异，特别是在JavaScript的处理方面， 稍不注意就可能产生灾难。</p>
+<ul>
+<li>动态数据</li>
+</ul>
+<p>由模型产生的数据，它对视图来说是结构固定，并可反复加载。</p>
+<p>在这三部分中，静态页面是完全静态的，动态页面元素是稍微有点动感，动态数据完全是多变的（数据结构不发生变化，否则页面无法展现）。把动态数据融入到静态页面中比较容易，已经在配置文件中指定要把模型中的数据放到哪个页面中，现在的问题是怎么把动态页面元素融入到静态页面中。静态页面有很多，语言类型也有很多，怎么融合在一起提供给浏览器访问呢？</p>
+<p>桥梁模式可以解决用什么笔（圆珠笔、铅笔）和画什么图形（圆形、方形）的问题，我们遇到的问题与此场景类似。先看类图，如图37-7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001220257.png" alt="image-20211001220257520"></p>
+<center>图37-7 视图与语言类图</center>
+大家还记得Struts是怎么配置多语言的文件吗？我们采用类似的结构，如代码清单37-18 所示。
+
+<p>代码清单37-18 资源配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title=标题 </span><br><span class="line">menu=菜单</span><br></pre></td></tr></table></figure>
+<p>英文配置菜单与此类似，它的结构就是一个Map类型，我们把它读入到Map中，抽象类如代码清单37-19所示。</p>
+<p>代码清单37-19 抽象语言</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsLangData</span> &#123;</span><br><span class="line">    <span class="comment">//获得所有的动态元素的配置项</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> Map&lt;String,String&gt; <span class="title function_">getItems</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getItems方法是获得一种语言下的所有配置。我们来看中文语言包，如代码清单37-20所 示。</p>
+<p>代码清单37-20 中文语言</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GBLangData</span> <span class="keyword">extends</span> <span class="title class_">AbsLangData</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, String&gt; <span class="title function_">getItems</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * Map 的结构为： </span></span><br><span class="line"><span class="comment">        * key=&#x27;title&#x27;, value=&#x27;标题&#x27; </span></span><br><span class="line"><span class="comment">        * key=&#x27;menu&#x27;, value=&#x27;菜单&#x27; </span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>英文语言如代码清单37-21所示。</p>
+<p>代码清单37-21 英文语言</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ENLangData</span> <span class="keyword">extends</span> <span class="title class_">AbsLangData</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, String&gt; <span class="title function_">getItems</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * Map结构为： </span></span><br><span class="line"><span class="comment">        * key=&#x27;title&#x27;,value=&#x27;title&#x27;;</span></span><br><span class="line"><span class="comment">        * key=&#x27;menu&#x27;, value=&#x27;menu&#x27; </span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>视图分为两种类图，一种是需要直接替换资源文件的视图，比如JSP文件，框架直接把语言包中的资源项替换掉JSP中的条目即可，把{title}替换为“标题”，把{menu}替换为“菜单”，替换后存在框架的缓存目录中，提高系统的访问效率。另一种视图是不能替换的，比如SWF文件，它的资源可以通过类似HTTP传递参数的形式传递，重写一个URL即可。我们首先来看抽象视图，如代码清单37-22所示。</p>
+<p>代码清单37-22 抽象视图</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsView</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> AbsLangData langData;</span><br><span class="line">    <span class="comment">//必须有一个语言文件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbsView</span><span class="params">(AbsLangData _langData)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.langData = _langData;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得当前的语言</span></span><br><span class="line">    <span class="keyword">public</span> AbsLangData <span class="title function_">getLangData</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> langData;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//页面的URL路径</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getURI</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//组装一个页面</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">assemble</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JSP视图是需要替换资源项，如代码清单37-23所示。</p>
+<p>代码清单37-23 JSP视图</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JspView</span> <span class="keyword">extends</span> <span class="title class_">AbsView</span> &#123;</span><br><span class="line">    <span class="comment">//传递语言配置</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JspView</span><span class="params">(AbsLangData _langData)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_langData);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">assemble</span><span class="params">()</span> &#123;</span><br><span class="line">        Map&lt;String,String&gt; langMap = getLangData().getItems();</span><br><span class="line">        <span class="keyword">for</span>(String key:langMap.keySet())&#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            * 直接替换文件中的语言条目 </span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SWF文件是不能替换的，采用重写URL的方式，如代码清单37-24所示。</p>
+<p>代码清单37-24 SWF视图</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwfView</span> <span class="keyword">extends</span> <span class="title class_">AbsView</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SwfView</span><span class="params">(AbsLangData _langData)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_langData);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">assemble</span><span class="params">()</span> &#123;</span><br><span class="line">        Map&lt;String,String&gt; langMap = getLangData().getItems();</span><br><span class="line">        <span class="keyword">for</span>(String key:langMap.keySet())&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            * 组装一个HTTP的请求格式： </span></span><br><span class="line"><span class="comment">            * http://abc.com/xxx.swf?key1=value&amp;key2=value</span></span><br><span class="line"><span class="comment">            */</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ViewManager是一个视图模块的入口，所有的访问都是通过它传递进来的，如代码清单 37-25所示。</p>
+<p>代码清单37-25 视图管理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ViewManager</span> &#123;</span><br><span class="line">    <span class="comment">//Action的名称</span></span><br><span class="line">    <span class="keyword">private</span> String actionName;</span><br><span class="line">    <span class="comment">//当前的值栈</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">ValueStack</span> <span class="variable">valueStack</span> <span class="operator">=</span> ValueStackHelper.getValueStack();</span><br><span class="line">    <span class="comment">//接收一个ActionName</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ViewManager</span><span class="params">(String _actionName)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.actionName = _actionName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据模型的返回结果提供视图</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getViewPath</span><span class="params">(String result)</span>&#123;</span><br><span class="line">        <span class="comment">//根据值栈查找到需要提供的语言</span></span><br><span class="line">        <span class="type">AbsLangData</span> <span class="variable">langData</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GBLangData</span>();</span><br><span class="line">        <span class="comment">//根据action和result查找到指定的视图，并加载语言</span></span><br><span class="line">        <span class="type">AbsView</span> <span class="variable">view</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JspView</span>(langData);</span><br><span class="line">        <span class="comment">//返回视图的地址</span></span><br><span class="line">        <span class="keyword">return</span> view.getURI();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过桥梁模式我们把不同的语言和不同类型的视图结合起来，共同提供一个多语言的应用系统，即使以后增加语言也非常容易扩展。</p>
+<h2 id="37-1-5-工具类"><a href="#37-1-5-工具类" class="headerlink" title="37.1.5 工具类"></a>37.1.5 工具类</h2><p>每个框架或项目都有大量的工具类，MVC框架也不例外。先来看操作XML文件的工具类，不可能自己读写XML文件，我们使用DOM4J来实现，它在大文件的处理上性能很有优势，而且比较简单，架构也非常优秀。</p>
+<p>使用DOM4J从XML文件中读出的对象是节点（Node）、元素（Element）、属性（Attribute）等，这些对象还是比较容易理解的，但是不能保证一个开发组的人对这些都了解，因此需要把它转换成每个开发成员都理解的对象，比如我们处理这样一段XML代码，如代码清单37-26所示。</p>
+<p>代码清单37-26 XML文件片段</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">&quot;loginAction&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&#123;类名全路径&#125;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;execute&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">&quot;success&quot;</span>&gt;</span>/index2.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">&quot;fail&quot;</span>&gt;</span>/index.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用DOM4J查找到该节点是一个Node对象，如果要取得属性，就需要转换为一个元素 (Element)对象，这不是每个开发成员都能理解的，于是给架构师提出的问题就是：如何把一个DOM4J对象转换成自己设计的对象。答案是适配器模式，我们首先定义一个Action节点类，如代码清单37-27所示。</p>
+<p>代码清单37-27 Action节点类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ActionNode</span> &#123;</span><br><span class="line">    <span class="comment">//Action的名称</span></span><br><span class="line">    <span class="keyword">private</span> String actionName;</span><br><span class="line">    <span class="comment">//Action的类名</span></span><br><span class="line">    <span class="keyword">private</span> String actionClass;</span><br><span class="line">    <span class="comment">//方法名，默认是execute</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> <span class="string">&quot;excuete&quot;</span>;</span><br><span class="line">    <span class="comment">//视图路径</span></span><br><span class="line">    <span class="keyword">private</span> String view;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getActionName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> actionName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getActionClass</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> actionClass;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMethodName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> methodName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title function_">getView</span><span class="params">(String Result)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它是一个抽象类，其中的getView是一个抽象方法，是根据执行结果查找到视图路径。 只要编写一个适配器就可以把Elemet对象转为Action节点，如代码清单37-28所示。</p>
+<p>代码清单37-28 Action节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">XmlActionNode</span> <span class="keyword">extends</span> <span class="title class_">ActionNode</span> &#123;</span><br><span class="line">    <span class="comment">//需要转换的element</span></span><br><span class="line">    <span class="keyword">private</span> Element el;</span><br><span class="line">    <span class="comment">//通过构造函数传递</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">XmlActionNode</span><span class="params">(Element _el)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.el = _el;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getActionName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAttValue(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getActionClass</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAttValue(<span class="string">&quot;class&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMethodName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAttValue(<span class="string">&quot;method&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getView</span><span class="params">(String result)</span>&#123;</span><br><span class="line">        <span class="type">ViewPathVisitor</span> <span class="variable">visitor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewPathVisitor</span>(<span class="string">&quot;success&quot;</span>);</span><br><span class="line">        el.accept(visitor);</span><br><span class="line">        <span class="keyword">return</span> visitor.getViewPath();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得指定属性值</span></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">getAttValue</span><span class="params">(String attName)</span>&#123;</span><br><span class="line">        <span class="type">Attribute</span> <span class="variable">att</span> <span class="operator">=</span> el.attribute(attName);</span><br><span class="line">        <span class="keyword">return</span> att.getText();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个对象适配器，传递进来一个Element对象，把它转换为ActionNode对象，这样设计以后，系统开发人员就不用考虑开源工具对系统的影响，屏蔽了工具系统的影响，这是一个典型的适配器模式应用。</p>
+<p>不知道读者是否注意到getView方法，它使用了一个访问者模式，这是DOM4J提供的一个非常优秀的API接口，传递进去一个访问者就可以遍历出我们需要的对象。我们来看自己定义的访问者，如代码清单37-29所示。</p>
+<p>代码清单37-29 访问者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ViewPathVisitor</span> <span class="keyword">extends</span> <span class="title class_">VisitorSupport</span> &#123;</span><br><span class="line">    <span class="comment">//获得指定的路径</span></span><br><span class="line">    <span class="keyword">private</span> String viewPath;</span><br><span class="line">    <span class="keyword">private</span> String result;</span><br><span class="line">    <span class="comment">//传递模型结果</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ViewPathVisitor</span><span class="params">(String _result)</span>&#123;</span><br><span class="line">        result = _result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">visit</span><span class="params">(Element el)</span>&#123;</span><br><span class="line">        <span class="type">Attribute</span> <span class="variable">att</span> <span class="operator">=</span> el.attribute(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(att != <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(att.getName().equals(<span class="string">&quot;name&quot;</span>) &amp;&amp; att.getText().equals(result))&#123;</span><br><span class="line">                viewPath = el.getText();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getViewPath</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> viewPath;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DOM4J提供了VisitorSupport抽象接口，可以接受元素、节点、属性等访问者。我们这里 接受了一个元素访问者，对所有的元素过滤一遍，然后找到自己需要的元素，非常强大！</p>
+<p>我们继续分析，在IoC容器中都会区分对象是单例模式还是多例模式。想想我们的框架，每个HTTP请求都会产生一个线程，如果我们的Action初始化的时候是单例模式会出现什么情况？当并发足够多的时候就会产生阻塞，性能会严重下降，在特殊情况下还会产生线程不安全，这时就需要考虑多例情况。那多例是如何处理呢？使用Clone技术，首先在系统启动时初始化所有的Action，然后每过来一个请求就拷贝一个Action，减少了初始化对象的性能消耗。典型的原型模式，但问题也同时产生了，并发较多时，就可能会产生内存溢出的情况，内存不够用了!于是享元模式就可以上场了，建立一个对象池以容纳足够多的对象。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/714d2c87/" title="37.1 MVC框架的实现">https://lanlan2017.github.io/ReadingNotes/714d2c87/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/6ad03aa1/" rel="prev" title="第三部分 谁的地盘谁做主 ——设计模式PK">
+                  <i class="fa fa-chevron-left"></i> 第三部分 谁的地盘谁做主 ——设计模式PK
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f6c05051/" rel="next" title="38.1 规格模式">
+                  38.1 规格模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/714d2c87/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/714d2c87/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

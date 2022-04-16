@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="2.3 jQuery选择器在正式学习jQuery选择器之前，先看几组用传统的JavaScript方法获取页面中的元素，然后给元素添加行为事件的例子。 例子1：给网页中的所有&lt;p&gt;元素添加onclick事件。HTML代码如下： 12&lt;p&gt;测试1&lt;&#x2F;p&gt;&lt;p&gt;测试2&lt;&#x2F;p&gt;  要做的工作有以下几项。（1）获取所有的&lt;p&gt;元素。（2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.3 jQuery选择器">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/bf841aac/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="2.3 jQuery选择器在正式学习jQuery选择器之前，先看几组用传统的JavaScript方法获取页面中的元素，然后给元素添加行为事件的例子。 例子1：给网页中的所有&lt;p&gt;元素添加onclick事件。HTML代码如下： 12&lt;p&gt;测试1&lt;&#x2F;p&gt;&lt;p&gt;测试2&lt;&#x2F;p&gt;  要做的工作有以下几项。（1）获取所有的&lt;p&gt;元素。（2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155457.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155528.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155942.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215161918.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162721.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162047.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162117.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185505.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185748.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185911.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215190808.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215200300.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215200308.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215205826.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215210613.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090107.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090229.png">
+<meta property="og:image" content="https://res.weread.qq.com/wrepub/epub_731606_54">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090542.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090659.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091209.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091308.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091416.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215211539.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091812.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216092505.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094031.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094031.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094104.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150424.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150530.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150716.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150900.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216152217.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216152555.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194625.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194819.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194947.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195100.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195203.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195318.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195417.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216200328.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201336.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201501.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201708.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111519.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111639.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111746.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111909.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217113205.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217132332.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217132504.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217145227.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217153859.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217170509.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217170701.png">
+<meta property="article:published_time" content="2021-12-12T07:54:26.000Z">
+<meta property="article:modified_time" content="2021-12-13T08:11:00.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155457.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/bf841aac/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/bf841aac/","path":"/bf841aac/","title":"2.3 jQuery选择器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2.3 jQuery选择器 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-jQuery%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">2.3 jQuery选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%901%EF%BC%9A%E7%BB%99%E7%BD%91%E9%A1%B5%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89-lt-p-gt-%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0onclick%E4%BA%8B%E4%BB%B6%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">例子1：给网页中的所有&lt;p&gt;元素添加onclick事件。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%902%EF%BC%9A%E4%BD%BF%E4%B8%80%E4%B8%AA%E7%89%B9%E5%AE%9A%E7%9A%84%E8%A1%A8%E6%A0%BC%E9%9A%94%E8%A1%8C%E5%8F%98%E8%89%B2%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">例子2：使一个特定的表格隔行变色。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%903%EF%BC%9A%E5%AF%B9%E5%A4%9A%E9%80%89%E6%A1%86%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C%EF%BC%8C%E8%BE%93%E5%87%BA%E9%80%89%E4%B8%AD%E7%9A%84%E5%A4%9A%E9%80%89%E6%A1%86%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82"><span class="nav-number">1.3.</span> <span class="nav-text">例子3：对多选框进行操作，输出选中的多选框的个数。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1-%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">2.3.1 基本选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-2-%E5%B1%82%E6%AC%A1%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">2.3.2 层次选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-3-%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">2.3.3 过滤选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E5%9F%BA%E6%9C%AC%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.1.</span> <span class="nav-text">1．基本过滤选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%86%85%E5%AE%B9%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.2.</span> <span class="nav-text">2．内容过滤选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E5%8F%AF%E8%A7%81%E6%80%A7%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.3.</span> <span class="nav-text">3．可见性过滤选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%8E%E5%B1%9E%E6%80%A7%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.4.</span> <span class="nav-text">4．属性过滤选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%8E%E5%AD%90%E5%85%83%E7%B4%A0%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.5.</span> <span class="nav-text">5．子元素过滤选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%EF%BC%8E%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.6.</span> <span class="nav-text">6．表单对象属性过滤选择器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-4-%E8%A1%A8%E5%8D%95%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.7.</span> <span class="nav-text">2.3.4 表单选择器</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/bf841aac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2.3 jQuery选择器 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.3 jQuery选择器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-12 15:54:26" itemprop="dateCreated datePublished" datetime="2021-12-12T15:54:26+08:00">2021-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-13 16:11:00" itemprop="dateModified" datetime="2021-12-13T16:11:00+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC2%E7%AB%A0-jQuery%E9%80%89%E6%8B%A9%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">第2章 jQuery选择器</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/bf841aac/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/bf841aac/" data-xid="/ReadingNotes/bf841aac/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>24k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>22 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="2-3-jQuery选择器"><a href="#2-3-jQuery选择器" class="headerlink" title="2.3 jQuery选择器"></a>2.3 jQuery选择器</h1><p>在正式学习jQuery选择器之前，先看几组用传统的JavaScript方法获取页面中的元素，然后给元素添加行为事件的例子。</p>
+<h2 id="例子1：给网页中的所有-lt-p-gt-元素添加onclick事件。"><a href="#例子1：给网页中的所有-lt-p-gt-元素添加onclick事件。" class="headerlink" title="例子1：给网页中的所有&lt;p&gt;元素添加onclick事件。"></a>例子1：给网页中的所有<code>&lt;p&gt;</code>元素添加onclick事件。</h2><p>HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>测试1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>测试2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>要做的工作有以下几项。<br>（1）获取所有的<code>&lt;p&gt;</code>元素。<br>（2）对<code>&lt;p&gt;</code>元素进行循环（因为获取的是数组对象）。<br>（3）给每个<code>&lt;p&gt;</code>元素添加行为事件。</p>
+<p>JavaScript代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> items = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;p&quot;</span>);<span class="comment">//获取网页中所有的p元素</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i &lt; items.<span class="property">length</span>;i++)&#123;            <span class="comment">//由于获取的是数组对象，因此需要把它循环出来</span></span><br><span class="line">    items[i].<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;            <span class="comment">//给每个对象添加onclick事件</span></span><br><span class="line">        <span class="comment">//doing something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="例子2：使一个特定的表格隔行变色。"><a href="#例子2：使一个特定的表格隔行变色。" class="headerlink" title="例子2：使一个特定的表格隔行变色。"></a>例子2：使一个特定的表格隔行变色。</h2><p>HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">&quot;tb&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第一行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第一行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第二行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第二行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第三行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第三行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第四行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第四行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第五行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第五行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第六行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>第六行<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>要做的工作有以下几项。<br>（1）根据表格id获取表格。<br>（2）在表格内获取<code>&lt;tbody&gt;</code>元素。<br>（3）在<code>&lt;tbody&gt;</code>元素下获取<code>&lt;tr&gt;</code>元素。<br>（4）循环输出获取的<code>&lt;tr&gt;</code>元素。<br>（5）对<code>&lt;tr&gt;</code>元素的索引值除以2并取模，然后根据奇偶设置不同的背景色。</p>
+<p>JavaScript代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> item = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;tb&quot;</span>); <span class="comment">//获取id为tb的元素(table)</span></span><br><span class="line"><span class="keyword">var</span> tbody = item.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;tbody&quot;</span>)[<span class="number">0</span>]; <span class="comment">//获取表格的第1个tbody元素</span></span><br><span class="line"><span class="keyword">var</span> trs = tbody.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;tr&quot;</span>); <span class="comment">//获取tbody元素下的所有tr元素</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; trs.<span class="property">length</span>; i++) &#123; <span class="comment">//循环tr元素</span></span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123; <span class="comment">//取模(取余数。例如0%2==0,1%2==1,2%2==0,3%2==1)</span></span><br><span class="line">        trs[i].<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&quot;#888&quot;</span>; <span class="comment">//改变符合条件的tr元素的背景色</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="例子3：对多选框进行操作，输出选中的多选框的个数。"><a href="#例子3：对多选框进行操作，输出选中的多选框的个数。" class="headerlink" title="例子3：对多选框进行操作，输出选中的多选框的个数。"></a>例子3：对多选框进行操作，输出选中的多选框的个数。</h2><p>HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;check&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span> <span class="attr">name</span>=<span class="string">&quot;check&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span> <span class="attr">name</span>=<span class="string">&quot;check&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;你选中的个数&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>要做的工作有以下几项。<br>（1）新建一个空数组。<br>（2）获取所有name为“check”的多选框。<br>（3）循环判断多选框是否被选中，如果被选中则添加到数组里。<br>（4）获取输出按钮，然后为按钮添加onclick事件，输出数组的长度即可。</p>
+<p>JavaScript代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取id为btn的元素(button)</span></span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btn&quot;</span>);</span><br><span class="line"><span class="comment">//给元素添加onclick事件</span></span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//创建一个数组对象</span></span><br><span class="line">    <span class="keyword">var</span> arrays = <span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">    <span class="comment">//获取name为check的一组元素(checkbox)</span></span><br><span class="line">    <span class="keyword">var</span> items = <span class="variable language_">document</span>.<span class="title function_">getElementsByName</span>(<span class="string">&quot;check&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//循环这组数据</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; items.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="comment">//判断是否选中</span></span><br><span class="line">        <span class="keyword">if</span> (items[i].<span class="property">checked</span>) &#123;</span><br><span class="line">            <span class="comment">//把符合条件的数据添加到数组中</span></span><br><span class="line">            arrays.<span class="title function_">push</span>(items[i].<span class="property">value</span>);</span><br><span class="line">            <span class="comment">//push()是JavaScript数组中的方法</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;选中的个数为：&quot;</span> + arrays.<span class="property">length</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的几个例子都是用传统的JavaScript 方法进行操作，中间使用了 getElementById()、getElementsByTagName()和getElementsByName()等方法，然后动态地给元素添加行为或者样式。这些虽然都是JavaScript中最简单的操作，但不断重复使用getElementById()和getElementsByTagName()等冗长而难记的名称，使越来越多的开发人员开始厌倦这种枯燥的写法，并且有时候为了获取网页中的某个元素，需要编写很多的getElementById()和getElementsByTagName()方法。然而在 jQuery中，类似的这些操作则非常简洁。</p>
+<p>下面学习如何使用jQuery获取这些元素。</p>
+<p>jQuery选择器分为基本选择器、层次选择器、过滤选择器和表单选择器。在下面的章节中将分别用不同的选择器来查找 HTML 代码中的元素并对其进行简单的操作。为了能更清晰、直观地讲解选择器，首先需要设计一个简单的页面，里面包含各种<code>&lt;div&gt;</code>元素和<code>&lt;span&gt;</code>元素，然后使用jQuery选择器来匹配元素并调整它们的样式。</p>
+<p>新建一个空白页面，输入以下HTML代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span> <span class="attr">id</span>=<span class="string">&quot;one&quot;</span>&gt;</span></span><br><span class="line">    id为one,class为one的div</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span> <span class="attr">id</span>=<span class="string">&quot;two&quot;</span> <span class="attr">title</span>=<span class="string">&quot;test&quot;</span>&gt;</span></span><br><span class="line">    id为two,class为one,title为test的div.</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">title</span>=<span class="string">&quot;other&quot;</span>&gt;</span>class为mini,title为other<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">title</span>=<span class="string">&quot;test&quot;</span>&gt;</span>class为mini,title为test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;one&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span>&gt;</span>class为mini<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mini&quot;</span> <span class="attr">title</span>=<span class="string">&quot;tesst&quot;</span>&gt;</span>class为mini,title为tesst<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;display:none;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;none&quot;</span>&gt;</span></span><br><span class="line">    style的display为&quot;none&quot;的div</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;hide&quot;</span>&gt;</span>class为&quot;hide&quot;的div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    包含input的type为&quot;hidden&quot;的div<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">size</span>=<span class="string">&quot;8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;mover&quot;</span>&gt;</span>正在执行动画的span元素.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后用CSS对这些元素进行初始化大小和背景颜色的设置，CSS代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>,<span class="selector-tag">span</span>,<span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">140px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">140px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#aaa</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">#000</span> <span class="number">1px</span> solid;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">17px</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: Verdana;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.mini</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">55px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">55px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#aaa</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.hide</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据以上HTML+CSS代码，可以生成图2-2所示的页面效果。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155457.png" alt="image-20211215155456971"></p>
+<center>图2-2 初始状态</center>
+
+<h2 id="2-3-1-基本选择器"><a href="#2-3-1-基本选择器" class="headerlink" title="2.3.1 基本选择器"></a>2.3.1 基本选择器</h2><p>基本选择器是jQuery中最常用的选择器，也是最简单的选择器，它通过元素id、class和标签名等来查找DOM元素。在网页中，每个id名称只能使用一次，class允许重复使用。基本选择器的介绍说明如表2-2所示。</p>
+<center>表2-2 基本选择器</center>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155528.jpeg" alt="epub_731606_46"></p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>#id</code></td>
+<td>根据给定的id匹配一个元素</td>
+<td>单个元素</td>
+<td><code>$(&quot;&quot;)</code>选取id为test的元素</td>
+</tr>
+<tr>
+<td><code>.class</code></td>
+<td>根据给定的类名匹配元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;&quot;)</code>选取所有class为test的元素</td>
+</tr>
+<tr>
+<td><code>element</code></td>
+<td>根据给定的元素名匹配元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;&quot;)</code>选取所有的<code>&lt;p&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>selector1,selector2,...,selectorN</code></td>
+<td>将每一个选择器匹配到的元素合并后一起返回</td>
+<td>集合元素</td>
+<td><code>$(&quot;div,span,p.myClass&quot;)</code>选取所有<code>&lt;div&gt;</code>,<code>span</code>和拥有class为myClass的<code>&lt;p&gt;</code>标签的一组元素</td>
+</tr>
+</tbody></table>
+<p>可以使用这些基本选择器来完成绝大多数的工作。下面用它们来匹配刚才 HTML代码中的<code>&lt;div&gt;</code>，<code>&lt;span&gt;</code>等元素并进行操作（改变背景色），示例如表2-3所示。</p>
+<center>表2-3 基本选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th align="left">功能</th>
+<th align="left">代码</th>
+<th align="left">执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">改变id为one的元素的背景色</td>
+<td align="left"><code>$(&quot;#one&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215155942.png" alt="image-20211215155942007"></td>
+</tr>
+<tr>
+<td align="left">改变class为mini的所有元素的背景色</td>
+<td align="left"><code>$(&quot;.mini&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215161918.png" alt="image-20211215161918372"></td>
+</tr>
+<tr>
+<td align="left">改变元素名是<code>&lt;div&gt;</code>的所有元素的背景色</td>
+<td align="left"><code>$(&quot;div&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162721.png" alt="image-20211215162721046"></td>
+</tr>
+<tr>
+<td align="left">改变所有元素的背景色</td>
+<td align="left"><code>$(&quot;*&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162047.png" alt="image-20211215162047746"></td>
+</tr>
+<tr>
+<td align="left">改变所有的<code>span</code>元素和id为two的元素的背景色</td>
+<td align="left"><code>$(&quot;span,#two&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215162117.png" alt="image-20211215162116977"></td>
+</tr>
+</tbody></table>
+<h2 id="2-3-2-层次选择器"><a href="#2-3-2-层次选择器" class="headerlink" title="2.3.2 层次选择器"></a>2.3.2 层次选择器</h2><p>如果想通过DOM元素之间的层次关系来获取特定元素，例如后代元素、子元素、相邻元素和同辈元素等，那么层次选择器是一个非常好的选择。层次选择器的介绍说明如表2-4所示。</p>
+<center>表2-4 层次选择器</center>
+
+<table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">描述</th>
+<th align="left">返回</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>$(&quot;ancestor descendant&quot;)</code></td>
+<td align="left">选取<code>ancestor</code>元素里的所有<code>descendant</code>(后代)元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;div span&quot;)</code>选取<code>&lt;div&gt;</code>里的所有的<code>&lt;span&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>$(&quot;parent&gt;child&quot;)</code></td>
+<td align="left">选取<code>parent</code>元素下的<code>child</code>(子)元素，与<code>$(&quot;ancestor descendant&quot;)</code>有区别，<code>$(&quot;ancestor descendant&quot;)</code>选择的后代元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;div&gt;span&quot;)</code>选取<code>&lt;div&gt;</code>元素下的元素名是<code>&lt;span&gt;</code>的子元素</td>
+</tr>
+<tr>
+<td align="left"><code>$(&quot;prev+next&quot;)</code></td>
+<td align="left">选取紧接在<code>prev</code>元素后的<code>next</code>元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;.one+div&quot;)</code>选取<code>class</code>为<code>one</code>的下一个<code>&lt;div&gt;</code>同辈元素。</td>
+</tr>
+<tr>
+<td align="left"><code>$(&quot;prev~siblings&quot;)</code></td>
+<td align="left">选取<code>prev</code>元素之后的所有<code>siblings</code>元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;#two~div&quot;)</code>选取<code>id</code>为<code>two</code>的元素后面的所有<code>&lt;div&gt;</code>同辈元素</td>
+</tr>
+</tbody></table>
+<p>继续沿用刚才例子中的HTML和CSS 代码，然后用层次选择器来对网页中的<code>&lt;div&gt;</code>，<code>&lt;span&gt;</code>等元素进行操作，示例如表2-5所示。</p>
+<center>表2-5 层次选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th align="left">功能</th>
+<th align="left">代码</th>
+<th align="left">执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">改变<code>&lt;body&gt;</code>内所有<code>&lt;div&gt;</code>的背景色</td>
+<td align="left"><code>$(&quot;body div&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185505.png" alt="image-20211215185504190"></td>
+</tr>
+<tr>
+<td align="left">改变<code>&lt;body&gt;</code>内子<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;body&gt;div&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185748.png" alt="image-20211215185748518"></td>
+</tr>
+<tr>
+<td align="left">改变<code>class</code>为<code>one</code>的下一个<code>&lt;div&gt;</code>同辈元素的背景色</td>
+<td align="left"><code>$(&quot;.one+div&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215185911.png" alt="image-20211215185911800"></td>
+</tr>
+<tr>
+<td align="left">改变<code>id</code>为<code>two</code>的元素后面的所有<code>&lt;div&gt;</code>同辈元素的背景色</td>
+<td align="left"><code>$(&quot;#two~div&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215190808.png" alt="image-20211215190808240"></td>
+</tr>
+</tbody></table>
+<p>在层次选择器中，第1个和第2个选择器比较常用，而后面两个因为在jQuery里可以用更加简单的方法代替，所以使用的几率相对少些。</p>
+<p>可以使用next()方法来代替<code>$(&#39;prev + next&#39;)</code>选择器，如表2-6所示。</p>
+<center>表2-6 $('prev + next')选择器与next()方法的等价关系</center>
+
+<table>
+<thead>
+<tr>
+<th align="left">空</th>
+<th align="left">选择器</th>
+<th align="left">方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">等价关系</td>
+<td align="left"><code>$(&quot;.one+div&quot;)</code></td>
+<td align="left"><code>$(&quot;.one&quot;).next(&quot;div&quot;)</code></td>
+</tr>
+</tbody></table>
+<p>可以使用nextAll()方法来代替<code>$(&#39;prev~siblings&#39;)</code>选择器，如表2-7所示。</p>
+<center>表2-7 $('prev~iblings')选择器与nextAll()方法的等价关系</center>
+
+<table>
+<thead>
+<tr>
+<th align="left">空</th>
+<th align="left">选择器</th>
+<th align="left">方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">等价关系</td>
+<td align="left"><code>$(&quot;#prev~div&quot;)</code></td>
+<td align="left"><code>$(&quot;#prev&quot;).nextAll(&quot;div&quot;)</code></td>
+</tr>
+</tbody></table>
+<p>在此我将后面要讲解的<code>siblings()</code>方法拿出来与<code>$(&#39;prev~siblings&#39;)</code>选择器进行比较。<code>$(&quot;#prev~div&quot;)</code>选择器只能选择“<code>prev</code>”元素后面的同辈<code>&lt;div&gt;</code>元素。而<code>siblings()</code>方法与前后位置无关，只要是同辈节点就都能匹配。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//选取#prev之后的所有同辈div元素</span></span><br><span class="line">$(<span class="string">&quot;#prev~div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br><span class="line"><span class="comment">//同上</span></span><br><span class="line">$(<span class="string">&quot;#prev&quot;</span>).<span class="title function_">nextAll</span>(<span class="string">&quot;div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br><span class="line"><span class="comment">//选取#prev所有的同辈div元素，无论前后位置</span></span><br><span class="line">$(<span class="string">&quot;#prev&quot;</span>).<span class="title function_">siblings</span>(<span class="string">&quot;div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//选取#two之后的所有同辈div元素</span></span><br><span class="line">$(<span class="string">&quot;#two~div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br><span class="line"><span class="comment">//同上</span></span><br><span class="line">$(<span class="string">&quot;#two&quot;</span>).<span class="title function_">nextAll</span>(<span class="string">&quot;div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>效果为：<br><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215200300.png" alt="image-20211215200300198"><br>而：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//选取#two所有的同辈div元素，无论前后位置</span></span><br><span class="line">$(<span class="string">&quot;#two&quot;</span>).<span class="title function_">siblings</span>(<span class="string">&quot;div&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>效果为：<br><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215200308.png" alt="image-20211215200308529"></p>
+</blockquote>
+<h2 id="2-3-3-过滤选择器"><a href="#2-3-3-过滤选择器" class="headerlink" title="2.3.3 过滤选择器"></a>2.3.3 过滤选择器</h2><p>过滤选择器主要是通过特定的过滤规则来筛选出所需的DOM元素，过滤规则与CSS中的伪类选择器语法相同，即选择器都以一个冒号(:)开头。按照不同的过滤规则，过滤选择器可以分为基本过滤、内容过滤、可见性过滤、属性过滤、子元素过滤和表单对象属性过滤选择器。</p>
+<h3 id="1．基本过滤选择器"><a href="#1．基本过滤选择器" class="headerlink" title="1．基本过滤选择器"></a>1．基本过滤选择器</h3><center>表2-8 基本过滤选择器</center>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215205826.jpeg" alt="epub_731606_52"></p>
+<table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">描述</th>
+<th align="left">返回</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>:first</code></td>
+<td align="left">选取第一个元素</td>
+<td align="left">单个元素</td>
+<td align="left"><code>$(&quot;div:first&quot;)</code>选取所有<code>&lt;div&gt;</code>元素的第1个<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:last</code></td>
+<td align="left">选取最后一个元素</td>
+<td align="left">单个元素</td>
+<td align="left"><code>$(&quot;div:last&quot;)</code>选取所有<code>&lt;div&gt;</code>元素中最后一个<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:not(selector)</code></td>
+<td align="left">去除所有与给定选择器匹配的元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;input:not(.myClass)&quot;)</code>选取<code>class</code>不是<code>myClass</code>的<code>&lt;input&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:even</code></td>
+<td align="left">选取索引是偶数的所有元素，索引从0开始</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;input:even&quot;)</code>选取索引是偶数的<code>&lt;input&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:odd</code></td>
+<td align="left">选取索引是奇数的所有元素，索引从0开始</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;input:odd&quot;)</code>选取索引是奇数的<code>&lt;input&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:eq(index)</code></td>
+<td align="left">选取索引等于<code>index</code>的元素（<code>index</code>从0开始）</td>
+<td align="left">单个元素</td>
+<td align="left"><code>$(&quot;input:eq(1)&quot;)</code>选取索引等于1的<code>&lt;input&gt;</code>元素</td>
+</tr>
+<tr>
+<td align="left"><code>:gt(index)</code></td>
+<td align="left">选取索引大于<code>index</code>的元素（<code>index</code>从0开始）</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;input:gt(1)&quot;)</code>选取索引大于1的<code>&lt;input&gt;</code>元素，（注:大于1，而不包括1）</td>
+</tr>
+<tr>
+<td align="left"><code>:lt(index)</code></td>
+<td align="left">选取索引小于<code>index</code>的元素（<code>index</code>从0开始）</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;input:lt(1)&quot;)</code>选取索引小于1的<code>&lt;input&gt;</code>元素，（注：小于1，而不包括1）</td>
+</tr>
+<tr>
+<td align="left"><code>:header</code></td>
+<td align="left">选取所有的标题元素，例如<code>&lt;h1&gt;</code>，<code>&lt;h2&gt;</code>，<code>&lt;h3&gt;</code>等等</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;:header&quot;)</code>选取网页中所有的<code>&lt;h1&gt;</code>，<code>&lt;h2&gt;</code>，<code>&lt;h3&gt;</code>，…..</td>
+</tr>
+<tr>
+<td align="left"><code>:animated</code></td>
+<td align="left">选取当前正在执行动画的所有元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;div:animated&quot;)</code>选取正在执行动画的<code>&lt;div&gt;</code>元素。</td>
+</tr>
+<tr>
+<td align="left"><code>:focus</code></td>
+<td align="left">选取当前正在获取焦点的元素</td>
+<td align="left">集合元素</td>
+<td align="left"><code>$(&quot;:focus&quot;)</code>选取当前获取焦点的元素</td>
+</tr>
+</tbody></table>
+<p>接下来，使用这些基本过滤选择器来对网页中的<code>&lt;div&gt;</code>，<code>&lt;span&gt;</code>等元素进行操作，示例如表2-9所示。</p>
+<center>表2-9 基本过滤选择器示例</center>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215210613.jpeg" alt="epub_731606_53"></p>
+<table>
+<thead>
+<tr>
+<th align="left">功能</th>
+<th align="left">代码</th>
+<th align="left">执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">改变第一个<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:first&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090107.png" alt="image-20211216090106901"></td>
+</tr>
+<tr>
+<td align="left">改变最后一个<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:last&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090229.png" alt="image-20211216090229258"></td>
+</tr>
+</tbody></table>
+<center>续表</center>
+
+<p><img data-src="https://res.weread.qq.com/wrepub/epub_731606_54" alt="epub_731606_54"></p>
+<table>
+<thead>
+<tr>
+<th align="left">功能</th>
+<th align="left">代码</th>
+<th align="left">执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">改变<code>class</code>不为<code>one</code>的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:not(.one)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090542.png" alt="image-20211216090542768"></td>
+</tr>
+<tr>
+<td align="left">改变索引值为偶数的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:even&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216090659.png" alt="image-20211216090659831"></td>
+</tr>
+<tr>
+<td align="left">改变索引值为奇数的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:odd&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091209.png" alt="image-20211216091209172"></td>
+</tr>
+<tr>
+<td align="left">改变索引值等于3的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:eq(3)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091308.png" alt="image-20211216091308548"></td>
+</tr>
+<tr>
+<td align="left">改变索引值大于3的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:gt(3)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091416.png" alt="image-20211216091416022"></td>
+</tr>
+</tbody></table>
+<center>续表</center>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211215211539.jpeg" alt="epub_731606_55"></p>
+<table>
+<thead>
+<tr>
+<th align="left">功能</th>
+<th align="left">代码</th>
+<th align="left">执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">改变索引值小于3的<code>&lt;div&gt;</code>元素的背景色</td>
+<td align="left"><code>$(&quot;div:lt(3)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216091812.png" alt="image-20211216091811950"></td>
+</tr>
+<tr>
+<td align="left">改变所有的标题元素，例如<code>&lt;h1&gt;</code>，<code>&lt;h2&gt;</code>，<code>&lt;h3&gt;</code>，…这些元素的背景色</td>
+<td align="left"><code>$(&quot;:header&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216092505.png" alt="image-20211216092505907"></td>
+</tr>
+<tr>
+<td align="left">改变当前正在执行动画的元素的背景色</td>
+<td align="left"><code>$(&quot;:animated&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left"><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094031.png" alt="image-20211216094031802"></td>
+</tr>
+<tr>
+<td align="left">改变当前获取焦点的元素的背景色</td>
+<td align="left"><code>$(&quot;:focus&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td align="left">插图</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>执行动画的测试方法如下：<br>HTML:同上<br>JS:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    <span class="comment">// 执行动画</span></span><br><span class="line">    $(<span class="string">&quot;#mover&quot;</span>).<span class="title function_">hide</span>(<span class="number">1000</span>*<span class="number">3</span>);</span><br><span class="line">    $(<span class="string">&quot;#mover&quot;</span>).<span class="title function_">show</span>(<span class="number">1000</span>*<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 改变当前正在执行动画的元素的背景色</span></span><br><span class="line">$(<span class="string">&quot;:animated&quot;</span>).<span class="title function_">css</span>(<span class="string">&quot;background&quot;</span>,<span class="string">&quot;#bbffaa&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>动画效果如下:</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094031.png" alt="image-20211216094031802"><br><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216094104.png" alt="image-20211216094104872"></p>
+</blockquote>
+<h3 id="2．内容过滤选择器"><a href="#2．内容过滤选择器" class="headerlink" title="2．内容过滤选择器"></a>2．内容过滤选择器</h3><p>内容过滤选择器的过滤规则主要体现在它所包含的子元素或文本内容上。内容过滤选择器的介绍说明如表2-10所示。</p>
+<center>表2-10 内容过滤选择器</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:contains(text)</code></td>
+<td>选取含有文本内容为“text”的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div:contains(&#39;我&#39;)&quot;)</code>选取含有文本“我”的<code>&lt;div&gt;</code></td>
+</tr>
+<tr>
+<td><code>:empty</code></td>
+<td>选取不包含子元素或者文本的空元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div:empty&quot;)</code>选取不包含子元素（包括文本元素）的<code>&lt;div&gt;</code>空元素</td>
+</tr>
+<tr>
+<td><code>：has(selector)</code></td>
+<td>选取含有选择器所匹配的元素的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div:has(p)&quot;)</code>选取含有<code>&lt;p&gt;</code>元素的<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>:parent</code></td>
+<td>选取含有子元素或者文本的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div:parent&quot;)</code>选取拥有子元素（包括文本元素）的<code>&lt;div&gt;</code>元素</td>
+</tr>
+</tbody></table>
+<p>接下来使用内容过滤选择器来操作页面中的元素，示例如表2-11所示。</p>
+<center>表2-11 内容过滤选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变含有文本”di”的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div:contains(di)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150424.png" alt="image-20211216150423081"></td>
+</tr>
+<tr>
+<td>改变不包含子元素（包括文本元素）的<code>&lt;div&gt;</code>空元素的背景色</td>
+<td><code>$(&quot;div:empty&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150530.png" alt="image-20211216150530814"></td>
+</tr>
+<tr>
+<td>改变含有class为mini元素的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div:has(&#39;.mini&#39;)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150716.png" alt="image-20211216150716592"></td>
+</tr>
+<tr>
+<td>改变含有子元素（包括文本元素）的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div:parent&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216150900.png" alt="image-20211216150900129"></td>
+</tr>
+</tbody></table>
+<h3 id="3．可见性过滤选择器"><a href="#3．可见性过滤选择器" class="headerlink" title="3．可见性过滤选择器"></a>3．可见性过滤选择器</h3><p>可见性过滤选择器是根据元素的可见和不可见状态来选择相应的元素。可见性过滤选择器的介绍说明如表2-12所示。</p>
+<center>表2-12 可见性过滤选择器</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:hidden</code></td>
+<td>选取所有不可见的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;:hidden&quot;)</code>选取所有不可见的元素。包括<code>&lt;inputtype=&quot;hidden&quot;/&gt;</code>，<code>&lt;divstyle=&quot;display:none;&quot;&gt;</code>和<code>&lt;divstyle=&quot;visibility:hidden;&quot;/&gt;</code>等元素。如果只想选取<code>&lt;input&gt;</code>元素，可以使用<code>$(&quot;input:hiddren&quot;)</code></td>
+</tr>
+<tr>
+<td><code>:visible</code></td>
+<td>选取所有可见的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div:visible&quot;)</code>选取所有可见的<code>&lt;div&gt;</code>元素</td>
+</tr>
+</tbody></table>
+<p>在例子中使用这些选择器来操作DOM元素，示例如表2-13所示。</p>
+<center>表2-13 可见性过滤选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变所有可见的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div:visible&quot;).css(&quot;background&quot;,&quot;#FF6500&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216152217.png" alt="image-20211216152217712"></td>
+</tr>
+<tr>
+<td>显示隐藏的<code>&lt;div&gt;</code>元素</td>
+<td><code>&#36;("div:hidden").show(3000)</code><br><code>&#36;(":animated").css("background","#bbffaa");</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216152555.png" alt="image-20211216152555314"></td>
+</tr>
+</tbody></table>
+<p>在可见性选择器中，需要注意选择器<code>:hidden</code>，它不仅包括样式属性display为“none”的元素，也包括文本隐藏域（<code>&lt;input type=&quot;hidden&quot;/&gt;</code>）和<code>visibility:hidden</code>之类的元素。</p>
+<div style="border:1px solid;"><strong>注意</strong>：show()是jQuery的方法，它的功能是显示元素，3000是时间，单位是毫秒。</div>
+
+<h3 id="4．属性过滤选择器"><a href="#4．属性过滤选择器" class="headerlink" title="4．属性过滤选择器"></a>4．属性过滤选择器</h3><p>属性过滤选择器的过滤规则是通过元素的属性来获取相应的元素。属性过滤选择器的介绍说明如表2-14所示。</p>
+<center>表2-14 属性过滤选择器</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[atrribute]</code></td>
+<td>选取拥有此属性的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[id]&quot;)</code>选取用拥有属性id的元素</td>
+</tr>
+<tr>
+<td><code>[attribute=value]</code></td>
+<td>选取属性的值为value的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title=test]&quot;)</code>选取属性title为“test”的<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>[attribute!=value]</code></td>
+<td>选取属性的值不等于value的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title!=test]&quot;)</code>选取属性title不等于“test”的<code>&lt;div&gt;</code>元素（注意：没有title属性的<code>&lt;div&gt;</code>元素也会被选取）</td>
+</tr>
+<tr>
+<td><code>[attribute^=value]</code></td>
+<td>选取属性的值以value开头的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title^test]&quot;)</code>选取属性title以“test”开头的<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>[attribute$=value]</code></td>
+<td>选取属性的值以value结尾的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title$=test]&quot;)</code>选取属性title以“test”结尾的<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>[attribute*=value]</code></td>
+<td>选取属性的值含有value的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title*=test]&quot;)</code>选取属性title含有“test”的<code>&lt;div&gt;</code>元素</td>
+</tr>
+<tr>
+<td>&#96;[attitude</td>
+<td>&#x3D;value]&#96;</td>
+<td>选取属性值等于给定字符串或者以该字符串为前缀（该字符串后跟着一个连字符“-”）的元素</td>
+<td>集合元素</td>
+</tr>
+<tr>
+<td><code>[attibute~=value]</code></td>
+<td>选取属性用空格分隔的值中包含一个给定值的元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[title~=&#39;uk&#39;]&quot;)</code>选取属性title中空格分隔的值中包含字符uk的元素。</td>
+</tr>
+<tr>
+<td><code>[attribute1][attribute2]...[attributeN]</code></td>
+<td>用属性选择器合成一个复合属性选择器，满足多个条件。每选择一次，缩小一次范围</td>
+<td>集合元素</td>
+<td><code>$(&quot;div[id][title$=&#39;test&#39;]&quot;)</code>选取拥有属性id，并且属性title以“test”结束的<code>&lt;div&gt;</code>元素。</td>
+</tr>
+</tbody></table>
+<p>接下来使用属性过滤选择器来对<code>&lt;div&gt;</code>和<code>&lt;span&gt;</code>等元素进行操作，示例如表2-15所示。</p>
+<center>表2-15 属性过滤选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变含有属性title的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194625.png" alt="image-20211216194623728"></td>
+</tr>
+<tr>
+<td>改变属性title值等于test的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title=test]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194819.png" alt="image-20211216194819301"></td>
+</tr>
+<tr>
+<td>改变属性title值不等于“test”的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title!=test]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216194947.png" alt="image-20211216194947309"></td>
+</tr>
+<tr>
+<td>改变属性title值以“te”开始的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title^=te]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195100.png" alt="image-20211216195100035"></td>
+</tr>
+<tr>
+<td>改变属性title值以“est”结束的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title$=est]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195203.png" alt="image-20211216195203888"></td>
+</tr>
+<tr>
+<td>改变属性title值含有”es”的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title*=es]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195318.png" alt="image-20211216195318051"></td>
+</tr>
+<tr>
+<td>改变含有有属性id，并且属性title值含有“es”的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[id][title*=es]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216195417.png" alt="image-20211216195417858"></td>
+</tr>
+</tbody></table>
+<p>jQuery属性选择器的过滤规则比较多，特别容易混淆。为此，我把几个容易混淆的单独做了一个例子，以加强印象。HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>=<span class="string">&quot;en&quot;</span>&gt;</span>title为en的div元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>=<span class="string">&quot;en-UK&quot;</span>&gt;</span>title为en-UK的div元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>=<span class="string">&quot;english&quot;</span>&gt;</span>title为english的div元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>=<span class="string">&quot;en uk&quot;</span>&gt;</span>title为en uk的div元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>=<span class="string">&quot;uken&quot;</span>&gt;</span>title为uken的div元素<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成的效果图如图2-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216200328.png" alt="image-20211216200328043"></p>
+<center>图2-3 初始状态现在用jQuery的表单过滤选择器来操作它们，示例如表2-16所示。</center>
+
+
+<center>表2-16 属性过滤选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变属性title值以“en”开始的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title^=&#39;en&#39;]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201336.png" alt="image-20211216201336681"></td>
+</tr>
+<tr>
+<td>改变属性title值含有“en”的<code>&lt;div&gt;</code>元素的背景色</td>
+<td><code>$(&quot;div[title*=&#39;en&#39;]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201501.png" alt="image-20211216201501273"></td>
+</tr>
+<tr>
+<td>改变属性title等于“en”或以en为前缀（以该字符串后给有一个连字符’&#x3D;’）</td>
+<td>&#96;$(“div[title</td>
+<td>&#x3D;’en’]”).css(“background”,”#bbffaa”);&#96;</td>
+</tr>
+<tr>
+<td>改变属性title用空格分隔的值中包含字符uk的元素的背景色</td>
+<td><code>$(&quot;div[title~=&#39;uk&#39;]&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211216201708.png" alt="image-20211216201708505"></td>
+</tr>
+</tbody></table>
+<h3 id="5．子元素过滤选择器"><a href="#5．子元素过滤选择器" class="headerlink" title="5．子元素过滤选择器"></a>5．子元素过滤选择器</h3><p>子元素过滤选择器的过滤规则相对于其它的选择器稍微有些复杂，不过没关系，只要将元素的父元素和子元素区分清楚，那么使用起来也非常简单。另外还要注意它与普通的过滤选择器的区别。</p>
+<p>子元素过滤选择器的介绍说明如表2-17所示。</p>
+<center>表2-17 子元素过滤选择器</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:nth-child(index/even/odd/equation)</code></td>
+<td>选取每个父元素下的第index个子元素或者奇偶元素。(index从1算起)</td>
+<td>集合元素</td>
+<td><code>:eq(index)</code>只匹配一个元素，而<code>:nth-child</code>将为每一个父元素匹配子元素，并且<code>:nth-child(index)</code>的index是从1开始的，而<code>:eq(index)</code>是从0算起的</td>
+</tr>
+<tr>
+<td><code>:first-child</code></td>
+<td>选取每个父元素的第1个子元素</td>
+<td>集合元素</td>
+<td><code>:first</code>只返回单个元素，而<code>:first-child</code>选择符将为每个父元素匹配第1个子元素。<br>例如<code>$(&quot;ul li:first-child&quot;);</code>选取每个<code>&lt;ul&gt;</code>中第1个<code>&lt;li&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>选取每个父元素的最后一个子元素</td>
+<td>集合元素</td>
+<td>同样，<code>:last</code>只返回单个元素，而<code>:last-child</code>选择符将为每个父元素匹配最后一个子元素。<br>例如<code>$(&quot;ul li:last-child&quot;);</code>选择每个<code>&lt;ul&gt;</code>中最后一个<code>&lt;li&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>:only-child</code></td>
+<td>如果某个元素是它父元素惟一的子元素，那么将会被匹配。如果父元素中含有其他元素，则不会被匹配</td>
+<td>集合元素</td>
+<td><code>$(&quot;ul li:only-child&quot;)</code>在<code>&lt;ul&gt;</code>中选取是惟一子元素的<code>&lt;li&gt;</code>元素</td>
+</tr>
+</tbody></table>
+<p><code>:nth-child()</code>选择器是很常用的子元素过滤选择器，详细功能如下。</p>
+<p>（1）<code>:nth-child(even)</code>能选取每个父元素下的索引值是偶数的元素。<br>（2）<code>:nth-child(odd)</code>能选取每个父元素下的索引值是奇数的元素。<br>（3）<code>:nth-child(2)</code>能选取每个父元素下的索引值等于2的元素。<br>（4）<code>:nth-child(3n)</code>能选取每个父元素下的索引值是3的倍数的元素，（n从1开始）。<br>（5）<code>:nth-child(3n+1)</code>能选取每个父元素下的索引值是（3n+1）的元素。（n从1开始）</p>
+<p>接下来利用刚才所讲的选择器来改变<code>&lt;div&gt;</code>元素的背景色，示例如表2-18所示。</p>
+<center>表2-18 子元素过滤选择器示例</center>
+
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变每个class为one的<code>&lt;div&gt;</code>父元素下的第2个子元素的背景色</td>
+<td><code>$(&quot;div.one :nth-child(2)&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111519.png" alt="image-20211217111518207"></td>
+</tr>
+<tr>
+<td>改变每个class为one的<code>&lt;div&gt;</code>父元素下的第1个元素的背景色</td>
+<td><code>$(&quot;div.one :first-child&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111639.png" alt="image-20211217111639646"></td>
+</tr>
+<tr>
+<td>改变每个class为one的<code>&lt;div&gt;</code>父元素下的最后一个子元素的背景色</td>
+<td><code>$(&quot;div.one :last-child&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111746.png" alt="image-20211217111746411"></td>
+</tr>
+<tr>
+<td>如果class为one的<code>div</code>父元素下只有一个子元素，那么则改变这个子元素的背景色</td>
+<td><code>$(&quot;div.one :only-child&quot;).css(&quot;background&quot;,&quot;#bbffaa&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217111909.png" alt="image-20211217111909275"></td>
+</tr>
+</tbody></table>
+<div style="border:1px solid;"><strong>注意</strong>：eq(index)只匹配一个元素，而:nth-child 将为每一个符合条件的父元素匹配子元素。同时应该注意到 nth-child(index)的index是从 1 开始的，而:eq(index)是从 0 开始的。同理:first和:first-child，:last和:last-child也类似。</div>
+
+<h3 id="6．表单对象属性过滤选择器"><a href="#6．表单对象属性过滤选择器" class="headerlink" title="6．表单对象属性过滤选择器"></a>6．表单对象属性过滤选择器</h3><p>此选择器主要是对所选择的表单元素进行过滤，例如选择被选中的下拉框，多选框等元素。表单对象属性过滤选择器的介绍说明如表2-19所示。</p>
+<center>表2-19 表单对象属性过滤选择器</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:enabled</code></td>
+<td>选取所有可用元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;form1:enabled&quot;);</code>选取id为“form1”的表单内的所有可用元素</td>
+</tr>
+<tr>
+<td><code>:disabled</code></td>
+<td>选取所有不可用元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;form2:disabled&quot;);</code>选取id为“form2”的表单内的所有不可用元素</td>
+</tr>
+<tr>
+<td><code>:checked</code></td>
+<td>选取所有被选中的元素（单选框，复选框）</td>
+<td>集合元素</td>
+<td><code>$(&quot;input:checked&quot;);</code>选取所有被选中的<code>&lt;input&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>:selected</code></td>
+<td>选取所有被选中的选项元素（下拉列表）</td>
+<td>集合元素</td>
+<td><code>$(&quot;selectoption:selected&quot;);</code>选取所有被选中的选项元素</td>
+</tr>
+</tbody></table>
+<p>为了演示这些选择器，需要制作一个包含表单的网页，里面要包含文本框、多选框和下拉列表，HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;form1&quot;</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">    可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;add&quot;</span> <span class="attr">value</span>=<span class="string">&quot;可用文本框&quot;</span> /&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    不可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">disabled</span>=<span class="string">&quot;disabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;不可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    可用元素： <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;che&quot;</span> <span class="attr">value</span>=<span class="string">&quot;可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    不可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">disabled</span>=<span class="string">&quot;disabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;不可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    多选框：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test1&quot;</span> /&gt;</span>test1</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test2&quot;</span> /&gt;</span>test2</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test3&quot;</span> /&gt;</span>test3</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test4&quot;</span> /&gt;</span>test4</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test5&quot;</span> /&gt;</span>test5</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    下拉列表1：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">multiple</span>=<span class="string">&quot;multiple&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:100px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>浙江<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>湖南<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>天津<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖北<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    下拉列表2：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;test2&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>浙江<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖南<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>天津<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖北<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成的效果图如图2-4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217113205.png" alt="image-20211217113205473"></p>
+<center>图2-4 初始状态</center>
+
+<p>现在用jQuery的表单过滤选择器来操作它们，示例如表2-20所示。</p>
+<center>表2-20 表单对象属性过滤示例</center>
+
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>代码</th>
+<th>执行后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改变表单内可用<code>&lt;input&gt;</code>元素的值</td>
+<td><code>$(&quot;#form1 input:enabled&quot;).val(&quot;这里变化了!&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217132332.png" alt="image-20211217132330216"></td>
+</tr>
+<tr>
+<td>改变表单内不可用<code>&lt;input&gt;</code>元素的值</td>
+<td><code>$(&quot;#form1 input:disabled&quot;).val(&quot;这里变化了!&quot;);</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217132504.png" alt="image-20211217132504426"></td>
+</tr>
+<tr>
+<td>获取多选框中的个数</td>
+<td><code>$(&quot;input:checked&quot;).length;</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217145227.png" alt="image-20211217145226475"></td>
+</tr>
+<tr>
+<td>获取下拉框选中的内容</td>
+<td><code>$(&quot;select:selected&quot;).text();</code></td>
+<td><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217153859.png" alt="image-20211217153852108"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>上表中的后两项测试代码如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;form1&quot;</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">    可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;add&quot;</span> <span class="attr">value</span>=<span class="string">&quot;可用文本框&quot;</span> /&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    不可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">disabled</span>=<span class="string">&quot;disabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;不可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    可用元素： <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;che&quot;</span> <span class="attr">value</span>=<span class="string">&quot;可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    不可用元素：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">disabled</span>=<span class="string">&quot;disabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;不可用文本框&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    多选框：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test1&quot;</span> /&gt;</span>test1</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test2&quot;</span> /&gt;</span>test2</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test3&quot;</span> /&gt;</span>test3</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test4&quot;</span> /&gt;</span>test4</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newsletter&quot;</span> <span class="attr">value</span>=<span class="string">&quot;test5&quot;</span> /&gt;</span>test5</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;checkbox_div&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    下拉列表1：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">multiple</span>=<span class="string">&quot;multiple&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:100px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>浙江<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>湖南<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>天津<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖北<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    下拉列表2：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;test2&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>浙江<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖南<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span>=<span class="string">&quot;selected&quot;</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>天津<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>湖北<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;select_div&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>js代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取多选框中的个数</span></span><br><span class="line">$(<span class="string">&#x27;input[name=newsletter]&#x27;</span>).<span class="title function_">change</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;#checkbox_div&quot;</span>).<span class="title function_">html</span>(<span class="string">&quot;&lt;strong&gt;有&quot;</span> + $(<span class="string">&quot;input:checked&quot;</span>).<span class="property">length</span> + <span class="string">&quot;个被选中!&lt;/strong&gt;&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 获取下拉框选中的内容</span></span><br><span class="line">$(<span class="string">&quot;select&quot;</span>).<span class="title function_">change</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;#select_div&quot;</span>).<span class="title function_">html</span>(<span class="string">&quot;&lt;strong&gt;你选中的是，&quot;</span>+$(<span class="string">&quot;select :selected&quot;</span>).<span class="title function_">text</span>()+<span class="string">&quot;&lt;/strong&gt;&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="2-3-4-表单选择器"><a href="#2-3-4-表单选择器" class="headerlink" title="2.3.4 表单选择器"></a>2.3.4 表单选择器</h2><p>为了使用户能够更加灵活地操作表单，jQuery中专门加入了表单选择器。利用这个选择器，能极其方便地获取到表单的某个或某类型的元素。</p>
+<p>表单选择器的介绍说明如表2-21所示。</p>
+<center>表2-21 表单对象属性过滤示例</center>
+
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>返回</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:input</code></td>
+<td>选取所有的<code>&lt;input&gt;</code>，<code>&lt;textarea&gt;</code>,<code>&lt;select&gt;</code>和<code>&lt;button&gt;</code>元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;:input&quot;)</code>选取所有<code>&lt;input&gt;</code>，<code>&lt;textarea&gt;</code>和<code>&lt;button&gt;</code>元素</td>
+</tr>
+<tr>
+<td><code>:text</code></td>
+<td>选取所有的单行文本框</td>
+<td>集合元素</td>
+<td><code>$(&quot;:text&quot;)</code>选取所有的单行文本框</td>
+</tr>
+<tr>
+<td><code>:password</code></td>
+<td>选取所有的密码框</td>
+<td>集合元素</td>
+<td><code>$(&quot;:password&quot;)</code>选取所有的密码框</td>
+</tr>
+<tr>
+<td><code>:radio</code></td>
+<td>选取所有的单选框</td>
+<td>集合元素</td>
+<td><code>$(&quot;:radio&quot;)</code>选取所有的单选框</td>
+</tr>
+<tr>
+<td><code>:checkbox</code></td>
+<td>选取所有的多选框</td>
+<td>集合元素</td>
+<td><code>$(&quot;:checkbox&quot;)</code>选取所有的复选框</td>
+</tr>
+<tr>
+<td><code>:submit</code></td>
+<td>选取所有的提交按钮</td>
+<td>集合元素</td>
+<td><code>$(&quot;:submit&quot;)</code>选取所有的提交按钮</td>
+</tr>
+<tr>
+<td><code>:image</code></td>
+<td>选取所有的图像按钮</td>
+<td>集合元素</td>
+<td><code>$(&quot;image&quot;)</code>选取所有的图像按钮</td>
+</tr>
+<tr>
+<td><code>:reset</code></td>
+<td>选取所有的重置按钮</td>
+<td>集合元素</td>
+<td><code>$(&quot;:reset&quot;)</code>选取所有的重置按钮</td>
+</tr>
+<tr>
+<td><code>:button</code></td>
+<td>选取所有的按钮</td>
+<td>集合元素</td>
+<td><code>$(&quot;:button&quot;)</code>选取所有的按钮</td>
+</tr>
+<tr>
+<td><code>:file</code></td>
+<td>选取所有的上传域</td>
+<td>集合元素</td>
+<td><code>$(&quot;:file&quot;)</code>选取所有的上传域</td>
+</tr>
+<tr>
+<td><code>:hidden</code></td>
+<td>选取所有的不可见元素</td>
+<td>集合元素</td>
+<td><code>$(&quot;:hidden&quot;)</code>选取所有不可见元素（已经在不可见性过滤选择器中讲解过）</td>
+</tr>
+</tbody></table>
+<p>下面把这些表单选择器运用到下面的表单中，对表单进行操作。</p>
+<p>表单HTML代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;form1&quot;</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Button&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;c&quot;</span> /&gt;</span>1</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;c&quot;</span> /&gt;</span>2</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;c&quot;</span> /&gt;</span>3<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;display:none&quot;</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;image&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;a&quot;</span> /&gt;</span>1<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;a&quot;</span> /&gt;</span>2<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span>&gt;</span>Option<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;show&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>根据以上HTML代码，可以生成图2-5所示的页面效果。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217170509.png" alt="image-20211217170509168"></p>
+<center>图2-5 初始状态</center>
+
+<p>如果想得到表单内表单元素的个数，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#form1 :input&quot;</span>).<span class="property">length</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果想得到表单内单行文本框的个数，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#form1 :text&quot;</span>).<span class="property">length</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果想得到表单内密码框的个数，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#form1 :password&quot;</span>).<span class="property">length</span>;</span><br></pre></td></tr></table></figure>
+
+<p>同理，其他表单选择器的操作与此类似。</p>
+<blockquote>
+<p>测试代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">&quot;&amp;lt;input&amp;gt;元素的个数:&quot;</span> + $(<span class="string">&quot;#form1 :input&quot;</span>).<span class="property">length</span> + <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">text += <span class="string">&quot;&amp;lt;input type=&#x27;text&#x27;&amp;gt;元素的个数:&quot;</span> + $(<span class="string">&quot;#form1 :text&quot;</span>).<span class="property">length</span> + <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">text += <span class="string">&quot;&amp;lt;input type=&#x27;password&#x27;&amp;gt;元素的个数:&quot;</span> + $(<span class="string">&quot;#form1 :password&quot;</span>).<span class="property">length</span> + <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">$(<span class="string">&quot;#show&quot;</span>).<span class="title function_">html</span>(text);</span><br></pre></td></tr></table></figure>
+<p>运行效果：<br><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211217170701.png" alt="image-20211217170701172"></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/bf841aac/" title="2.3 jQuery选择器">https://lanlan2017.github.io/ReadingNotes/bf841aac/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f0f9b2c4/" rel="prev" title="2.2 jQuery选择器的优势">
+                  <i class="fa fa-chevron-left"></i> 2.2 jQuery选择器的优势
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/12b72759/" rel="next" title="2.4 应用jQuery改写示例">
+                  2.4 应用jQuery改写示例 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/bf841aac/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/bf841aac/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

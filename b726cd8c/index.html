@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.3.3 自然连接&amp;nbsp;笛卡儿积&amp;nbsp;自然连接&amp;nbsp;SQL查询 对于大学中所有讲授课程的&#96;教师&#96;,找出他们的&#96;姓名&#96;以及所讲述的所有&#96;课程标识&#96;&amp;nbsp;之前写法&amp;nbsp;自然连接写法&amp;nbsp;from后面可以使用多个自然连接&amp;nbsp;SQL查询 列出&#96;教师&#96;的&#96;名字&#96;以及他们所讲授&#96;课程的名称&#96;&amp;nbsp;先自然连接 再笛卡儿积&amp;nbsp;全部自然连接&amp;nbsp;自然">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.3.3 自然连接">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/b726cd8c/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.3.3 自然连接&amp;nbsp;笛卡儿积&amp;nbsp;自然连接&amp;nbsp;SQL查询 对于大学中所有讲授课程的&#96;教师&#96;,找出他们的&#96;姓名&#96;以及所讲述的所有&#96;课程标识&#96;&amp;nbsp;之前写法&amp;nbsp;自然连接写法&amp;nbsp;from后面可以使用多个自然连接&amp;nbsp;SQL查询 列出&#96;教师&#96;的&#96;名字&#96;以及他们所讲授&#96;课程的名称&#96;&amp;nbsp;先自然连接 再笛卡儿积&amp;nbsp;全部自然连接&amp;nbsp;自然">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-13T09:09:47.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/b726cd8c/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/b726cd8c/","path":"/b726cd8c/","title":"3.3.3 自然连接"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.3.3 自然连接 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-3-%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">3.3.3 自然连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">笛卡儿积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.2.</span> <span class="nav-text">自然连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2-%E5%AF%B9%E4%BA%8E%E5%A4%A7%E5%AD%A6%E4%B8%AD%E6%89%80%E6%9C%89%E8%AE%B2%E6%8E%88%E8%AF%BE%E7%A8%8B%E7%9A%84%E6%95%99%E5%B8%88-%E6%89%BE%E5%87%BA%E4%BB%96%E4%BB%AC%E7%9A%84%E5%A7%93%E5%90%8D%E4%BB%A5%E5%8F%8A%E6%89%80%E8%AE%B2%E8%BF%B0%E7%9A%84%E6%89%80%E6%9C%89%E8%AF%BE%E7%A8%8B%E6%A0%87%E8%AF%86"><span class="nav-number">1.3.</span> <span class="nav-text">SQL查询 对于大学中所有讲授课程的教师,找出他们的姓名以及所讲述的所有课程标识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%8B%E5%89%8D%E5%86%99%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">之前写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5%E5%86%99%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">自然连接写法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#from%E5%90%8E%E9%9D%A2%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">from后面可以使用多个自然连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2-%E5%88%97%E5%87%BA%E6%95%99%E5%B8%88%E7%9A%84%E5%90%8D%E5%AD%97%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E6%89%80%E8%AE%B2%E6%8E%88%E8%AF%BE%E7%A8%8B%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.5.</span> <span class="nav-text">SQL查询 列出教师的名字以及他们所讲授课程的名称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5-%E5%86%8D%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">先自然连接 再笛卡儿积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E9%83%A8%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">全部自然连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">自然连接和笛卡儿积的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%90%8C%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">不同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF%E7%BB%93%E6%9E%9C"><span class="nav-number">2.3.1.</span> <span class="nav-text">笛卡尔积结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">2.3.2.</span> <span class="nav-text">自然连接结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E5%AD%A6%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">大学数据库模式</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/b726cd8c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.3.3 自然连接 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.3.3 自然连接
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-13 17:09:47" itemprop="dateCreated datePublished" datetime="2019-10-13T17:09:47+08:00">2019-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/" itemprop="url" rel="index"><span itemprop="name">第3章 SQL</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/3-3-SQL%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">3.3 SQL查询的基本结构</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/b726cd8c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/b726cd8c/" data-xid="/ReadingNotes/b726cd8c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/b726cd8c/#3-3-3-自然连接" class="header_1">3.3.3 自然连接</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#笛卡儿积" class="header_2">笛卡儿积</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#自然连接" class="header_2">自然连接</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#SQL查询-对于大学中所有讲授课程的-教师-找出他们的-姓名-以及所讲述的所有-课程标识" class="header_2">SQL查询 对于大学中所有讲授课程的`教师`,找出他们的`姓名`以及所讲述的所有`课程标识`</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#之前写法" class="header_3">之前写法</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#自然连接写法" class="header_3">自然连接写法</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#from后面可以使用多个自然连接" class="header_2">from后面可以使用多个自然连接</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#SQL查询-列出-教师-的-名字-以及他们所讲授-课程的名称" class="header_2">SQL查询 列出`教师`的`名字`以及他们所讲授`课程的名称`</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#先自然连接-再笛卡儿积" class="header_3">先自然连接 再笛卡儿积</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#全部自然连接" class="header_3">全部自然连接</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#自然连接和笛卡儿积的区别" class="header_1">自然连接和笛卡儿积的区别</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#相同点" class="header_2">相同点</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#不同点" class="header_2">不同点</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#实例" class="header_2">实例</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#笛卡尔积结果" class="header_3">笛卡尔积结果</a>&nbsp;<br><a href="/ReadingNotes/b726cd8c/#自然连接结果" class="header_3">自然连接结果</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="3-3-3-自然连接"><a href="#3-3-3-自然连接" class="headerlink" title="3.3.3 自然连接"></a>3.3.3 自然连接</h1><p>在我们的查询示例中,需要从<code>instructor</code>和<code>teaches</code>表中组合信息,匹配条件是需要<code>instructor.ID</code>等于<code>teaches.ID</code>。这是在两个关系中具有相同名称的所有属性。<br>在最通常的情况下<code>from</code>子句中的匹配条件是在所有匹配名称的<code>属性</code>上<code>相等</code>。</p>
+<p>为了在这种通用情况下简化<code>SQL</code>编程者的工作,<code>SQL</code>支持一种被称作<code>自然连接</code>的运算,下面我们就来讨论这种运算。事实上<code>SQL</code>还支持几种另外的方式使得来自<code>两个</code>或<code>多个关系</code>的信息可以被连接(<code>join</code>)起来。我们已经见过怎样利用<code>笛卡儿积</code>和<code>where</code>子句谓词来连接来自多个关系的信息。连接来自多个关系信息的其他方式在4.1节介绍。</p>
+<h2 id="笛卡儿积"><a href="#笛卡儿积" class="headerlink" title="笛卡儿积"></a>笛卡儿积</h2><p>笛卡儿积将第一个关系的每个元组与第二个关系的所有元组都进行连接;</p>
+<h2 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h2><p>自然连接(<code>natural join)</code>运算作用于两个关系,并产生一个关系作为结果。自然连接只考虑那些在两个关系模式中<code>都出现的属性</code>上<code>取值相同</code>的元组对。<br>因此,回到<code>instructor</code>和<code>teaches</code>关系的例子上,<code>instructor</code>和<code>teaches</code>的自然连接计算中只考虑这样的元组对:来自<code>instructor</code>的元组和来自<code>teaches</code>的元组在共同属性ID上的取值相同</p>
+<!--SSTStop-->
+
+<blockquote>
+<p>授课:<code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code><br>讲师:<code>instructor(<u>ID</u>,name,dept_name,salary)</code></p>
+</blockquote>
+<!--SSTStart-->
+<h2 id="SQL查询-对于大学中所有讲授课程的教师-找出他们的姓名以及所讲述的所有课程标识"><a href="#SQL查询-对于大学中所有讲授课程的教师-找出他们的姓名以及所讲述的所有课程标识" class="headerlink" title="SQL查询 对于大学中所有讲授课程的教师,找出他们的姓名以及所讲述的所有课程标识"></a>SQL查询 对于大学中所有讲授课程的<code>教师</code>,找出他们的<code>姓名</code>以及所讲述的所有<code>课程标识</code></h2><h3 id="之前写法"><a href="#之前写法" class="headerlink" title="之前写法"></a>之前写法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, course_id</span><br><span class="line"><span class="keyword">from</span> instructor,teaches</span><br><span class="line"><span class="keyword">where</span> instructor.ID<span class="operator">=</span> teaches.ID;</span><br></pre></td></tr></table></figure>
+<h3 id="自然连接写法"><a href="#自然连接写法" class="headerlink" title="自然连接写法"></a>自然连接写法</h3><p>该查询可以用<code>SQL</code>的自然连接运算更简洁地写作:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, course_id</span><br><span class="line"><span class="keyword">from</span> instructor <span class="keyword">natural</span> <span class="keyword">join</span> teaches;</span><br></pre></td></tr></table></figure>
+<!--SSTStop-->
+
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name, course_id</span><br><span class="line">from instructor natural join teaches;</span><br><span class="line">+------------+-----------+</span><br><span class="line">| name       | course_id |</span><br><span class="line">+------------+-----------+</span><br><span class="line">| Srinivasan | CS-<span class="number">101</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">315</span>    |</span><br><span class="line">| Srinivasan | CS-<span class="number">347</span>    |</span><br><span class="line">| Wu         | FIN-<span class="number">201</span>   |</span><br><span class="line">| Mozart     | MU-<span class="number">199</span>    |</span><br><span class="line">| Einstein   | PHY-<span class="number">101</span>   |</span><br><span class="line">| El Said    | HIS-<span class="number">351</span>   |</span><br><span class="line">| Katz       | CS-<span class="number">101</span>    |</span><br><span class="line">| Katz       | CS-<span class="number">319</span>    |</span><br><span class="line">| Crick      | BIO-<span class="number">101</span>   |</span><br><span class="line">| Crick      | BIO-<span class="number">301</span>   |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">190</span>    |</span><br><span class="line">| Brandt     | CS-<span class="number">319</span>    |</span><br><span class="line">| Kim        | EE-<span class="number">181</span>    |</span><br><span class="line">+------------+-----------+</span><br><span class="line"><span class="number">15</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<!--SSTStart-->
+<h2 id="from后面可以使用多个自然连接"><a href="#from后面可以使用多个自然连接" class="headerlink" title="from后面可以使用多个自然连接"></a>from后面可以使用多个自然连接</h2><p>在一个<code>SQL</code>查询的<code>from</code>子句中,可以用<code>自然连接</code>将多个关系结合在一起</p>
+<h2 id="SQL查询-列出教师的名字以及他们所讲授课程的名称"><a href="#SQL查询-列出教师的名字以及他们所讲授课程的名称" class="headerlink" title="SQL查询 列出教师的名字以及他们所讲授课程的名称"></a>SQL查询 列出<code>教师</code>的<code>名字</code>以及他们所讲授<code>课程的名称</code></h2><h3 id="先自然连接-再笛卡儿积"><a href="#先自然连接-再笛卡儿积" class="headerlink" title="先自然连接 再笛卡儿积"></a>先自然连接 再笛卡儿积</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,title</span><br><span class="line"><span class="keyword">from</span> instructor <span class="keyword">natural</span> <span class="keyword">join</span> teaches, course</span><br><span class="line"><span class="keyword">where</span> teaches.course_id<span class="operator">=</span> course.course_id;</span><br></pre></td></tr></table></figure>
+<!--SSTStop-->
+<blockquote>
+<p>课程:<code>course(<u>course_id</u>,title,dept_name,credits)</code><br>授课:<code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code><br>讲师:<code>instructor(<u>ID</u>,name,dept_name,salary)</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select name,title</span><br><span class="line">from instructor natural join teaches, course</span><br><span class="line">where teaches.course_id= course.course_id;</span><br><span class="line">+------------+----------------------------+</span><br><span class="line">| name       | title                      |</span><br><span class="line">+------------+----------------------------+</span><br><span class="line">| Crick      | Intro. to Biology          |</span><br><span class="line">| Crick      | Genetics                   |</span><br><span class="line">| Srinivasan | Intro. to Computer Science |</span><br><span class="line">| Katz       | Intro. to Computer Science |</span><br><span class="line">| Brandt     | Game Design                |</span><br><span class="line">| Brandt     | Game Design                |</span><br><span class="line">| Srinivasan | Robotics                   |</span><br><span class="line">| Katz       | Image Processing           |</span><br><span class="line">| Brandt     | Image Processing           |</span><br><span class="line">| Srinivasan | Database System Concepts   |</span><br><span class="line">| Kim        | Intro. to Digital Systems  |</span><br><span class="line">| Wu         | Investment Banking         |</span><br><span class="line">| El Said    | World History              |</span><br><span class="line">| Mozart     | Music Video Production     |</span><br><span class="line">| Einstein   | Physical Principles        |</span><br><span class="line">+------------+----------------------------+</span><br><span class="line">15 rows in set</span><br></pre></td></tr></table></figure>
+<p>先计算<code>instructor</code>和<code>teaches</code>的自然连接 再计算该结果和<code>course</code>的笛卡儿积<br><code>where</code>子句从这个结果中提取出这样的元组:来自<code>连接结果</code>的课程标识与来自<code>course</code>关系的课程标识相匹配。<br>注意<code>where</code>子句中的<code>teaches.course_id</code>表示自然连接结果中的<code>course_id</code>域,因为该域最终来自<code>teaches</code>关系。</p>
+<!--SSTStart-->
+<h3 id="全部自然连接"><a href="#全部自然连接" class="headerlink" title="全部自然连接"></a>全部自然连接</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,title</span><br><span class="line"><span class="keyword">from</span> instructor <span class="keyword">natural</span> <span class="keyword">join</span> teaches <span class="keyword">natural</span> <span class="keyword">join</span> course;</span><br></pre></td></tr></table></figure>
+<!--SSTStop-->
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name,<span class="built_in">title</span> from  instructor natural join teaches natural join course;</span><br><span class="line">+------------+----------------------------+</span><br><span class="line">| name       | <span class="built_in">title</span>                      |</span><br><span class="line">+------------+----------------------------+</span><br><span class="line">| Crick      | Intro. to Biology          |</span><br><span class="line">| Crick      | Genetics                   |</span><br><span class="line">| Srinivasan | Intro. to Computer Science |</span><br><span class="line">| Katz       | Intro. to Computer Science |</span><br><span class="line">| Brandt     | Game Design                |</span><br><span class="line">| Brandt     | Game Design                |</span><br><span class="line">| Srinivasan | Robotics                   |</span><br><span class="line">| Katz       | Image Processing           |</span><br><span class="line">| Brandt     | Image Processing           |</span><br><span class="line">| Srinivasan | Database System Concepts   |</span><br><span class="line">| Kim        | Intro. to Digital Systems  |</span><br><span class="line">| Wu         | Investment Banking         |</span><br><span class="line">| El Said    | World History              |</span><br><span class="line">| Mozart     | Music Video Production     |</span><br><span class="line">| Einstein   | Physical Principles        |</span><br><span class="line">+------------+----------------------------+</span><br><span class="line"><span class="number">15</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>instructor(<u>ID</u>,name,dept_name,salary)</code><br><code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code><br>为了说明原因,注意<code>instructor</code>和<code>teaches</code>的自然连接包括属性<code>(ID, name, dept_name, salary, course_id, secid)</code></p>
+</blockquote>
+<!--SSTStart-->
+<h1 id="自然连接和笛卡儿积的区别"><a href="#自然连接和笛卡儿积的区别" class="headerlink" title="自然连接和笛卡儿积的区别"></a>自然连接和笛卡儿积的区别</h1><h2 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h2><p>自然连接和笛卡儿积都会合并元组</p>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><p>笛卡儿积直接合并元组,就是在前一个关系的元组后面追加后面关系的元组即可.</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p><code>instructor</code>关系包括(<code>ID,name,dept_name,salary)</code>这4个属性.<br><code>teaches</code>关系包括(<code>ID, course_id,sec_id,semester,year)</code>这5个属性.</p>
+<h3 id="笛卡尔积结果"><a href="#笛卡尔积结果" class="headerlink" title="笛卡尔积结果"></a>笛卡尔积结果</h3><p><code>instructor</code>和<code>teaches</code>的笛卡儿积将有<code>(ID,name,dept_name,salary,ID, course_id,sec_id,semester,year)</code>这9个属性.可以看到笛卡儿积的结果将有两个重复的ID属性.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from instructor ,teaches;</span><br><span class="line">+-------+------------+------------+--------+-------+-----------+--------+----------+------+</span><br><span class="line">| ID    | name       | dept_name  | salary | ID    | course_id | sec_id | semester | year |</span><br><span class="line">+-------+------------+------------+--------+-------+-----------+--------+----------+------+</span><br></pre></td></tr></table></figure>
+<p>这里笛卡儿积合并的结果为:<br><code>第一个表的属性 第二个表的属性</code></p>
+<h3 id="自然连接结果"><a href="#自然连接结果" class="headerlink" title="自然连接结果"></a>自然连接结果</h3><p><code>instructor</code>关系和<code>teaches</code>关系都有一个公共的属性ID,自然连接合并公共的属性<code>ID</code>,也就是自然连接的结果为:<br><code>(ID,name,dept_name,salary,course_id,sec_id,semester,year)</code>,可以发现自然连接只有8个属性,重复的属性ID只占一列.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from instructor natural join teaches;</span><br><span class="line">+-------+------------+------------+--------+-----------+--------+----------+------+</span><br><span class="line">| ID    | name       | dept_name  | salary | course_id | sec_id | semester | year |</span><br></pre></td></tr></table></figure>
+<p>这里自然连接合并的结果为:<br><code>公共属性 第一个表的属性 第二个表的属性</code></p>
+<!--SSTStop-->
+<blockquote>
+<h1 id="大学数据库模式"><a href="#大学数据库模式" class="headerlink" title="大学数据库模式"></a>大学数据库模式</h1><p>教室:<code>classroom(<u>building</u>,room_number,capacity)</code><br>系:<code>department(<u>dept_name</u>,building,budget)</code><br>课程:<code>course(<u>course_id</u>,title,dept_name,credits)</code><br>授课:<code>teaches(<u>ID,course_id,sec_id,semester,year</u>)</code><br>讲师:<code>instructor(<u>ID</u>,name,dept_name,salary)</code><br><code>section(<u>course_id,sec_id,semester,year</u>,building,room_number,time_slot_id)</code><br>学生:<code>student(<u>ID</u>,name,dept_name,tot_cred)</code><br><code>takes(<u>ID,course_id,sec_id,semester,year</u>,grade)</code><br><code>advisor(<u>s_ID,i_ID</u>)</code><br><code>time_slot(<u>time_slot_id,day,start_time</u>,end_time)</code><br><code>prereq(<u>course_id,prereq_id</u>)</code></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/b726cd8c/" title="3.3.3 自然连接">https://lanlan2017.github.io/ReadingNotes/b726cd8c/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/43da05aa/" rel="prev" title="3.3.2 多关系查询">
+                  <i class="fa fa-chevron-left"></i> 3.3.2 多关系查询
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b1cfb0d6/" rel="next" title="3.4 附加的基本运算 3.4.1 更名运算">
+                  3.4 附加的基本运算 3.4.1 更名运算 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/b726cd8c/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/b726cd8c/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

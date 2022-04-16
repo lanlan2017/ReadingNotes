@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="12.3 编写反应式的MongoDB repositoryMongoDB是另一个知名的NoSQL数据库。Cassandra是行存储数据库，而MongoDB则被视为文档数据库。更具体来讲，MongoDB以BSON（BinaryJSON，二进制JSON）格式存储文档，我们可以使用与查询其他数据库中的数据类似的方式查询和检索文档。 与Cassandra一样，必须要明确知道MongoDB不是关系数据库。管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12.3 编写反应式的MongoDB repository">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/49028c68/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="12.3 编写反应式的MongoDB repositoryMongoDB是另一个知名的NoSQL数据库。Cassandra是行存储数据库，而MongoDB则被视为文档数据库。更具体来讲，MongoDB以BSON（BinaryJSON，二进制JSON）格式存储文档，我们可以使用与查询其他数据库中的数据类似的方式查询和检索文档。 与Cassandra一样，必须要明确知道MongoDB不是关系数据库。管">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-19T13:30:17.000Z">
+<meta property="article:modified_time" content="2021-10-19T13:30:17.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/49028c68/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/49028c68/","path":"/49028c68/","title":"12.3 编写反应式的MongoDB repository"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>12.3 编写反应式的MongoDB repository | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#12-3-%E7%BC%96%E5%86%99%E5%8F%8D%E5%BA%94%E5%BC%8F%E7%9A%84MongoDB-repository"><span class="nav-number">1.</span> <span class="nav-text">12.3 编写反应式的MongoDB repository</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-1-%E5%90%AF%E7%94%A8Spring-Data-MongoDB"><span class="nav-number">1.1.</span> <span class="nav-text">12.3.1 启用Spring Data MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-2-%E5%B0%86%E9%A2%86%E5%9F%9F%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E4%B8%BA%E6%96%87%E6%A1%A3"><span class="nav-number">1.2.</span> <span class="nav-text">12.3.2 将领域对象映射为文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-3-%E7%BC%96%E5%86%99%E5%8F%8D%E5%BA%94%E5%BC%8F%E7%9A%84MongoDB-repository%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.3.</span> <span class="nav-text">12.3.3 编写反应式的MongoDB repository接口</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/49028c68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="12.3 编写反应式的MongoDB repository | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          12.3 编写反应式的MongoDB repository
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-19 21:30:17" itemprop="dateCreated datePublished" datetime="2021-10-19T21:30:17+08:00">2021-10-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/" itemprop="url" rel="index"><span itemprop="name">第3部分 反应式Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/%E7%AC%AC12%E7%AB%A0-%E5%8F%8D%E5%BA%94%E5%BC%8F%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">第12章 反应式持久化数据</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/49028c68/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/49028c68/" data-xid="/ReadingNotes/49028c68/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="12-3-编写反应式的MongoDB-repository"><a href="#12-3-编写反应式的MongoDB-repository" class="headerlink" title="12.3 编写反应式的MongoDB repository"></a>12.3 编写反应式的MongoDB repository</h1><p>MongoDB是另一个知名的NoSQL数据库。Cassandra是行存储数据库，而MongoDB则被视为文档数据库。更具体来讲，MongoDB以BSON（BinaryJSON，二进制JSON）格式存储文档，我们可以使用与查询其他数据库中的数据类似的方式查询和检索文档。</p>
+<p>与Cassandra一样，必须要明确知道MongoDB不是关系数据库。管理MongoDB服务器集群和数据建模的方式与处理其他类型数据库时的思维方式是不一样的。</p>
+<p>不过，使用MongoDB和Spring Data与使用Spring Data处理JPA或Cassandra并没有太大的差异。我们会在领域类上使用注解，将领域类型映射为文档结构。我们还会编写repository接口，这遵循与JPA和Cassandra一样的编程模型。但是在进行任何操作之前，我们必须在项目中启用Spring Data MongoDB。</p>
+<h2 id="12-3-1-启用Spring-Data-MongoDB"><a href="#12-3-1-启用Spring-Data-MongoDB" class="headerlink" title="12.3.1 启用Spring Data MongoDB"></a>12.3.1 启用Spring Data MongoDB</h2><p>要启用Spring Data MongoDB，我们需要将Spring Data MongoDB starter添加到项目的构建文件中。Spring Data MongoDB有两个独立的可选starter。</p>
+<p>如果你使用非反应式的MongoDB，那么需要将如下的依赖添加到构建文件中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    spring-boot-starter-data-mongodb</span><br><span class="line">  <span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这项依赖也可以在Spring Initializr中通过选中名为MongoDB的复选框添加进来。但是，本章主要关注的是编写反应式repository，所以我们要选择反应式SpringData MongoDB starter依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    spring-boot-starter-data-mongodb-reactive</span><br><span class="line">  <span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在Initializr中，我们可以通过选中Reactive MongoDB复选框将反应式SpringData MongoDB starter添加进来。将这个starter添加到构建文件中之后，自动配置功能将会触发，启用Spring Data对自动化repository接口的支持，这一点与第3章的JPA和第11章的Cassandra类似。</p>
+<p>默认情况下，Spring Data MongoDB会假定MongoDB在本地运行并监听27017端口。为了测试和开发的便利性，我们可以选择使用嵌入式的Mongo数据库。为了实现这一点，我们需要将Flapdoodle Embedded MongoDB依赖添加到构建文件中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>de.flapdoodle.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>de.flapdoodle.embed.mongo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>与我们在关系型数据库中使用H2类似，Flapdoodle嵌入式数据库带来了使用内存Mongo数据库的便利性。也就是说，我们不需要运行单独的数据库，但是所有的数据会在应用重启的时候丢掉。</p>
+<p>嵌入式数据库对于开发和测试是很不错的，一旦我们将应用部署到生产环境，就需要设置几个属性，让Spring Data MongoDB知道访问何处的Mongo数据库以及该如何进行访问：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">data:</span></span><br><span class="line">    <span class="attr">mongodb:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="string">mongodb.tacocloud.com</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">27018</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">tacocloud</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">s3cr3tp455w0rd</span></span><br><span class="line">      <span class="attr">database:</span> <span class="string">tacoclouddb</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，并不是所有的属性都是必需的。如果Mongo数据库不在本地运行，那么这些属性能够为Spring Data MongoDB指明正确的方向。拆分一下上面的配置，如下就是要设置的每个属性。</p>
+<ul>
+<li>spring.data.mongodb.host：Mongo运行的主机名（默认为localhost）。</li>
+<li>spring.data.mongodb.port：Mongo服务器监听的端口（默认为27017）。</li>
+<li>spring.data.mongodb.username：访问安全Mongo数据库的用户名。</li>
+<li>spring.data.mongodb.password：访问安全Mongo数据库的密码。</li>
+<li>spring.data.mongodb.database：数据库名（默认为test）。</li>
+</ul>
+<p>在我们的项目中，已经启用了Spring Data MongoDB，所以接下来我们需要为领域对象添加注解，以便于将它们持久化为MongoDB中的文档。</p>
+<h2 id="12-3-2-将领域对象映射为文档"><a href="#12-3-2-将领域对象映射为文档" class="headerlink" title="12.3.2 将领域对象映射为文档"></a>12.3.2 将领域对象映射为文档</h2><p>Spring Data MongoDB提供了多个注解。在将领域对象映射为要持久化到MongoDB中的文档结构时，这些注解是非常有用的。尽管Spring DataMongoDB提供了多个用于映射的注解，但是其中的3个是最常用的。</p>
+<ul>
+<li><code>@Id</code>：将某个属性指明为文档的ID（来自Spring Data Commons）。</li>
+<li><code>@Document</code>：将领域类型声明为要持久化到MongoDB中的文档。</li>
+<li><code>@Field</code>：指定某个属性持久化到文档中的字段名称（以及可选的顺序配置）。</li>
+</ul>
+<p>在这3个注解中，@Id和@Document是严格需要的。除非显式指定，否则没有使用@Field注解的属性将假定字段名与属性名相同。</p>
+<p>将这些注解应用到Ingredient类上的效果如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;</span><br><span class="line">    spring-boot-starter-data-mongodb</span><br><span class="line">  &lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;</span><br><span class="line">    spring-boot-starter-data-mongodb-reactive</span><br><span class="line">  &lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;de.flapdoodle.embed&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;de.flapdoodle.embed.mongo&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">spring:</span><br><span class="line">  data:</span><br><span class="line">    mongodb:</span><br><span class="line">      host: mongodb.tacocloud.com</span><br><span class="line">      port: <span class="number">27018</span></span><br><span class="line">      username: tacocloud</span><br><span class="line">      password: s3cr3tp455w0rd</span><br><span class="line">      database: tacoclouddb</span><br><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.annotation.Id;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.core.mapping.Document;</span><br><span class="line"><span class="keyword">import</span> lombok.AccessLevel;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.RequiredArgsConstructor;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)</span></span><br><span class="line"><span class="meta">@Document</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ingredient</span> &#123;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String id;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Type type;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> <span class="title class_">Type</span> &#123;</span><br><span class="line">    WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们在类级别使用了<code>@Document</code>注解，表明Ingredient是一个文档实体，可以在Mongo数据库中执行读取和写入操作。默认情况下，集合名（这是Mongo中与关系型数据库的表对等的概念）是基于类名的，只不过第一个字母会变成小写。因为我们没有特别指定，所以Ingredient对象将会持久化到名为ingredient的集合中。但是，我们可以通过设置<code>@Document</code>的collection属性改变这种行为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)</span></span><br><span class="line"><span class="meta">@Document(collection=&quot;ingredients&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ingredient</span> &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们还会看到，id属性使用了<code>@Id</code>注解。这表明该属性将会作为要持久化的文档的ID。我们可以将<code>@Id</code>注解用到任意Serializable类型的字段上，包括String和Long。在本例中，我们已经使用String定义的id属性作为自然标识符，因此不需要将其更改为其他类型。</p>
+<p>到目前为止，一切都很顺利。但是，不要忘了，在本章前面的内容中，我们曾说过Ingredient是进行Cassandra映射时最简单的一个领域类型。其他的类型，比如Taco，就稍微困难一些了。接下来，我们看一下如何映射Taco类，看看它会有哪些惊喜。</p>
+<p>在将领域类型映射为MongoDB文档时，我们肯定需要为Taco添加<code>@Document</code>注解。同时，我们还需要通过<code>@Id</code>注解指定ID属性。在添加完支持MongoDB持久化的注解后，我们就会得到如下的Taco类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@RestResource(rel=&quot;tacos&quot;, path=&quot;tacos&quot;)</span></span><br><span class="line"><span class="meta">@Document</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Taco</span> &#123;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> String id;</span><br><span class="line">  <span class="meta">@NotNull</span></span><br><span class="line">  <span class="meta">@Size(min=5, message=&quot;Name must be at least 5 characters long&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">Date</span> <span class="variable">createdAt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">  <span class="meta">@Size(min=1, message=&quot;You must choose at least 1 ingredient&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> List&lt;Ingredient&gt; ingredients;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不管你是否相信，这就是所有的内容。在Cassandra中，我们还需要处理两个不同的主键字段并且要引用用户定义类型，但这是Cassandra特有的。对于MongoDB来说，Taco的映射要简单得多。</p>
+<p>即便如此，在Taco中还是有一些有意思的事情值得关注。首先，我们要注意，id属性变成了String类型（而不是JPA版本中的Long类型或Cassandra版本中的UUID类型）。正如我在前文所述，@Id注解可以用到任意Serializable类型上。如果选择使用String属性作为ID，我们就可以在保存的时候让Mongo自动设置一个值给它。将其设置为String类型之后，我们就得到了一个数据库管理赋值的ID，而不用再担心如何手动设置该属性。</p>
+<p>我们再看一下ingredients属性。它是一个<code>List&lt;Ingredient&gt;</code>，与第3章中的JPA版本非常类似。与JPA版本不同的是，这个列表不会存储到单独的MongoDB集合中。与Cassandra对应的功能类似，配料列表会直接、以非规范化的形式存储到taco文档中。不过，与Cassandra不同，我们不需要创建用户定义类型，MongoDB非常乐意使用任何类型，不管它是带有<code>@Document</code>注解的另一个类型还是简单的POJO，都是可以的。</p>
+<p>看到将Taco映射为文档持久化非常容易，我们可以松口气了。这种映射的便利性会延续到Order领域类吗？你可以自行看一下带有MongoDB注解的Order类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Document</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Order</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> String id;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">Date</span> <span class="variable">placedAt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">  <span class="meta">@Field(&quot;customer&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> User user;</span><br><span class="line">  <span class="comment">// other properties omitted for brevity&#x27;s sake</span></span><br><span class="line">  <span class="keyword">private</span> List&lt;Taco&gt; tacos = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addDesign</span><span class="params">(Taco design)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.tacos.add(design);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单起见，我删除了投递和信用卡相关的各种字段。从剩下的部分可以清楚地看出，与其他领域类型一样，我们只需要<code>@Document</code>和<code>@Id</code>注解。即便如此，我们也为user属性使用了<code>@Field</code>，指定在持久化文档中它将会存储为customer。</p>
+<p>User领域类的MongoDB持久化映射依然非常简单，看到这里，相信你并不会对此感到意外：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Document</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">implements</span> <span class="title class_">UserDetails</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> String id;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String username;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String password;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String fullname;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String street;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String city;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String state;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String zip;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String phoneNumber;</span><br><span class="line">  <span class="comment">// UserDetails method omitted for brevity&#x27;s sake</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然有一些更高级和不常见的场景需要额外的映射，但是我们会发现，对于大多数情况，<code>@Document</code>、<code>@Id</code>以及偶尔用到的<code>@Field</code>对于MongoDB映射来说已经足够了。对于Taco Cloud的领域类型，它们完全可以胜任。</p>
+<p>剩下的事情就是编写repository接口了。</p>
+<h2 id="12-3-3-编写反应式的MongoDB-repository接口"><a href="#12-3-3-编写反应式的MongoDB-repository接口" class="headerlink" title="12.3.3 编写反应式的MongoDB repository接口"></a>12.3.3 编写反应式的MongoDB repository接口</h2><p>Spring Data MongoDB提供的自动化repository功能与Spring Data JPA和Spring Data Cassandra类似。在为MongoDB编写反应式repository的时候，我们可以在ReactiveCrudRepository和ReactiveMongoRepository之间进行选择。核心的差异在于，ReactiveMongoRepository提供多个特殊的insert()方法，它们针对新文档的持久化进行了优化，而ReactiveCrudRepository依赖save()方法来保存新文档和已有的文档。</p>
+<div style="border-style:solid;"><strong>如何编写非反应式的MongoDB repository？</strong><p>本章主要关注如何使用Spring Data编写反应式的repository。如果出于某种原因，你希望使用非反应式的repository，那么可以通过让repository接口扩展CrudRepository或MongoRepository来实现，而不是选择扩展ReactiveCrudRepository或ReactiveMongo Repository。这样，我们就可以让repository返回带有Mongo注解的领域类型或这些领域类型的集合。</p><p>尽管不是严格要求的，但是你可以将spring-boot-starter-data-mongodb-reactive依赖替换为spring-boot-starter- data-mongodb。</p></div>
+
+<p>首先，我们来定义将Ingredient对象持久化为文档的repository。在数据库初始化完成之后，我们不会频繁地创建配料的文档，甚至有可能永远不会这样做。因此，ReactiveMongoRepository提供的优化没有太多的用处，我们可以让IngredientRepository扩展ReactiveCrudRepository：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.reactive.ReactiveCrudRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CrossOrigin;</span><br><span class="line"><span class="keyword">import</span> tacos.Ingredient;</span><br><span class="line"><span class="meta">@CrossOrigin(origins=&quot;*&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IngredientRepository</span></span><br><span class="line">         <span class="keyword">extends</span> <span class="title class_">ReactiveCrudRepository</span>&lt;Ingredient, String&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>稍等片刻！它看起来与我们在12.2.4小节中为Cassandra编写的IngredientRepository接口是完全一样的！实际上，这是同一个接口，没有任何变化。这凸显了扩展ReactiveCrudRepository的一个好处，也就是它在各种数据库类型之间具有更强的可移植性，并且针对MongoDB和Cassandra都可以很好地运行。</p>
+<p>因为它是一个反应式repository，所以它的方法处理的是Flux和Mono，而不是原始领域类型或这些领域类型的集合。例如，findAll()方法将返回<code>Flux&lt;Ingredient&gt;</code>，而不是<code>Iterable&lt;Ingredient&gt;</code>。同样，findById()将返回<code>Mono&lt;Ingredient&gt;</code>，而不是<code>Optional&lt;Ingredient&gt;</code>。因此，这个反应式repository可以作为端到端反应式流的一部分。</p>
+<p>现在，为了将Taco持久化为MongoDB中的文档，我们定义另一个repository。与配料文档不同，我们会频繁创建taco文档。因此，ReactiveMongoRepository优化过的insert()方法就很有价值了。如下的代码片段展现了支持MongoDB的TacoRepository接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.repository.ReactiveMongoRepository;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"><span class="keyword">import</span> tacos.Taco;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TacoRepository</span></span><br><span class="line">         <span class="keyword">extends</span> <span class="title class_">ReactiveMongoRepository</span>&lt;Taco, String&gt; &#123;</span><br><span class="line">  Flux&lt;Taco&gt; <span class="title function_">findByOrderByCreatedAtDesc</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相对于ReactiveCrudRepository，使用ReactiveMongoRepository唯一的缺点在于它是专属于MongoDB的，不能迁移至其他数据库。在你的项目中，你需要确定这种代价是否值得。如果你预计不会在某个时刻切换到不同的数据库，那么尽可以选择ReactiveMongoRepository并充分利用它针对数据插入操作所带来的优化。</p>
+<p>注意，在TacoRepository中，我们引入了一个新的方法。这个方法支持显示最近创建的taco。在JPA版本的repository中，我们需要通过扩展PagingAndSortingRepository实现该功能。但是，在反应式repository中，PagingAndSortingRepository并没有太大的用处（尤其是分页功能）。在Cassandra版本中，排序是通过表定义中的集群键实现的，所以在repository中获取最近创建的taco时，我们并不需要特殊的处理。</p>
+<p>对于MongoDB来说，我们想要获取最近创建的taco。尽管名字看上去有些奇怪，但是findByOrderByCreatedAtDesc()方法遵循自定义查询方法命名约定。它说明我们想要查找Taco对象，没有任何查询条件，我们在这里没有设置任何必须匹配的属性。然后，我们告诉它将结果按照createdAt属性降序排列。</p>
+<p>在这里，命名中使用空By子句的原因在于方法名称中还有另一个By，这样做可以避免方法名称出现误解。如果将其命名为findAllOrderByCreatedAtDesc()，那么名称中的AllOrder部分将被忽略，Spring Data将尝试通过匹配createdAtDesc属性来查找taco。因为不存在该属性，所以应用将会报错，无法正常启动。</p>
+<p>因为findByOrderByCreatedAtDesc()返回的是一个<code>Flux&lt;Taco&gt;</code>，所以我们不用担心分页的事情。相反，我们只需要使用take操作获取Flux发布的前12个Taco即可。例如，在显示最近创建的taco的控制器中，我们可以按照如下方式调用findByOrderBy CreatedAtDesc()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flux&lt;Taco&gt; recents = repo.findByOrderByCreatedAtDesc()</span><br><span class="line">                         .take(<span class="number">12</span>);</span><br></pre></td></tr></table></figure>
+
+<p>最终得到的Flux所发布的Taco条目不会超过12个。</p>
+<p>再看OrderRepository接口，它非常简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.repository.ReactiveMongoRepository;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"><span class="keyword">import</span> tacos.Order;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderRepository</span></span><br><span class="line">         <span class="keyword">extends</span> <span class="title class_">ReactiveMongoRepository</span>&lt;Order, String&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们会频繁创建Order文档，所以OrderRepository扩展了ReactiveMongoRepository，从而充分利用其insert()方法所带来的优化。除此之外，相对于我们已经定义的repository，它并没有什么新奇之处。</p>
+<p>最后，我们看一下将User对象持久化为文档的repository：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.repository.ReactiveMongoRepository;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"><span class="keyword">import</span> tacos.User;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span></span><br><span class="line">         <span class="keyword">extends</span> <span class="title class_">ReactiveMongoRepository</span>&lt;User, String&gt; &#123;</span><br><span class="line">  Mono&lt;User&gt; <span class="title function_">findByUsername</span><span class="params">(String username)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>讲解到现在，你对这个repository接口应该没有丝毫感到惊讶的地方了。与其他repository类似，它扩展了ReactiveMongoRepository（当然，它也可以扩展ReactiveCrudRepository）。唯一的与众不同之处在于，它有一个findByUsername()方式，这是在第4章中我们为了支持认证功能添加上去的。在这里，将它修改为返回<code>Mono&lt;User&gt;</code>，而不是原始的User对象。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/49028c68/" title="12.3 编写反应式的MongoDB repository">https://lanlan2017.github.io/ReadingNotes/49028c68/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a50956a8/" rel="prev" title="12.2 使用反应式的Cassandra repository">
+                  <i class="fa fa-chevron-left"></i> 12.2 使用反应式的Cassandra repository
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/de067c2f/" rel="next" title="12.4 小结_第12章 反应式持久化数据">
+                  12.4 小结_第12章 反应式持久化数据 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/49028c68/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/49028c68/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

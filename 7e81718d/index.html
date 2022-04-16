@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.8.2 集合的比较&amp;nbsp;SQL查询 找出满足下面条件的所有&#96;教师&#96;的&#96;姓名&#96;,他们的&#96;工资&#96;至少比&#96;Biology&#96;系某一个教师的工资要高&amp;nbsp;写法1&amp;nbsp;写法2&amp;nbsp;子查询 产生&#96;Biology&#96;系所有教师的所有工资值的集合&amp;nbsp;至少大于其中一个&#96;&gt;some&#96;&amp;nbsp;some详解&amp;nbsp;其他运算符和some组合的情况&amp;nbsp;&#96;&#x3D;some&#96;等价于in&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.8.2 集合的比较">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/7e81718d/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.8.2 集合的比较&amp;nbsp;SQL查询 找出满足下面条件的所有&#96;教师&#96;的&#96;姓名&#96;,他们的&#96;工资&#96;至少比&#96;Biology&#96;系某一个教师的工资要高&amp;nbsp;写法1&amp;nbsp;写法2&amp;nbsp;子查询 产生&#96;Biology&#96;系所有教师的所有工资值的集合&amp;nbsp;至少大于其中一个&#96;&gt;some&#96;&amp;nbsp;some详解&amp;nbsp;其他运算符和some组合的情况&amp;nbsp;&#96;&#x3D;some&#96;等价于in&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-15T12:47:27.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/7e81718d/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/7e81718d/","path":"/7e81718d/","title":"3.8.2 集合的比较"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.8.2 集合的比较 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-8-2-%E9%9B%86%E5%90%88%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.</span> <span class="nav-text">3.8.2 集合的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2-%E6%89%BE%E5%87%BA%E6%BB%A1%E8%B6%B3%E4%B8%8B%E9%9D%A2%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%89%80%E6%9C%89%E6%95%99%E5%B8%88%E7%9A%84%E5%A7%93%E5%90%8D-%E4%BB%96%E4%BB%AC%E7%9A%84%E5%B7%A5%E8%B5%84%E8%87%B3%E5%B0%91%E6%AF%94Biology%E7%B3%BB%E6%9F%90%E4%B8%80%E4%B8%AA%E6%95%99%E5%B8%88%E7%9A%84%E5%B7%A5%E8%B5%84%E8%A6%81%E9%AB%98"><span class="nav-number">1.1.</span> <span class="nav-text">SQL查询 找出满足下面条件的所有教师的姓名,他们的工资至少比Biology系某一个教师的工资要高</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%951"><span class="nav-number">1.1.1.</span> <span class="nav-text">写法1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%952"><span class="nav-number">1.1.2.</span> <span class="nav-text">写法2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2-%E4%BA%A7%E7%94%9FBiology%E7%B3%BB%E6%89%80%E6%9C%89%E6%95%99%E5%B8%88%E7%9A%84%E6%89%80%E6%9C%89%E5%B7%A5%E8%B5%84%E5%80%BC%E7%9A%84%E9%9B%86%E5%90%88"><span class="nav-number">1.1.3.</span> <span class="nav-text">子查询 产生Biology系所有教师的所有工资值的集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%B3%E5%B0%91%E5%A4%A7%E4%BA%8E%E5%85%B6%E4%B8%AD%E4%B8%80%E4%B8%AA-gt-some"><span class="nav-number">1.1.4.</span> <span class="nav-text">至少大于其中一个&gt;some</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">some详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8Csome%E7%BB%84%E5%90%88%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">其他运算符和some组合的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some%E7%AD%89%E4%BB%B7%E4%BA%8Ein"><span class="nav-number">1.2.2.</span> <span class="nav-text">&#x3D;some等价于in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-gt-some%E4%B8%8D%E7%AD%89%E4%BB%B7%E4%B8%8Enot-in"><span class="nav-number">1.2.3.</span> <span class="nav-text">&lt;&gt;some不等价与not in</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2-%E6%89%BE%E5%87%BA%E5%B7%A5%E8%B5%84%E5%80%BC%E6%AF%94Biology%E7%B3%BB%E6%AF%8F%E4%B8%AA%E6%95%99%E5%B8%88%E7%9A%84%E5%B7%A5%E8%B5%84%E9%83%BD%E9%AB%98%E7%9A%84%E6%89%80%E6%9C%89%E6%95%99%E5%B8%88%E7%9A%84%E5%A7%93%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">SQL查询 找出工资值比Biology系每个教师的工资都高的所有教师的姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#all%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">all详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-gt-all%E7%AD%89%E4%BB%B7%E4%BA%8Enot-in"><span class="nav-number">1.4.1.</span> <span class="nav-text">&lt;&gt;all等价于not in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#all%E4%B8%8D%E7%AD%89%E4%BB%B7%E4%B8%8Ein"><span class="nav-number">1.4.2.</span> <span class="nav-text">&#x3D;all不等价与in</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2-%E6%89%BE%E5%87%BA%E5%B9%B3%E5%9D%87%E5%B7%A5%E8%B5%84%E6%9C%80%E9%AB%98%E7%9A%84%E7%B3%BB"><span class="nav-number">1.5.</span> <span class="nav-text">SQL查询 找出平均工资最高的系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#any"><span class="nav-number">1.6.</span> <span class="nav-text">any</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/7e81718d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.8.2 集合的比较 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.8.2 集合的比较
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-15 20:47:27" itemprop="dateCreated datePublished" datetime="2019-10-15T20:47:27+08:00">2019-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/" itemprop="url" rel="index"><span itemprop="name">第3章 SQL</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC3%E7%AB%A0-SQL/3-8-%E5%B5%8C%E5%A5%97%E5%AD%90%E6%9F%A5%E8%AF%A2/" itemprop="url" rel="index"><span itemprop="name">3.8 嵌套子查询</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/7e81718d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/7e81718d/" data-xid="/ReadingNotes/7e81718d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/7e81718d/#3-8-2-集合的比较" class="header_1">3.8.2 集合的比较</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#SQL查询-找出满足下面条件的所有-教师-的-姓名-他们的-工资-至少比-Biology-系某一个教师的工资要高" class="header_2">SQL查询 找出满足下面条件的所有`教师`的`姓名`,他们的`工资`至少比`Biology`系某一个教师的工资要高</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#写法1" class="header_3">写法1</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#写法2" class="header_3">写法2</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#子查询-产生-Biology-系所有教师的所有工资值的集合" class="header_3">子查询 产生`Biology`系所有教师的所有工资值的集合</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#至少大于其中一个->some" class="header_3">至少大于其中一个`>some`</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#some详解" class="header_2">some详解</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#其他运算符和some组合的情况" class="header_3">其他运算符和some组合的情况</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#-=some-等价于in" class="header_3">`=some`等价于in</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#-<>some-不等价与-not-in" class="header_3">`<>some`不等价与`not in`</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#SQL查询-找出-工资值-比-Biology-系每个教师的工资-都高-的所有教师的-姓名" class="header_2">SQL查询 找出`工资值`比`Biology`系每个教师的工资`都高`的所有教师的`姓名`</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#all详解" class="header_2">all详解</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#-<>all-等价于-not-in" class="header_3">`<>all`等价于`not in`</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#-=all-不等价与in" class="header_3">`=all`不等价与in</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#SQL查询-找出平均工资最高的系" class="header_2">SQL查询 找出平均工资最高的系</a>&nbsp;<br><a href="/ReadingNotes/7e81718d/#any" class="header_2">any</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="3-8-2-集合的比较"><a href="#3-8-2-集合的比较" class="headerlink" title="3.8.2 集合的比较"></a>3.8.2 集合的比较</h1><h2 id="SQL查询-找出满足下面条件的所有教师的姓名-他们的工资至少比Biology系某一个教师的工资要高"><a href="#SQL查询-找出满足下面条件的所有教师的姓名-他们的工资至少比Biology系某一个教师的工资要高" class="headerlink" title="SQL查询 找出满足下面条件的所有教师的姓名,他们的工资至少比Biology系某一个教师的工资要高"></a>SQL查询 找出满足下面条件的所有<code>教师</code>的<code>姓名</code>,他们的<code>工资</code>至少比<code>Biology</code>系某一个教师的工资要高</h2><p>作为一个说明<code>嵌套子查询</code>能够对集合进行比较的例子,考虑查询”<strong>找出满足下面条件的所有<code>教师</code>的<code>姓名</code>,他们的<code>工资</code>至少比<code>Biology</code>系某一个教师的工资要高</strong>“。</p>
+<h3 id="写法1"><a href="#写法1" class="headerlink" title="写法1"></a>写法1</h3><p>在3.4.1节,我们将此查询写作:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> T.name</span><br><span class="line"><span class="keyword">from</span> instructor <span class="keyword">as</span> T,instructor <span class="keyword">as</span> s</span><br><span class="line"><span class="keyword">where</span> T.salary <span class="operator">&gt;</span>S.salary <span class="keyword">and</span> S.dept_name <span class="operator">=</span> <span class="string">&#x27;Biology&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select distinct T.name</span><br><span class="line">from instructor as T,instructor as s</span><br><span class="line">where T.salary &gt;S.salary and S.dept_name = &#x27;Biology&#x27;;</span><br><span class="line">+----------+</span><br><span class="line">| name     |</span><br><span class="line">+----------+</span><br><span class="line">| Wu       |</span><br><span class="line">| Einstein |</span><br><span class="line">| Gold     |</span><br><span class="line">| Katz     |</span><br><span class="line">| Singh    |</span><br><span class="line">| Brandt   |</span><br><span class="line">| Kim      |</span><br><span class="line">+----------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h3 id="写法2"><a href="#写法2" class="headerlink" title="写法2"></a>写法2</h3><h3 id="子查询-产生Biology系所有教师的所有工资值的集合"><a href="#子查询-产生Biology系所有教师的所有工资值的集合" class="headerlink" title="子查询 产生Biology系所有教师的所有工资值的集合"></a>子查询 产生<code>Biology</code>系所有教师的所有工资值的集合</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line"><span class="keyword">select</span> salary</span><br><span class="line">    <span class="keyword">from</span> instructor</span><br><span class="line">    <span class="keyword">where</span> dept_name <span class="operator">=</span><span class="string">&#x27;Biology&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>产生<code>Biology</code>系所有教师的所有工资值的集合。</p>
+<h3 id="至少大于其中一个-gt-some"><a href="#至少大于其中一个-gt-some" class="headerlink" title="至少大于其中一个&gt;some"></a>至少大于其中一个<code>&gt;some</code></h3><p>短语”<strong>至少比某一个要大</strong>“在<code>SQL</code>中用<code>&gt;some</code>表示。<code>&gt;some</code>短语允许我们用一种更贴近此查询的文字表达的形式重写上面的查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name</span><br><span class="line"><span class="keyword">from</span> instructor</span><br><span class="line"><span class="keyword">where</span> salary <span class="operator">&gt;</span> <span class="keyword">some</span>(</span><br><span class="line">    <span class="keyword">select</span> salary</span><br><span class="line">        <span class="keyword">from</span> instructor</span><br><span class="line">        <span class="keyword">where</span> dept_name<span class="operator">=</span><span class="string">&#x27;Biology&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name</span><br><span class="line">from instructor</span><br><span class="line">where salary &gt; some(</span><br><span class="line">    select salary</span><br><span class="line">        from instructor</span><br><span class="line">        where dept_name=&#x27;Biology&#x27;</span><br><span class="line">);</span><br><span class="line">+----------+</span><br><span class="line">| name     |</span><br><span class="line">+----------+</span><br><span class="line">| Wu       |</span><br><span class="line">| Einstein |</span><br><span class="line">| Gold     |</span><br><span class="line">| Katz     |</span><br><span class="line">| Singh    |</span><br><span class="line">| Brandt   |</span><br><span class="line">| Kim      |</span><br><span class="line">+----------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<p>当元组的<code>salary</code>值至少比<code>Biology</code>系教师的所有工资值集合中某一成员高时,外层<code>select</code>的<code>where</code>子句中<code>&gt;some</code>的比较为真。</p>
+<h2 id="some详解"><a href="#some详解" class="headerlink" title="some详解"></a>some详解</h2><h3 id="其他运算符和some组合的情况"><a href="#其他运算符和some组合的情况" class="headerlink" title="其他运算符和some组合的情况"></a>其他运算符和some组合的情况</h3><ul>
+<li><strong>至少<code>小于</code>其中一个</strong>(<code>&lt;some</code>),</li>
+<li><strong>至少<code>小于等于</code>其中一个</strong>(<code>&lt;=some</code>),</li>
+<li><strong>至少<code>大于等于</code>其中一个</strong>(<code>&gt;=some</code>),</li>
+<li><strong>至少<code>等于</code>其中一个</strong>(<code>=some</code>)</li>
+<li><strong>至少<code>不等于</code>其中一个</strong>(<code>&lt;&gt;some</code>),<code>SQL</code>中<code>&lt;&gt;</code>符号是<code>不等于</code>的意思</li>
+</ul>
+<h3 id="some等价于in"><a href="#some等价于in" class="headerlink" title="=some等价于in"></a><code>=some</code>等价于in</h3><p>因为<code>=some</code>的意思是<strong>至少等于其中一个</strong>,而<code>in</code>关键字,也是<strong>至少等于其中一个</strong>的意思,所以<code>=some</code>等价于<code>in</code>。</p>
+<h3 id="lt-gt-some不等价与not-in"><a href="#lt-gt-some不等价与not-in" class="headerlink" title="&lt;&gt;some不等价与not in"></a><code>&lt;&gt;some</code>不等价与<code>not in</code></h3><ul>
+<li><code>&lt;&gt;some</code>的意思是<strong>至少不等于其中任意一个</strong>,</li>
+<li><code>not in</code>的意思是<strong>都不等于其中任意一个</strong>.</li>
+</ul>
+<p>可见<code>not in</code>要求比<code>&lt;&gt;some</code>要严格,所以<code>&lt;&gt;some</code>不等价于<code>not in</code>。</p>
+<h2 id="SQL查询-找出工资值比Biology系每个教师的工资都高的所有教师的姓名"><a href="#SQL查询-找出工资值比Biology系每个教师的工资都高的所有教师的姓名" class="headerlink" title="SQL查询 找出工资值比Biology系每个教师的工资都高的所有教师的姓名"></a>SQL查询 找出<code>工资值</code>比<code>Biology</code>系每个教师的工资<code>都高</code>的所有教师的<code>姓名</code></h2><p>结构<code>&gt;all</code>对应于词组”<strong>比所有的都大</strong>“。使用该结构,我们写出査询如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name</span><br><span class="line"><span class="keyword">from</span> instructor</span><br><span class="line"><span class="keyword">where</span> salary <span class="operator">&gt;</span><span class="keyword">all</span>(</span><br><span class="line">    <span class="keyword">select</span> salary</span><br><span class="line">        <span class="keyword">from</span> instructor</span><br><span class="line">            <span class="keyword">where</span> dept_name <span class="operator">=</span><span class="string">&#x27;Biology&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name</span><br><span class="line">from instructor</span><br><span class="line">where salary &gt;all(</span><br><span class="line">    select salary</span><br><span class="line">        from instructor</span><br><span class="line">            where dept_name =&#x27;Biology&#x27;</span><br><span class="line">);</span><br><span class="line">+----------+</span><br><span class="line">| name     |</span><br><span class="line">+----------+</span><br><span class="line">| Wu       |</span><br><span class="line">| Einstein |</span><br><span class="line">| Gold     |</span><br><span class="line">| Katz     |</span><br><span class="line">| Singh    |</span><br><span class="line">| Brandt   |</span><br><span class="line">| Kim      |</span><br><span class="line">+----------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h2 id="all详解"><a href="#all详解" class="headerlink" title="all详解"></a>all详解</h2><ul>
+<li>大于其中所有的<code>&lt;all</code>,</li>
+<li>小于等于其中所有的<code>&lt;=all</code>,</li>
+<li>大于等于其中所有的<code>&gt;=all</code>,</li>
+<li>等于其中所有的<code>=all</code>,</li>
+<li>不等于其中所有的<code>&lt;&gt;al</code>,</li>
+</ul>
+<h3 id="lt-gt-all等价于not-in"><a href="#lt-gt-all等价于not-in" class="headerlink" title="&lt;&gt;all等价于not in"></a><code>&lt;&gt;all</code>等价于<code>not in</code></h3><p><code>&lt;&gt;all</code>的意思是不等于其中所有的,和<code>not in</code>的意思是一样的,两者等价。</p>
+<h3 id="all不等价与in"><a href="#all不等价与in" class="headerlink" title="=all不等价与in"></a><code>=all</code>不等价与in</h3><ul>
+<li><code>=all</code>的意思是等于其中所有的,</li>
+<li><code>in</code>的意思是等于其中一个</li>
+</ul>
+<p><code>=all</code>比in要求要严格,<code>=all</code>不等价于in</p>
+<h2 id="SQL查询-找出平均工资最高的系"><a href="#SQL查询-找出平均工资最高的系" class="headerlink" title="SQL查询 找出平均工资最高的系"></a>SQL查询 找出平均工资最高的系</h2><p>作为集合比较的另一个例子,考虑查询”<strong>找出平均工资最高的系</strong>“。<strong>我们首先写一个查询来<code>找出每个系的平均工资</code></strong>,<strong>然后把它作为子查询嵌套在一个更大的查询中</strong>,<strong>以找出那些平均工资大于等于所有系平均工资的系</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> dept_name</span><br><span class="line"><span class="keyword">from</span> instructor</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_name</span><br><span class="line"><span class="keyword">having</span> <span class="built_in">avg</span>(salary) <span class="operator">&gt;=</span> <span class="keyword">all</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="built_in">avg</span>(salary)</span><br><span class="line">        <span class="keyword">from</span> instructor</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> dept_name</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select dept_name,avg(salary)</span><br><span class="line">from instructor</span><br><span class="line">group by dept_name;</span><br><span class="line">+------------+--------------+</span><br><span class="line">| dept_name  | avg(salary)  |</span><br><span class="line">+------------+--------------+</span><br><span class="line">| Biology    | <span class="number">72000</span>        |</span><br><span class="line">| <span class="built_in">Comp</span>. Sci. | <span class="number">77333</span>.<span class="number">333333</span> |</span><br><span class="line">| Elec. Eng. | <span class="number">80000</span>        |</span><br><span class="line">| Finance    | <span class="number">85000</span>        |</span><br><span class="line">| History    | <span class="number">61000</span>        |</span><br><span class="line">| Music      | <span class="number">40000</span>        |</span><br><span class="line">| Physics    | <span class="number">91000</span>        |</span><br><span class="line">+------------+--------------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br><span class="line"></span><br><span class="line">mysql&gt; select dept_name</span><br><span class="line">from instructor</span><br><span class="line">group by dept_name</span><br><span class="line">having avg(salary) &gt;= all(</span><br><span class="line">    select avg(salary)</span><br><span class="line">        from instructor</span><br><span class="line">        group by dept_name</span><br><span class="line">);</span><br><span class="line">+-----------+</span><br><span class="line">| dept_name |</span><br><span class="line">+-----------+</span><br><span class="line">| Physics   |</span><br><span class="line">+-----------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h2 id="any"><a href="#any" class="headerlink" title="any"></a>any</h2><p>在<code>SQL</code>中关键词<code>any</code>同义于<code>some</code>。早期<code>SQL</code>版本中仅允许使用<code>any</code>,后来的版本为了避免和英语中<code>any</code>一词在语言上的混淆,又添加了另一个可选择的关键词<code>some</code>。</p>
+<ul>
+<li><code>any</code>是任意一个</li>
+<li><code>some</code>是一些,也就是至少一个</li>
+</ul>
+<!--SSTStop-->
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select name</span><br><span class="line">from instructor</span><br><span class="line">where salary &gt; any(</span><br><span class="line">    select salary</span><br><span class="line">        from instructor</span><br><span class="line">        where dept_name=&#x27;Biology&#x27;</span><br><span class="line">);</span><br><span class="line">+----------+</span><br><span class="line">| name     |</span><br><span class="line">+----------+</span><br><span class="line">| Wu       |</span><br><span class="line">| Einstein |</span><br><span class="line">| Gold     |</span><br><span class="line">| Katz     |</span><br><span class="line">| Singh    |</span><br><span class="line">| Brandt   |</span><br><span class="line">| Kim      |</span><br><span class="line">+----------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br><span class="line"></span><br><span class="line">mysql&gt; select name</span><br><span class="line">from instructor</span><br><span class="line">where salary &gt; some(</span><br><span class="line">    select salary</span><br><span class="line">        from instructor</span><br><span class="line">        where dept_name=&#x27;Biology&#x27;</span><br><span class="line">);</span><br><span class="line">+----------+</span><br><span class="line">| name     |</span><br><span class="line">+----------+</span><br><span class="line">| Wu       |</span><br><span class="line">| Einstein |</span><br><span class="line">| Gold     |</span><br><span class="line">| Katz     |</span><br><span class="line">| Singh    |</span><br><span class="line">| Brandt   |</span><br><span class="line">| Kim      |</span><br><span class="line">+----------+</span><br><span class="line"><span class="number">7</span> rows <span class="keyword">in</span> <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/7e81718d/" title="3.8.2 集合的比较">https://lanlan2017.github.io/ReadingNotes/7e81718d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a3223bac/" rel="prev" title="如何下载数据库系统教程第6版 大学模式源码">
+                  <i class="fa fa-chevron-left"></i> 如何下载数据库系统教程第6版 大学模式源码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b1a8955d/" rel="next" title="3.8.3 空关系测试">
+                  3.8.3 空关系测试 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/7e81718d/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/7e81718d/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

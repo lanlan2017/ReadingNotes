@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="第7章 面向对象进阶本章读者可以学到如下实例:  实例059 经理与员工的差异 实例060 重写父类中的方法 实例061 计算几何图形的面积 实例062 简单的汽车销售商场 实例063 使用Comparable接口自定义排序 实例064 策略模式的简单应用 实例065 适配器模式的简单应用 实例066 普通内部类的简单应用 实例067 局部内部类的简单应用 实例068 匿名内部类的简单应用 实例0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第7章 面向对象进阶">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/491680a5/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="第7章 面向对象进阶本章读者可以学到如下实例:  实例059 经理与员工的差异 实例060 重写父类中的方法 实例061 计算几何图形的面积 实例062 简单的汽车销售商场 实例063 使用Comparable接口自定义排序 实例064 策略模式的简单应用 实例065 适配器模式的简单应用 实例066 普通内部类的简单应用 实例067 局部内部类的简单应用 实例068 匿名内部类的简单应用 实例0">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-19T18:50:46.000Z">
+<meta property="article:modified_time" content="2020-09-19T18:50:46.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/491680a5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/491680a5/","path":"/491680a5/","title":"第7章 面向对象进阶"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>第7章 面向对象进阶 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6"><span class="nav-number">1.</span> <span class="nav-text">第7章 面向对象进阶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B059-%E7%BB%8F%E7%90%86%E4%B8%8E%E5%91%98%E5%B7%A5%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-number">2.</span> <span class="nav-text">实例059 经理与员工的差异</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Employee"><span class="nav-number">2.2.1.</span> <span class="nav-text">Employee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manager-java"><span class="nav-number">2.2.2.</span> <span class="nav-text">Manager.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="nav-number">2.2.3.</span> <span class="nav-text">测试类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="nav-number">2.2.4.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%82%B9%E8%BF%B7%E6%B4%A5"><span class="nav-number">2.3.</span> <span class="nav-text">指点迷津</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E4%B8%8B%E7%95%99%E7%A5%9E"><span class="nav-number">2.4.</span> <span class="nav-text">脚下留神</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">技术要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%82%B9%E8%BF%B7%E6%B4%A5-1"><span class="nav-number">2.6.</span> <span class="nav-text">指点迷津</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B060-%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">实例060 重写父类中的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-1"><span class="nav-number">3.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-1"><span class="nav-number">3.2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Employee-java"><span class="nav-number">3.2.1.</span> <span class="nav-text">Employee.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manager-java-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">Manager.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">测试类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C-1"><span class="nav-number">3.2.4.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%82%B9%E8%BF%B7%E6%B4%A5-2"><span class="nav-number">3.3.</span> <span class="nav-text">指点迷津</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-1"><span class="nav-number">3.4.</span> <span class="nav-text">技术要点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B061-%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%9B%BE%E5%BD%A2%E7%9A%84%E9%9D%A2%E7%A7%AF"><span class="nav-number">4.</span> <span class="nav-text">实例061 计算几何图形的面积</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-2"><span class="nav-number">4.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-2"><span class="nav-number">4.2.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%82%B9%E8%BF%B7%E6%B4%A5-3"><span class="nav-number">4.4.</span> <span class="nav-text">指点迷津</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-2"><span class="nav-number">4.5.</span> <span class="nav-text">技术要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E4%B8%8B%E7%95%99%E7%A5%9E-1"><span class="nav-number">4.6.</span> <span class="nav-text">脚下留神</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B062-%E7%AE%80%E5%8D%95%E7%9A%84%E6%B1%BD%E8%BD%A6%E9%94%80%E5%94%AE%E5%95%86%E5%9C%BA"><span class="nav-number">5.</span> <span class="nav-text">实例062 简单的汽车销售商场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-3"><span class="nav-number">5.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-3"><span class="nav-number">5.2.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-3"><span class="nav-number">5.3.</span> <span class="nav-text">技术要点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B063-%E4%BD%BF%E7%94%A8Comparable%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F"><span class="nav-number">6.</span> <span class="nav-text">实例063 使用Comparable接口自定义排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-4"><span class="nav-number">6.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-4"><span class="nav-number">6.2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Employee-java-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">Employee.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB-2"><span class="nav-number">6.2.2.</span> <span class="nav-text">测试类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C-2"><span class="nav-number">6.2.3.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-4"><span class="nav-number">6.3.</span> <span class="nav-text">技术要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E7%82%B9%E8%BF%B7%E6%B4%A5-4"><span class="nav-number">6.4.</span> <span class="nav-text">指点迷津</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B064-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">实例064 策略模式的简单应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-5"><span class="nav-number">7.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-5"><span class="nav-number">7.2.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-5"><span class="nav-number">7.3.</span> <span class="nav-text">技术要点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B065-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">实例065 适配器模式的简单应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E-6"><span class="nav-number">8.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-6"><span class="nav-number">8.2.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9-6"><span class="nav-number">8.3.</span> <span class="nav-text">技术要点</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/491680a5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="第7章 面向对象进阶 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第7章 面向对象进阶
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-20 02:50:46" itemprop="dateCreated datePublished" datetime="2020-09-20T02:50:46+08:00">2020-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/7-Java%E7%BB%8F%E5%85%B8%E7%BC%96%E7%A8%8B300%E4%BE%8B/" itemprop="url" rel="index"><span itemprop="name">7 Java经典编程300例</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/7-Java%E7%BB%8F%E5%85%B8%E7%BC%96%E7%A8%8B300%E4%BE%8B/%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">第7章 面向对象进阶</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/491680a5/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/491680a5/" data-xid="/ReadingNotes/491680a5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第7章-面向对象进阶"><a href="#第7章-面向对象进阶" class="headerlink" title="第7章 面向对象进阶"></a>第7章 面向对象进阶</h1><p>本章读者可以学到如下实例:</p>
+<ul>
+<li>实例059 经理与员工的差异</li>
+<li>实例060 重写父类中的方法</li>
+<li>实例061 计算几何图形的面积</li>
+<li>实例062 简单的汽车销售商场</li>
+<li>实例063 使用Comparable接口自定义排序</li>
+<li>实例064 策略模式的简单应用</li>
+<li>实例065 适配器模式的简单应用</li>
+<li>实例066 普通内部类的简单应用</li>
+<li>实例067 局部内部类的简单应用</li>
+<li>实例068 匿名内部类的简单应用</li>
+<li>实例069 静态内部类的简单应用</li>
+<li>实例070 实例化Class类的几种方式</li>
+<li>实例071 查看类的声明</li>
+<li>实例072 查看类的成员</li>
+<li>实例073 查看内部类信息</li>
+<li>实例074 动态设置类的私有域</li>
+<li>实例075 动态调用类中方法</li>
+<li>实例076 动态实例化类</li>
+<li>实例077 创建长度可变的数组</li>
+<li>实例078 利用反射重写toString()方法</li>
+</ul>
+<h1 id="实例059-经理与员工的差异"><a href="#实例059-经理与员工的差异" class="headerlink" title="实例059 经理与员工的差异"></a>实例059 经理与员工的差异</h1><h2 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h2><p>对于在同一家公司工作的经理和员工而言,两者是有很多共同点的。例如每个月都要发工资,但是<strong>经理在完成目标任务后,还会获得奖金</strong>。此时,利用员工类来编写经理类就会少写很多代码,利用继承技术可以让经理类使用员王类中定义的属性和方法。本实例将通过继承演示经理与员工的差异。实例的运行效果如图7.1所示。</p>
+<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><h3 id="Employee"><a href="#Employee" class="headerlink" title="Employee"></a>Employee</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="comment">// 员工的姓名</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">// 员工的工资</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> salary;</span><br><span class="line">    <span class="comment">// 员工的生日</span></span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取员工的姓名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置员工的姓名</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取员工的工资</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getSalary</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置员工的工资</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSalary</span><span class="params">(<span class="type">double</span> salary)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取员工的生日</span></span><br><span class="line">    <span class="keyword">public</span> Date <span class="title function_">getBirthday</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> birthday;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置员工的生日</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBirthday</span><span class="params">(Date birthday)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.birthday = birthday;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Manager-java"><a href="#Manager-java" class="headerlink" title="Manager.java"></a>Manager.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Manager</span> <span class="keyword">extends</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="comment">// 经理的奖金</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> bonus;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得经理的奖金</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getBonus</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bonus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置经理的奖金</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBonus</span><span class="params">(<span class="type">double</span> bonus)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.bonus = bonus;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建Employee对象并为其赋值</span></span><br><span class="line">        <span class="type">Employee</span> <span class="variable">employee</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>();</span><br><span class="line">        employee.setName(<span class="string">&quot;Java&quot;</span>);</span><br><span class="line">        employee.setSalary(<span class="number">100</span>);</span><br><span class="line">        employee.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        System.out.println(<span class="string">&quot;员工的姓名：&quot;</span> + employee.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;员工的工资：&quot;</span> + employee.getSalary());</span><br><span class="line">        System.out.println(<span class="string">&quot;员工的生日：&quot;</span> + employee.getBirthday());</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建Manager对象并为其赋值</span></span><br><span class="line">        <span class="type">Manager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Manager</span>();</span><br><span class="line">        manager.setName(<span class="string">&quot;HelloWorld&quot;</span>);</span><br><span class="line">        manager.setSalary(<span class="number">3000</span>);</span><br><span class="line">        manager.setBirthday(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        manager.setBonus(<span class="number">2000</span>);</span><br><span class="line">        <span class="comment">// 输出经理的属性值</span></span><br><span class="line">        System.out.println(<span class="string">&quot;经理的姓名：&quot;</span> + manager.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;经理的工资：&quot;</span> + manager.getSalary());</span><br><span class="line">        System.out.println(<span class="string">&quot;经理的生日：&quot;</span> + manager.getBirthday());</span><br><span class="line">        System.out.println(<span class="string">&quot;经理的奖金：&quot;</span> + manager.getBonus());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">员工的姓名：Java</span><br><span class="line">员工的工资：100.0</span><br><span class="line">员工的生日：Sun Sep 20 15:49:47 CST 2020</span><br><span class="line">经理的姓名：HelloWorld</span><br><span class="line">经理的工资：3000.0</span><br><span class="line">经理的生日：Sun Sep 20 15:49:47 CST 2020</span><br><span class="line">经理的奖金：2000.0</span><br></pre></td></tr></table></figure>
+<p>可以看到,经理类通过继承得到了员工类的<code>name,salary,birthday</code>这三个属性。</p>
+<h2 id="指点迷津"><a href="#指点迷津" class="headerlink" title="指点迷津"></a>指点迷津</h2><p>在<code>Manager</code>类中并未定义姓名等域,然而却可以使用,这就是继承的好处。</p>
+<h2 id="脚下留神"><a href="#脚下留神" class="headerlink" title="脚下留神"></a>脚下留神</h2><p>虽然使用继承能少写很多代码,但是不要滥用继承。<strong>在使用继承前,需要考虑一下两者之间是否真的是“<code>is-a</code>”的关系,这是继承的重要特征</strong>。本实例中,经理显然是员工,所以可以用继承。另外,子类也可以成为其他类的父类,这样就构成了一棵继承树</p>
+<h2 id="技术要点"><a href="#技术要点" class="headerlink" title="技术要点"></a>技术要点</h2><p>在面向对象程序设计中,继承是其基本特性之一。在<code>Java</code>中如果想表明类A继承了类B,可以使用下面的语法定义类A:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">extends</span> <span class="title class_">B</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类A称为子类、派生类或孩子类,<br>类B称为超类、基类或父类。<br>尽管类B是一个超类,但是并不意味着类B比类A有更多的功能。相反,类A比类B拥有的功能更加丰富。</p>
+<h2 id="指点迷津-1"><a href="#指点迷津-1" class="headerlink" title="指点迷津"></a>指点迷津</h2><p><strong>在继承树中,从下往上越来越抽象,从上往下越来越具体</strong>。</p>
+<h1 id="实例060-重写父类中的方法"><a href="#实例060-重写父类中的方法" class="headerlink" title="实例060 重写父类中的方法"></a>实例060 重写父类中的方法</h1><h2 id="实例说明-1"><a href="#实例说明-1" class="headerlink" title="实例说明"></a>实例说明</h2><p>在继承了一个类之后,也就可以使用父类中定义的方法。然而,<strong>父类中的方法可能并不完全适用于子类。此时,如果不想定义新的方法,则可以重写父类中的方法</strong>。本实例将演示如何重写父类中的方法,实例的运行效果如图72所示。</p>
+<h2 id="实现过程-1"><a href="#实现过程-1" class="headerlink" title="实现过程"></a>实现过程</h2><h3 id="Employee-java"><a href="#Employee-java" class="headerlink" title="Employee.java"></a>Employee.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="comment">//定义测试用的方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;父类：我是 牛逼上天公司 的员工！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Manager-java-1"><a href="#Manager-java-1" class="headerlink" title="Manager.java"></a>Manager.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Manager</span> <span class="keyword">extends</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//重写测试用的方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;子类：我是 牛逼上天公司 的经理！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="测试类-1"><a href="#测试类-1" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建Employee对象</span></span><br><span class="line">        <span class="type">Employee</span> <span class="variable">employee</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>();</span><br><span class="line">        <span class="comment">// 输出Employee对象的getInfo()方法返回值</span></span><br><span class="line">        System.out.println(employee.getInfo());</span><br><span class="line">        <span class="comment">// 创建Manager对象</span></span><br><span class="line">        <span class="type">Manager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Manager</span>();</span><br><span class="line">        <span class="comment">// 输出Manager对象的getInfo()方法返回值</span></span><br><span class="line">        System.out.println(manager.getInfo());</span><br><span class="line">        <span class="comment">// // 父类引用指向子类引用,多态,调用的是子类重写后的方法</span></span><br><span class="line">        <span class="comment">// Employee employee2 = manager;</span></span><br><span class="line">        <span class="comment">// System.out.println(employee2.getInfo());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="运行效果-1"><a href="#运行效果-1" class="headerlink" title="运行效果"></a>运行效果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">父类：我是 牛逼上天公司 的员工！</span><br><span class="line">子类：我是 牛逼上天公司 的经理！</span><br></pre></td></tr></table></figure>
+<h2 id="指点迷津-2"><a href="#指点迷津-2" class="headerlink" title="指点迷津"></a>指点迷津</h2><p>在<code>JavaSE5.0</code>版中新增了注解功能,<code>@Override</code>是最常用的注解之一。**<code>@Override</code>注解只能应用在方法上,可以测试该方法是否重写了父类中的方法,如果没有则会在编译时报错。使用该注解可以很妤地避免重写时发生的各种问题,因此推荐读者使用**。</p>
+<h2 id="技术要点-1"><a href="#技术要点-1" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例主要应用的是方法的重写。<strong>方法的重写(<code>Overriding</code>)只能发生在存在继承关系的类中</strong>。<br>重写方法需要注意以下几点:</p>
+<ul>
+<li>重写方法与原来方法签名要相同,即方法名称和参数(包括顺序)要相同。</li>
+<li>重写方法的可见性不能小于原来的方法</li>
+<li>重写方法抛出异常的范围不能大于原来方法抛出异常的范围</li>
+</ul>
+<h1 id="实例061-计算几何图形的面积"><a href="#实例061-计算几何图形的面积" class="headerlink" title="实例061 计算几何图形的面积"></a>实例061 计算几何图形的面积</h1><h2 id="实例说明-2"><a href="#实例说明-2" class="headerlink" title="实例说明"></a>实例说明</h2><p>对于每个几何图形而言,都有一些共同的属性,如名字和面积等,而其计算面积的方法却各不相同。为了简化开发,本实例将定义一个超类来实现输出名字的方法,并使用抽象方法来计算面积。实例的运行效果如图7.3所示。</p>
+<h2 id="实现过程-2"><a href="#实现过程-2" class="headerlink" title="实现过程"></a>实现过程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="comment">//获得图形的名称</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getClass().getSimpleName();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得图形的面积</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">double</span> <span class="title function_">getArea</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Rectangle</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> length;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> width;</span><br><span class="line">    <span class="comment">//获得矩形的长和宽</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Rectangle</span><span class="params">(<span class="type">double</span> length, <span class="type">double</span> width)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.length = length;</span><br><span class="line">        <span class="built_in">this</span>.width = width;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//计算矩形的面积</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getArea</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> length * width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Circle</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> radius;</span><br><span class="line">    <span class="comment">//获得圆形的半径</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Circle</span><span class="params">(<span class="type">double</span> radius)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.radius = radius;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//计算圆形的面积</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getArea</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.PI * Math.pow(radius, <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Shape</span> <span class="variable">shape</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 创建圆形对象并将半径设置成1</span></span><br><span class="line">        <span class="type">Circle</span> <span class="variable">circle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">1</span>);</span><br><span class="line">        shape = circle;</span><br><span class="line">        System.out.print(<span class="string">&quot;图形的名称是：&quot;</span> + shape.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;\t图形的面积是：&quot;</span> + shape.getArea());</span><br><span class="line">        <span class="comment">// 创建矩形对象并将长和宽设置成1</span></span><br><span class="line">        <span class="type">Rectangle</span> <span class="variable">rectangle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Rectangle</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        shape = rectangle;</span><br><span class="line">        System.out.print(<span class="string">&quot;图形的名称是：&quot;</span> + shape.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;\t图形的面积是：&quot;</span> + shape.getArea());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">图形的名称是：Circle    图形的面积是：3.141592653589793</span><br><span class="line">图形的名称是：Rectangle 图形的面积是：1.0</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>多态</li>
+</ul>
+<h2 id="指点迷津-3"><a href="#指点迷津-3" class="headerlink" title="指点迷津"></a>指点迷津</h2><p>在抽象类中,可以定义抽象方法(使用<code>abstract</code>修饰的方法),也可以定义普通方法。</p>
+<ul>
+<li>包含抽象方法的类必须是抽象类,</li>
+<li>而抽象类不是必须包含抽象方法。</li>
+</ul>
+<p>对于抽象方法而言,仅定义一个声明即可,即抽象方法是没有方法体的。</p>
+<h2 id="技术要点-2"><a href="#技术要点-2" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例应用的主要技术就是抽象类。下面对抽象类进行介绍。在设计类的过程中,通常会将一些类所具有的公共属性和方法移到超类中,这样就不必重复定义了。然而这些类的超类却经常没有实际意义。通常将它设置成抽象的,这样可以避免创建该类的对象。声明一个最简单的抽象类的代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Shape</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="脚下留神-1"><a href="#脚下留神-1" class="headerlink" title="脚下留神"></a>脚下留神</h2><p>抽象类是不能直接实例化的,如果要获得该类的实例可以使用静态方法创建其<strong>实现类对象</strong>.</p>
+<h1 id="实例062-简单的汽车销售商场"><a href="#实例062-简单的汽车销售商场" class="headerlink" title="实例062 简单的汽车销售商场"></a>实例062 简单的汽车销售商场</h1><h2 id="实例说明-3"><a href="#实例说明-3" class="headerlink" title="实例说明"></a>实例说明</h2><p>当顾客在商场购物时,卖家需要根据顾客的需求提取商品。对于汽车销售商场也是如此。用户需要先指定购买的车型,然后商家去提取该车型的汽车。本实例将实现一个简单的汽车销售商场,用来演示<strong>多态的用法</strong>。实例的运行效果如图74所示。</p>
+<h2 id="实现过程-3"><a href="#实现过程-3" class="headerlink" title="实现过程"></a>实现过程</h2><p>(2)在<code>com.mingrisoft</code>包中新建一个抽象类,名称为<code>Car</code>,在该类中定义一个抽象方法<code>getInfo</code>关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">    <span class="comment">//用来描述汽车的信息</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title function_">getInfo</span><span class="params">()</span>;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(3)在<code>com.mingrisoft</code>包中再创建一个名称为<code>BMW</code>的类,该类继承自<code>Car</code>并实现其<code>getInfo()</code>方法。关键代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BMW</span> <span class="keyword">extends</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//用来描述汽车的信息</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span> &#123;                </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;BMW&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(4)在<code>com.mingrisoft</code>包中再创建一个名称为<code>Benz</code>的类,该类继承自<code>Car</code>并实现其<code>getInfo()</code>方法。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Benz</span> <span class="keyword">extends</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//用来描述汽车的信息</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span> &#123;                </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Benz&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(5)在<code>com.mingrisoft</code>包中再创建一个名称为<code>CarFactory</code>的类,该类定义了一个静态方法<code>getCar</code>,它可以根据用户指定的车型来创建对象。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CarFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title function_">getCar</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="comment">//如果需要BMW则创建BMW对象</span></span><br><span class="line">        <span class="keyword">if</span> (name.equalsIgnoreCase(<span class="string">&quot;BMW&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BMW</span>();</span><br><span class="line">        <span class="comment">//如果需要Benz则创建Benz对象</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (name.equalsIgnoreCase(<span class="string">&quot;Benz&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Benz</span>();</span><br><span class="line">        <span class="comment">//暂时不能支持其他车型</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(6)在<code>com.mingrisoft</code>包中再创建一个名称为<code>Customer</code>-的类,用来进行测试。在<code>main()</code>方法中,根据用户的需要提取了不同的汽车。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Customer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;顾客要购买BMW:&quot;</span>);</span><br><span class="line">        <span class="comment">//用户要购买BMW</span></span><br><span class="line">        <span class="type">Car</span> <span class="variable">bmw</span> <span class="operator">=</span> CarFactory.getCar(<span class="string">&quot;BMW&quot;</span>);        </span><br><span class="line">        <span class="comment">//提取BMW</span></span><br><span class="line">        System.out.println(<span class="string">&quot;提取汽车：&quot;</span> + bmw.getInfo());    </span><br><span class="line">        System.out.println(<span class="string">&quot;顾客要购买Benz:&quot;</span>);</span><br><span class="line">        <span class="comment">//用户要购买Benz</span></span><br><span class="line">        <span class="type">Car</span> <span class="variable">benz</span> <span class="operator">=</span> CarFactory.getCar(<span class="string">&quot;Benz&quot;</span>);    </span><br><span class="line">        <span class="comment">//提取Benz</span></span><br><span class="line">        System.out.println(<span class="string">&quot;提取汽车：&quot;</span> + benz.getInfo());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">顾客要购买BMW:</span><br><span class="line">提取汽车：BMW</span><br><span class="line">顾客要购买Benz:</span><br><span class="line">提取汽车：Benz</span><br></pre></td></tr></table></figure>
+<h2 id="技术要点-3"><a href="#技术要点-3" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例应用的主要技术就是面向对象程序设计中的多态。多态是面向对象程序设计的基本特性之一。<br><strong>使用多态的好处就是可以屏蔽对象之间的差异,从而增强了软件的护展性和重用性</strong>。<br><strong><code>Java</code>的多态主要是通过重写父类(或接口)中的方法来实现的</strong>。</p>
+<p>对于香蕉、桔子等水果而言,人们通常关心其能吃的特性。如果分别说香蕉能吃、桔子能吃,则当再增加新的水果种类,如菠萝时还要写个菠萝能吃,这是非常麻烦的。使用多态的话可以写成水果能吃,当需要用到具体的水果时,系统会自动帮忙替换,从而简化开发。</p>
+<h1 id="实例063-使用Comparable接口自定义排序"><a href="#实例063-使用Comparable接口自定义排序" class="headerlink" title="实例063 使用Comparable接口自定义排序"></a>实例063 使用Comparable接口自定义排序</h1><h2 id="实例说明-4"><a href="#实例说明-4" class="headerlink" title="实例说明"></a>实例说明</h2><p>默认情况下,保存在<code>List</code>集合中的数组是不进行排序的,不过可以通过使用<code>Comparable</code>接口自定义排序规则并自动排序。本实例将介绍如何使用<code>Comparable</code>接口自定义排序规则并自动排序。实例的运行效果如图75所示</p>
+<h2 id="实现过程-4"><a href="#实现过程-4" class="headerlink" title="实现过程"></a>实现过程</h2><h3 id="Employee-java-1"><a href="#Employee-java-1" class="headerlink" title="Employee.java"></a>Employee.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Employee&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Employee</span><span class="params">(<span class="type">int</span> id, String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现定制排序</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Employee o)</span> &#123;</span><br><span class="line">        <span class="comment">// // A.compareTo(B),A大于B时,返回1表示増序排序</span></span><br><span class="line">        <span class="comment">// if (this.id &gt; o.id) &#123;</span></span><br><span class="line">        <span class="comment">// return 1;</span></span><br><span class="line">        <span class="comment">// &#125; else if (this.id &lt; o.id) &#123;</span></span><br><span class="line">        <span class="comment">// return -1;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// return 0;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// A.compareTo(B),A大于B时,返回-1表示降序排序</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt; o.id) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &lt; o.id) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        sb.append(<span class="string">&quot;员工的编号：&quot;</span> + id + <span class="string">&quot;, &quot;</span>);</span><br><span class="line">        sb.append(<span class="string">&quot;员工的姓名：&quot;</span> + name + <span class="string">&quot;, &quot;</span>);</span><br><span class="line">        sb.append(<span class="string">&quot;员工的年龄：&quot;</span> + age);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="测试类-2"><a href="#测试类-2" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;Employee&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Employee&gt;();</span><br><span class="line">        list.add(<span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="number">1</span>, <span class="string">&quot;Java&quot;</span>, <span class="number">23</span>));</span><br><span class="line">        list.add(<span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="number">3</span>, <span class="string">&quot;Java&quot;</span>, <span class="number">21</span>));</span><br><span class="line">        list.add(<span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="number">2</span>, <span class="string">&quot;Java&quot;</span>, <span class="number">22</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;排序前：&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Employee employee : list) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;    &quot;</span> + employee);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;排序后：&quot;</span>);</span><br><span class="line">        <span class="comment">// 执行自动排序</span></span><br><span class="line">        Collections.sort(list);</span><br><span class="line">        <span class="keyword">for</span> (Employee employee : list) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;    &quot;</span> + employee);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="运行效果-2"><a href="#运行效果-2" class="headerlink" title="运行效果"></a>运行效果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">排序前：</span><br><span class="line">    员工的编号：1, 员工的姓名：Java, 员工的年龄：23</span><br><span class="line">    员工的编号：3, 员工的姓名：Java, 员工的年龄：21</span><br><span class="line">    员工的编号：2, 员工的姓名：Java, 员工的年龄：22</span><br><span class="line">排序后：</span><br><span class="line">    员工的编号：3, 员工的姓名：Java, 员工的年龄：21</span><br><span class="line">    员工的编号：2, 员工的姓名：Java, 员工的年龄：22</span><br><span class="line">    员工的编号：1, 员工的姓名：Java, 员工的年龄：23</span><br></pre></td></tr></table></figure>
+<p>可以看到,调用了<code>Collections.sort(list);</code>后,<code>list</code>集合里的元素都按编号进行降序排序。</p>
+<h2 id="技术要点-4"><a href="#技术要点-4" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例主要应用<code>java.lang</code>包中的<code>Comparable</code>接口来实现自定义排序规则。<code>Comparable</code>接口用于强行对实现它的每个类的对象进行整体排序。在实现该接口的类中,必须实现该接口中定义的<code>compareTo()</code>方法,用于指定排序规则。<code>Comparable</code>接口的定义如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pubic <span class="keyword">interface</span> <span class="title class_">Comparable</span>&lt;t&gt;&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(T other)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果一个类要实现这个接口,可以使用如下语句声明:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Employee&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>Employee</code>中必须实现接口中定义的<code>compareTo()</code>方法。实现该方法后,</p>
+<ul>
+<li>如果将该对象保存到列表中,那么可以通过执行<code>Collections.Sort()</code>方法进行<strong>自动排序</strong>;</li>
+<li>如果保存到数组中,那么可以通过执行<code>Array.sort()</code>方法进行<strong>自动排序</strong>。</li>
+</ul>
+<h2 id="指点迷津-4"><a href="#指点迷津-4" class="headerlink" title="指点迷津"></a>指点迷津</h2><p>如果不想实现在接口中定义的方法,则可以将类声明为抽象类,将接口中定义的方法声明为抽象方法。</p>
+<h1 id="实例064-策略模式的简单应用"><a href="#实例064-策略模式的简单应用" class="headerlink" title="实例064 策略模式的简单应用"></a>实例064 策略模式的简单应用</h1><h2 id="实例说明-5"><a href="#实例说明-5" class="headerlink" title="实例说明"></a>实例说明</h2><p>在使用图像处理软件处理图片后,需要选择种格式进行保存,然而各种格式在底层实现的算法并不相同,这刚好适合策略模式。本实例将演示如何<strong>使用策略模式与简单工厂模式组合</strong>进行实例开发。</p>
+<h2 id="实现过程-5"><a href="#实现过程-5" class="headerlink" title="实现过程"></a>实现过程</h2><p>(2)在<code>com.mingrisoft</code>包中编写接口<code>ImageSaver</code>,在该接曰中定义<code>save</code>方法。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ImageSaver</span> &#123;</span><br><span class="line">    <span class="comment">//定义save()方法</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">save</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(3)在<code>com.mingrisoft</code>包中再编写类<code>GIFSaver</code>,该类实现了<code>ImageSaver</code>接曰。在实现<code>save</code>方法时将图片保存为<code>GIF</code>格式,关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GIFSaver</span> <span class="keyword">implements</span> <span class="title class_">ImageSaver</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//实现save()方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;将图片保存成GIF格式&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>指点迷津:对于将图片保存成其他格式与存储为<code>GIF</code>格式类似,这里就不再赘述。<br>(4)在<code>com.mingrisoft</code>包中再编写类<code>TypeChooser</code>,该类根据用户提供的图片类型来选择合适的图片存储方式。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="comment">// 简单工厂模式,通过传入的字符串来判断需要创建哪个类的对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeChooser</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ImageSaver <span class="title function_">getSaver</span><span class="params">(String type)</span> &#123;</span><br><span class="line">        <span class="comment">//使用if else语句来判断图片的类型</span></span><br><span class="line">        <span class="keyword">if</span> (type.equalsIgnoreCase(<span class="string">&quot;GIF&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">GIFSaver</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equalsIgnoreCase(<span class="string">&quot;JPEG&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">JPEGSaver</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equalsIgnoreCase(<span class="string">&quot;PNG&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PNGSaver</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>指点迷津:此处使用了简单工厂模式,<strong>根据</strong>描述图片类型的<strong>字符串创建相应的</strong>图片保存<strong>类的对象</strong><br>(5)在<code>com.mingrisoft</code>包中再编写类<code>User</code>,该类模拟用户的操作,为类型选择器提供图片的类型。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;用户选择了GIF\t格式：&quot;</span>);</span><br><span class="line">        <span class="comment">//获得保存图片为GIF类型的对象</span></span><br><span class="line">        <span class="type">ImageSaver</span> <span class="variable">saver</span> <span class="operator">=</span> TypeChooser.getSaver(<span class="string">&quot;GIF&quot;</span>);</span><br><span class="line">        saver.save();</span><br><span class="line">        <span class="comment">//获得保存图片为JPEG类型的对象</span></span><br><span class="line">        System.out.print(<span class="string">&quot;用户选择了JPEG\t格式：&quot;</span>);</span><br><span class="line">        saver = TypeChooser.getSaver(<span class="string">&quot;JPEG&quot;</span>);</span><br><span class="line">        saver.save();</span><br><span class="line">        <span class="comment">//获得保存图片为PNG类型的对象</span></span><br><span class="line">        System.out.print(<span class="string">&quot;用户选择了PNG\t格式：&quot;</span>);</span><br><span class="line">        saver = TypeChooser.getSaver(<span class="string">&quot;PNG&quot;</span>);</span><br><span class="line">        saver.save();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户选择了GIF   格式：将图片保存成GIF格式</span><br><span class="line">用户选择了JPEG  格式：将图片保存成JPG格式</span><br><span class="line">用户选择了PNG   格式：将图片保存成PNG格式</span><br></pre></td></tr></table></figure>
+<h2 id="技术要点-5"><a href="#技术要点-5" class="headerlink" title="技术要点"></a>技术要点</h2><p>本实例应用的最重要的技术就是策略模式。<br>对于策略模式而言,需要定义一个接口或者抽象类来表示各种策略的抽象,这样就可以使用多态来让虚拟机选择不同的实现类。然后让每种具体的策略来实现这个接口或继承抽象类,并为其中定义的方法提供具体的实现。<br>由于在选择适当的策略上有些不方便,需要不断地判断需要的类型,因此用简单工厂方法来实现判断过程。</p>
+<h1 id="实例065-适配器模式的简单应用"><a href="#实例065-适配器模式的简单应用" class="headerlink" title="实例065 适配器模式的简单应用"></a>实例065 适配器模式的简单应用</h1><h2 id="实例说明-6"><a href="#实例说明-6" class="headerlink" title="实例说明"></a>实例说明</h2><p>对于刚从工厂生产出来的商品,有些功能并不能完全满足用户的需要。因此,用户通常会对其进行一定的改装工作。<br><strong>本实例将为普通的汽车增加<code>GPS</code>定位功能,借此演示适配器模式的用法</strong>。实例的运行效果如图77所示。</p>
+<h2 id="实现过程-6"><a href="#实现过程-6" class="headerlink" title="实现过程"></a>实现过程</h2><p>(2)在<code>com.mingrisoft</code>包中编写类<code>Car</code>,在该类中,首先定义两个属性,一个是<code>name</code>,表示汽车的名字;另一个是<code>speed</code>,表示汽车的速度。并为其提供<code>getXXX()</code>和<code>setXXX()</code>方法,然后通过重写<code>toString()</code>方法来方便输出<code>Car</code>对象。关键代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">    <span class="comment">//表示名称</span></span><br><span class="line">    <span class="keyword">private</span> String name;            </span><br><span class="line">    <span class="comment">//表示速度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> speed;            </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">getSpeed</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> speed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSpeed</span><span class="params">(<span class="type">double</span> speed)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.speed = speed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//重写toString()方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;                    </span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        sb.append(<span class="string">&quot;车名:&quot;</span> + name + <span class="string">&quot;, &quot;</span>);</span><br><span class="line">        sb.append(<span class="string">&quot;速度：&quot;</span> + speed + <span class="string">&quot;千米/小时&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(3)在<code>com.mingrisoft</code>包中再编写接口<code>GPS</code>,该接口中定义了<code>geoLocation()</code>方法,用来确定汽车的位置。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GPS</span> &#123;</span><br><span class="line">    <span class="comment">//提供定位功能</span></span><br><span class="line">    Point <span class="title function_">getLocation</span><span class="params">()</span>;                        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(4)在<code>com.mingrisoft</code>包中再编写类<code>GPSCar</code>,该类继承<code>Car</code>并实现<code>GPS</code>接口。在该类中首先实现<code>geoLocation</code>方法,用于实现确定汽车位置的功能,然后重写<code>toString</code>方法方便输出<code>GPSCar</code>对象。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GPSCar</span> <span class="keyword">extends</span> <span class="title class_">Car</span> <span class="keyword">implements</span> <span class="title class_">GPS</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//利用汽车的速度来确定汽车的位置</span></span><br><span class="line">    <span class="keyword">public</span> Point <span class="title function_">getLocation</span><span class="params">()</span> &#123;                        </span><br><span class="line">        <span class="type">Point</span> <span class="variable">point</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>();</span><br><span class="line">        point.setLocation(<span class="built_in">super</span>.getSpeed(), <span class="built_in">super</span>.getSpeed());</span><br><span class="line">        <span class="keyword">return</span> point;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//重写toString()方法</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;                        </span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        sb.append(<span class="built_in">super</span>.toString());</span><br><span class="line">        sb.append(<span class="string">&quot;, 坐标：(&quot;</span> + getLocation().x + <span class="string">&quot;, &quot;</span> + getLocation().y + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>指点迷津:可以使用<code>super</code>关键字调用父类中定义的方法。</p>
+<p>(5)在<code>com.mingrisoft</code>包中再编写类<code>Test</code>进行测试。在该类中,分别创建<code>Car</code>和<code>GPSCar</code>对象,并对其初始化,然后输出这两个对象。关键代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mingrisoft;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;自定义普通的汽车：&quot;</span>);</span><br><span class="line">        <span class="type">Car</span> <span class="variable">car</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Car</span>();</span><br><span class="line">        car.setName(<span class="string">&quot;Adui&quot;</span>);</span><br><span class="line">        car.setSpeed(<span class="number">60</span>);</span><br><span class="line">        System.out.println(car);</span><br><span class="line">        System.out.println(<span class="string">&quot;自定义GPS汽车：&quot;</span>);</span><br><span class="line">        <span class="type">GPSCar</span> <span class="variable">gpsCar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GPSCar</span>();</span><br><span class="line">        gpsCar.setName(<span class="string">&quot;Audi&quot;</span>);</span><br><span class="line">        gpsCar.setSpeed(<span class="number">60</span>);</span><br><span class="line">        System.out.println(gpsCar);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自定义普通的汽车：</span><br><span class="line">车名:Adui, 速度：60.0千米/小时</span><br><span class="line">自定义GPS汽车：</span><br><span class="line">车名:Audi, 速度：60.0千米/小时, 坐标：(60, 60)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="技术要点-6"><a href="#技术要点-6" class="headerlink" title="技术要点"></a>技术要点</h2><p>适配器模式可以在符合<code>OCP</code>原则(开闭原则)的基础上,为类增加新的功能。该模式涉及的角色主要有以下3个:</p>
+<ul>
+<li>目标角色:就是期待得到的接口,如本实例的<code>GPS</code>接口。</li>
+<li>源角色:需要被增加功能的类或接口,如本实例的<code>Car</code>类。</li>
+<li>适配器角色:新创建的类,在源角色的基础上实现了目标角色,如本实例的<code>GPSCar</code>类。</li>
+</ul>
+<p>关于各个类的继承(实现)关系如图7.8所示。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/491680a5/" title="第7章 面向对象进阶">https://lanlan2017.github.io/ReadingNotes/491680a5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/e80977b6/" rel="prev" title="第6章 面向对象入门">
+                  <i class="fa fa-chevron-left"></i> 第6章 面向对象入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f1b9af23/" rel="next" title="第7章 面向对象进阶 7.2 内部类">
+                  第7章 面向对象进阶 7.2 内部类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/491680a5/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/491680a5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

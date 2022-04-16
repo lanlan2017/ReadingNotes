@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.4 通过事件对象改变事件的旅程我们在前面已经举例说明事件冒泡可能会导致问题的一种情形。为了展示一种.hover()也无能为力的情况,需要改变前面实现的折叠行为。假设我们希望增大触发样式转换器折叠或扩展的可单击区域。一种方案就是将事件处理程序从标签移至包含它的&lt;div&gt;元素。在代码清单3-9中,我们给#switcher h3添加了一个click处理程序,在这里我们要尝试给#switc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.4 通过事件对象改变事件的旅程">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a4e0166f/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.4 通过事件对象改变事件的旅程我们在前面已经举例说明事件冒泡可能会导致问题的一种情形。为了展示一种.hover()也无能为力的情况,需要改变前面实现的折叠行为。假设我们希望增大触发样式转换器折叠或扩展的可单击区域。一种方案就是将事件处理程序从标签移至包含它的&lt;div&gt;元素。在代码清单3-9中,我们给#switcher h3添加了一个click处理程序,在这里我们要尝试给#switc">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-01T15:19:00.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a4e0166f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a4e0166f/","path":"/a4e0166f/","title":"3.4 通过事件对象改变事件的旅程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.4 通过事件对象改变事件的旅程 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-4-%E9%80%9A%E8%BF%87%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E6%94%B9%E5%8F%98%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%97%85%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">3.4 通过事件对象改变事件的旅程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-1-%E4%BA%8B%E4%BB%B6%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">3.4.1 事件目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-2-%E5%81%9C%E6%AD%A2%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD"><span class="nav-number">1.2.</span> <span class="nav-text">3.4.2 停止事件传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-3-%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">3.4.3 阻止默认操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-4-%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">1.4.</span> <span class="nav-text">3.4.4 事件委托</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#is-%E4%B8%8E-96-hasClass"><span class="nav-number">1.4.1.</span> <span class="nav-text">is()与&#96;.hasClass()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-5-%E4%BD%BF%E7%94%A8%E5%86%85%E7%BD%AE%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98%E5%8A%9F%E8%83%BD"><span class="nav-number">1.5.</span> <span class="nav-text">3.4.5 使用内置的事件委托功能</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a4e0166f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.4 通过事件对象改变事件的旅程 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.4 通过事件对象改变事件的旅程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-01 23:19:00" itemprop="dateCreated datePublished" datetime="2019-07-01T23:19:00+08:00">2019-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC3%E7%AB%A0-%E4%BA%8B%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">第3章 事件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a4e0166f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a4e0166f/" data-xid="/ReadingNotes/a4e0166f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-4-通过事件对象改变事件的旅程"><a href="#3-4-通过事件对象改变事件的旅程" class="headerlink" title="3.4 通过事件对象改变事件的旅程"></a>3.4 通过事件对象改变事件的旅程</h1><p>我们在前面已经举例说明事件冒泡可能会导致问题的一种情形。为了展示一种<code>.hover()</code>也无能为力的情况,需要改变前面实现的折叠行为。<br>假设我们希望增大触发样式转换器折叠或扩展的可单击区域。一种方案就是将事件处理程序从标签移至包含它的<code>&lt;div&gt;</code>元素。在代码清单3-9中,我们给<code>#switcher h3</code>添加了一个<code>click</code>处理程序,在这里我们要尝试给<code>#switcher</code>添加这个处理程序,如代码清单3-11所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这种改变会使样式转换器的整个区域都可以通过单击切换其可见性。但同时也造成了一个问题,即单击按钮会在修改内容区的样式之后折叠样式转换器。导致这个问题的原因就是<code>事件冒泡</code>,即事件首先被按钮处理,然后又沿着<code>DOM</code>树向上传递,直至到达<code>&lt;div id=&quot;switcher&quot;&gt;</code>激活事件处理程序并隐藏按钮。<br>要解决这个问题,必须访问<code>事件对象</code>。<strong>事件对象是一种<code>DOM</code>结构,它会在元素获得处理事件的机会时传递给被调用的事件处理程序</strong>。这个对象中包含着与事件有关的信息(例如事件发生时的鼠标指针位置),也提供了可以用来影响事件在<code>DOM</code>中传递进程的一些方法。<br>为了在处理程序中使用事件对象,需要为函数添加一个参数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>); </span><br><span class="line">  &#125;); </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p>注意,这里把事件对象命名为<code>event</code>,这主要是为了让大家一看就知道它是什么对象,不是必须这样命名的。就算你把它命名为<code>flapjacks</code>(煎饼),也没有任何问题。</p>
+<h2 id="3-4-1-事件目标"><a href="#3-4-1-事件目标" class="headerlink" title="3.4.1 事件目标"></a>3.4.1 事件目标</h2><p>现在,事件处理程序中的变量<code>event</code>保存着事件对象。而**<code>event.target</code>属性保存着发生事件的目标元素<strong>。这个属性是<code>DOM API</code>中规定的,但是没有在某些旧版本的浏览器中实现。<code>jQuery</code>对这个事件对象进行了必要的扩展,从而在任何浏览器中都能够使用这个属性。</strong>通过<code>event.target</code>,可以确定<code>DOM</code>中首先接收到事件的元素**(即实际被单击的元素)。而且,我们知道**<code>this</code>引用的是处理事件的<code>DOM</code>元素**,所以可以编写出代码清单3-12。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 只处理实际被点击的DOM元素</span></span><br><span class="line">    <span class="comment">// this表示DOM元素,包括实际被点击的DOM元素,及其祖先元素(id为switcher的为最顶层的祖先).</span></span><br><span class="line">    <span class="keyword">if</span> (event.<span class="property">target</span> == <span class="variable language_">this</span>) &#123;</span><br><span class="line">      $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>此时的代码确保了被单击的元素是<code>&lt;div id=&quot;switcher&quot;&gt;</code>,而不是其他后代元素。现在,单击按钮不会再折叠样式转换器,而单击转换器背景区则会触发折叠操作。但是,单击标签(<code>&lt;h3&gt;</code>)同样什么也不会发生,因为它也是一个后代元素。实际上,我们可以不把检查代码放在这里,而是通过修改按钮的行为来达到目标。</p>
+<h2 id="3-4-2-停止事件传播"><a href="#3-4-2-停止事件传播" class="headerlink" title="3.4.2 停止事件传播"></a>3.4.2 停止事件传播</h2><p><strong>事件对象还提供了一个<code>.stopPropagation()</code>方法,该方法可以完全阻止事件冒泡</strong>。与<code>.target</code>类似,这个方法也是一种基本的<code>DOM</code>特性,但在<code>IE8</code>及更早版本中则无法安全地使用。不过,只要我们通过<code>jQuery</code>来注册所有的事件处理程序,就可以放心地使用这个方法。<br>下面,我们会删除刚才添加的检查语句<code>event.target == this</code>,并在按钮的单击处理程序中添加一些代码,参见代码清单3-13。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 鼠标进出时调用</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher h3&#x27;</span>).<span class="title function_">hover</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 背景的事件处理程序</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 按钮的点击事件处理程序</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 动态生成class属性</span></span><br><span class="line">    <span class="keyword">var</span> bodyClass = <span class="variable language_">this</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line"></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 停止事件传播,该事件不会传播到祖先元素</span></span><br><span class="line">    event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>同以前一样,需要为用作单击处理程序的函数添加一个参数,以便访问事件对象。然后,通过调用<code>event.stopPropagation()</code>就可以避免其他所有<code>DOM</code>元素响应这个事件。这样一来,<strong>单击按钮的事件会被按钮处理,而且只会被按钮处理</strong>。单击样式转换器的其他地方则可以折叠和扩展整个区域。</p>
+<h2 id="3-4-3-阻止默认操作"><a href="#3-4-3-阻止默认操作" class="headerlink" title="3.4.3 阻止默认操作"></a>3.4.3 阻止默认操作</h2><p>如果我们把单击事件处理程序注册到锚元素(<code>&lt;a&gt;</code>),而不是外层的<code>&lt;div&gt;</code>上,那么就要面对另外一个问题:当用户单击链接时,浏览器会加载一个新页面。这种行为与我们讨论的事件处理程序不是同一个概念,它是单击锚元素的默认操作。类似地,当用户在编辑完表单后按下回车键时,会触发表单的<code>submit</code>事件,在此事件发生后,表单提交才会真正发生。<br>即便在事件对象上调用<code>event.stopPropagation()</code>方法也不能禁止这种默认操作,因为默认操作不是在正常的事件传播流中发生的。在这种情况下,<code>event.preventDefault()</code>方法则可以在触发默认操作之前终止事件。</p>
+<p>在事件的环境中完成了某些验证之后,通常会用到<code>event.preventDefault()</code>。例如,在表单提交期间,我们会对用户是否填写了必填字段进行检查,如果用户没有填写相应字段,那么就需要阻止默认操作。</p>
+<p>事件传播和默认操作是相互独立的两套机制,在二者任何一方发生时,都可以终止另一方。如果想要同时停止事件传播和默认操作,可以在事件处理程序中返回<code>false</code>,这是对在事件对象上同时调用<code>.stopPropagation()</code>和<code>.preventDefault()</code>的一种简写方式。</p>
+<h2 id="3-4-4-事件委托"><a href="#3-4-4-事件委托" class="headerlink" title="3.4.4 事件委托"></a>3.4.4 事件委托</h2><p>事件冒泡并不总是带来问题,也可以利用它为我们带来好处。<code>事件委托</code>就是利用冒泡的一项高级技术。通过<code>事件委托</code>,可以借助一个元素上的事件处理程序完成很多工作。<br>在我前面的例子中,只有3个<code>&lt;div class=&quot;button&quot;&gt;</code>元素注册了单击处理程序。假如我们想为更多元素注册处理程序怎么办?这种情况比我们想象的更常见。例如,有一个显示信息的大型表格,每一行都有一项需要注册单击处理程序。虽然不难通过隐式迭代来指定所有单击处理程序,但性能可能会很成问题,因为循环是由<code>jQuery</code>在内部完成的,而且要维护所有处理程序也需要占用很多内存。<br>为解决这个问题,<strong>可以只在<code>DOM</code>中的一个祖先元素上指定一个单击处理程序。由于事件会冒泡,未遭拦截的单击事件最终会到达这个祖先元素,而我们可以在此时再作出相应处理</strong>。<br>下面我们就以样式转换器为例(尽管其中的按钮数量还不至于使用这种方法),说明如何用这种技术。从代码清单3-12中可以看到,当发生单击事件时,<strong>可以使用<code>event.target</code>属性查鼠标指针下方是什么元素</strong>。下面是代码清单3-14。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher h3&#x27;</span>).<span class="title function_">hover</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 隐藏所有的按钮</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果触发这个事件的DOM元素时按钮的话</span></span><br><span class="line">    <span class="keyword">if</span> ($(event.<span class="property">target</span>).<span class="title function_">is</span>(<span class="string">&#x27;button&#x27;</span>)) &#123;</span><br><span class="line">      <span class="comment">// 根据该DOM元素(event.target)的id生成class属性值</span></span><br><span class="line">      <span class="keyword">var</span> bodyClass = event.<span class="property">target</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">      <span class="comment">// 移除body元素上的所有class,然后再添加生成的class</span></span><br><span class="line">      $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line">      <span class="comment">// 所有按钮都不选中</span></span><br><span class="line">      $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">      <span class="comment">// 选中当前的按钮</span></span><br><span class="line">      $(event.<span class="property">target</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">      <span class="comment">// 阻止事件冒泡</span></span><br><span class="line">      event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里使用了一个新方法,即<code>.is()</code>方法。这个方法接收一个选择符表达式(第2章介绍过) ,然后用选择符来测试当前的<code>jQuery</code>对象。如果集合中至少有一个元素与选择符匹配, <code>.is()</code>方法返回<code>true</code>。在这个例子中,<code>$(event.target).is(&#39;button&#39;)</code>测试被单击的元素是否包含<code>button</code>标签。如果是,则继续执行以前编写的那些代码——但有一个明显的不同,即此时的关键字<code>this</code>引用的是<code>&lt;div id=&quot;switcher&quot;&gt;</code>。换句话说,如果现在需要访问被单击的按钮,每次都必须通过<code>event.target</code>来引用。</p>
+<h3 id="is-与-96-hasClass"><a href="#is-与-96-hasClass" class="headerlink" title="is()与&#96;.hasClass()"></a>is()与&#96;.hasClass()</h3><p>要测试元素是否包含某个类,也可以使用另一个简写方法<code>.hasClass()</code>,不过,<code>.is()</code>方法则更灵活一些,它可以测试任何选择符表达式。</p>
+<p>然而,以上代码还有一个不期而至的连带效果。当按钮被单击时,转换器会折叠起来,就像没有使用<code>.stopPropagation()</code>之前看到的效果一样。用于切换转换器可见性的处理程序,现在被绑定到了按钮上面。因此,阻止事件冒泡并不会影响切换发生。要解决这个问题,可以去掉对<code>.stopPropagation()</code>的调用,然后添加另一个<code>.is()</code>测试。同样,随着把整个转换器<code>&lt;div&gt;</code>变得可以单击,还应该在用户鼠标悬停时切换<code>hover</code>类,如代码清单3-15所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 鼠标悬停事件</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">hover</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果触发事件的DOM元素不是按钮的话</span></span><br><span class="line">    <span class="keyword">if</span> (!$(event.<span class="property">target</span>).<span class="title function_">is</span>(<span class="string">&#x27;button&#x27;</span>)) &#123;</span><br><span class="line">      <span class="comment">// 隐藏/显示这些按钮</span></span><br><span class="line">      $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果触发点击事件的DOM元素是按钮的话</span></span><br><span class="line">    <span class="keyword">if</span> ($(event.<span class="property">target</span>).<span class="title function_">is</span>(<span class="string">&#x27;button&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">var</span> bodyClass = event.<span class="property">target</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">      $(event.<span class="property">target</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>虽然这个例子的代码显得稍微复杂了一点,但随着带有事件处理程序的元素数量增多,使用事件委托终究还是正确的技术。此外,通过组合两个<code>click</code>事件处理程序并使用基于<code>.is()</code>测试的<code>if-else</code>语句,可以减少重复的代码,参见代码清单3-16。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">hover</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="string">&#x27;button&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> bodyClass = event.<span class="property">target</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line"></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上代码仍然有进一步优化的余地,但目前这种情况已经是可以接受的了。不过,为了更深入地理解<code>jQuery</code>的事件处理,我们还要返回代码清单3-16,继续在那个版本上修改。</p>
+<h2 id="3-4-5-使用内置的事件委托功能"><a href="#3-4-5-使用内置的事件委托功能" class="headerlink" title="3.4.5 使用内置的事件委托功能"></a>3.4.5 使用内置的事件委托功能</h2><p>由于事件委托可以解决很多问题,所以<code>jQuery</code>专门提供了一组方法来实现事件委托。前面讨论过的<code>.on</code>()方法可以接受相应参数实现事件委托,如代码清单3-17所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#switcher&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="string">&#x27;button&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">  <span class="keyword">var</span> bodyClass = event.<span class="property">target</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>]; </span><br><span class="line">  $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass); </span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>); </span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>); </span><br><span class="line">&#125;); </span><br></pre></td></tr></table></figure>
+<p>如果给<code>.on()</code>方法传入的第二个参数是一个<code>选择符表达式</code>,<code>jQuery</code>会把<code>click</code>事件处理程序绑定到<code>#switcher</code>对象,同时比较<code>event.target</code>和选择符表达式(这里的<code>&#39;button&#39;</code>)。</p>
+<ul>
+<li>如果<code>event.target</code>和选择符表达式匹配,<code>jQuery</code>会把<code>this</code>关键字映射到匹配的元素,</li>
+<li>如果<code>event.target</code>和选择符表达式不匹配,则不会执行事件处理程序。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a4e0166f/" title="3.4 通过事件对象改变事件的旅程">https://lanlan2017.github.io/ReadingNotes/a4e0166f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/21530484/" rel="prev" title="3.3 事件传播">
+                  <i class="fa fa-chevron-left"></i> 3.3 事件传播
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/87b0a2b5/" rel="next" title="3.5 移除事件处理程序">
+                  3.5 移除事件处理程序 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a4e0166f/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a4e0166f/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

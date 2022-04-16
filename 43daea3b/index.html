@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="附录F 插件APIF.1 Validation插件APIValidation插件有两个经常被用到的选项，分别是方法（method）和规则（rule）。（1）方法。验证方法就是通过执行验证逻辑判断一个元素是否合法。例如 email()方法就是检查当前文本格式是否是正确的E-mail格式。读者能很方便地利用Validation插件提供的方法来完成验证。另外，读者也可以自定义方法。（2）规则。验证规则将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6 附录F 插件API">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/43daea3b/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="附录F 插件APIF.1 Validation插件APIValidation插件有两个经常被用到的选项，分别是方法（method）和规则（rule）。（1）方法。验证方法就是通过执行验证逻辑判断一个元素是否合法。例如 email()方法就是检查当前文本格式是否是正确的E-mail格式。读者能很方便地利用Validation插件提供的方法来完成验证。另外，读者也可以自定义方法。（2）规则。验证规则将">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-16T08:10:08.000Z">
+<meta property="article:modified_time" content="2022-04-16T08:10:08.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/43daea3b/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/43daea3b/","path":"/43daea3b/","title":"6 附录F 插件API"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6 附录F 插件API | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95F-%E6%8F%92%E4%BB%B6API"><span class="nav-number">1.</span> <span class="nav-text">附录F 插件API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#F-1-Validation%E6%8F%92%E4%BB%B6API"><span class="nav-number">1.1.</span> <span class="nav-text">F.1 Validation插件API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-2-Form%E6%8F%92%E4%BB%B6API"><span class="nav-number">1.2.</span> <span class="nav-text">F.2 Form插件API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-3-SimpleModal%E6%8F%92%E4%BB%B6API"><span class="nav-number">1.3.</span> <span class="nav-text">F.3 SimpleModal插件API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-4-Cookie%E6%8F%92%E4%BB%B6API"><span class="nav-number">1.4.</span> <span class="nav-text">F.4 Cookie插件API</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/43daea3b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6 附录F 插件API | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6 附录F 插件API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-16 16:10:08" itemprop="dateCreated datePublished" datetime="2022-04-16T16:10:08+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC12%E7%AB%A0-%E9%99%84%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">第12章 附录</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/43daea3b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/43daea3b/" data-xid="/ReadingNotes/43daea3b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="附录F-插件API"><a href="#附录F-插件API" class="headerlink" title="附录F 插件API"></a>附录F 插件API</h1><h2 id="F-1-Validation插件API"><a href="#F-1-Validation插件API" class="headerlink" title="F.1 Validation插件API"></a>F.1 Validation插件API</h2><p>Validation插件有两个经常被用到的选项，分别是方法（method）和规则（rule）。<br>（1）方法。验证方法就是通过执行验证逻辑判断一个元素是否合法。例如 email()方法就是检查当前文本格式是否是正确的E-mail格式。读者能很方便地利用Validation插件提供的方法来完成验证。另外，读者也可以自定义方法。<br>（2）规则。验证规则将元素和元素的验证方法关联起来，例如验证一个需要E-mail格式和必填的属性name为email的元素，可以定义该元素的规则如下：</p>
+<p>[插图]</p>
+<ul>
+<li>插件方法如表F-1所示。</li>
+</ul>
+<center>表F-1 插件方法</center>
+
+<p>[插图]</p>
+<ul>
+<li>内置验证规则如表F-2所示。</li>
+</ul>
+<center>表F-2 内置验证规则</center>
+
+<p>[插图]</p>
+<ul>
+<li>Validator</li>
+</ul>
+<p>Validation验证会返回一个Validator对象，validator对象可以帮助用户触发validation程序或者改变form的内容。validator对象更多的方法如表F-3所示。</p>
+<center>表F-3 validator对象的方法</center>
+
+<p>[插图]</p>
+<p>validator对象中的静态方法如表F-4所示。</p>
+<center>表F-4 validator对象中的静态方法</center>
+
+<p>[插图]</p>
+<ul>
+<li>实用项</li>
+</ul>
+<center>表F-5 实用项</center>
+
+<p>[插图]</p>
+<ul>
+<li>普通选择器</li>
+</ul>
+<center>表F-6 普通选择器</center>
+
+<p>[插图]</p>
+<h2 id="F-2-Form插件API"><a href="#F-2-Form插件API" class="headerlink" title="F.2 Form插件API"></a>F.2 Form插件API</h2><p>（1）Form插件API</p>
+<p>Form插件拥有很多方法，这些方法可以使用户很容易地管理表单数据和提交表单。</p>
+<ul>
+<li>ajaxForm()</li>
+</ul>
+<p>增加所需要的事件监听器，为Ajax 提交表单做好准备。AjaxForm()方法并没有提交表单，而是在$(document).ready()方法中，使用ajaxForm()方法来为Ajax提交表单做好准备。ajaxForm方法可以接受0个或1个参数。单个的参数既可以是一个回调函数，也可以是一个Options对象。此方法可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>ajaxSubmit()</li>
+</ul>
+<p>立即通过Ajax方式提交表单。在大多数情况下，都是调用ajaxSubmit()方法来响应用户的提交表单操作。AjaxSubmit()方法可以接受0个或1个参数。单个的参数既可以是一个回调函数，也可以是一个Options对象。此方法可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>formSerialize()</li>
+</ul>
+<p>该方法将表单中所有的元素串行化（序列化）为一个字符串。formSerialize()方法会返回一个格式化好的字符串，格式如下：</p>
+<p>[插图]</p>
+<p>因为返回的是字符串，而不是jQuery对象，所以该方法不能进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>fieldSerialize()</li>
+</ul>
+<p>fieldSerialize()方法将表单的字段元素串行化（序列化）成一个字符串。当用户只需要串行化表单的一部分时就可以用到该方法了。fieldSerialize()方法会返回一个格式化后的字符串，格式如下：</p>
+<p>[插图]</p>
+<p>因为返回的是字符串，所以该方法不可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>fieldValue()</li>
+</ul>
+<p>fieldValue()方法把匹配元素的值插入到数组中，然后返回这个数组。从0.91版本起，该方法总是以数组的形式返回数据，如果元素值被判定无效，则数组为空，否则数组将包含一个或多个元素值。fieldValue()方法返回一个数组，因此不可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>resetForm()</li>
+</ul>
+<p>该方法通过调用表单元素原有的DOM 方法重置表单到初始状态。resetForm()方法可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>clearForm()</li>
+</ul>
+<p>clearForm()方法用来清空表单中的元素。该方法将所有的文本框（text）、密码框（password）和文本域（textarea）元素置空，清除下拉框（select）元素的选定以及将所有的单选按钮（radio）和多选按钮（checkbox）重置为非选定状态。clearForm()方法可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<ul>
+<li>clearFields()</li>
+</ul>
+<p>clearFields()方法用来清空字段元素。当用户需要清空一部分表单元素时就会用到该方法。clearFields()方法可以进行链式操作。</p>
+<p>例子：</p>
+<p>[插图]</p>
+<p>（2）ajaxForm and ajaxSubmit的Options对象</p>
+<p>ajaxForm()方法和ajaxSubmit()方法支持许多选项，这些选项都可以通过Options对象来设置。Options对象是一个简单的JavaScript对象，包含了如下属性与值的集合。</p>
+<ul>
+<li>target</li>
+</ul>
+<p>指明页面中根据服务器响应进行更新的元素。这个值可能是一个特殊的jQuery选择器字符串、一个jQuery对象或者一个DOM元素。</p>
+<p>默认值：null。</p>
+<ul>
+<li>url</li>
+</ul>
+<p>将表单元素提交到指定的url中。</p>
+<p>默认值：表单action属性的值。</p>
+<ul>
+<li>type</li>
+</ul>
+<p>指定提交表单数据的方法（method）：GET或POST。</p>
+<p>默认值：表单method属性的值（如果没有找到，则为GET）。</p>
+<ul>
+<li>beforeSubmit</li>
+</ul>
+<p>表单提交前的回调函数。beforeSubmit回调函数被用来运行预提交逻辑或者校验表单数据。假如beforeSubmit回调函数返回false，则表单将不会被提交。beforeSubmit回调函数有3个参数：数组形式的表单数据、jQuery表单对象和传递给ajaxForm()方法或ajaxSubmit()方法的Options对象。表单数据数组遵循以下数据格式（json类型）。</p>
+<p>[插图]</p>
+<p>默认值：null。</p>
+<ul>
+<li>success</li>
+</ul>
+<p>表单成功提交后调用的回调函数。假如success回调函数被指定，将在服务器返回响应后被调用。success函数可以传回responseText或者responseXML的值（决定值的数据类型是dataType选项）</p>
+<p>默认值：null。</p>
+<ul>
+<li>dataType</li>
+</ul>
+<p>期望的服务器响应的数据类型，可以是null、xml、script或者json。dataType提供了指定的方法以便控制服务器的响应。这个指定的方法将被直接地反映到jQuery.httpData()方法中。dataType支持以下格式。</p>
+<ul>
+<li>xml。如果dataType被指定为xml，服务器返回内容将被作为XML来对待。同时，如果“success”回调函数被指定，responseXML的值将会传递给回调函数。</li>
+<li>json。如果dataType被指定为json，服务器返回内容将被执行，如果“success”回调函数被指定，返回的内容将会传递给回调函数。</li>
+<li>script。如果dataType被指定为script，服务器返回内容将被放在全局环境中执行。</li>
+</ul>
+<p>默认值：null。</p>
+<ul>
+<li>semantic</li>
+</ul>
+<p>是否需要定义为严格的语义格式。注意，普通的表单序列化要遵循的语义不能包括type 属性为image的input元素。假如服务器有严格的语义要求，而表单也至少包含一个type&#x3D;”image”元素的时候，那么必须设置semantic选项为true。</p>
+<p>默认值：false。</p>
+<ul>
+<li>resetForm</li>
+</ul>
+<p>表单是否在提交成功后被重置。</p>
+<p>默认值：null。</p>
+<ul>
+<li>clearForm</li>
+</ul>
+<p>表单是否在提交成功后被清空。</p>
+<p>默认值：null。</p>
+<ul>
+<li>iframe</li>
+</ul>
+<p>表单是否总是将服务器响应指向到一个iframe。iframe在文件上传时会很有用。</p>
+<p>默认值：false。</p>
+<ul>
+<li>data</li>
+</ul>
+<p>包含额外数据的对象通过form形式提交。</p>
+<p>[插图]</p>
+<ul>
+<li>error</li>
+</ul>
+<p>错误时的回调函数。</p>
+<ul>
+<li>beforeSerialize</li>
+</ul>
+<p>回调函数被调用前被序列化。它可以在调用之前检索其值的形式。它带有两个参数：form对象和ajaxForm&#x2F; ajaxSubmit传递过来的options对象。</p>
+<p>[插图]</p>
+<p>默认值：null。</p>
+<ul>
+<li>replaceTarget</li>
+</ul>
+<p>可选，与target选项一起使用。如果想将目标元素一起替换掉，请设为true，如果只想替换目标元素的内容，则设为false。</p>
+<p>默认值：false。在v2.43后增加。</p>
+<ul>
+<li>iframeSrc</li>
+</ul>
+<p>字符串值，当&#x2F;如果使用iframe时作为iframe的src属性。</p>
+<p>默认值：about:blank</p>
+<p>网页使用https协议时默认值为：javascript:false</p>
+<ul>
+<li>forceSync</li>
+</ul>
+<p>布尔值，当上传文件（或使用iframe选项）时，提交表单前为了消除短延迟，设置为true。延迟的使用是为了让浏览器渲染DOM更新前执行原有的表单submit。这时显示一条信息告知用户，如：“请稍等…”，会改善可用性。</p>
+<p>默认值：false。在v2.38后增加。</p>
+<ul>
+<li>uploadProgress</li>
+</ul>
+<p>上传进度信息（如果浏览器支持）回调函数。回调传递以下参数：<br>1）event：浏览器事件<br>2）position：位置（整数）<br>3）total：总长度（整数）<br>4）percentComplete：完成度（整数）</p>
+<p>默认值：null</p>
+<ul>
+<li>iframeTarget</li>
+</ul>
+<p>使用iframe元素作为响应文件上传目标。默认情况下，该插件将创建一个临时的iframe元素来捕捉上传文件时的反应。此选项允许您使用现有的iframe，如果你想。使用此选项时，插件对来自服务器的响应不作任何处理。</p>
+<p>默认值：null。在v2.76后增加。</p>
+<p>（3）Form插件实例</p>
+<p>[插图]</p>
+<p>注意，利用此Options对象，可以将值传给jQuery的$.ajax()方法。假如用户熟悉$.ajax()方法提供的options对象，那么可以利用它们来将Options对象传递给ajaxForm()方法和ajaxSubmit()方法。</p>
+<h2 id="F-3-SimpleModal插件API"><a href="#F-3-SimpleModal插件API" class="headerlink" title="F.3 SimpleModal插件API"></a>F.3 SimpleModal插件API</h2><p>API的官方网站地址为：<a target="_blank" rel="noopener" href="http://www.ericmmartin.com/projects/simplemodal/">http://www.ericmmartin.com/projects/simplemodal/</a></p>
+<center>表F-7 SimpleModal插件的API</center>
+
+<p>[插图]</p>
+<h2 id="F-4-Cookie插件API"><a href="#F-4-Cookie插件API" class="headerlink" title="F.4 Cookie插件API"></a>F.4 Cookie插件API</h2><p>API的官方网站地址为：<a target="_blank" rel="noopener" href="https://github.com/carhartl/jquery-cookie">https://github.com/carhartl/jquery-cookie</a></p>
+<ul>
+<li>写入Cookie。</li>
+</ul>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：“the_cookie”为待写入的Cookie名，“the_value”为待写入的值。</div>
+
+<ul>
+<li>删除Cookie。</li>
+</ul>
+<p>[插图]</p>
+<div style="border:1px solid;"><strong>注意</strong>：“the_cookie”为Cookie名，设置为null即删除此Cookie。必须使用与之前设置时相同的路径（path）和域名（domain），才可以正确删除Cookie。
+</div>
+
+<ul>
+<li>其他可选参数。</li>
+</ul>
+<p>[插图]</p>
+<div style="border:1px solid;">
+<strong>注意</strong>：
+- expires：（Number|Date）有效期。可以设置一个整数作为有效期（单位：天），也可以直接设置一个日期对象作为Cookie的过期日期。如果指定日期为负数，例如已经过去的日子，那么此Cookie将被删除；如果不设置或者设置为null，那么此Cookie将被当作Session Cookie处理，并且在浏览器关闭后删除。
+- path：（String）cookie的路径属性。默认是创建该Cookie的页面路径。
+- domain：（String）cookie的域名属性。默认是创建该Cookie的页面域名。
+- secure：（Boolean）如果设为true，那么此Cookie的传输会要求一个安全协议，例如HTTPS。
+
+</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/43daea3b/" title="6 附录F 插件API">https://lanlan2017.github.io/ReadingNotes/43daea3b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/b26ebe9/" rel="prev" title="7 附录G jQuery速查表">
+                  <i class="fa fa-chevron-left"></i> 7 附录G jQuery速查表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/e539086d/" rel="next" title="5 附录E jQuery加载并解析XML">
+                  5 附录E jQuery加载并解析XML <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/43daea3b/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/43daea3b/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="第6章 jQuery与Ajax的应用Ajax全称为“Asynchronous JavaScript and XML”（异步JavaScript和XML），它并不是指一种单一的技术，而是有机地利用了一系列交互式网页应用相关的技术所形成的结合体。它的出现，揭开了无刷新更新页面的新时代，并有代替传统的Web 方式和通过隐藏的框架来进行异步提交的趋势，是Web开发应用的一个里程碑。 6.1 Ajax的优势">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/ab9f19e/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="第6章 jQuery与Ajax的应用Ajax全称为“Asynchronous JavaScript and XML”（异步JavaScript和XML），它并不是指一种单一的技术，而是有机地利用了一系列交互式网页应用相关的技术所形成的结合体。它的出现，揭开了无刷新更新页面的新时代，并有代替传统的Web 方式和通过隐藏的框架来进行异步提交的趋势，是Web开发应用的一个里程碑。 6.1 Ajax的优势">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-13T04:53:16.000Z">
+<meta property="article:modified_time" content="2021-12-13T06:04:57.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/ab9f19e/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/ab9f19e/","path":"/ab9f19e/","title":"6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC6%E7%AB%A0-jQuery%E4%B8%8EAjax%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">第6章 jQuery与Ajax的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-1-Ajax%E7%9A%84%E4%BC%98%E5%8A%BF%E5%92%8C%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.</span> <span class="nav-text">6.1 Ajax的优势和不足</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-1-Ajax%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">2.1.</span> <span class="nav-text">6.1.1 Ajax的优势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E4%B8%8D%E9%9C%80%E8%A6%81%E6%8F%92%E4%BB%B6%E6%94%AF%E6%8C%81"><span class="nav-number">2.1.1.</span> <span class="nav-text">1．不需要插件支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E4%BC%98%E7%A7%80%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C"><span class="nav-number">2.1.2.</span> <span class="nav-text">2．优秀的用户体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E6%8F%90%E9%AB%98Web%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%80%A7%E8%83%BD"><span class="nav-number">2.1.3.</span> <span class="nav-text">3．提高Web程序的性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%8E%E5%87%8F%E8%BD%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%B8%A6%E5%AE%BD%E7%9A%84%E8%B4%9F%E6%8B%85"><span class="nav-number">2.1.4.</span> <span class="nav-text">4．减轻服务器和带宽的负担</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-2-Ajax%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.2.</span> <span class="nav-text">6.1.2 Ajax的不足</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9XMLHttpRequest%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%94%AF%E6%8C%81%E5%BA%A6%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.2.1.</span> <span class="nav-text">1．浏览器对XMLHttpRequest对象的支持度不足</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E7%A0%B4%E5%9D%8F%E6%B5%8F%E8%A7%88%E5%99%A8%E5%89%8D%E8%BF%9B%E3%80%81%E2%80%9C%E5%90%8E%E9%80%80%E2%80%9D%E6%8C%89%E9%92%AE%E7%9A%84%E6%AD%A3%E5%B8%B8%E5%8A%9F%E8%83%BD"><span class="nav-number">2.2.2.</span> <span class="nav-text">2．破坏浏览器前进、“后退”按钮的正常功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%8E%E5%AF%B9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E6%94%AF%E6%8C%81%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.2.3.</span> <span class="nav-text">3．对搜索引擎的支持的不足</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%8E%E5%BC%80%E5%8F%91%E5%92%8C%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E7%9A%84%E7%BC%BA%E4%B9%8F"><span class="nav-number">2.2.4.</span> <span class="nav-text">4．开发和调试工具的缺乏</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/ab9f19e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-13 12:53:16 / 修改时间：14:04:57" itemprop="dateCreated datePublished" datetime="2021-12-13T12:53:16+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC6%E7%AB%A0-jQuery%E4%B8%8EAjax%E7%9A%84%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">第6章 jQuery与Ajax的应用</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/ab9f19e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/ab9f19e/" data-xid="/ReadingNotes/ab9f19e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第6章-jQuery与Ajax的应用"><a href="#第6章-jQuery与Ajax的应用" class="headerlink" title="第6章 jQuery与Ajax的应用"></a>第6章 jQuery与Ajax的应用</h1><p>Ajax全称为“Asynchronous JavaScript and XML”（异步JavaScript和XML），它并不是指一种单一的技术，而是有机地利用了一系列交互式网页应用相关的技术所形成的结合体。它的出现，揭开了无刷新更新页面的新时代，并有代替传统的Web 方式和通过隐藏的框架来进行异步提交的趋势，是Web开发应用的一个里程碑。</p>
+<h1 id="6-1-Ajax的优势和不足"><a href="#6-1-Ajax的优势和不足" class="headerlink" title="6.1 Ajax的优势和不足"></a>6.1 Ajax的优势和不足</h1><h2 id="6-1-1-Ajax的优势"><a href="#6-1-1-Ajax的优势" class="headerlink" title="6.1.1 Ajax的优势"></a>6.1.1 Ajax的优势</h2><h3 id="1．不需要插件支持"><a href="#1．不需要插件支持" class="headerlink" title="1．不需要插件支持"></a>1．不需要插件支持</h3><p>Ajax不需要任何浏览器插件，就可以被绝大多数主流浏览器所支持，用户只需要允许JavaScript在浏览器上执行即可。</p>
+<h3 id="2．优秀的用户体验"><a href="#2．优秀的用户体验" class="headerlink" title="2．优秀的用户体验"></a>2．优秀的用户体验</h3><p>这是Ajax技术的最大优点，能在不刷新整个页面的前提下更新数据，这使得Web应用程序能更为迅速地回应用户的操作。</p>
+<h3 id="3．提高Web程序的性能"><a href="#3．提高Web程序的性能" class="headerlink" title="3．提高Web程序的性能"></a>3．提高Web程序的性能</h3><p>与传统模式相比，Ajax 模式在性能上的最大区别就在于传输数据的方式，在传统模式中，数据提交是通过表单（Form）来实现的，而数据获取是靠全页面刷新来重新获取整页的内容。Ajax模式只是通过XMLHttpRequest对象向服务器端提交希望提交的数据，即按需发送。</p>
+<h3 id="4．减轻服务器和带宽的负担"><a href="#4．减轻服务器和带宽的负担" class="headerlink" title="4．减轻服务器和带宽的负担"></a>4．减轻服务器和带宽的负担</h3><p>Ajax的工作原理相当于在用户和服务器之间加了—个中间层，使用户操作与服务器响应异步化。它在客户端创建Ajax引擎，把传统方式下的一些服务器负担的工作转移到客户端，便于客户端资源来处理，减轻服务器和带宽的负担。</p>
+<h2 id="6-1-2-Ajax的不足"><a href="#6-1-2-Ajax的不足" class="headerlink" title="6.1.2 Ajax的不足"></a>6.1.2 Ajax的不足</h2><p>世界上并没有完美的事物，同样Ajax也并不是一项非常完美的技术。Ajax主要有以下几点不足之处。</p>
+<h3 id="1．浏览器对XMLHttpRequest对象的支持度不足"><a href="#1．浏览器对XMLHttpRequest对象的支持度不足" class="headerlink" title="1．浏览器对XMLHttpRequest对象的支持度不足"></a>1．浏览器对XMLHttpRequest对象的支持度不足</h3><p>Ajax的不足之一首先来自于浏览器。Internet Explorer 在 5.0 及以后的版本才支持 XML HttpRequest对象（现阶段大部分客户端上的IE浏览器是IE 6及以上），Mozilla、Netscape等浏览器支持XMLHttpRequest则更在其后。为了使得Ajax应用能在各个浏览器中正常运行，程序员必须花费大量的精力编码以兼顾各个浏览器之间的差别，来让Ajax应用能够很好地兼容各个浏览器。这使得Ajax开发的难度比普通的Web开发高出很多，许多程序员因此对Ajax望而生畏。</p>
+<h3 id="2．破坏浏览器前进、“后退”按钮的正常功能"><a href="#2．破坏浏览器前进、“后退”按钮的正常功能" class="headerlink" title="2．破坏浏览器前进、“后退”按钮的正常功能"></a>2．破坏浏览器前进、“后退”按钮的正常功能</h3><p>在传统的网页中，用户经常会习惯性的使用浏览器自带的“前进”和“后退”按钮，然而Ajax改变了此Web浏览习惯。在Ajax中“前进”和“后退”按钮的功能都会失效，虽然可以通过一定的方法（添加锚点）来使得用户可以使用“前进”和“后退”按钮，但相对于传统的方式却麻烦了很多，对于大多数程序员来说宁可放弃前进、后退的功能，也不愿意在繁琐的逻辑中去处理该问题。然而，对于用户来说，他们经常会碰到这种情况，当单击一个按钮触发一个Ajax交互后又觉得不想这样做，接着就去习惯性地单击“后退”按钮，结果发生了最不愿意看到的结果，浏览器后退到了先前的一个页面，通过Ajax交互得到的内容完全消失了。</p>
+<h3 id="3．对搜索引擎的支持的不足"><a href="#3．对搜索引擎的支持的不足" class="headerlink" title="3．对搜索引擎的支持的不足"></a>3．对搜索引擎的支持的不足</h3><p>对于搜索引擎的支持也是Ajax的一项缺憾。通常搜索引擎都是通过爬虫程序来对互联网上的数以亿计的海量数据来进行搜索整理的，然而爬虫程序现在还不能理解那些奇怪的JavaScript代码和因此引起的页面内容的变化，这使得应用Ajax的站点在网络推广上相对于传统站点明显处于劣势。</p>
+<h3 id="4．开发和调试工具的缺乏"><a href="#4．开发和调试工具的缺乏" class="headerlink" title="4．开发和调试工具的缺乏"></a>4．开发和调试工具的缺乏</h3><p>JavaScript是Ajax的重要组成部分，在目前，由于缺少很好的JavaScript开发和调试工具，使很多Web开发者对JavaScript望而生畏，这对于编写Ajax代码就更加困难了。同时，目前许多Web开发者已经习惯使用可视化的工具，对亲自动手编写代码有畏惧感，这也在一定程度上影响了大家对Ajax的应用。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/ab9f19e/" title="6.0 第6章 jQuery与Ajax的应用 6.1 Ajax的优势和不足">https://lanlan2017.github.io/ReadingNotes/ab9f19e/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/aaa613d6/" rel="prev" title="5.4 小结_第5章 jQuery对表单、表格的操作及更多应用">
+                  <i class="fa fa-chevron-left"></i> 5.4 小结_第5章 jQuery对表单、表格的操作及更多应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/d658a1a0/" rel="next" title="6.2 Ajax的XMLHttpRequest对象">
+                  6.2 Ajax的XMLHttpRequest对象 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/ab9f19e/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/ab9f19e/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

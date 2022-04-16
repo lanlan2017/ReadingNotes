@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="30.1 工厂方法模式VS建造者模式工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程， 旨在通过一步一步地精确构造创建出一个复杂的对象。我们举个简单例子来说明两者的差异，如要制造一个超人，如果使用工厂方法模式，直接产生出来的就是一个力大无穷、能够飞翔、内裤外穿的超人；而如果使用建造者模式，则需要组装手、头、脚、躯干等部分，然后再把内裤外穿，于是一个超人就诞生了。纯粹使用文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30.1 工厂方法模式VS建造者模式">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/d9046a1f/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="30.1 工厂方法模式VS建造者模式工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程， 旨在通过一步一步地精确构造创建出一个复杂的对象。我们举个简单例子来说明两者的差异，如要制造一个超人，如果使用工厂方法模式，直接产生出来的就是一个力大无穷、能够飞翔、内裤外穿的超人；而如果使用建造者模式，则需要组装手、头、脚、躯干等部分，然后再把内裤外穿，于是一个超人就诞生了。纯粹使用文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930154828.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930155136.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-09-30T07:55:37.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930154828.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/d9046a1f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/d9046a1f/","path":"/d9046a1f/","title":"30.1 工厂方法模式VS建造者模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>30.1 工厂方法模式VS建造者模式 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#30-1-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8FVS%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">30.1 工厂方法模式VS建造者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#30-1-1-%E6%8C%89%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E5%BB%BA%E9%80%A0%E8%B6%85%E4%BA%BA"><span class="nav-number">1.1.</span> <span class="nav-text">30.1.1 按工厂方法建造超人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-1-2-%E6%8C%89%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%B6%85%E4%BA%BA"><span class="nav-number">1.2.</span> <span class="nav-text">30.1.2 按建造者模式建造超人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-1-3-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.3.</span> <span class="nav-text">30.1.3 最佳实践</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/d9046a1f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="30.1 工厂方法模式VS建造者模式 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          30.1 工厂方法模式VS建造者模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-27 19:57:33" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-30 15:55:37" itemprop="dateModified" datetime="2021-09-30T15:55:37+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/" itemprop="url" rel="index"><span itemprop="name">3 第三部分 谁的地盘谁做主 ——设计模式PK</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/%E7%AC%AC30%E7%AB%A0-%E5%88%9B%E5%BB%BA%E7%B1%BB%E6%A8%A1%E5%BC%8F%E5%A4%A7PK/" itemprop="url" rel="index"><span itemprop="name">第30章 创建类模式大PK</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/d9046a1f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/d9046a1f/" data-xid="/ReadingNotes/d9046a1f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="30-1-工厂方法模式VS建造者模式"><a href="#30-1-工厂方法模式VS建造者模式" class="headerlink" title="30.1 工厂方法模式VS建造者模式"></a>30.1 工厂方法模式VS建造者模式</h1><p>工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程， 旨在通过一步一步地精确构造创建出一个复杂的对象。我们举个简单例子来说明两者的差异，如要制造一个超人，如果使用工厂方法模式，直接产生出来的就是一个力大无穷、能够飞翔、内裤外穿的超人；而如果使用建造者模式，则需要组装手、头、脚、躯干等部分，然后再把内裤外穿，于是一个超人就诞生了。纯粹使用文字来描述比较枯燥，我们还是通过程序来更加清晰地认识两者的差别。</p>
+<h2 id="30-1-1-按工厂方法建造超人"><a href="#30-1-1-按工厂方法建造超人" class="headerlink" title="30.1.1 按工厂方法建造超人"></a>30.1.1 按工厂方法建造超人</h2><p>首先，按照工厂方法模式创建出一个超人，类图如图30-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930154828.png" alt="image-20210930154828157"></p>
+<center>图30-1 按工厂方法建造超人</center>
+
+<p>类图中我们按照年龄段把超人分为两种类型：成年超人（如克拉克、超能先生）和未成年超人（如Dash、Jack）。这是一个非常正宗的工厂方法模式，定义一个产品的接口，然后再定义两个实现，通过超人制造工厂制造超人。想想看我们对超人最大印象是什么？当然是他的超能力，我们以specialTalent（特殊天赋）方法来代表，先看抽象产品类，如代码清单30-1所示。</p>
+<p>代码清单30-1 超人接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ISuperMan</span> &#123;</span><br><span class="line">    <span class="comment">//每个超人都有特殊技能</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">specialTalent</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>产品的接口定义好了，我们再来看具体的产品。先看成年超人，很简单，如代码清单30-2所示。</p>
+<p>代码清单30-2 成年超人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdultSuperMan</span> <span class="keyword">implements</span> <span class="title class_">ISuperMan</span> &#123;</span><br><span class="line">    <span class="comment">//超能先生</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">specialTalent</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;超人力大无穷&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>未成年超人的代码如代码清单30-3所示。</p>
+<p>代码清单30-3 未成年超人</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChildSuperMan</span> <span class="keyword">implements</span> <span class="title class_">ISuperMan</span> &#123;</span><br><span class="line">    <span class="comment">//超能先生的三个孩子</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">specialTalent</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;小超人的能力是刀枪不入、快速运动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>产品都具备，那我们编写一个工厂类，其意图就是生产超人，具体是成年超人还是未成年超人，则由客户端决定，如代码清单30-4所示。</p>
+<p>代码清单30-4 超人制造工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperManFactory</span> &#123;</span><br><span class="line">    <span class="comment">//定义一个生产超人的工厂</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ISuperMan <span class="title function_">createSuperMan</span><span class="params">(String type)</span>&#123;</span><br><span class="line">        <span class="comment">//根据输入参数产生不同的超人</span></span><br><span class="line">        <span class="keyword">if</span>(type.equalsIgnoreCase(<span class="string">&quot;adult&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">//生产成人超人</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AdultSuperMan</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(type.equalsIgnoreCase(<span class="string">&quot;child&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">//生产未成年超人</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ChildSuperMan</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>产品有了，工厂类也有了，剩下的工作就是开始生产超人。这也非常简单，如代码清单30-5所示。</p>
+<p>代码清单30-5 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="comment">//模拟生产超人</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//生产一个成年超人</span></span><br><span class="line">        <span class="type">ISuperMan</span> <span class="variable">adultSuperMan</span> <span class="operator">=</span> SuperManFactory.createSuperMan(<span class="string">&quot;adult&quot;</span>);</span><br><span class="line">        <span class="comment">//展示一下超人的技能</span></span><br><span class="line">        adultSuperMan.specialTalent();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建立了一个超人生产工厂，年复一年地生产超人，对于具体生产出的产品，不管是成年超人还是未成年超人，都是一个模样：深蓝色紧身衣、胸前S标记、内裤外穿，没有特殊的地方。但是我们的目的达到了——生产出超人，拯救全人类，这就是我们的意图。具体怎么生产、怎么组装，这不是工厂方法模式要考虑的，也就是说，工厂模式关注的是一个产品整体，生产出的产品应该具有相似的功能和架构。</p>
+<hr>
+<p><strong>注意</strong> 通过工厂方法模式生产出对象，然后由客户端进行对象的其他操作，但是并不代 表所有生产出的对象都必须具有相同的状态和行为，它是由产品所决定。</p>
+<hr>
+<h2 id="30-1-2-按建造者模式建造超人"><a href="#30-1-2-按建造者模式建造超人" class="headerlink" title="30.1.2 按建造者模式建造超人"></a>30.1.2 按建造者模式建造超人</h2><p>我们再来看看建造者模式是如何生产超人的,如图30-2所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930155136.png" alt="image-20210930155136413"></p>
+<center>图30-2 按建造者模式生产超人</center>
+又是一个典型的建造者模式！哎，不对呀！通用模式上抽象建造者与产品类没有关系呀！是的，我们当然可以加强了，我们在抽象建造者上使用了模板方法模式，每一个建造者都必须返回一个产品，但是产品是如何制造的，则由各个建造者自己负责。我们来看看程序，先看产品类，如代码清单30-6所示。
+
+<p>代码清单30-6 超人产品</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperMan</span> &#123;</span><br><span class="line">    <span class="comment">//超人的躯体</span></span><br><span class="line">    <span class="keyword">private</span> String body;</span><br><span class="line">    <span class="comment">//超人的特殊技能</span></span><br><span class="line">    <span class="keyword">private</span> String specialTalent;</span><br><span class="line">    <span class="comment">//超人的标志</span></span><br><span class="line">    <span class="keyword">private</span> String specialSymbol;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBody</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> body;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBody</span><span class="params">(String body)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.body = body;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getSpecialTalent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> specialTalent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSpecialTalent</span><span class="params">(String specialTalent)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.specialTalent = specialTalent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getSpecialSymbol</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> specialSymbol;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSpecialSymbol</span><span class="params">(String specialSymbol)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.specialSymbol = specialSymbol;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>超人这个产品是由三部分组成：躯体、特殊技能、身份标记，这就类似于电子产品，首先生产出一个固件，然后再安装一个灵魂（软件驱动），最后再打上产品标签。完事了！一个崭新的产品就诞生了！我们的超人也是这样生产的，先生产一个普通的躯体，然后注入特殊技能，最后打上S标签，一个超人生产完毕。我们再来看一下建造者的抽象定义，如代码清单30-7所示。</p>
+<p>代码清单30-7 抽象建造者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="comment">//定义一个超人的应用</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> <span class="type">SuperMan</span> <span class="variable">superMan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SuperMan</span>();</span><br><span class="line">    <span class="comment">//构建出超人的躯体</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBody</span><span class="params">(String body)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.superMan.setBody(body);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//构建出超人的特殊技能</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSpecialTalent</span><span class="params">(String st)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.superMan.setSpecialTalent(st);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//构建出超人的特殊标记</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSpecialSymbol</span><span class="params">(String ss)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.superMan.setSpecialSymbol(ss);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//构建出一个完整的超人</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> SuperMan <span class="title function_">getSuperMan</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个典型的模板方法模式，超人的各个部件（躯体、灵魂、标志）都准备好了，具体怎么组装则是由实现类来决定。我们先来看成年超人，如代码清单30-8所示。</p>
+<p>代码清单30-8 成年超人建造者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdultSuperManBuilder</span> <span class="keyword">extends</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> SuperMan <span class="title function_">getSuperMan</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.setBody(<span class="string">&quot;强壮的躯体&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.setSpecialTalent(<span class="string">&quot;会飞行&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.setSpecialSymbol(<span class="string">&quot;胸前带S标记&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.superMan;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>怎么回事？在第11章中讲解建造者模式的时候在产品中使用了模板方法模式，在这里怎么把模板方法模式迁移到建造者了？怎么会这样？你是不是在发出这样的疑问？别疑问了！ 设计模式只是提供了一个解决问题的意图：复杂对象的构建与它的表示分离，而没有具体定出一个设计模式必须是这样的实现，必须是这样的代码，灵活运用模式才是其根本，别学死板了。</p>
+<p>我们继续看未成年超人的建造者，如代码清单30-9所示。</p>
+<p>代码清单30-9 未成年超人建造者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChildSuperManBuilder</span> <span class="keyword">extends</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> SuperMan <span class="title function_">getSuperMan</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.setBody(<span class="string">&quot;强壮的躯体&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.setSpecialTalent(<span class="string">&quot;刀枪不入&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.setSpecialSymbol(<span class="string">&quot;胸前带小S标记&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.superMan;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大家注意看我们这两个具体的建造者，它们都关注了产品的各个部分，在某些应用场景下甚至会关心产品的构建顺序，即使是相同的部件，装配顺序不同，产生的结果也不同，这也正是建造者模式的意图：通过不同的部件、不同装配产生不同的复杂对象。我们再来看导演类，如代码清单30-10所示。</p>
+<p>代码清单30-10 导演类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Director</span> &#123;</span><br><span class="line">    <span class="comment">//两个建造者的应用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Builder</span> <span class="variable">adultBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AdultSuperManBuilder</span>();</span><br><span class="line">    <span class="comment">//未成年超人的建造者</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Builder</span> <span class="variable">childBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChildSuperManBuilder</span>();</span><br><span class="line">    <span class="comment">//建造一个成年、会飞行的超人</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SuperMan <span class="title function_">getAdultSuperMan</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> adultBuilder.getSuperMan();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//建造一个未成年、刀枪不入的超人</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SuperMan <span class="title function_">getChildSuperMan</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> childBuilder.getSuperMan();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这很简单，不多说了！看看场景类是如何调用的，如代码清单30-11所示。</p>
+<p>代码清单30-11 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//建造一个成年超人</span></span><br><span class="line">        <span class="type">SuperMan</span> <span class="variable">adultSuperMan</span> <span class="operator">=</span> Director.getAdultSuperMan();</span><br><span class="line">        <span class="comment">//展示一下超人的信息</span></span><br><span class="line">        adultSuperMan.getSpecialTalent();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个场景类的写法与工厂方法模式是相同的，但是你可以看到，在建立超人的过程中， 建造者必须关注超人的各个部件，而工厂方法模式则只关注超人的整体，这就是两者的区别。</p>
+<h2 id="30-1-3-最佳实践"><a href="#30-1-3-最佳实践" class="headerlink" title="30.1.3 最佳实践"></a>30.1.3 最佳实践</h2><p>工厂方法模式和建造者模式都属于对象创建类模式，都用来创建类的对象。但它们之间的区别还是比较明显的。</p>
+<ul>
+<li>意图不同</li>
+</ul>
+<p>在工厂方法模式里，我们关注的是一个产品整体，如超人整体，无须关心产品的各部分是如何创建出来的；但在建造者模式中，一个具体产品的产生是依赖各个部件的产生以及装配顺序，它关注的是“由零件一步一步地组装出产品对象”。简单地说，工厂模式是一个对象创建的粗线条应用，建造者模式则是通过细线条勾勒出一个复杂对象，关注的是产品组成部分的创建过程。</p>
+<ul>
+<li>产品的复杂度不同</li>
+</ul>
+<p>工厂方法模式创建的产品一般都是单一性质产品，如成年超人，都是一个模样，而建造者模式创建的则是一个复合产品，它由各个部件复合而成，部件不同产品对象当然不同。这不是说工厂方法模式创建的对象简单，而是指它们的粒度大小不同。一般来说，工厂方法模式的对象粒度比较粗，建造者模式的产品对象粒度比较细。</p>
+<p>两者的区别有了，那在具体的应用中，我们该如何选择呢？是用工厂方法模式来创建对象，还是用建造者模式来创建对象，这完全取决于我们在做系统设计时的意图，如果需要详细关注一个产品部件的生产、安装步骤，则选择建造者，否则选择工厂方法模式。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/d9046a1f/" title="30.1 工厂方法模式VS建造者模式">https://lanlan2017.github.io/ReadingNotes/d9046a1f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/bfca30c0/" rel="prev" title="31.1 代理模式VS装饰模式">
+                  <i class="fa fa-chevron-left"></i> 31.1 代理模式VS装饰模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/bdefe0c6/" rel="next" title="29.2 桥梁模式的定义">
+                  29.2 桥梁模式的定义 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/d9046a1f/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/d9046a1f/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

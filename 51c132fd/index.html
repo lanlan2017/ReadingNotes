@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="5.1.1 JDBC&amp;nbsp;5.1.1.1 连接到数据库&amp;nbsp;如何打开一个数据库连接&amp;nbsp;必须在连接数据库之前完成驱动程序的加载&amp;nbsp;Class.forName加载驱动&amp;nbsp;要实现在java类路径中放入驱动程序jar包&amp;nbsp;其他数据库的驱动名称&amp;nbsp;协议&amp;nbsp;5.1.1.2 向数据库系统中传递SQL语句&amp;nbsp;通过数据库连接创建Statement对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.1.1 JDBC">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/51c132fd/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="5.1.1 JDBC&amp;nbsp;5.1.1.1 连接到数据库&amp;nbsp;如何打开一个数据库连接&amp;nbsp;必须在连接数据库之前完成驱动程序的加载&amp;nbsp;Class.forName加载驱动&amp;nbsp;要实现在java类路径中放入驱动程序jar包&amp;nbsp;其他数据库的驱动名称&amp;nbsp;协议&amp;nbsp;5.1.1.2 向数据库系统中传递SQL语句&amp;nbsp;通过数据库连接创建Statement对">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-23T05:30:41.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:56.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/51c132fd/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/51c132fd/","path":"/51c132fd/","title":"5.1.1 JDBC"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>5.1.1 JDBC | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-JDBC"><span class="nav-number">1.</span> <span class="nav-text">5.1.1 JDBC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-1-%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">5.1.1.1 连接到数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.1.</span> <span class="nav-text">如何打开一个数据库连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%85%E9%A1%BB%E5%9C%A8%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8B%E5%89%8D%E5%AE%8C%E6%88%90%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.2.</span> <span class="nav-text">必须在连接数据库之前完成驱动程序的加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-forName%E5%8A%A0%E8%BD%BD%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.2.1.</span> <span class="nav-text">Class.forName加载驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E5%AE%9E%E7%8E%B0%E5%9C%A8java%E7%B1%BB%E8%B7%AF%E5%BE%84%E4%B8%AD%E6%94%BE%E5%85%A5%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8Fjar%E5%8C%85"><span class="nav-number">2.2.2.</span> <span class="nav-text">要实现在java类路径中放入驱动程序jar包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%A9%B1%E5%8A%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">其他数据库的驱动名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.4.</span> <span class="nav-text">协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-2-%E5%90%91%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%BC%A0%E9%80%92SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.</span> <span class="nav-text">5.1.1.2 向数据库系统中传递SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%88%9B%E5%BB%BAStatement%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.1.</span> <span class="nav-text">通过数据库连接创建Statement对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#executeQuery%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">executeQuery方法执行查询语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#executeUpdate%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E8%B4%B9%E9%9D%9E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5-%E6%9B%B4%E6%96%B0-%E6%8F%92%E5%85%A5%E5%88%A0%E9%99%A4-%E5%BB%BA%E8%A1%A8%E7%AD%89"><span class="nav-number">3.3.</span> <span class="nav-text">executeUpdate方法执行费非查询语句 更新 插入删除 建表等</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-3-%E8%8E%B7%E5%8F%96%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">5.1.1.3 获取查询结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#executeQuery%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E9%9B%86"><span class="nav-number">4.1.</span> <span class="nav-text">executeQuery方法返回结果集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E9%9B%86%E7%9A%84next%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">结果集的next方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E9%9B%86%E7%9A%84get%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">结果集的get方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E9%9B%86get%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">4.4.</span> <span class="nav-text">结果集get方法的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java%E6%88%90%E5%AE%BF%E7%BB%93%E6%9D%9F%E5%90%8E%E4%B8%80%E5%AE%9A%E8%A6%81%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.5.</span> <span class="nav-text">java成宿结束后一定要关闭数据库连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-4-%E9%A2%84%E5%A4%87%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">5.1.1.4 预备语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Connection%E7%B1%BB%E7%9A%84prepareStatement%E6%96%B9%E6%B3%95%E5%88%9B%E5%BB%BAPreparedStatement%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.1.</span> <span class="nav-text">使用Connection类的prepareStatement方法创建PreparedStatement对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E9%A2%84%E5%A4%87%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.2.</span> <span class="nav-text">优先使用预备语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E8%AF%AD%E5%8F%A5%E6%9B%B4%E5%8A%A0%E9%AB%98%E6%95%88"><span class="nav-number">5.3.</span> <span class="nav-text">预备语句更加高效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E8%AF%AD%E5%8F%A5%E5%8F%AF%E6%A3%80%E6%9F%A5%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5"><span class="nav-number">5.4.</span> <span class="nav-text">预备语句可检查用户输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E8%AF%AD%E5%8F%A5%E5%8F%AF%E9%98%B2%E6%AD%A2SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">5.5.</span> <span class="nav-text">预备语句可防止SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E6%89%A7%E8%A1%8C%E5%A4%9A%E6%9D%A1SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">5.6.</span> <span class="nav-text">一次执行多条SQL语句的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-5-%E5%8F%AF%E8%B0%83%E7%94%A8%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">5.1.1.5 可调用语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-6-%E5%85%83%E6%95%B0%E6%8D%AE%E7%89%B9%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">5.1.1.6 元数据特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E9%9B%86%E5%85%83%E6%95%B0%E6%8D%AE-ResultsetMetaData"><span class="nav-number">7.1.</span> <span class="nav-text">结果集元数据 ResultsetMetaData</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96ResultsetMetaData%E5%AF%B9%E8%B1%A1-Resultset-getMetaData%E6%96%B9%E6%B3%95"><span class="nav-number">7.1.1.</span> <span class="nav-text">如何获取ResultsetMetaData对象 Resultset.getMetaData方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%83%E6%95%B0%E6%8D%AE-DatabaseMetaData"><span class="nav-number">7.2.</span> <span class="nav-text">数据库元数据 DatabaseMetaData</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96DatabaseMetaData-Connection%E5%AE%9E%E4%BE%8B-getMetaData%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.1.</span> <span class="nav-text">如何获取DatabaseMetaData Connection实例.getMetaData方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%AC%E7%9C%81%E4%BF%A1%E6%81%AF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.2.</span> <span class="nav-text">其他获取数据库本省信息的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B6%E4%BB%96%E4%BF%A1%E6%81%AF"><span class="nav-number">7.2.3.</span> <span class="nav-text">获取数据库其他信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF%E5%8F%AF%E4%BB%A5%E6%98%AF%E4%BB%A3%E7%A0%81%E6%9B%B4%E9%80%9A%E7%94%A8"><span class="nav-number">7.2.4.</span> <span class="nav-text">元数据信息可以是代码更通用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-1-1-7-%E5%85%B6%E4%BB%96%E7%89%B9%E6%80%A7"><span class="nav-number">8.</span> <span class="nav-text">5.1.1.7 其他特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%88%96%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4"><span class="nav-number">8.1.</span> <span class="nav-text">打开或关闭自动提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4-%E5%BC%80%E5%90%AF%E4%BA%8B%E5%8A%A1"><span class="nav-number">8.1.1.</span> <span class="nav-text">关闭自动提交 开启事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4"><span class="nav-number">8.1.2.</span> <span class="nav-text">开始自动提交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%A4%A7%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">8.2.</span> <span class="nav-text">处理大对象数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">8.2.1.</span> <span class="nav-text">读取数据库中的大对象数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%A4%A7%E5%AF%B9%E8%B1%A1%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD"><span class="nav-number">8.2.2.</span> <span class="nav-text">将大对象数据写入数据库中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E9%9B%86row-set"><span class="nav-number">8.3.</span> <span class="nav-text">行集row set</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/51c132fd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="5.1.1 JDBC | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5.1.1 JDBC
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-23 13:30:41" itemprop="dateCreated datePublished" datetime="2019-10-23T13:30:41+08:00">2019-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:56" itemprop="dateModified" datetime="2019-12-17T02:00:56+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第一部分 关系数据库</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC5%E7%AB%A0-%E9%AB%98%E7%BA%A7SQL/" itemprop="url" rel="index"><span itemprop="name">第5章 高级SQL</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AC%AC5%E7%AB%A0-%E9%AB%98%E7%BA%A7SQL/5-1-%E4%BD%BF%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">5.1 使用程序设计语言访问数据库</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/51c132fd/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/51c132fd/" data-xid="/ReadingNotes/51c132fd/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/51c132fd/#5-1-1-JDBC" class="header_1">5.1.1 JDBC</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-1-连接到数据库" class="header_1">5.1.1.1 连接到数据库</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#如何打开一个数据库连接" class="header_2">如何打开一个数据库连接</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#必须在连接数据库之前完成驱动程序的加载" class="header_2">必须在连接数据库之前完成驱动程序的加载</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#Class-forName加载驱动" class="header_3">Class.forName加载驱动</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#要实现在java类路径中放入驱动程序jar包" class="header_3">要实现在java类路径中放入驱动程序jar包</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#其他数据库的驱动名称" class="header_3">其他数据库的驱动名称</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#协议" class="header_3">协议</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-2-向数据库系统中传递SQL语句" class="header_1">5.1.1.2 向数据库系统中传递SQL语句</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#通过数据库连接创建Statement对象" class="header_2">通过数据库连接创建Statement对象</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#-executeQuery-方法执行查询语句" class="header_2">`executeQuery`方法执行查询语句</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#-executeUpdate-方法执行费非查询语句-更新-插入删除-建表等" class="header_2">`executeUpdate`方法执行费非查询语句 更新 插入删除 建表等</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-3-获取查询结果" class="header_1">5.1.1.3 获取查询结果</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#executeQuery方法返回结果集" class="header_2">executeQuery方法返回结果集</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#结果集的next方法" class="header_2">结果集的next方法</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#结果集的get方法" class="header_2">结果集的get方法</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#结果集get方法的参数" class="header_2">结果集get方法的参数</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#java成宿结束后一定要关闭数据库连接" class="header_2">java成宿结束后一定要关闭数据库连接</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-4-预备语句" class="header_1">5.1.1.4 预备语句</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#使用Connection类的prepareStatement方法创建PreparedStatement对象" class="header_2">使用Connection类的prepareStatement方法创建PreparedStatement对象</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#优先使用预备语句" class="header_2">优先使用预备语句</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#预备语句更加高效" class="header_2">预备语句更加高效</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#预备语句可检查用户输入" class="header_2">预备语句可检查用户输入</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#预备语句可防止SQL注入" class="header_2">预备语句可防止SQL注入</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#一次执行多条SQL语句的情况" class="header_2">一次执行多条SQL语句的情况</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-5-可调用语句" class="header_1">5.1.1.5 可调用语句</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-6-元数据特性" class="header_1">5.1.1.6 元数据特性</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#结果集元数据-ResultsetMetaData" class="header_2">结果集元数据 ResultsetMetaData</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#如何获取ResultsetMetaData对象-Resultset-getMetaData-方法" class="header_3">如何获取ResultsetMetaData对象 `Resultset.getMetaData`方法</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#数据库元数据-DatabaseMetaData" class="header_2">数据库元数据 DatabaseMetaData</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#如何获取-DatabaseMetaData-Connection实例-getMetaData-方法" class="header_3">如何获取`DatabaseMetaData` `Connection实例.getMetaData`方法</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#其他获取数据库本省信息的方法" class="header_3">其他获取数据库本省信息的方法</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#模板" class="header_4">模板</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#获取数据库其他信息" class="header_3">获取数据库其他信息</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#元数据信息可以是代码更通用" class="header_3">元数据信息可以是代码更通用</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#5-1-1-7-其他特性" class="header_1">5.1.1.7 其他特性</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#打开或关闭自动提交" class="header_2">打开或关闭自动提交</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#关闭自动提交-开启事务" class="header_3">关闭自动提交 开启事务</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#开始自动提交" class="header_3">开始自动提交</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#处理大对象数据" class="header_2">处理大对象数据</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#读取数据库中的大对象数据" class="header_3">读取数据库中的大对象数据</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#将大对象数据写入数据库中" class="header_3">将大对象数据写入数据库中</a>&nbsp;<br><a href="/ReadingNotes/51c132fd/#行集row-set" class="header_2">行集row set</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="5-1-1-JDBC"><a href="#5-1-1-JDBC" class="headerlink" title="5.1.1 JDBC"></a>5.1.1 JDBC</h1><p><code>JDBC</code>标准定义了<code>Java</code>程序连接数据库服务器的应用程序接口(<code>Application Program Interface,API</code>),<code>JDBC</code>原来是<code>Java</code>数据库连接(<code>Java Database Connectivity</code>)的缩写,但其全称现在已经不用了)。<br><code>Java</code>程序必须引用<code>java.sql.*</code>,它包含了<code>JDBC</code>所提供功能的接口定义。</p>
+<h1 id="5-1-1-1-连接到数据库"><a href="#5-1-1-1-连接到数据库" class="headerlink" title="5.1.1.1 连接到数据库"></a>5.1.1.1 连接到数据库</h1><p>要在<code>Java</code>程序中访问数据库,首先要打开一个数据库连接。这一步需要选择要使用哪个数据库,例如,可以是你的机器上的一个<code>Oracle</code>实例,也可以是运行在另一台机器上的一个<code>PostgreSQL</code>数据库。只有在打开数据库连接以后,<code>Java</code>程序才能执行<code>SQL</code>语句。</p>
+<h2 id="如何打开一个数据库连接"><a href="#如何打开一个数据库连接" class="headerlink" title="如何打开一个数据库连接"></a>如何打开一个数据库连接</h2><p>可以通过调用<code>java.sql</code>包中的<code>DriverManager</code>类的<code>getConnection</code>方法来打开一个数据库连接。该方法有三个参数:</p>
+<ol>
+<li><code>URL</code>:<code>getConnection</code>方法的第一个参数是以字符串类型表示的<code>URL</code>,指明服务器所在的<strong>主机名称</strong>以及可能包含的其他信息,例如:<ul>
+<li>与数据库通信所用的协议,</li>
+<li>数据库系统用来通信的端口号,</li>
+<li>还有服务器端使用的特定数据库。</li>
+</ul>
+</li>
+</ol>
+<p>注意<code>JDBC</code>只是指定<code>API</code>而不指定通信协议。一个<code>JDBC</code>驱动器可能支持多种协议,我们必须指定一个数据库和驱动器都支持的协议。协议的详细内容是由<code>提供商</code>设定的。<br>2. 数据库用户:<code>getConnection</code>方法的第二个参数用于指定一个数据库用户标识,它为字符串类型<br>3. 密码:<code>getConnection</code>方法的第三个参数是密码,它也是字符串类型。(注意,把密码直接写在<code>JDBC</code>代码中会增加安全性隐患,因为你的代码有可能会被某些未被授权的用户所访问。)</p>
+<h2 id="必须在连接数据库之前完成驱动程序的加载"><a href="#必须在连接数据库之前完成驱动程序的加载" class="headerlink" title="必须在连接数据库之前完成驱动程序的加载"></a>必须在连接数据库之前完成驱动程序的加载</h2><p>每个支持<code>JDBC</code>的数据库产品都会提供一个<code>JDBC</code>驱动程序(<code>JDBC driver</code>),该<strong>驱动程序必须被动态加载才能实现<code>Java</code>对数据库的访问</strong>。事实上,<strong>必须在连接数据库之前完成驱动程序的加载</strong>。</p>
+<h3 id="Class-forName加载驱动"><a href="#Class-forName加载驱动" class="headerlink" title="Class.forName加载驱动"></a>Class.forName加载驱动</h3><p>调用<code>Class.forName</code>方法完成驱动程序的加载,在调用时需要通过参数来<strong>指定一个实现了<code>java.sql.Driver</code>接口的实体类</strong>。<code>java.sql.Driver</code>接口的功能是为了实现不同层面的操作之间的转换,一边是与产品类型无关的<code>JDBC</code>操作,另一边是与产品相关的、在所使用的特定数据库管理系统中完成的操作。</p>
+<h3 id="要实现在java类路径中放入驱动程序jar包"><a href="#要实现在java类路径中放入驱动程序jar包" class="headerlink" title="要实现在java类路径中放入驱动程序jar包"></a>要实现在java类路径中放入驱动程序jar包</h3><p><code>Oracle</code>的驱动程序:<code>oracle.jdbe.driver.OracleDriver</code>。该驱动程序包含在一个<code>.jar</code>文件里,可以从提供商的网站下载,然后放在<code>Java</code>的类路径( <code>classpath</code>)里,用于<code>Java</code>编译器访问。</p>
+<h3 id="其他数据库的驱动名称"><a href="#其他数据库的驱动名称" class="headerlink" title="其他数据库的驱动名称"></a>其他数据库的驱动名称</h3><table>
+<thead>
+<tr>
+<th align="left">数据库</th>
+<th align="left">对应的驱动名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>IBM DB2</code>数据库驱动</td>
+<td align="left"><code>com.ibm.db2.jdbe.app.DB2Driver</code>;</td>
+</tr>
+<tr>
+<td align="left"><code>Microsoft SQL Server</code>数据库驱动</td>
+<td align="left"><code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code>;</td>
+</tr>
+<tr>
+<td align="left"><code>Postgre SQL</code>数据库驱动</td>
+<td align="left"><code>org.postgresqL.Driver</code>;</td>
+</tr>
+<tr>
+<td align="left"><code>MySQL</code>数据库驱动</td>
+<td align="left"><code>com.mysql.jdbc.Driver</code>;</td>
+</tr>
+</tbody></table>
+<p><code>Sun</code>公司还提供了一种”<strong>桥接驱动器</strong>“,可以把<code>JDBC</code>调用转换成<code>ODBC</code>。该驱动仅是用于那些支持<code>ODBC</code>但不支持<code>JDBC</code>的厂商。</p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>用来与数据库交换信息的具体协议并没有在<code>JDBC</code>标准中定义,而是由所使用的驱动程序决定的。有些驱动程序支持多种协议,使用哪一种更合适取决于所连接的数据库支持什么协议。<br>我们的例子里在打开一个数据库连接时,<strong>字符串<code>jdbe:oracle:thin</code>指定了<code>Oracle</code>支持的一个特定协议</strong>。</p>
+<h1 id="5-1-1-2-向数据库系统中传递SQL语句"><a href="#5-1-1-2-向数据库系统中传递SQL语句" class="headerlink" title="5.1.1.2 向数据库系统中传递SQL语句"></a>5.1.1.2 向数据库系统中传递SQL语句</h1><h2 id="通过数据库连接创建Statement对象"><a href="#通过数据库连接创建Statement对象" class="headerlink" title="通过数据库连接创建Statement对象"></a>通过数据库连接创建Statement对象</h2><p>旦打开了一个数据库连接,程序就可以利用该连接来向数据库发送<code>SQL</code>语句用于执行。这是通过<code>Statement</code>类的一个实例来完成的。一个<code>Statement</code>对象并不代表<code>SQL</code>语句本身,而是实现了可以被<code>Java</code>程序调用的一些方法,通过参数来传递<code>SQL</code>语句并被数据库系统所执行。我们的例子<strong>在连接变量</strong><code>conn</code>上<strong>创建</strong>了一个<code>Statement</code>句柄(<code>stmt</code>)。<br>使用</p>
+<h2 id="executeQuery方法执行查询语句"><a href="#executeQuery方法执行查询语句" class="headerlink" title="executeQuery方法执行查询语句"></a><code>executeQuery</code>方法执行查询语句</h2><p>用<code>executeUpdate</code>方法来执行查询语句,返回一个结果集。</p>
+<h2 id="executeUpdate方法执行费非查询语句-更新-插入删除-建表等"><a href="#executeUpdate方法执行费非查询语句-更新-插入删除-建表等" class="headerlink" title="executeUpdate方法执行费非查询语句 更新 插入删除 建表等"></a><code>executeUpdate</code>方法执行费非查询语句 更新 插入删除 建表等</h2><p><code>executeUpdate</code>方法可以执行像更新(<code>update</code>)、插入(<code>insert</code>)、删除(<code>delete</code>)、创建表(<code>create table</code>)等这样的<strong>非查询性语句</strong>。</p>
+<ul>
+<li>对于更新插入或删除<code>executeUpdate</code>方法它返回一个整数,表示被插入、更新或者删除的元组个数。</li>
+<li>对于<code>DDL</code>语句,<code>executeUpdate</code>方法返回值是0</li>
+</ul>
+<h1 id="5-1-1-3-获取查询结果"><a href="#5-1-1-3-获取查询结果" class="headerlink" title="5.1.1.3 获取查询结果"></a>5.1.1.3 获取查询结果</h1><h2 id="executeQuery方法返回结果集"><a href="#executeQuery方法返回结果集" class="headerlink" title="executeQuery方法返回结果集"></a>executeQuery方法返回结果集</h2><p>示例程序用<code>stmt.executeQuery</code>来执行一次查询。它可以把<strong>结果中的元组集合</strong>提取到<code>Resultset</code>对象变量<code>rset</code>中并每次取出一个进行处理。</p>
+<h2 id="结果集的next方法"><a href="#结果集的next方法" class="headerlink" title="结果集的next方法"></a>结果集的next方法</h2><p>结果集的<code>next</code>方法用来查看在集合中是否还存在至少一个尚未取回的元组,如果存在的话就取出。<code>next</code>方法的返回值是一个布尔变量,表示是否从结果集中取回了个元组。</p>
+<h2 id="结果集的get方法"><a href="#结果集的get方法" class="headerlink" title="结果集的get方法"></a>结果集的get方法</h2><p>可以通过一系列的名字以<code>get</code>为前缀的方法来得到所获取元组的各个属性。方法<code>setstring</code>可以返回所有的基本<code>SQL</code>数据类型的属性(被转换成<code>Java</code>中的<code>String</code>类型的值),当然也可以使用像<code>getFloat</code>那样一些约束性更强的方法。</p>
+<h2 id="结果集get方法的参数"><a href="#结果集get方法的参数" class="headerlink" title="结果集get方法的参数"></a>结果集get方法的参数</h2><p>这些不同的<code>get</code>方法的<code>参数</code>既可以是一个字<strong>符串类型的属性名称</strong>,又可以是一个<strong>整数</strong>,用来表示所需获取的属性在元组中的位置。图5-1给出了两种<strong>在元组中提取属性值</strong>的办法:<br><strong>利用属性名提取</strong>( <code>dept_name</code>)或者<strong>利用属性位置提取</strong>(2,代表第二个属性)。</p>
+<h2 id="java成宿结束后一定要关闭数据库连接"><a href="#java成宿结束后一定要关闭数据库连接" class="headerlink" title="java成宿结束后一定要关闭数据库连接"></a>java成宿结束后一定要关闭数据库连接</h2><p><code>Java</code>程序结束的时候<strong>语句</strong>和<strong>连接</strong>都将被关闭。注意关闭连接是很重要的,因为数据库连接的个数是有限制的;未关闭的连接可能导致超过这一限制。如果发生这种情况,应用将不能再打开任何数据库连接。</p>
+<h1 id="5-1-1-4-预备语句"><a href="#5-1-1-4-预备语句" class="headerlink" title="5.1.1.4 预备语句"></a>5.1.1.4 预备语句</h1><p>我们也可以通过以”<code>?</code>“来代表以后再给出的实际值,而创建一个预备语句。<br>数据库系统在准备查询语句的时候对它进行编译。在每次执行该语句时(用新值替换”?”),数据库可以重用预先编译的查询的形式,应用新值进行查询。<br>图5-2的代码框架给出了如何使用预备语句的示例。</p>
+<h2 id="使用Connection类的prepareStatement方法创建PreparedStatement对象"><a href="#使用Connection类的prepareStatement方法创建PreparedStatement对象" class="headerlink" title="使用Connection类的prepareStatement方法创建PreparedStatement对象"></a>使用Connection类的prepareStatement方法创建PreparedStatement对象</h2><p>可以使用<code>Connection</code>类的<code>prepareStatement</code>方法来提交<code>SQL</code>语句用于编译。它返回一个<code>PreparedStatement</code>类的对象。此时还没有执行<code>SQL</code>语句。执行需要<code>PreparedStatement</code>类的两个方法<code>executeQuery</code>和<code>executeUpdate</code>。<br>但是在它们被调用之前,我们必须使用<code>PreparedStatement</code>类的方法来为”<code>?</code>“参数设定具体的值。 </p>
+<p><code>setString</code>方法以及诸如<code>setInt</code>等用于其他的<code>SQL</code>基本类型的其他类似的方法使我们能够为参数指定值。</p>
+<ul>
+<li><code>set</code>第一个参数用来确定我们为哪个”<code>?</code>“设定值,<ul>
+<li>如果给第1个问号设置值,则<code>set</code>方法的第一个参数设置为1</li>
+</ul>
+</li>
+<li><code>set</code>方法的第二个参数是我们要设定的值。</li>
+</ul>
+<h2 id="优先使用预备语句"><a href="#优先使用预备语句" class="headerlink" title="优先使用预备语句"></a>优先使用预备语句</h2><h2 id="预备语句更加高效"><a href="#预备语句更加高效" class="headerlink" title="预备语句更加高效"></a>预备语句更加高效</h2><p>在同一查询编译一次然后设置不同的参数值执行多次的情况下,<strong>预备语句使得执行更加高效</strong>。</p>
+<h2 id="预备语句可检查用户输入"><a href="#预备语句可检查用户输入" class="headerlink" title="预备语句可检查用户输入"></a>预备语句可检查用户输入</h2><p>然而,预备语句有一个更加重要的优势,预备语句可以用户输入,<br>即使是只运行一次,预备语句都是执行<code>SQL</code>查询的首选方法。假设我们读取了一个用户输入的值,然后使用<code>Java</code>的字符串操作来构造<code>SQL</code>语句。如果用户输入了某些特殊字符,例如一个单引号,除非我们采取额外工作对用户输入进行检查,否则生成的<code>SQL</code>语句会出现语法错误。<br><strong><code>setString</code>方法为我们自动完成检查,并插入需要的转义字符,以确保语法的正确性</strong>。</p>
+<h2 id="预备语句可防止SQL注入"><a href="#预备语句可防止SQL注入" class="headerlink" title="预备语句可防止SQL注入"></a>预备语句可防止SQL注入</h2><p>一种叫做<code>SQL</code>注入(<code>SQL injecton</code>)的技术可以被恶意黑客用来窃取数据或损坏数据库。<br>假设一个<code>Java</code>程序输入一个字符串<code>name</code>,并且构建下面的查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;select * from instructor where name=&#x27;&quot;<span class="operator">+</span>name<span class="operator">+</span>&quot;&#x27;;&quot; </span><br></pre></td></tr></table></figure>
+<p>如果用户没有输人一个名字,而是输入:<br><code>x&#39; or &#39;y&#39;=&#39;y&#39;</code><br>这样,产生的查询语句就变成:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> instructor <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;x&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;y&#x27;</span><span class="operator">=</span><span class="string">&#x27;y&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>在生成的查询中, <code>where</code>子句总是真,所以查询结果返回整个<code>instructor</code>关系。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from instructor where name=&#x27;x&#x27; or &#x27;y&#x27;=&#x27;y&#x27;;</span><br><span class="line">+-------+------------+------------+-----------+</span><br><span class="line">| ID    | name       | dept_name  | salary    |</span><br><span class="line">+-------+------------+------------+-----------+</span><br><span class="line">| <span class="number">10101</span> | Srinivasan | <span class="built_in">Comp</span>. Sci. | <span class="number">65000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">12121</span> | Wu         | Finance    | <span class="number">90000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">15151</span> | Mozart     | Music      | <span class="number">40000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">22222</span> | Einstein   | Physics    | <span class="number">95000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">25566</span> | Brown      | Biology    | <span class="number">100000</span>.<span class="number">00</span> |</span><br><span class="line">| <span class="number">30765</span> | Green      | Music      | NULL      |</span><br><span class="line">| <span class="number">32343</span> | El Said    | History    | <span class="number">60000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">33456</span> | Gold       | Physics    | <span class="number">87000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">45565</span> | Katz       | <span class="built_in">Comp</span>. Sci. | <span class="number">75000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">58583</span> | Califieri  | History    | <span class="number">62000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">76543</span> | Singh      | Finance    | <span class="number">80000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">76766</span> | Crick      | Biology    | <span class="number">72000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">83821</span> | Brandt     | <span class="built_in">Comp</span>. Sci. | <span class="number">92000</span>.<span class="number">00</span>  |</span><br><span class="line">| <span class="number">98345</span> | Kim        | Elec. Eng. | <span class="number">80000</span>.<span class="number">00</span>  |</span><br><span class="line">+-------+------------+------------+-----------+</span><br><span class="line"><span class="number">14</span> rows <span class="keyword">in</span> <span class="built_in">set</span> (<span class="number">0</span>.<span class="number">05</span> sec)</span><br></pre></td></tr></table></figure>
+<p>更诡计多端的恶意用户甚至可以编写输入值以输出更多的数据。使用预备语句就可以防止这类问题,因为输入的字符串<code>setString</code>方法将被插入<code>转义字符</code>,因此最后的查询变为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> instructor <span class="keyword">where</span> name <span class="operator">=</span><span class="string">&#x27;x\&#x27;</span> <span class="keyword">or</span> \<span class="string">&#x27;Y\&#x27;</span><span class="operator">=</span>\<span class="string">&#x27;Y&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>这是无害的查询语句,返回结果为空集。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from instructor where name =&#x27;x\&#x27; or \&#x27;Y\&#x27;=\&#x27;Y&#x27;;</span><br><span class="line">Empty <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+<h2 id="一次执行多条SQL语句的情况"><a href="#一次执行多条SQL语句的情况" class="headerlink" title="一次执行多条SQL语句的情况"></a>一次执行多条SQL语句的情况</h2><p>比较老的系统允许<strong>多个由分号隔开的语句在一次调用里被执行</strong>。<br>此功能正逐渐被淘汰,因为恶意的黑客会利用<code>SQL</code>注入技术插入整个<code>SQL</code>语句。由于这些语句在<code>Java</code>程序所有者的权限上运行,像删除表(<code>drop table</code>)这样毁灭性的<code>SQL</code>语句会被执行。**<code>SQL</code>应用程序开发者必须警惕这种潜在的安全漏洞**。</p>
+<h1 id="5-1-1-5-可调用语句"><a href="#5-1-1-5-可调用语句" class="headerlink" title="5.1.1.5 可调用语句"></a>5.1.1.5 可调用语句</h1><p><code>JDBC</code>还提供了<code>CallableStatement</code>接口来允许调用<code>SQL</code>的存储过程和函数(稍后在5.2节描述)。此接口对函数和过程所扮演的角色跟<code>prepareStatement</code>对查询所扮演的角色一样。<br>函数返回值和过程的对外参数的数据类型必须先用方法<code>registerOutParameter()</code>注册,它们可以用与结果集用的方法类似的<code>get</code>方法获取。请参看<code>JDBC</code>手册以获得更细节的信息。</p>
+<h1 id="5-1-1-6-元数据特性"><a href="#5-1-1-6-元数据特性" class="headerlink" title="5.1.1.6 元数据特性"></a>5.1.1.6 元数据特性</h1><p>正如我们此前提到的,一个<code>Java</code>应用程序不包含数据库中存储的数据的声明。这些声明是<code>SQL</code>数据定义语言(<code>DDL</code>)的一部分。因此,使用<code>JDBC</code>的<code>Java</code>程序必须</p>
+<ul>
+<li>要么将关于数据库模式的假设硬编码到程序中,</li>
+<li>要么直接在运行时从数据库系统中得到那些信息。</li>
+</ul>
+<p>后一种方法更可取,因为它使得应用程序可以更健壮地处理数据库模式的变化。</p>
+<h2 id="结果集元数据-ResultsetMetaData"><a href="#结果集元数据-ResultsetMetaData" class="headerlink" title="结果集元数据 ResultsetMetaData"></a>结果集元数据 ResultsetMetaData</h2><p>回想一下,当我们提交一个使用<code>executeQuery</code>方法的查询时,查询结果被封装在一个<code>Resultset</code>对象中。</p>
+<h3 id="如何获取ResultsetMetaData对象-Resultset-getMetaData方法"><a href="#如何获取ResultsetMetaData对象-Resultset-getMetaData方法" class="headerlink" title="如何获取ResultsetMetaData对象 Resultset.getMetaData方法"></a>如何获取ResultsetMetaData对象 <code>Resultset.getMetaData</code>方法</h3><p>接口<code>Resultset</code>有一个<code>getMetaData()</code>方法,它返回一个包含<strong>结果集元数据</strong>的<code>ResultsetMetaData</code>对象。 <code>ResultSetMetaData</code>进一步又包含查找<strong>结果集元数据</strong>的方法,例如结果的<strong>列数</strong>、某个特定<strong>列的名称</strong>,或者某个特定<strong>列的数据类型</strong>。这样,即使不知道结果的模式,我们也可以方便地执行查询。</p>
+<p>实例省略</p>
+<p><code>ResultSetMetaData</code>对象的<code>getColumnCount</code>方法返回<strong>结果关系的属性个数</strong>(元数)。<br>这使得我们能够遍历每个属性(请注意,和<code>JDBC</code>的惯例一致,我们从1开始)。对于每一个属性,我们采用<code>getColumnName</code>和<code>getColumnTypeName</code>两个方法分别得到属性的名称和属性的数据类型。</p>
+<h2 id="数据库元数据-DatabaseMetaData"><a href="#数据库元数据-DatabaseMetaData" class="headerlink" title="数据库元数据 DatabaseMetaData"></a>数据库元数据 DatabaseMetaData</h2><p><code>DatabaseMetaData</code>接口提供了查找<strong>数据库元数据</strong>的机制。</p>
+<h3 id="如何获取DatabaseMetaData-Connection实例-getMetaData方法"><a href="#如何获取DatabaseMetaData-Connection实例-getMetaData方法" class="headerlink" title="如何获取DatabaseMetaData Connection实例.getMetaData方法"></a>如何获取<code>DatabaseMetaData</code> <code>Connection实例.getMetaData</code>方法</h3><p>接口<code>Connection</code>包含一个<code>getMetaData</code>方法用于返回一个<code>DatabaseMetaData</code>对象。接口<code>DatabaseMetaData</code>进一步又含有大量的方法可以用于获取程序所连接的<strong>数据库</strong>和<strong>数据库系统</strong>的元数据。<br>例如,有些方法可以返回<strong>数据库系统的产品名称和版本号</strong>。另外一些方法可以用来<strong>查询数据库系统所支持的特性</strong>。</p>
+<h3 id="其他获取数据库本省信息的方法"><a href="#其他获取数据库本省信息的方法" class="headerlink" title="其他获取数据库本省信息的方法"></a>其他获取数据库本省信息的方法</h3><p>还有<strong>其他可以返回数据库本身信息的方法</strong>,下面的代码显示了如何<strong>找出数据库中的关系的列(属性)信息</strong>。变量<code>com</code>假定存储了一个已经打开的数据库连接。方法<code>getColumns</code>有四个参数:</p>
+<ul>
+<li>一个目录名称(<code>null</code>表示目录名称被忽略)、</li>
+<li>一个模式名称模板、</li>
+<li>一个表名称模板,</li>
+<li>以及一个列名称模板。</li>
+</ul>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p><code>模式名称</code>、<code>表名称</code>和<code>列名称</code>的<code>模板</code>可以用于指定一个名字或一个模板。</p>
+<p><strong>模板</strong>可以使用<code>SQL</code>字符串匹配特殊字符如”<code>%</code>“和”<code>_</code>“;例如模板”<code>%</code>“匹配所有的名字。<br><strong>只有满足特定名称或模板的模式中的表的列才会被检索到</strong>。</p>
+<p>结果集中的每行包含一个<code>列的信息</code>。<br>结果集中的行包括若干个列,如目录名称、模式、表和列、列的类型,等等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DatabaseMetaData</span> <span class="variable">dbmd</span> <span class="operator">=</span> conn.getMetaData();</span><br><span class="line"><span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> dbmd.getColumns(<span class="literal">null</span>, <span class="string">&quot;univdb&quot;</span>, <span class="string">&quot;department&quot;</span>, <span class="string">&quot;%&quot;</span>);</span><br><span class="line"><span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">    System.out.println(rs.getString(<span class="string">&quot;COLUMN_NAME&quot;</span>));</span><br><span class="line">    System.out.println(rs.getString(<span class="string">&quot;TYPE_NAME&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取数据库其他信息"><a href="#获取数据库其他信息" class="headerlink" title="获取数据库其他信息"></a>获取数据库其他信息</h3><p><code>DatabaseMetaData</code>还提供了获取数据库信息的一些其他方法,比如,可以用来<strong>获取关系</strong>(<code>get Tables()</code>),<strong>外码参照</strong>( <code>getCrossReference()</code>)、<strong>授权</strong>、<strong>数据库限制</strong>如最大连接数等的元数据。<br>元数据接口可以用于许多不同的任务。例如,它们可以用于<strong>编写数据库的浏览器</strong>,该浏览器允许用户找出一个数据库中的关系表,检查它们的模式,检查表中的行,用选择操作查看想要的行,等等。</p>
+<h3 id="元数据信息可以是代码更通用"><a href="#元数据信息可以是代码更通用" class="headerlink" title="元数据信息可以是代码更通用"></a>元数据信息可以是代码更通用</h3><p>元数据信息可以用于使这些任务的代码更通用;</p>
+<ul>
+<li>例如,用来显示一个关系中的行的代码可以用这样的方法编写使得它能够在所有可能的关系上工作,无论这些关系的模式是什么。</li>
+<li>类似地,可以编写这样的代码,它获得一个査询字符串,执行查询,然后把结果打印成一个格式化的表;无论提交了的实际查询是什么,这段代码都可以工作。</li>
+</ul>
+<h1 id="5-1-1-7-其他特性"><a href="#5-1-1-7-其他特性" class="headerlink" title="5.1.1.7 其他特性"></a>5.1.1.7 其他特性</h1><p><code>JDBC</code>提供了一些其他特性,如可<strong>更新的结果集</strong>(<code>updatable result sets</code>)。它可以从一个在数据库关系上执行选择和&#x2F;或投影操作的查询中创建一个可更新的结果集。然后,<strong>一个对结果集中的元组的更新将引起对数据库关系中相应元组的更新</strong>。<br>回想一下4.3节,事务把多个操作封装成一个可以被提交或者回滚的原子单元<br>默认情况下,每个<code>SQL</code>语句都被作为一个自动提交的独立的事务来对待。</p>
+<h2 id="打开或关闭自动提交"><a href="#打开或关闭自动提交" class="headerlink" title="打开或关闭自动提交"></a>打开或关闭自动提交</h2><p><code>JDBC</code>的<code>Connection</code>接口中的方法<code>setAutoCommit()</code>允许打开或关闭这种行为。</p>
+<h3 id="关闭自动提交-开启事务"><a href="#关闭自动提交-开启事务" class="headerlink" title="关闭自动提交 开启事务"></a>关闭自动提交 开启事务</h3><p>因此,如果<code>con</code>是一个打开的连接,则<code>conn.setAutoCommit(false)</code>将关闭自动提交。然后事务必须用<code>conn.commit()</code>显式提交或用<code>conn.rollback()</code>回滚。</p>
+<h3 id="开始自动提交"><a href="#开始自动提交" class="headerlink" title="开始自动提交"></a>开始自动提交</h3><p>自动提交可以用<code>conn.setAutoCommit(true)</code>来打开。</p>
+<h2 id="处理大对象数据"><a href="#处理大对象数据" class="headerlink" title="处理大对象数据"></a>处理大对象数据</h2><h3 id="读取数据库中的大对象数据"><a href="#读取数据库中的大对象数据" class="headerlink" title="读取数据库中的大对象数据"></a>读取数据库中的大对象数据</h3><p><code>JDBC</code>提供处理大对象的接口而不要求在内存中创建整个大对象。为了获取大对象, <code>Resultset</code>接口提供方法<code>getBlob()</code>和<code>getClob()</code>,它们与<code>getString()</code>方法相似,但是分别返回类型为<code>Blob</code>和<code>Clob</code>的对象。这些对象并不存储整个大对象,而是存储这些大对象的<strong>定位器</strong>,即指向数据库中实际大对象的逻辑指针。<strong>从这些大对象中获取数据与从文件或者输入流中获取数据非常相似</strong>,可以采用像<code>getBytes</code>和<code>getSubString</code>这样的方法来实现。</p>
+<h3 id="将大对象数据写入数据库中"><a href="#将大对象数据写入数据库中" class="headerlink" title="将大对象数据写入数据库中"></a>将大对象数据写入数据库中</h3><p>反向操作时,为了<strong>向数据库里存储大对象</strong>,可以用<code>PreparedStatement</code>类的方法<code>setBlob(int parameterIndex, InputStream inputStream)</code>把一个类型为二进制大对象(<code>blob</code>)的数据库列与一个输入流关联起来。<br>当预备语句被执行时,数据从输入流被读取,然后被写入数据库的二进制大对象中。与此相似,使用方法<code>setClob</code>可以<strong>设置字符大对象</strong>(<code>clob</code>)列,该方法的参数包括该列的序号和一个字符串流。</p>
+<h2 id="行集row-set"><a href="#行集row-set" class="headerlink" title="行集row set"></a>行集row set</h2><p><code>JDBC</code>还提供了<strong>行集</strong>( <code>row set</code>)特性**,允许把<code>结果集</code>打包起来发送给其他应用程序<strong>。</strong>行集既可以向后又可以向前扫描,并且可被修改。行集一旦被下载下来就不再是数据库本身的内容了**,所以我们在这里并不对其做详细介绍。</p>
+<!--SSTStop-->
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/51c132fd/" title="5.1.1 JDBC">https://lanlan2017.github.io/ReadingNotes/51c132fd/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/34951b9e/" rel="prev" title="5.1 使用程序设计语言访问数据库">
+                  <i class="fa fa-chevron-left"></i> 5.1 使用程序设计语言访问数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/e08bb061/" rel="next" title="5.1.2 ODBC">
+                  5.1.2 ODBC <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/51c132fd/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/51c132fd/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.2 处理简单的事件除了页面加载之外,我们也想在其他时刻完成某个任务。正如JavaScript可以让我们通过&lt;body onload&#x3D;&quot;&quot;&gt;或window.onload来截获页面加载事件一样,它对用户发起的事件也提供了相似的”挂钩” (hook) 。例如,鼠标单击(onclick) 、表单被修改(onchange)以及窗口大小变化(onresize)等。在这些情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.2 处理简单的事件">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/578fdd22/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.2 处理简单的事件除了页面加载之外,我们也想在其他时刻完成某个任务。正如JavaScript可以让我们通过&lt;body onload&#x3D;&quot;&quot;&gt;或window.onload来截获页面加载事件一样,它对用户发起的事件也提供了相似的”挂钩” (hook) 。例如,鼠标单击(onclick) 、表单被修改(onchange)以及窗口大小变化(onresize)等。在这些情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-30T17:11:48.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/578fdd22/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/578fdd22/","path":"/578fdd22/","title":"3.2 处理简单的事件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.2 处理简单的事件 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">3.2 处理简单的事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-1-%E7%AE%80%E5%8D%95%E7%9A%84%E6%A0%B7%E5%BC%8F%E8%BD%AC%E6%8D%A2%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">3.2.1 简单的样式转换器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-2-%E5%90%AF%E7%94%A8%E5%85%B6%E4%BB%96%E6%8C%89%E9%92%AE"><span class="nav-number">1.2.</span> <span class="nav-text">3.2.2 启用其他按钮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-3-%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.3.</span> <span class="nav-text">3.2.3 利用事件处理程序的上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-4-%E4%BD%BF%E7%94%A8%E4%BA%8B%E4%BB%B6%E4%B8%8A%E4%B8%8B%E6%96%87%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%87%8F%E5%B0%91%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">3.2.4 使用事件上下文进一步减少代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-5-%E7%AE%80%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">3.2.5 简写的事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-6-%E6%98%BE%E7%A4%BA%E5%92%8C%E9%9A%90%E8%97%8F%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-number">1.6.</span> <span class="nav-text">3.2.6 显示和隐藏高级特性</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/578fdd22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.2 处理简单的事件 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.2 处理简单的事件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-01 01:11:48" itemprop="dateCreated datePublished" datetime="2019-07-01T01:11:48+08:00">2019-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC3%E7%AB%A0-%E4%BA%8B%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">第3章 事件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/578fdd22/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/578fdd22/" data-xid="/ReadingNotes/578fdd22/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-2-处理简单的事件"><a href="#3-2-处理简单的事件" class="headerlink" title="3.2 处理简单的事件"></a>3.2 处理简单的事件</h1><p>除了页面加载之外,我们也想在其他时刻完成某个任务。正如<code>JavaScript</code>可以让我们通过<code>&lt;body onload=&quot;&quot;&gt;</code>或<code>window.onload</code>来截获页面加载事件一样,它对用户发起的事件也提供了相似的”挂钩” (<code>hook</code>) 。例如,鼠标单击(<code>onclick</code>) 、表单被修改(<code>onchange</code>)以及窗口大小变化(<code>onresize</code>)等。在这些情况下,如果直接在<code>DOM</code>中为元素指定行为,那么这些挂钩也会与我们讨论的<code>onload</code>一样具有类似的缺点。为此,<code>jQuery</code>也为处理这些事件提供了一种改进的方式。</p>
+<h2 id="3-2-1-简单的样式转换器"><a href="#3-2-1-简单的样式转换器" class="headerlink" title="3.2.1 简单的样式转换器"></a>3.2.1 简单的样式转换器</h2><p>为了说明某些事件处理技术,我们假设希望某个页面能够基于用户的输入呈现出不同的样式。也就是说,允许用户通过单击按钮来切换视图,包括正常视图、将文本限制在窄列中的视图和适合打印的大字内容区视图。</p>
+<p>用于样式转换器的<code>HTML</code>标记如下所示:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;switcher&quot;</span> <span class="attr">class</span>=<span class="string">&quot;switcher&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Style Switcher<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;switcher-default&quot;</span>&gt;</span></span><br><span class="line">    Default</span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;switcher-narrow&quot;</span>&gt;</span></span><br><span class="line">    Narrow Column</span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;switcher-large&quot;</span>&gt;</span></span><br><span class="line">    Large Print</span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在与页面中其他<code>HTML</code>标记和基本的<code>CSS</code>组合以后,我们可以看到如图3-1所示的页面外观。</p>
+<p>首先,我们来编写<code>Large Print</code>按钮的功能。此时,需要一点<code>CSS</code>代码来实现页面的替换视图:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span><span class="selector-class">.large</span> <span class="selector-class">.chapter</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.5em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后,我们的目标就是为<code>&lt;body&gt;</code>标签应用<code>large</code>类。这样会导致样式表对页面进行重新格式化。按照第2章介绍的知识,添加类的语句如下所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>); </span><br></pre></td></tr></table></figure>
+<p>但是,我们希望这条语句在用户单击按钮时执行(而不是像我们到目前为止看到的那样在页面加载后执行)。为此,我们需要引入<code>.on()</code>方法。通过这个方法,可以指定任何<code>DOM</code>事件,并为该事件添加一种行为。此时,事件是<code>click</code>,而行为则是由上面的一行代码构成的函数,参见代码清单3-1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 选择id为switcher-large的元素,注册点击事件处理程序</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 为body元素添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在,当单击<code>Large Print</code>按钮时,就会运行函数中的代码,而页面的外观将如图3-2所示。</p>
+<p>这里的全部操作就是绑定了一个事件。我们前面介绍的<code>.ready()</code>方法的优点在此也同样适用。多次调用<code>.on()</code>也没有任何问题,即可以按需为同一个事件追加更多的行为。</p>
+<h2 id="3-2-2-启用其他按钮"><a href="#3-2-2-启用其他按钮" class="headerlink" title="3.2.2 启用其他按钮"></a>3.2.2 启用其他按钮</h2><p>现在,<code>Large Print</code>按钮开始生效了。接下来,我们要以类似的方式处理其他两个按钮(<code>Default</code>和<code>Narrow</code>) ,让它们也都执行各自的任务。这个过程很简单,即分别使用<code>.on()</code>为它们添加一个单击处理程序,同时视情况移除或添加类。完成之后的代码如代码清单3-2所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 当点击id为switcher-default的元素(按钮)时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的narrow和large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-narrow的按钮时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-narrow&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 body元素 添加narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-large的按钮时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 body元素 添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>以下是配套的<code>narrow</code>类的<code>CSS</code>规则:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span><span class="selector-class">.narrow</span> <span class="selector-class">.chapter</span> &#123; </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">250px</span>; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>现在,如果单击<code>Narrow Column</code>按钮,随着相应的<code>CSS</code>生效,文本会相应变化,如图3-3所示。<br>单击<code>Default</code>按钮将从<code>&lt;body</code>&gt;标签中同时移除两个类,让页面恢复为初始状态。</p>
+<h2 id="3-2-3-利用事件处理程序的上下文"><a href="#3-2-3-利用事件处理程序的上下文" class="headerlink" title="3.2.3 利用事件处理程序的上下文"></a>3.2.3 利用事件处理程序的上下文</h2><p>虽然样式转换器的功能很正常,但我们并没有就哪个按钮处于当前使用状态对用户给出反馈。为此,我们的方法是在按钮被单击时,为它应用<code>selected</code>类,同时从其他按钮上移除这个类。<code>selected</code>类只是为按钮文本添加了粗体样式:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.selected</span> &#123; </span><br><span class="line">  <span class="attribute">font-weight</span>: bold; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>为了实现类的变换,可以按照前面的做法,通过<code>ID</code>来引用每个按钮,然后再视情况为它们应用或移除类。不过,这一次我们要探索一种更优雅也更具扩展性的解决方案,这个方案利用了事件处理程序运行的上下文。<br><strong>当触发任何事件处理程序时,关键字<code>this</code>引用的都是携带相应行为的<code>DOM</code>元素</strong>。前面我们谈到过,<code>$()</code>函数可以将<code>DOM</code>元素作为参数,而<code>this</code>关键字是实现这个功能的关键①。通过在事件处理程序中使用<code>$(this)</code>,可以为相应的元素创建<code>jQuery</code>对象,然后就如同使用<code>CSS</code>选择符找到该元素一样对它进行操作。<br>知道了这些之后,我们可以编写出下面的代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>); </span><br></pre></td></tr></table></figure>
+<p>把这行代码放到那3个事件处理程序中,就可以在按钮被单击时为按钮添加<code>selected</code>类。要从其他按钮中移除这个类,可以利用<code>jQuery</code>的隐式迭代特性,并编写如下代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>); </span><br></pre></td></tr></table></figure>
+<p>这行代码会移除样式转换器中每个按钮的<code>selected</code>类。<br>我们还应该在文档就绪时把这个类添加到<code>Default</code>按钮上。因此,按照正确的次序放置它们,就可以得到代码清单3-3。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">//选择id为switcher-default的DOM元素(按钮)</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>)</span><br><span class="line">    <span class="comment">// 给按钮按钮添加selected类</span></span><br><span class="line">    .<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>)</span><br><span class="line">    <span class="comment">// 当点击该按钮时</span></span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 移除 body元素 上的narrow类</span></span><br><span class="line">      $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">      <span class="comment">// 移除 body元素 上的large类</span></span><br><span class="line">      $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">      <span class="comment">// 移除 所有按钮 上的selected类</span></span><br><span class="line">      $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">      <span class="comment">// 给 当前按钮 添加selected类</span></span><br><span class="line">      $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-narrow的DOM元素(按钮)时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-narrow&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 body元素 添加narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">    <span class="comment">// 移除 所有按钮 上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 当前按钮 添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-large的DOM元素(按钮)时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 body元素 添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">    <span class="comment">// 移除 所有按钮 上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 当前按钮 添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样,样式转换器就会对用户给出适当的反馈了。<br>利用处理程序的上下文将语句通用化,可以使代码更高效。我们可以把负责突出显示的代码提取到一个单独的处理程序中,因为针对3个按钮的突出显示代码都一样,结果如代码清单3-4所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>)</span><br><span class="line">    <span class="comment">// 给该按钮添加selected类</span></span><br><span class="line">    .<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>)</span><br><span class="line">    <span class="comment">// 点击该按钮时</span></span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">//移除 body元素 上的narrow类,然后给 body元素 添加large类</span></span><br><span class="line">      $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 点击该按钮时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-narrow&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的large类,然后给 body元素 添加narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;large&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 点击该按钮时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的narrow类,然后给 body元素 添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;narrow&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 给所有按钮注册事件处理程序</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除所有按钮上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给触发点击事件的 该按钮添加 select类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这一步优化利用了我们讨论过的3种<code>jQuery</code>特性。</p>
+<ul>
+<li>第一,在通过对<code>.on()</code>的一次调用为每个按钮都绑定相同的单击事件处理程序时,<strong>隐式迭代机制</strong>再次发挥了作用。</li>
+<li>第二,<strong>行为队列机制</strong>让我们在同一个单击事件上绑定了两个函数,而且第二个函数不会覆盖第一个函数。</li>
+<li>最后,我们使用<code>jQuery</code>的<strong>连缀</strong>能力将每次添加和移除类的操作压缩到了一行代码中。</li>
+</ul>
+<h2 id="3-2-4-使用事件上下文进一步减少代码"><a href="#3-2-4-使用事件上下文进一步减少代码" class="headerlink" title="3.2.4 使用事件上下文进一步减少代码"></a>3.2.4 使用事件上下文进一步减少代码</h2><p>我们刚才的代码优化实际上是在做<strong>重构——修改已有代码,以更加高效和简洁的方式实现相同任务</strong>。 为寻找进一步重构的机会,下面再看一看绑定到每个按钮的行为。其中, <code>.removeClass()</code>方法的参数是可选的,即当省略参数时,该方法会移除元素中所有的类。利用这一点,可以把代码再改进得更简单一些,参见代码清单3-5。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(document).ready(function () &#123;</span><br><span class="line">  <span class="comment">// 默认选中</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).addClass(<span class="string">&#x27;selected&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="comment">// 当点击该按钮时,移除body元素上的所有类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).removeClass();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher-narrow&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="comment">// 移除body元素上的所有类,然后再给body元素添加narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).removeClass().addClass(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="comment">// 移除body元素上的所有类,然后再给body元素添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).removeClass().addClass(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="comment">// 移除 所有按钮 上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).removeClass(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给 触发该事件的按钮 添加select类</span></span><br><span class="line">    $(<span class="built_in">this</span>).addClass(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>注意,为了适应更通用的移除类的操作,我们对操作顺序作了小小的调整——先执行<code>.removeClass()</code>,以便它不会撤销几乎同时执行的<code>.addClass()</code>。<br>此时,在每个按钮的处理程序中仍然会执行某些相同的代码。这些代码也可以轻而易举地提取到通用的按钮单击处理程序中,如代码清单3-6所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DOM加载完毕后执行</span></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 给id为switcher-default的元素添加 selected类</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  <span class="comment">// 监听所有按钮的点击事件</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 移除 body元素 上的所有类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>();</span><br><span class="line">    <span class="comment">// 移除 所有按钮 上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 触发点击事件的这个按钮 添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-narrow的元素(按钮)时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-narrow&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 给 body元素 添加narrow类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;narrow&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 当点击id为switcher-large的元素(按钮)时</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-large&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 给 body元素 添加large类</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;large&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里要注意的是,必须把通用的处理程序转移到特殊的处理程序上方,因为<code>.removeClass()</code>需要先于<code>.addClass()</code>执行。而之所以能够做到这一点,是因为**<code>jQuery</code>总是按照我们注册的顺序来触发事件处理程序<strong>。<br>最后,可以通过再次利用事件的执行上下文来完全消除特殊的处理程序。因为</strong>上下文关键字<code>this</code>引用的是<code>DOM</code>元素**,而不是<code>jQuery</code>对象,所以可以使用原生的<code>DOM</code>属性来确定被单击元素的<code>ID</code>。因而,就可以对所有按钮都绑定相同的处理程序,然后在这个处理程序内部针对按钮执行不同的操作,参见代码清单3-7。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当DOM加载完毕是执行</span></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 默认选中id为switcher-default的按钮</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 监听所有按钮的点击事件</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// this.id将获取到按钮的id属性,值为:switcher-default,switcher-narrow,switcher-large</span></span><br><span class="line">    <span class="comment">// this.id.split(&#x27;-&#x27;)将生成一个数组,</span></span><br><span class="line">    <span class="comment">// 数组的第1个元素(this.id.split(&#x27;-&#x27;)[0])为switcher</span></span><br><span class="line">    <span class="comment">// 数组的第2个元素(this.id.split(&#x27;-&#x27;)[1])为default,narrow,large这三种可能</span></span><br><span class="line">    <span class="keyword">var</span> bodyClass = <span class="variable language_">this</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="comment">// 移除 body元素上的所有class,然后添加根据当前id动态生成的class    </span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line">    <span class="comment">// 移除所有按钮上的selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给当前按钮添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里<code>bodyClass</code>变量的值根据按钮的<code>ID</code>属性的值来动态生成,根据单击的按钮不同,<code>bodyClass</code>变量的值可能是<code>default</code>、<code>narrow</code>或<code>large</code>。这里与前面做法的不同之处在于,我们会在用户单击<code>ID</code>为<code>switcher-default</code>的按钮时,程序根据<code>ID</code>属性值<code>switcher-default</code>,得到<code>default</code>类,然后给<code>&lt;body&gt;</code>添加<code>default</code>类。虽然在这儿添加这个类也用不着,但与因此降低的复杂性相比,仅仅添加一个用不上的类名还是很划算的。</p>
+<h2 id="3-2-5-简写的事件"><a href="#3-2-5-简写的事件" class="headerlink" title="3.2.5 简写的事件"></a>3.2.5 简写的事件</h2><p>鉴于为某个事件(例如简单的单击事件)绑定处理程序极为常用,<code>jQuery</code>提供了一种简化事件操作的方式——简写事件方法,简写事件方法的原理与对应的<code>.on()</code>方法调用相同,可以减少一定的代码输入量。<br>例如,不使用<code>.on()</code>方法而使用<code>.click()</code>方法可以将前面的样式转换器程序重写为如代码清单3-8所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DOM加载结束时调用</span></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 一开始默认选中</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 根据id属性值生成class属性值</span></span><br><span class="line">    <span class="keyword">var</span> bodyClass = <span class="variable language_">this</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="comment">// body元素删除所有class,然后添加生成的class</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line">    <span class="comment">// 所有按钮先移除掉selected类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 给触发事件的按钮添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>其他<code>blur</code>、<code>keydown</code>和<code>scroll</code>等标准的<code>DOM</code>事件,也存在类似前面这样的简写事件。这些简写的事件方法能够把一个事件处理程序绑定到同名事件上面。</p>
+<h2 id="3-2-6-显示和隐藏高级特性"><a href="#3-2-6-显示和隐藏高级特性" class="headerlink" title="3.2.6 显示和隐藏高级特性"></a>3.2.6 显示和隐藏高级特性</h2><p>假设我们想在不需要时隐藏样式转换器。<strong>隐藏高级特性</strong>的一种便捷方式,就是使它们可以折叠。因此,我们要实现的效果是:</p>
+<ul>
+<li>在标签上单击时,可以隐藏所有按钮,最后只剩一个标签;</li>
+<li>而再次单击标签时,则会恢复这些按钮。</li>
+</ul>
+<blockquote>
+<p>这里所谓的高级特性就是指<strong>为页面提供样式切换能力的样式转换器</strong>。 </p>
+</blockquote>
+<p>为了隐藏按钮,我们还需要另外一个类:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.hidden</span> &#123; </span><br><span class="line">  <span class="attribute">display</span>: none; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>为实现这个功能,可以把当前的按钮状态保存在一个变量中,每当标签被单击时,通过检查这个变量的值就能知道应该向这些按钮中添加,还是要从这些按钮中移除<code>.hidden</code>类。<br>不过,<code>jQuery</code>也为我们提供了一个简便的<code>toggleClass()</code>方法,该方法能够根据相应的类是否存在而添加或删除类,参见代码清单3-9。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher h3&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 如果这些按钮中存在hidden类那就移除hidden类</span></span><br><span class="line">    <span class="comment">// 如果这些按钮不存在hidden类就添加hidden类</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">toggleClass</span>(<span class="string">&#x27;hidden&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 选中默认按钮</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher-default&#x27;</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  <span class="comment">// 按钮点击事件处理程序</span></span><br><span class="line">  $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 根据id属性值的生成class属性值</span></span><br><span class="line">    <span class="keyword">var</span> bodyClass = <span class="variable language_">this</span>.<span class="property">id</span>.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="comment">// 移除body元素上的所有class属性,然后添加生成class属性</span></span><br><span class="line">    $(<span class="string">&#x27;body&#x27;</span>).<span class="title function_">removeClass</span>().<span class="title function_">addClass</span>(bodyClass);</span><br><span class="line">    <span class="comment">// 移除所有按钮上的值为selected的calss属性.</span></span><br><span class="line">    $(<span class="string">&#x27;#switcher button&#x27;</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">    <span class="comment">// 触发事件的当前按钮添加selected类</span></span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在第一次单击后,所有按钮都会隐藏起来,如图3-4所示。<br>而第二次单击则又恢复了它们的可见性,如图3-5所示。</p>
+<p>同样,这里我们依靠的仍然是<code>jQuery</code>的<strong>隐式迭代能力</strong>,即一次就能隐藏所有按钮,而不需要使用包装元素(即不需要在这3个按钮外部再添加额外的标签如:<code>&lt;div&gt;</code> 。如果没有<strong>隐式迭代机制</strong>,那么想一次隐藏3个按钮,一种常见的方法就是隐藏包含这3个按钮的包装元素)。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/578fdd22/" title="3.2 处理简单的事件">https://lanlan2017.github.io/ReadingNotes/578fdd22/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f49e94ad/" rel="prev" title="3.1 在页面加载后执行任务">
+                  <i class="fa fa-chevron-left"></i> 3.1 在页面加载后执行任务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/21530484/" rel="next" title="3.3 事件传播">
+                  3.3 事件传播 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/578fdd22/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/578fdd22/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

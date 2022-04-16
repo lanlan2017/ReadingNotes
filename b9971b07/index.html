@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="6.8 基于jQuery的Ajax聊天室程序通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，可以帮助读者更好地掌握Ajax的精髓—一个基于Ajax无需刷新技术开发的聊天室程序，该程序允许多用户在网页上聊天，并且可以实时地更新信息。 通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.8 基于jQuery的Ajax聊天室程序">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/b9971b07/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="6.8 基于jQuery的Ajax聊天室程序通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，可以帮助读者更好地掌握Ajax的精髓—一个基于Ajax无需刷新技术开发的聊天室程序，该程序允许多用户在网页上聊天，并且可以实时地更新信息。 通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-13T06:04:17.000Z">
+<meta property="article:modified_time" content="2021-12-13T06:04:57.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/b9971b07/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/b9971b07/","path":"/b9971b07/","title":"6.8 基于jQuery的Ajax聊天室程序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6.8 基于jQuery的Ajax聊天室程序 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-8-%E5%9F%BA%E4%BA%8EjQuery%E7%9A%84Ajax%E8%81%8A%E5%A4%A9%E5%AE%A4%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">6.8 基于jQuery的Ajax聊天室程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-1-%E5%9F%BA%E6%9C%AC%E8%AE%BE%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">6.8.1 基本设想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-2-%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">6.8.2 设计数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-3-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">6.8.3 服务器端处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-4-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">6.8.4 客户端处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-5-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">6.8.5 客户端代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%8E%E5%AE%A2%E6%88%B7%E7%AB%AFHTML%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.1.</span> <span class="nav-text">1．客户端HTML代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%8E%E5%AE%A2%E6%88%B7%E7%AB%AFjQuery%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">2．客户端jQuery代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-6-%E6%95%B4%E5%90%88%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">6.8.6 整合代码</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/b9971b07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6.8 基于jQuery的Ajax聊天室程序 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6.8 基于jQuery的Ajax聊天室程序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-13 14:04:17 / 修改时间：14:04:57" itemprop="dateCreated datePublished" datetime="2021-12-13T14:04:17+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC6%E7%AB%A0-jQuery%E4%B8%8EAjax%E7%9A%84%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">第6章 jQuery与Ajax的应用</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/b9971b07/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/b9971b07/" data-xid="/ReadingNotes/b9971b07/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="6-8-基于jQuery的Ajax聊天室程序"><a href="#6-8-基于jQuery的Ajax聊天室程序" class="headerlink" title="6.8 基于jQuery的Ajax聊天室程序"></a>6.8 基于jQuery的Ajax聊天室程序</h1><p>通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，可以帮助读者更好地掌握Ajax的精髓—一个基于Ajax无需刷新技术开发的聊天室程序，该程序允许多用户在网页上聊天，并且可以实时地更新信息。</p>
+<p>通过前面的介绍，相信读者已经对jQuery的Ajax有了较深的认识。下面，将讲解一个较为复杂的Ajax实例，可以帮助读者更好地掌握Ajax的精髓—一个基于Ajax无需刷新技术开发的聊天室程序，该程序允许多用户在网页上聊天，并且可以实时地更新信息。</p>
+<h2 id="6-8-1-基本设想"><a href="#6-8-1-基本设想" class="headerlink" title="6.8.1 基本设想"></a>6.8.1 基本设想</h2><p>首先设计聊天室的外观，如图6-15所示。</p>
+<p>[插图]</p>
+<center>图6-15 聊天室外观</center>
+
+<h3 id="6-8-2-设计数据库"><a href="#6-8-2-设计数据库" class="headerlink" title="6.8.2 设计数据库"></a>6.8.2 设计数据库</h3><p>这里使用MySql数据库来存储信息。</p>
+<p>首先构建一个聊天信息表messages，它有4个字段，即消息编号（id）、姓名（user）、内容（msg）以及一个数字时间戳（time）。下面是创建该表的SQL代码：</p>
+<p>[插图]</p>
+<h2 id="6-8-3-服务器端处理"><a href="#6-8-3-服务器端处理" class="headerlink" title="6.8.3 服务器端处理"></a>6.8.3 服务器端处理</h2><p>服务器端主要用来处理用户提交的信息以及输出返回。</p>
+<ul>
+<li>首先需要在服务器端链接数据库。</li>
+<li>其次如果有用户提交新信息，则把信息插入数据库，同时删除旧的数据信息（保持数据库中只有10条信息）。</li>
+<li>最后从数据库中获取新的信息并以XML格式输出返回。</li>
+</ul>
+<p>这里可以先模拟服务端输出的XML代码结构，XML文档代码如下：</p>
+<p>[插图]</p>
+<p>在这个XML结构中，不光只有消息的实体（包括作者及其聊天信息），还增加了一个“status”标签和一个“time”标签。其中“status”标签用来表示信息请求的状态，如果值为1，则表示新信息请求成功；如果值为2，则表示请求成功但没有新信息。“time”标签用来记录信息请求的时间，可以被用来读取该时间戳后用户提交的新数据。</p>
+<h2 id="6-8-4-客户端处理"><a href="#6-8-4-客户端处理" class="headerlink" title="6.8.4 客户端处理"></a>6.8.4 客户端处理</h2><p>在客户端需要做两项工作。</p>
+<ul>
+<li>首先提交用户聊天信息，然后处理服务器端返回的聊天信息，将信息实时呈现出来。</li>
+<li>每隔一定时间发起查询数据库中聊天记录的请求，然后处理服务端返回的聊天信息，将信息实时呈现出来。</li>
+</ul>
+<p>（1）提交用户聊天信息</p>
+<p>使用POST方式向服务器发送请求，将用户填写的姓名和内容等数据传递到服务器端，在服务器端处理后返回相应的XML数据，然后使用回调函数处理服务器端返回的这些数据，并将新信息追加到客户端的消息显示区中。</p>
+<p>（2）浏览器每隔一定时间更新数据<br>增加一个定时器，并且每隔一定时间调用一次。然后使用回调函数处理服务器端返回的XML数据，并将新信息追加到客户端的消息显示区中。</p>
+<p>由于上面的两项工作都需要对XML文档进行解析，然后追加到信息显示区，因此可以将此操作进行封装，以便于重复利用。在设计该XML文档操作函数时，应注意通过状态（“status”标签）和时间戳（“time”标签）来控制获取聊天信息。</p>
+<h2 id="6-8-5-客户端代码"><a href="#6-8-5-客户端代码" class="headerlink" title="6.8.5 客户端代码"></a>6.8.5 客户端代码</h2><h3 id="1．客户端HTML代码"><a href="#1．客户端HTML代码" class="headerlink" title="1．客户端HTML代码"></a>1．客户端HTML代码</h3><p>首先建立一个HTML页面。从前面的外观设计可以知道页面需要一个外围<code>&lt;div&gt;</code>、一个消息段落（用来显示聊天信息）、姓名文本框、消息文本、提交按钮的表单和一个加载信息时的提示。HTML代码如下：</p>
+<p>[插图]</p>
+<p>当用户第1次进入聊天室的时候，显示效果如图6-16所示。</p>
+<p>[插图]</p>
+<center>图6-16 初始化页面效果</center>
+
+<h3 id="2．客户端jQuery代码"><a href="#2．客户端jQuery代码" class="headerlink" title="2．客户端jQuery代码"></a>2．客户端jQuery代码</h3><p>首先，需要设置当前消息的时间戳为0，并且调用函数来加载数据库已有的聊天消息，代码如下：</p>
+<p>[插图]</p>
+<p>然后，为表单添加一个submit事件，代码如下：</p>
+<p>[插图]</p>
+<p>在submit事件函数中，可以使用jQuery的$.post()方法来发送一个POST请求，把要传递的数据都放入第2个参数中，用{ }包裹，代码如下：</p>
+<p>[插图]</p>
+<p>接下来，如何响应返回的XML呢？为了使代码能被重用，这里创建一个处理XML的函数并且调用该函数（在updateMsg()方法中，也要用到这个解析XML的函数）。函数如下：</p>
+<p>[插图]</p>
+<p>addMessages()函数里的具体内容将在后边实现。</p>
+<p>现在就可以列出表单提交的全部代码了，代码如下：</p>
+<p>[插图]</p>
+<p>在表单提交事件的最后一行添加了“return false;”语句，可以用来阻止浏览器提交表单。</p>
+<p>现在再看addMessages()函数，它是用来处理XML响应信息的。前面讲解过，jQuery遍历XML文档与遍历DOM一样。使用XML文档中的状态码，其代码如下：</p>
+<p>[插图]</p>
+<p>上段代码中使用$(“status”,xml)方法来通知jQuery去XML文档中寻找“status”标签。如果状态代码为2，则表示完成了请求但没有新信息需要添加到该客户端的消息显示区中，因此使用“return;”语句终止函数调用。如果状态代码不为2，则继续往下执行。</p>
+<p>接下来需要为XML的时间戳设定新的值，用来传递给后台去查询新的数据。获取时间戳的代码如下：</p>
+<p>[插图]</p>
+<p>然后使用$.each()函数将XML文档里的数据遍历出来。在示例中，需要显示到客户端消息显示区的元素就是服务器端返回的每一个“message”标签的实例，每个实例代表一条要显示的消息。以下代码展示如何遍历数据：</p>
+<p>[插图]</p>
+<p>得到了所需的数据之后，就可以将其追加到消息显示区里。消息显示窗体的id 为“messagewindow”，因此可以使用$(“#messagewindow”)来选择到它并且使用prepend()方法来追加数据，代码如下：</p>
+<p>[插图]</p>
+<p>将它们整合后，addMessages(xml)函数的代码如下：</p>
+<p>[插图]</p>
+<p>最后，只剩下刚开始调用的函数 updateMsg()还未完成。该函数的功能是到服务器查询新信息，并且调用addMessages()函数来响应返回的XML文档，同时需要设置一个间隔时间，让聊天窗口自动更新。要开始做这些工作，只需要向服务器提交一个时间戳，引用这个$.post()调用即可，代码如下：</p>
+<p>[插图]</p>
+<p>在回调函数里，首先应该移除loading消息，可以在这个元素上调用remove()方法，代码如下：</p>
+<p>[插图]</p>
+<p>然后，在回调函数中将接受到的XML文档对象传递给addMessages()函数，代码如下：</p>
+<p>[插图]</p>
+<p>最后调用JavaScript的setTimeout()方法来每隔一定时间执行updateMsg()函数。</p>
+<p>updateMsg()函数的代码如下：</p>
+<p>[插图]</p>
+<h2 id="6-8-6-整合代码"><a href="#6-8-6-整合代码" class="headerlink" title="6.8.6 整合代码"></a>6.8.6 整合代码</h2><p>[插图]</p>
+<p>聊天界面如图6-17所示。</p>
+<p>[插图]</p>
+<center>图6-17 最终的聊天室程序</center>
+
+<p>正如读者所看到的，仅用了少量的jQuery代码，就实现了一个完整的基于Ajax的Web聊天室应用程序。用jQuery可以如此简单的实现一个复杂的Ajax应用，不得不令人叹服。</p>
+<p>6.9 小结</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/b9971b07/" title="6.8 基于jQuery的Ajax聊天室程序">https://lanlan2017.github.io/ReadingNotes/b9971b07/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/8fcad724/" rel="prev" title="6.7 jQuery中的Ajax全局事件">
+                  <i class="fa fa-chevron-left"></i> 6.7 jQuery中的Ajax全局事件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/4c05c799/" rel="next" title="6.9 小结_第6章 jQuery与Ajax的应用">
+                  6.9 小结_第6章 jQuery与Ajax的应用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/b9971b07/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/b9971b07/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

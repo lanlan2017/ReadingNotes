@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="34.1 搬移UNIX的命令在操作系统的世界里，有两大阵营一直在PK着：*nix（包括UNIX和Linux）和Windows。从目前的统计数据来看，*nix在应用服务器领域占据相对优势，不过Windows也不甘示弱，国内某些小型银行已经在使用PC Server（安装Windows操作系统的服务器）集群来进行银行业务运算，而且稳定性、性能各方面的效果不错；而在个人桌面方面，Windows 是占绝对优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="34.1 搬移UNIX的命令">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/7ca547d2/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="34.1 搬移UNIX的命令在操作系统的世界里，有两大阵营一直在PK着：*nix（包括UNIX和Linux）和Windows。从目前的统计数据来看，*nix在应用服务器领域占据相对优势，不过Windows也不甘示弱，国内某些小型银行已经在使用PC Server（安装Windows操作系统的服务器）集群来进行银行业务运算，而且稳定性、性能各方面的效果不错；而在个人桌面方面，Windows 是占绝对优">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930214930.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215126.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215233.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215409.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001143359.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-09-30T14:05:33.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930214930.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/7ca547d2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/7ca547d2/","path":"/7ca547d2/","title":"34.1 搬移UNIX的命令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>34.1 搬移UNIX的命令 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#34-1-%E6%90%AC%E7%A7%BBUNIX%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">34.1 搬移UNIX的命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/7ca547d2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="34.1 搬移UNIX的命令 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          34.1 搬移UNIX的命令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-27 19:57:33" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-30 22:05:33" itemprop="dateModified" datetime="2021-09-30T22:05:33+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/4-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%B7%B7%E7%BC%96/" itemprop="url" rel="index"><span itemprop="name">4 第四部分 完美世界 ——设计模式混编</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/4-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86-%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%B7%B7%E7%BC%96/%E7%AC%AC34%E7%AB%A0-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">第34章 命令模式+责任链模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/7ca547d2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/7ca547d2/" data-xid="/ReadingNotes/7ca547d2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="34-1-搬移UNIX的命令"><a href="#34-1-搬移UNIX的命令" class="headerlink" title="34.1 搬移UNIX的命令"></a>34.1 搬移UNIX的命令</h1><p>在操作系统的世界里，有两大阵营一直在PK着：<code>*nix</code>（包括UNIX和Linux）和Windows。从目前的统计数据来看，<code>*nix</code>在应用服务器领域占据相对优势，不过Windows也不甘示弱，国内某些小型银行已经在使用PC Server（安装Windows操作系统的服务器）集群来进行银行业务运算，而且稳定性、性能各方面的效果不错；而在个人桌面方面，Windows 是占绝对优势的，大家应该基本上都在用这个操作系统，它的诸多优点这里就不多说了，我们今天就来解决一个习惯问题。如果你负责过UNIX系统维护，你自己的笔记本又是Windows 操作系统的话，我想你肯定有这样的经验，如图34-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930214930.png" alt="image-20210930214930410"></p>
+<center>图34-1 时常犯的错误</center>
+
+<p>是不是经常把UNIX上的命令敲到Windows系统了？为了避免这种情况发生，可以把UNIX上的命令移植到Windows上，也就是Windows下的shell工具，有很多类似的工具，比如cygwin、GUN Bash等，这些都是非常完美的工具，我们今天的任务就是自己写一个这样的工具。怎么写呢？我们学了这么多的模式，当然要融会贯通了，可以使用命令模式、责任链模式、模板方法模式设计一个方便扩展、稳定的工具。</p>
+<p>我们先说说UNIX下的命令，一条命令分为命令名、选项和操作数，例如命令”ls-l&#x2F;usr”， 其中，ls是命令名，l是选项，&#x2F;usr是操作数，后两项都是可选项，根据实际情况而定。UNIX 命令一定遵守以下几个规则：</p>
+<ul>
+<li>命令名为小写字母。</li>
+<li>命令名、选项、操作数之间以空格分隔，空格数量不受限制。</li>
+<li>选项之间可以组合使用，也可以单独拆分使用。</li>
+<li>选项以横杠（-）开头。</li>
+</ul>
+<p>在UNIX世界中，我们最常用的就是ls这个命令，它用于显示目录或文件信息，下面我们先来看看这个命令。常用的有以下几条组合命令：</p>
+<ul>
+<li>ls：简单列出一个目录下的文件。</li>
+<li>ls-l：详细列出目录下的文件。</li>
+<li>ls-a：列出目录下包含的隐藏文件，主要是点号（.）开头的文件。</li>
+<li>ls-s：列出文件的大小。</li>
+</ul>
+<p>除此之外，还有一些非常常用的组合命令，如”ls-la”、”ls-ls”等。ls命令名确定了，但是其后连接的选项和操作数是不确定的。操作数我们不用关心它，每个命令必然有一个操作数，若没有则是当前的目录。问题的关键是选项，用哪个选项以及什么时候使用都是由用户决定的，也就是从设计上考虑。设计者需要完全解析所有的参数，需要很多个类来处理如此多的选项，客户输入一个参数，立刻返回一个结果。针对一个ls命令族，要求如下：</p>
+<ul>
+<li>每一个ls命令都有操作数，默认操作数为当前目录。</li>
+<li>选项不可重复，例如对于”ls-l-l-s”，解析出的选项应该只有两个：l选项和s选项。</li>
+<li>每个选项返回不同的结果，也就是说每个选项应该由不同的业务逻辑来处理。</li>
+<li>为提高扩展性，ls命令族内的运算应该是对外封闭的，减少外界访问ls命令族内部细 节的可能性。</li>
+</ul>
+<p>针对一个命令族的分析结果，我们可以使用什么模式？责任链模式！对，只要把一个参数传递到链首，就可以立刻获得一个结果，中间是如何传递的以及由哪个逻辑解析都不需要外界（高层）模块关心，该模块的类图如图34-2所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215126.png" alt="image-20210930215126398"></p>
+<center>图34-2 命令族的解析类图</center>
+类图还是比较清晰的，UNIX的命令有上百个，我们定义一个CommandName抽象类，所有的命令都继承于该类，它就是责任链模式的handler类，负责链表控制；每个命令族都有一个独立的抽象类，因为每个命令族都有其独特的个性，比如ls命令和df命令，其后可加的参数是不一样的，这就可以在抽象类AbstractLS中定义，而且它还有标示作用，标示其下的实现类都是实现ls命令的，只是命令的选项不同；Context负责建立一条命令的链表，比如ls命令族、df命令族等，它组装出一个处理一个命令族的责任链，并返回首节点供高层模块调用，这是非常典型的责任链模式。
+
+<p>分析完毕一个具体的命令族，已经确定可以采用责任链模式，我们继续往下分析。 UNIX命令非常多，敲一个命令返回一个结果，每个具体的命令可以由相关的命令族（也就是责任链）来解析，但是如此多的命令还是需要有一个派发的角色，输入一个命令，不管后台谁来解析，返回一个结果就成，这就要用到命令模式。命令模式负责协调各个命令正确地传递到各个责任链的首节点，这就是它的任务，其类图如图34-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215233.png" alt="image-20210930215233203"></p>
+<center>图34-3 命令传递类图</center>
+
+<p>是不是典型的命令模式类图？其中Chain是一个标示符，表示的就是我们上面分析的责任链，每一个具体的命令负责调用责任链的首节点，获得返回值，结束命令的执行。两个核心模块都分析完毕了，就可以把类图融合在一起，完整的类图如图34-4所示。</p>
+<p>这个类图还是比较简单的，我们来看一下各个类的职责。</p>
+<ul>
+<li>ClassUtils</li>
+</ul>
+<p>ClassUtils是工具类，其主要职责是根据一个接口、父类查找到所有的子类。在不考虑效 率的应用中，使用该类可以带来非常好的扩展性。</p>
+<ul>
+<li>CommandVO</li>
+</ul>
+<p>CommandVO是命令的值对象，它把一个命令解析为命令名、选项、操作数，例如”ls- l&#x2F;usr”命令分别解析为getCommandName、getParam、getData三个方法的返回值。</p>
+<ul>
+<li>CommandEnum</li>
+</ul>
+<p>CommandEnum是枚举类型，是主要的命令配置文件。为什么需要枚举类型？这是JDK 1.5提供的一个非常好的功能，我们在程序中再讲解如何使用它。</p>
+<p>所有的分析都已经完成了，我们来看看程序。程序不复杂，看看类图，应该先写命令的解释，这是项目的核心。我们先来看CommandName抽象类，如代码清单34-1所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930215409.png" alt="image-20210930215409230"></p>
+<center>图34-4 完整类图</center>
+
+<p>代码清单34-1 抽象命令名类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">CommandName</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> CommandName nextOperator;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">handleMessage</span><span class="params">(CommandVO vo)</span>&#123;</span><br><span class="line">        <span class="comment">//处理结果</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//判断是否是自己处理的参数</span></span><br><span class="line">        <span class="keyword">if</span>(vo.getParam().size() == <span class="number">0</span> || vo.getParam().contains (<span class="built_in">this</span>.getOperateParam()))&#123;</span><br><span class="line">            result = <span class="built_in">this</span>.echo(vo);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">this</span>.nextOperator !=<span class="literal">null</span>)&#123;</span><br><span class="line">                result = <span class="built_in">this</span>.nextOperator.handleMessage(vo);</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                result = <span class="string">&quot;命令无法执行&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//设置剩余参数由谁来处理</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(CommandName _operator)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.nextOperator = _operator;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//每个处理者都要处理一个后缀参数</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title function_">getOperateParam</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//每个处理者都必须实现处理任务</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单，就是责任链模式中的handler，也就是中控程序，控制一个链应该如何建立。我们再来看3个ls命令族，先看AbstractLS抽象类，如代码清单34-2所示。</p>
+<p>代码清单34-2 抽象ls命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractLS</span> <span class="keyword">extends</span> <span class="title class_">CommandName</span>&#123;</span><br><span class="line">    <span class="comment">//默认参数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">DEFAULT_PARAM</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//参数a</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">A_PARAM</span> <span class="operator">=</span><span class="string">&quot;a&quot;</span>;</span><br><span class="line">    <span class="comment">//参数l</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">L_PARAM</span> <span class="operator">=</span> <span class="string">&quot;l&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很惊讶，是吗？怎么是个空的抽象类？是的，确实是一个空类，只定义了3个参数名称，它有两个职责：</p>
+<ul>
+<li>标记ls命令族。</li>
+<li>个性化处理。</li>
+</ul>
+<p>因为现在还没有思考清楚ls有什么个性（可以把命令的选项也认为是其个性化数据）， 所以先写个空类放在这里，以后想清楚了再填写上去，留下一些可扩展的类也许会给未来带来不可估量的优点。</p>
+<p>我们再来看ls不带任何参数的命令处理，如代码清单34-3所示。</p>
+<p>代码清单34-3 ls命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LS</span> <span class="keyword">extends</span> <span class="title class_">AbstractLS</span> &#123;</span><br><span class="line">    <span class="comment">//最简单的ls命令</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> FileManager.ls(vo.formatData());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//参数为空</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.DEFAULT_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>太简单了，首先定义了自己能处理什么样的参数，即只能处理不带参数的ls命令，getOperateParam返回一个长度为零的字符串，就是说该类作为链上的一个节点，只处理没有参数的ls命令。echo方法是执行ls命令，通过调用操作系统相关的命令返回结果。我们再来看ls -l命令，如代码清单34-4所示。</p>
+<p>代码清单34-4 ls-l命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LS_L</span> <span class="keyword">extends</span> <span class="title class_">AbstractLS</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> FileManager.ls_l(vo.formatData());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//l选项</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.L_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该类只处理选项为”l”的命令，也非常简单。ls-a命令的处理与此类似，如代码清单34-5 所示。</p>
+<p>代码清单34-5 ls-a命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LS_A</span> <span class="keyword">extends</span> <span class="title class_">AbstractLS</span> &#123;</span><br><span class="line">    <span class="comment">//ls -a命令 </span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> FileManager.ls_a(vo.formatData());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.A_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这3个实现类都关联到了FileManager，这个类有什么用呢？它是负责与操作系统交互的。要把UNIX的命令迁移到Windows上运行，就需要调用Windows的低层函数，实现起来较复杂，而且和我们本章要讲的内容没有太大关系，所以这里采用示例性代码代替，如代码清单34-6所示。</p>
+<p>代码清单34-6 文件管理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileManager</span> &#123;</span><br><span class="line">    <span class="comment">//ls命令</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">ls</span><span class="params">(String path)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;file1\nfile2\nfile3\nfile4&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//ls-l命令 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">ls_l</span><span class="params">(String path)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;drw-rw-rw root system 1024 2009-8-20 10:23 file1\n&quot;</span>;</span><br><span class="line">        str = str + <span class="string">&quot;drw-rw-rw root system 1024 2009-8-20 10:23 file2\n&quot;</span>;</span><br><span class="line">        str = str + <span class="string">&quot;drw-rw-rw root system 1024 2009-8-20 10:23 file3&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//ls -a命令 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">ls_a</span><span class="params">(String path)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;.\n..\nfile1\nfile2\nfile3&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上都是比较简单的方法，大家有兴趣可以自己实现一下，以下提供3种思路：</p>
+<ul>
+<li>通过java.io.File类自己封装出类似UNIX的返回格式。</li>
+<li>通过java.lang.Runtime类的exec方法执行dos的dir命令，产生类似的ls结果。</li>
+<li>通过JNI（Java Native Interface）来调用与操作系统有关的动态链接库，当然前提是需 要自己写一个动态链接库文件。</li>
+</ul>
+<p>3个具体的命令都已经解析完毕，我们再来看看如何建立一条处理链，由于建链的任务 已经移植到抽象命令类，我们就先来看抽象类Command，如代码清单34-7所示。</p>
+<p>代码清单34-7 抽象命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Command</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title function_">execute</span><span class="params">(CommandVO vo)</span>;</span><br><span class="line">    <span class="comment">//建立链表</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> List&lt;? <span class="keyword">extends</span> <span class="title class_">CommandName</span>&gt; buildChain(Class&lt;? <span class="keyword">extends</span> <span class="title class_">CommandName</span>&gt; abstractClass)&#123;</span><br><span class="line">        <span class="comment">//取出所有的命令名下的子类</span></span><br><span class="line">        List&lt;Class&gt; classes = ClassUtils.getSonClass(abstractClass);</span><br><span class="line">        <span class="comment">//存放命令的实例，并建立链表关系</span></span><br><span class="line">        List&lt;CommandName&gt; commandNameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;CommandName&gt;();</span><br><span class="line">        <span class="keyword">for</span>(Class c:classes)&#123;</span><br><span class="line">            <span class="type">CommandName</span> <span class="variable">commandName</span> <span class="operator">=</span><span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//产生实例</span></span><br><span class="line">                commandName = (CommandName)Class.forName (c.getName()) .newInstance();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                <span class="comment">// TODO</span></span><br><span class="line">            异常处理 &#125;</span><br><span class="line">            <span class="comment">//建立链表</span></span><br><span class="line">            <span class="keyword">if</span>(commandNameList.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                commandNameList.get(commandNameList.size()-<span class="number">1</span>).setNext (commandName);</span><br><span class="line">            &#125;</span><br><span class="line">            commandNameList.add(commandName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> commandNameList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Command抽象类有两个作用：一是定义命令的执行方法，二是负责命令族（责任链）的 建立。其中buildChain方法负责建立一个责任链，它通过接收一个抽象的命令族类就可以建 立一条命令解析链，如传递AbstarctLS类就可以建立一条解析ls命令族的责任链，请读者注意 如下这句代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commandName = (CommandName)Class.forName(c.getName()).newInstance();</span><br></pre></td></tr></table></figure>
+<p>在一个遍历中，类中的每个元素都是一个类名，然后根据类名产生一个实例，它会抛出异常，例如类文件不存在、初始化失败等，读者在设计时要实现该部分的异常。我们再来想一下，每个实现类的类名是如何取得的呢？看下面这句代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Class&gt; classes = ClassUtils.getSonClass(abstractClass);</span><br></pre></td></tr></table></figure>
+<p>根据一个父类取得所有子类，是一个非常好的工具类，其实现如代码清单34-8所示。</p>
+<p>代码清单34-8 根据父类获得子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClassUtils</span> &#123;</span><br><span class="line">    <span class="comment">//根据父类查找到所有的子类，默认情况是子类和父类都在同一个包名下</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;Class&gt; <span class="title function_">getSonClass</span><span class="params">(Class fatherClass)</span>&#123;</span><br><span class="line">        <span class="comment">//定义一个返回值</span></span><br><span class="line">        List&lt;Class&gt; returnClassList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Class&gt;();</span><br><span class="line">        <span class="comment">//获得包名称</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">packageName</span> <span class="operator">=</span> fatherClass.getPackage().getName();</span><br><span class="line">        <span class="comment">//获得包中的所有类</span></span><br><span class="line">        List&lt;Class&gt; packClasses = getClasses(packageName);</span><br><span class="line">        <span class="comment">//判断是否是子类</span></span><br><span class="line">        <span class="keyword">for</span>(Class c:packClasses)&#123;</span><br><span class="line">            <span class="keyword">if</span>(fatherClass.isAssignableFrom(c) &amp;&amp; !fatherClass.equals(c))&#123;</span><br><span class="line">                returnClassList.add(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> returnClassList;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//从一个包中查找出所有的类，在jar包中不能查找</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Class&gt; <span class="title function_">getClasses</span><span class="params">(String packageName)</span> &#123;</span><br><span class="line">        <span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> Thread.currentThread() .getContextClassLoader();</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> packageName.replace(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">        Enumeration&lt;URL&gt; resources = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            resources = classLoader.getResources(path);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">            Auto-generated <span class="keyword">catch</span> block e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;File&gt; dirs = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;File&gt;();</span><br><span class="line">        <span class="keyword">while</span> (resources.hasMoreElements()) &#123;</span><br><span class="line">            <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> resources.nextElement();</span><br><span class="line">            dirs.add(<span class="keyword">new</span> <span class="title class_">File</span>(resource.getFile()));</span><br><span class="line">        &#125;</span><br><span class="line">        ArrayList&lt;Class&gt; classes = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Class&gt;();</span><br><span class="line">        <span class="keyword">for</span> (File directory : dirs) &#123;</span><br><span class="line">            classes.addAll(findClasses(directory, packageName));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classes;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Class&gt; <span class="title function_">findClasses</span><span class="params">(File directory, String packageName)</span> &#123;</span><br><span class="line">        List&lt;Class&gt; classes = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Class&gt;();</span><br><span class="line">        <span class="keyword">if</span> (!directory.exists()) &#123;</span><br><span class="line">            <span class="keyword">return</span> classes;</span><br><span class="line">        &#125;</span><br><span class="line">        File[] files = directory.listFiles();</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                <span class="keyword">assert</span> !file.getName().contains(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">                classes.addAll(findClasses(file, packageName + <span class="string">&quot;.&quot;</span> + file.getName()));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (file.getName().endsWith(<span class="string">&quot;.class&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    classes.add(Class.forName(packageName + <span class="string">&#x27;.&#x27;</span> + file.getName() .substring(<span class="number">0</span>, file.getName().length() - <span class="number">6</span>)));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个类请大家谨慎使用，在核心的应用中尽量不要使用该工具，它会严重影响性能。</p>
+<p>再来看LSCommand类的实现，如代码清单34-9所示。</p>
+<p>代码清单34-9 具体的ls命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LSCommand</span> <span class="keyword">extends</span> <span class="title class_">Command</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">execute</span><span class="params">(CommandVO vo)</span>&#123;</span><br><span class="line">        <span class="comment">//返回链表的首节点</span></span><br><span class="line">        <span class="type">CommandName</span> <span class="variable">firstNode</span> <span class="operator">=</span> <span class="built_in">super</span>.buildChain(AbstractLS.class).get(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> firstNode.handleMessage(vo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单的方法，先建立一个命令族的责任链，然后找到首节点调用。在该类中我们使用CommandVO类，它是一个封装对象，其代码如代码清单34-10所示。</p>
+<p>代码清单34-10 命令对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommandVO</span> &#123;</span><br><span class="line">    <span class="comment">//定义参数名与参数的分隔符号,一般是空格</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">DIVIDE_FLAG</span> <span class="operator">=</span><span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="comment">//定义参数前的符号，Unix一般是-,如ls</span></span><br><span class="line">    -la <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String PREFIX=<span class="string">&quot;-&quot;</span>;</span><br><span class="line">    <span class="comment">//命令名，如ls、du</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">commandName</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//参数列表</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; paramList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">    <span class="comment">//操作数列表</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; dataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">    <span class="comment">//通过构造函数传递进来命令</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CommandVO</span><span class="params">(String commandStr)</span>&#123;</span><br><span class="line">        <span class="comment">//常规判断</span></span><br><span class="line">        <span class="keyword">if</span>(commandStr != <span class="literal">null</span> &amp;&amp; commandStr.length() !=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">//根据分隔符号拆分出执行符号</span></span><br><span class="line">            String[] complexStr = commandStr.split(CommandVO.DIVIDE_FLAG);</span><br><span class="line">            <span class="comment">//第一个参数是执行符号</span></span><br><span class="line">            <span class="built_in">this</span>.commandName = complexStr[<span class="number">0</span>];</span><br><span class="line">            <span class="comment">//把参数放到List中</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;complexStr.length;i++)&#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> complexStr[i];</span><br><span class="line">                <span class="comment">//包含前缀符号，认为是参数</span></span><br><span class="line">                <span class="keyword">if</span>(str.indexOf(CommandVO.PREFIX)==<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="built_in">this</span>.paramList.add(str.replace (CommandVO.PREFIX, <span class="string">&quot;&quot;</span>).trim());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="built_in">this</span>.dataList.add(str.trim());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//传递的命令错误</span></span><br><span class="line">            System.out.println(<span class="string">&quot;命令解析失败，必须传递一个命令才能执行！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//得到命令名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCommandName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.commandName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得参数</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title function_">getParam</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//为了方便处理空参数</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">this</span>.paramList.size() ==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">this</span>.paramList.add(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>(<span class="keyword">new</span> <span class="title class_">HashSet</span>(<span class="built_in">this</span>.paramList));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得操作数</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title function_">getData</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.dataList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CommandVO解析一个命令，规定一个命令必须有3项：命令名、选项、操作数。如果没 有呢？那就以长度为零的字符串代替，通过这样的一个约定可以大大降低命令解析的开发工 作。注意getParam参数中的返回值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">ArrayList</span>(<span class="keyword">new</span> <span class="title class_">HashSet</span>(<span class="built_in">this</span>.paramList));</span><br></pre></td></tr></table></figure>
+<p>为什么要这么处理？HashSet具有值唯一的优点，这样处理就是为了避免出现两个相同的参数，比如对于”ls-l-l-s”这样的命令，通过getParam返回的参数是几个呢？回答是两个：l 选项和s选项。</p>
+<p>我们再来看Invoker类，它是负责命令分发的类，如代码清单34-11所示。</p>
+<p>代码清单34-11 命令分发</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Invoker</span> &#123;</span><br><span class="line">    <span class="comment">//执行命令</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">exec</span><span class="params">(String _commandStr)</span>&#123;</span><br><span class="line">        <span class="comment">//定义返回值</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//首先解析命令</span></span><br><span class="line">        <span class="type">CommandVO</span> <span class="variable">vo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CommandVO</span>(_commandStr);</span><br><span class="line">        <span class="comment">//检查是否支持该命令</span></span><br><span class="line">        <span class="keyword">if</span>(CommandEnum.getNames().contains(vo.getCommandName()))&#123;</span><br><span class="line">            <span class="comment">//产生命令对象</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> CommandEnum.valueOf (vo.getCommandName()) .getValue();</span><br><span class="line">            </span><br><span class="line">            Command command;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                command = (Command)Class.forName(className).newInstance();</span><br><span class="line">                result = command.execute(vo);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                <span class="comment">// TODO</span></span><br><span class="line">            异常处理 &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            result = <span class="string">&quot;无法执行命令，请检查命令格式&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现也是比较简单的，从CommandEnum中获得命令与命令类的配置信息，然后建立一个命令实例，调用其execute方法，完成命令的执行操作。CommandEnum类是一个枚举类型，如代码清单34-12所示。</p>
+<p>代码清单34-12 命令配置对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">CommandEnum</span> &#123;</span><br><span class="line">    ls(<span class="string">&quot;com.cbf4life.common.command.LSCommand&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//定义构造函数，目的是Data(value)类型的相匹配</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">CommandEnum</span><span class="params">(String value)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getValue</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回所有的enum对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">getNames</span><span class="params">()</span>&#123;</span><br><span class="line">        CommandEnum[] commandEnum = CommandEnum.values();</span><br><span class="line">        List&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        <span class="keyword">for</span>(CommandEnum c:commandEnum)&#123;</span><br><span class="line">            names.add(c.name());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> names;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么要用枚举类型？用一个接口来管理也是很容易实现的。注意CommandEnum中的构造函数CommandEnum(String value)和getValue类，没有新建一个Enum对象，但是可以直接使用CommandEnum.ls.getValue方法获得值，这就是Enum类型的独特地方。再看下面：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls(<span class="string">&quot;com.cbf4life.common.command.LSCommand&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>是不是很特别？是的，枚举的基本功能就是定义默认可选值，但是Java中的枚举功能又增强了很多，可以添加方法和属性，基本上就是一个特殊的类。若要详细了解Enum，读者可以翻阅一下相关语法书。</p>
+<p>现在剩下的工作就是写一个Client类，然后看看运行情况如何，如代码清单34-13所示。</p>
+<p>代码清单34-13 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">Invoker</span> <span class="variable">invoker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Invoker</span>();</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="comment">//UNIX下的默认提示符号</span></span><br><span class="line">            System.out.print(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">            <span class="comment">//捕获输出</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> (<span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span> (System.in))).readLine();</span><br><span class="line">            <span class="comment">//输入quit或exit则退出</span></span><br><span class="line">            <span class="keyword">if</span>(input.equals(<span class="string">&quot;quit&quot;</span>) || input.equals(<span class="string">&quot;exit&quot;</span>))&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(invoker.exec(input));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Client也很简单，通过一个while循环允许使用者持续输入，然后打印出返回值，运行结 果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#ls </span><br><span class="line">file1 </span><br><span class="line">file2 </span><br><span class="line">file3 </span><br><span class="line">file4 </span><br><span class="line">#ls -l </span><br><span class="line">drw-rw-rw root system 1024 2009-8-20 10:23 file1 </span><br><span class="line">drw-rw-rw root system 1024 2009-8-20 10:23 file2 </span><br><span class="line">drw-rw-rw root system 1024 2009-8-20 10:23 file3 </span><br><span class="line">#ls -a</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">file1 </span><br><span class="line">file2 </span><br><span class="line">file3 </span><br><span class="line">#quit</span><br></pre></td></tr></table></figure>
+<p>我们已经实现了在Windows下操作UNIX命令的功能，但是仅仅一个ls命令族是不够的， 我们要扩展，把一百多个命令都扩展出来，怎么扩展呢？现在增加一个df命令族，显示磁盘的大小，只要增加类图就成，如图34-5所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211001143359.png" alt="image-20211001143359455"></p>
+<center>图34-5 扩展df命令后的类图</center>
+
+<p>仅仅增加了粗框的部分，也就是增加DFCommand、AbstractDF以及实现类就可以完成扩展功能。先看AbstractDF代码，如代码清单34-14所示。<br>代码清单34-14 df命令的抽象类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractDF</span> <span class="keyword">extends</span> <span class="title class_">CommandName</span> &#123;</span><br><span class="line">    <span class="comment">//默认参数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">DEFAULT_PARAM</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//参数k</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">K_PARAM</span> <span class="operator">=</span> <span class="string">&quot;k&quot;</span>;</span><br><span class="line">    <span class="comment">//参数g</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">G_PARAM</span> <span class="operator">=</span> <span class="string">&quot;g&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与前面一样的功能，定义选项名称。接下来是三个实现类，都非常简单，如代码清单34-15所示。</p>
+<p>代码清单34-15 df命令的具体实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DF</span> <span class="keyword">extends</span> <span class="title class_">AbstractDF</span>&#123;</span><br><span class="line">    <span class="comment">//定义一下自己能处理什么参数</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.DEFAULT_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//命令处理</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DiskManager.df();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DF_K</span> <span class="keyword">extends</span> <span class="title class_">AbstractDF</span>&#123;</span><br><span class="line">    <span class="comment">//定义一下自己能处理什么参数</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.K_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//命令处理</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DiskManager.df_k();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DF_G</span> <span class="keyword">extends</span> <span class="title class_">AbstractDF</span>&#123;</span><br><span class="line">    <span class="comment">//定义一下自己能处理什么参数</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">getOperateParam</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.G_PARAM;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//命令处理</span></span><br><span class="line">    <span class="keyword">protected</span> String <span class="title function_">echo</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> DiskManager.df_g();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个选项的实现类都定义了自己能解析什么命令，然后通过echo方法返回执行结果。在三个实现类中都与DiskManager类有关联关系，该类负责与操作系统有关的功能，是必须要实现的，其示例代码如代码清单34-16所示。</p>
+<p>代码清单34-16 磁盘管理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DiskManager</span> &#123;</span><br><span class="line">    <span class="comment">//默认的计算大小</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">df</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/\t10485760\n/usr\t104857600\n/home\t1048576000\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//按照kb来计算</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">df_k</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/\t10240\n/usr\t102400\n/home\tt10240000\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//按照gb计算</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">df_g</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/\t10\n/usr\t100\n/home\tt10000\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上为示例代码，若要实际计算磁盘大小，可以使用JNI的方式或者执行操作系统的命令的方式获得，特别是JDK 1.6提供了获得一个root目录大小的方法。</p>
+<p>然后再增加一个DFCommand命令，负责执行命令，如代码清单34-17所示。</p>
+<p>代码清单34-17 可执行的df命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DFCommand</span> <span class="keyword">extends</span> <span class="title class_">Command</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">execute</span><span class="params">(CommandVO vo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.buildChain(AbstractDF.class).get(<span class="number">0</span>).handleMessage(vo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后一步，修改一下CommandEnum配置，增加一个枚举项，如代码清单34-18所示。</p>
+<p>代码清单34-18 增加后的枚举项</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">CommandEnum</span> &#123;</span><br><span class="line">    ls(<span class="string">&quot;com.cbf4life.common.command.LSCommand&quot;</span>), df(<span class="string">&quot;com.cbf4life.common.command.DFCommand&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//定义构造函数，目的是Data(value)类型的相匹配</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">CommandEnum</span><span class="params">(String value)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getValue</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回所有的enum对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">getNames</span><span class="params">()</span>&#123;</span><br><span class="line">        CommandEnum[] commandEnum = CommandEnum.values();</span><br><span class="line">        List&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        <span class="keyword">for</span>(CommandEnum c:commandEnum)&#123;</span><br><span class="line">            names.add(c.name());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> names;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#ls </span><br><span class="line">file1 </span><br><span class="line">file2 </span><br><span class="line">file3 </span><br><span class="line">file4 </span><br><span class="line">#df / 10485760 </span><br><span class="line">/usr 104857600 </span><br><span class="line">/home 1048576000 </span><br><span class="line">#df -k </span><br><span class="line">/ 10240 </span><br><span class="line">/usr 102400 </span><br><span class="line">/home t10240000 </span><br><span class="line">#df -g </span><br><span class="line">/ 10 </span><br><span class="line">/usr 100 </span><br><span class="line">/home t10000 </span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>仅仅增加类就完成了变更，这才是我们要的结果：对修改关闭，对扩展开放。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/7ca547d2/" title="34.1 搬移UNIX的命令">https://lanlan2017.github.io/ReadingNotes/7ca547d2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5d5440d2/" rel="prev" title="35.1 迷你版的交易系统">
+                  <i class="fa fa-chevron-left"></i> 35.1 迷你版的交易系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/cbbd7c84/" rel="next" title="33.3 包装模式群PK">
+                  33.3 包装模式群PK <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/7ca547d2/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/7ca547d2/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

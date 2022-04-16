@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="3.3 事件传播在说明基于通常不可单击的页面元素处理单击事件的能力时,我们构思的界面中已经给出了一些提示——样式表切换器标签(即&lt;h3&gt;元素)实际上都是活动的,随时等待用户操作。为了改进界面,我们可以为按钮添加一种翻转状态,以便清楚地表明它们能与鼠标进行某种方式的交互: 1234.hover &amp;#123;   cursor: pointer;   background-color: #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.3 事件传播">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/21530484/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="3.3 事件传播在说明基于通常不可单击的页面元素处理单击事件的能力时,我们构思的界面中已经给出了一些提示——样式表切换器标签(即&lt;h3&gt;元素)实际上都是活动的,随时等待用户操作。为了改进界面,我们可以为按钮添加一种翻转状态,以便清楚地表明它们能与鼠标进行某种方式的交互: 1234.hover &amp;#123;   cursor: pointer;   background-color: #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/jQueryJiChuJiaoCheng4/chapter3/1.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/jQueryJiChuJiaoCheng4/chapter3/2.png">
+<meta property="article:published_time" content="2019-07-01T07:05:23.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/jQueryJiChuJiaoCheng4/chapter3/1.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/21530484/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/21530484/","path":"/21530484/","title":"3.3 事件传播"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.3 事件传播 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD"><span class="nav-number">1.</span> <span class="nav-text">3.3 事件传播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-1-%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%97%85%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">3.3.1 事件的旅程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-2-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E7%9A%84%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">3.3.2 事件冒泡的副作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%86%92%E6%B3%A1%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">避免冒泡问题</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/21530484/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.3 事件传播 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.3 事件传播
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-01 15:05:23" itemprop="dateCreated datePublished" datetime="2019-07-01T15:05:23+08:00">2019-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">jQuery基础教程 第4版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/jQuery%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E7%AC%AC4%E7%89%88/%E7%AC%AC3%E7%AB%A0-%E4%BA%8B%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">第3章 事件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/21530484/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/21530484/" data-xid="/ReadingNotes/21530484/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="3-3-事件传播"><a href="#3-3-事件传播" class="headerlink" title="3.3 事件传播"></a>3.3 事件传播</h1><p>在说明基于通常不可单击的页面元素处理单击事件的能力时,我们构思的界面中已经给出了一些提示——样式表切换器标签(即<code>&lt;h3&gt;</code>元素)实际上都是活动的,随时等待用户操作。为了改进界面,我们可以为按钮添加一种翻转状态,以便清楚地表明它们能与鼠标进行某种方式的交互:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.hover</span> &#123; </span><br><span class="line">  <span class="attribute">cursor</span>: pointer; </span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#afa</span>; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><code>CSS</code>规范加入了一个名叫<code>:hover</code>的伪类选择符,这个选择符可以让样式表在用户鼠标指针悬停在某个元素上时,影响元素的外观。这个伪类选择符在某种程度上可以帮我们解决问题,但在这里,我们要介绍<code>jQuery</code>的<code>.hover</code>方法。这个方法可以让我们在鼠标指针进入元素和离开元素时,通过<code>JavaScript</code>来改变元素的样式——事实上是可以执行任意操作。</p>
+<p>同前面介绍的简单事件方法不同,<code>.hover()</code>方法接受两个函数参数。</p>
+<ul>
+<li>第一个函数会在鼠标指针进入被选择的元素时执行,</li>
+<li>第二个函数会在鼠标指针离开该元素时触发。</li>
+</ul>
+<p>我们可以在这些时候修改应用到按钮上的类,从而实现翻转效果,参见代码清单3-10。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&#x27;#switcher h3&#x27;</span>).<span class="title function_">hover</span>(</span><br><span class="line">    <span class="comment">//鼠标进入时触发</span></span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      $(<span class="variable language_">this</span>).<span class="title function_">addClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 鼠标离开时触发</span></span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      $(<span class="variable language_">this</span>).<span class="title function_">removeClass</span>(<span class="string">&#x27;hover&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里,我们再次使用隐式迭代和事件上下文实现了简洁的代码。现在,当鼠标指针悬停在<code>&lt;h3&gt;</code>上时,我们都能看到如图3-6中所示的应用了类之后的效果。</p>
+<p>而且,使用<code>.hover()</code>也意味着可以避免<code>JavaScript</code>中的事件传播(<code>event propagation</code>)导致的头痛问题。要理解事件传播的含义,首先必须搞清楚<code>JavaScript</code>如何决定由哪个元素来处理给定的事件。</p>
+<h2 id="3-3-1-事件的旅程"><a href="#3-3-1-事件的旅程" class="headerlink" title="3.3.1 事件的旅程"></a>3.3.1 事件的旅程</h2><p>当页面上发生一个事件时,每个层次上的<code>DOM</code>元素都有机会处理这个事件。以下面的页面模型为例:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;foo&quot;</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;bar&quot;</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://www.example.com/&quot;</span>&gt;</span> </span><br><span class="line">      The quick brown fox jumps over the lazy dog. </span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span> </span><br><span class="line">    How razorback-jumping frogs can level six piqued gymnasts! </span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>当在浏览器中形象化地呈现这些由嵌套的代码构成的元素时,我们看到的效果如图3-7所示。</p>
+<p>从逻辑上看,任何事件都可能会有多个元素负责响应。举例来说,如果单击了页面中的链接元素,那么<code>&lt;div&gt;</code>、<code>&lt;span&gt;</code>和<code>&lt;a&gt;</code>全都应该得到响应这次单击的机会。毕竟,这3个元素同时都处于用户鼠标指针之下。而<code>&lt;p&gt;</code>元素则与这次交互操作无关。<br><strong>允许多个元素响应单击事件的一种策略叫做<code>事件捕获</code><strong>①。</strong>在事件捕获的过程中,事件<code>首先会交给最外层的元素</code>,接着再交给更具体的元素</strong>。在这个例子中,意味着单击事件首先会传递给<code>&lt;div&gt;</code>,然后是<code>&lt;span&gt;</code>,最后是<code>&lt;a&gt;</code>,如图3-8所示。<br><img data-src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/jQueryJiChuJiaoCheng4/chapter3/1.png" alt="这里有一张图片"><br>另一种相反的策略叫做<strong>事件冒泡</strong>。<strong>即当事件发生时,会首先发送给最具体的元素,在这个元素获得响应机会之后,事件会向上冒泡到更一般的元素</strong>。在我们的例子中,<code>&lt;a&gt;</code>会首先处理事件,然后按照顺序依次是<code>&lt;span&gt;</code>和<code>&lt;div&gt;</code>,如图3-9所示。<br><img data-src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/jQueryJiChuJiaoCheng4/chapter3/2.png" alt="这里有一张图片"><br>毫不奇怪,不同的浏览器开发者最初采用的是不同的事件传播模型。因而,最终出台的<code>DOM</code>标准规定应该同时使用这两种策略:</p>
+<ul>
+<li>首先,事件要从一般元素到具体元素逐层捕获,</li>
+<li>然后,事件再通过冒泡返回<code>DOM</code>树的顶层。</li>
+</ul>
+<p>而事件处理程序可以注册到这个过程中的任何一个阶段。<br>为了确保跨浏览器的一致性,而且也为了让人容易理解,<strong><code>jQuery</code>始终会在模型的冒泡阶段注册事件处理程序。因此,我们总是可以假定最具体的元素会首先获得响应事件的机会</strong>。</p>
+<h2 id="3-3-2-事件冒泡的副作用"><a href="#3-3-2-事件冒泡的副作用" class="headerlink" title="3.3.2 事件冒泡的副作用"></a>3.3.2 事件冒泡的副作用</h2><p>事件冒泡可能会导致始料不及的行为,特别是在错误的元素响应<code>mouseover</code>或<code>mouseout</code>事件的情况下。<br>假设在我们的例子中,为<code>&lt;div&gt;</code>添加了一个<code>mouseout</code>事件处理程序。<br>当用户的鼠标指针退出这个<code>&lt;div&gt;</code>时,会按照预期运行<code>mouseout</code>处理程序。因为这个过程发生在顶层元素上,所以其他元素不会取得这个事件。<br>但是,当指针从<code>&lt;a&gt;</code>元素上离开时,<code>&lt;a&gt;</code>元素也会取得一个<code>mouseout</code>事件。然后,这个事件会向上冒泡到<code>&lt;span&gt;</code>和<code>&lt;div&gt;</code>,从而触发上述的事件处理程序。这种冒泡序列很可能不是我们所希望的。</p>
+<h3 id="避免冒泡问题"><a href="#避免冒泡问题" class="headerlink" title="避免冒泡问题"></a>避免冒泡问题</h3><p>而<code>mouseenter</code>和<code>mouseleave</code>事件,无论是<strong>单独绑定</strong>,还是<strong>在<code>.hover()</code>方法中组合绑定</strong>,<strong><code>都可以避免</code>这些冒泡问题</strong>。在使用它们处理事件的时候,可以不用担心某些非目标元素得到<code>mouseover</code>或<code>mouseout</code>事件导致的问题。<br>刚才介绍的<code>mouseout</code>的问题说明了限制事件作用域的必要性。虽然<code>.hover</code>()可以处理这种特殊情况,但在其他情况下,我们可能还需要从空间(阻止事件发送到某些元素)和时间(阻止事件在某些时间段发送)上限制某个事件。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/21530484/" title="3.3 事件传播">https://lanlan2017.github.io/ReadingNotes/21530484/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/578fdd22/" rel="prev" title="3.2 处理简单的事件">
+                  <i class="fa fa-chevron-left"></i> 3.2 处理简单的事件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a4e0166f/" rel="next" title="3.4 通过事件对象改变事件的旅程">
+                  3.4 通过事件对象改变事件的旅程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/21530484/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/21530484/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="1.3 编写Spring应用因为是刚刚开始，所以我们首先为Taco Cloud做一些小的变更，但是这些变更会展现Spring的很多优点。在刚开始的时候，比较合适的做法是为Taco Cloud应用添加一个主页。在添加主页时，我们将会创建两个代码构件:  一个控制器类，用来处理主页相关的请求； 一个视图模板，用来定义主页看起来是什么样子。  测试是非常重要的，所以我们还会编写一个简单的测试类来测试主页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.3 编写Spring应用">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/5a3762bc/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="1.3 编写Spring应用因为是刚刚开始，所以我们首先为Taco Cloud做一些小的变更，但是这些变更会展现Spring的很多优点。在刚开始的时候，比较合适的做法是为Taco Cloud应用添加一个主页。在添加主页时，我们将会创建两个代码构件:  一个控制器类，用来处理主页相关的请求； 一个视图模板，用来定义主页看起来是什么样子。  测试是非常重要的，所以我们还会编写一个简单的测试类来测试主页">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003201544.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003201706.jpeg">
+<meta property="article:published_time" content="2021-10-03T12:17:07.000Z">
+<meta property="article:modified_time" content="2021-10-03T12:17:07.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003201544.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/5a3762bc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/5a3762bc/","path":"/5a3762bc/","title":"1.3 编写Spring应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1.3 编写Spring应用 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-3-%E7%BC%96%E5%86%99Spring%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">1.3 编写Spring应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-1-%E5%A4%84%E7%90%86Web%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">1.3.1 处理Web请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BD%95%E4%BD%BF%E7%94%A8Thymeleaf"><span class="nav-number">1.1.1.</span> <span class="nav-text">为何使用Thymeleaf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-2-%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">1.3.2 定义视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-3-%E6%B5%8B%E8%AF%95%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.3 测试控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-4-%E6%9E%84%E5%BB%BA%E5%92%8C%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">1.3.4 构建和运行应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-5-%E4%BA%86%E8%A7%A3Spring-Boot-DevTools"><span class="nav-number">1.5.</span> <span class="nav-text">1.3.5 了解Spring Boot DevTools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">应用自动重启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E5%92%8C%E7%A6%81%E7%94%A8%E6%A8%A1%E6%9D%BF%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.2.</span> <span class="nav-text">浏览器自动刷新和禁用模板缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E7%9A%84H2%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="nav-number">1.5.3.</span> <span class="nav-text">内置的H2控制台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-6-%E5%9B%9E%E9%A1%BE%E4%B8%80%E4%B8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">1.3.6 回顾一下</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/5a3762bc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1.3 编写Spring应用 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1.3 编写Spring应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 20:17:07" itemprop="dateCreated datePublished" datetime="2021-10-03T20:17:07+08:00">2021-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC1%E7%AB%A0-Spring%E8%B5%B7%E6%AD%A5/" itemprop="url" rel="index"><span itemprop="name">第1章 Spring起步</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/5a3762bc/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/5a3762bc/" data-xid="/ReadingNotes/5a3762bc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-3-编写Spring应用"><a href="#1-3-编写Spring应用" class="headerlink" title="1.3 编写Spring应用"></a>1.3 编写Spring应用</h1><p>因为是刚刚开始，所以我们首先为Taco Cloud做一些小的变更，但是这些变更会展现Spring的很多优点。在刚开始的时候，比较合适的做法是为Taco Cloud应用添加一个主页。在添加主页时，我们将会创建两个代码构件:</p>
+<ul>
+<li>一个控制器类，用来处理主页相关的请求；</li>
+<li>一个视图模板，用来定义主页看起来是什么样子。</li>
+</ul>
+<p>测试是非常重要的，所以我们还会编写一个简单的测试类来测试主页。但是，要事优先，我们需要先编写控制器。</p>
+<h2 id="1-3-1-处理Web请求"><a href="#1-3-1-处理Web请求" class="headerlink" title="1.3.1 处理Web请求"></a>1.3.1 处理Web请求</h2><p>Spring自带了一个强大的Web框架，名为Spring MVC。Spring MVC的核心是控制器（controller）的理念。控制器是处理请求并以某种方式进行信息响应的类。在面向浏览器的应用中，控制器会填充可选的数据模型并将请求传递给一个视图，以便于生成返回给浏览器的HTML。</p>
+<p>在第2章中，我们将会学习更多关于Spring MVC的知识。现在，我们会编写一个简单的控制器类以处理对根路径（比如，“&#x2F;”）的请求，并将这些请求转发至主页视图，在这个过程中不会填充任何的模型数据。程序清单1.4展示了这个简单的控制器类。</p>
+<p>程序清单1.4 主页控制器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="meta">@Controller</span>                            <span class="comment">//⇽--- 控制器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HomeController</span> &#123;</span><br><span class="line">  <span class="meta">@GetMapping(&quot;/&quot;)</span>                    <span class="comment">//⇽--- 处理对根路径“/”的请求</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">home</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;home&quot;</span>;         <span class="comment">//⇽--- 返回视图名</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个类带有@Controller。就其本身而言，@Controller并没有做太多的事情。它的主要目的是让组件扫描将这个类识别为一个组件。因为HomeController带有@Controller，所以Spring的组件扫描功能会自动发现它，并创建一个HomeController实例作为Spring应用上下文中的bean。</p>
+<p>实际上，有一些其他的注解与@Controller有着类似的目的（包括@Component、@Service和@Repository）。你可以为HomeController添加上述的任意其他注解，其作用是完全相同的。但是，在这里选择使用@Controller更能描述这个组件在应用中的角色。</p>
+<p>home()是一个简单的控制器方法。它带有@GetMapping注解，表明如果针对“&#x2F;”发送HTTP GET请求，那么这个方法将会处理请求。该方法所做的只是返回String类型的home值。</p>
+<p>这个值将会被解析为视图的逻辑名。视图如何实现取决于多个因素，但是因为Thymeleaf位于类路径中，所以我们可以使用Thymeleaf来定义模板。</p>
+<h3 id="为何使用Thymeleaf"><a href="#为何使用Thymeleaf" class="headerlink" title="为何使用Thymeleaf"></a>为何使用Thymeleaf</h3><p>你可能会想为什么要选择Thymeleaf作为模板引擎呢？为何不使用JSP？为何不使用FreeMarker？为何不选择其他的几个可选方案？</p>
+<p>简单来说，我必须要做出选择，我喜欢Thymeleaf，相对于其他的方案，我会优先使用它。即便JSP是更加显而易见的选择，但是组合使用JSP和Spring Boot需要克服一些挑战。我不想脱离第1章的内容定位，所以在这里就此打住。在第2章中，我们将会看一下其他的模板方案，其中也包括JSP。</p>
+<p>模板名称是由逻辑视图名派生而来的，再加上“&#x2F;templates&#x2F;”前缀和“.html”后缀。最终形成的模板路径将是“&#x2F;templates&#x2F;home.html”。所以，我们需要将模板放到项目的“&#x2F;src&#x2F;main&#x2F;resources&#x2F;templates&#x2F;home.html”目录中。现在，就让我们来创建这个模板。</p>
+<h2 id="1-3-2-定义视图"><a href="#1-3-2-定义视图" class="headerlink" title="1.3.2 定义视图"></a>1.3.2 定义视图</h2><p>为了让主页尽可能简单，除了欢迎用户访问站点之外，它不会做其他的任何事情。程序清单1.5展现了基本的Thymeleaf模板，它定义了Taco Cloud的主页。</p>
+<p>程序清单1.5 Taco Cloud主页模板</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Taco Cloud<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;/images/TacoCloud.png&#125;&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个模板并没有太多需要讨论的。唯一需要注意的一行代码是用于展现Taco Cloud Logo的<code>&lt;img&gt;</code>标签。它使用了Thymeleaf的<code>th:src</code>属性和<code>@&#123;...&#125;</code>表达式，以便于引用相对于上下文路径的图片。除此之外，它就是一个Hello World页面。</p>
+<p>但是，我们再讨论一下这个图片。我将定义Taco Cloud Logo的工作留给你，你需要将它放到应用的正确位置中。</p>
+<p>图片是使用相对于上下文的“&#x2F;images&#x2F;TacoCloud.png”路径来进行引用的。回忆一下我们的项目结构，像图片这样的静态资源是放到“&#x2F;src&#x2F;main&#x2F;resources&#x2F;static”文件夹中的。这意味着，在项目中，Taco Cloud Logo图片必须要位于“&#x2F;src&#x2F;main&#x2F;resources&#x2F;static&#x2F; images&#x2F;TacoCloud.png”。</p>
+<p>我们已经有了一个处理主页请求的控制器并且有了渲染主页的模板，现在基本就可以启动应用来看一下它的效果了。在此之前，我们先看一下如何为控制器编写测试。</p>
+<h2 id="1-3-3-测试控制器"><a href="#1-3-3-测试控制器" class="headerlink" title="1.3.3 测试控制器"></a>1.3.3 测试控制器</h2><p>在测试Web应用时，对HTML页面的内容进行断言是比较困难的。幸好Spring对测试提供了强大的支持，这使得测试Web应用变得非常简单。</p>
+<p>对于主页来说，我们所编写的测试在复杂性上与主页本身差不多。测试需要针对根路径“&#x2F;”发送一个HTTP GET请求并期望得到成功结果，其中视图名称为home并且结果内容包含“Welcome to…”。程序清单1.6能够完成该任务。</p>
+<p>程序清单1.6 针对主页控制器的测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.hamcrest.Matchers.containsString;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span></span><br><span class="line">     org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span></span><br><span class="line">     org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span></span><br><span class="line">     org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span></span><br><span class="line">     org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@WebMvcTest(HomeController.class)</span>         <span class="comment">//⇽--- 针对HomeController的Web测试</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HomeControllerTest</span> &#123;</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> MockMvc mockMvc;                 <span class="comment">//⇽--- 注入MockMvc</span></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testHomePage</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    mockMvc.perform(get(<span class="string">&quot;/&quot;</span>))                <span class="comment">//⇽--- 发起对“/”的GET</span></span><br><span class="line">      .andExpect(status().isOk())            <span class="comment">//⇽--- 期望得到HTTP 200</span></span><br><span class="line">      .andExpect(view().name(<span class="string">&quot;home&quot;</span>))         <span class="comment">//⇽--- 期望得到home视图</span></span><br><span class="line">      .andExpect(content().string(            <span class="comment">//⇽--- 期望包含“Welcome to...”</span></span><br><span class="line">             containsString(<span class="string">&quot;Welcome to...&quot;</span>)));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于这个测试，我们首先注意到的可能就是它使用了与TacoCloudApplicationTests类不同的注解。HomeControllerTest没有使用@SpringBootTest标记，而是添加了@WebMvcTest注解。这是Spring Boot所提供的一个特殊测试注解，它会让这个测试在Spring MVC应用的上下文中执行。更具体来讲，在本例中，它会将HomeController注册到Spring MVC中，这样的话，我们就可以向它发送请求了。</p>
+<p>@WebMvcTest同样会为测试Spring MVC应用提供Spring环境的支持。尽管我们可以启动一个服务器来进行测试，但是对于我们的场景来说，仿造一下Spring MVC的运行机制就可以。测试类被注入了一个MockMvc，能够让测试实现mockup。</p>
+<p>通过testHomePage()方法，我们定义了针对主页想要执行的测试。它首先使用MockMvc对象对“&#x2F;”（根路径）发起HTTPGET请求。对于这个请求，我们设置了如下的预期：</p>
+<ul>
+<li>响应应该具备HTTP 200 (OK)状态；</li>
+<li>视图的逻辑名称应该是home；</li>
+<li>渲染后的视图应该包含文本“Welcome to…”。</li>
+</ul>
+<p>如果在MockMvc对象发送请求之后，这些期望有不满足的话，那么这个测试会失败。但是，我们的控制器和模板引擎在编写时都满足了这些预期，所以测试应该能够通过，并且带有成功的图标——至少能够看到一些绿色的背景，表明测试通过了。</p>
+<p>控制器已经编写好了，视图模板也已经创建完毕，而且我们还通过了测试，看上去我们已经成功实现了主页。尽管测试已经通过了，但是如果能够在浏览器中看到结果那会更有成就感，毕竟这才是Taco Cloud的客户所能看到的效果。接下来，我们构建应用并运行它。</p>
+<h2 id="1-3-4-构建和运行应用"><a href="#1-3-4-构建和运行应用" class="headerlink" title="1.3.4 构建和运行应用"></a>1.3.4 构建和运行应用</h2><p>就像初始化Spring应用有多种方式一样，运行Spring应用也有多种方式。如果你愿意的话，可以翻到附录部分，以了解运行Spring Boot应用的一些通用方式。</p>
+<p>因为我们选择了使用Spring Tool Suite来初始化和处理项目，所以可以借助名为Spring Boot Dashboard的便捷功能来帮助我们在IDE中运行应用。Spring Boot Dashboard的表现形式是一个Tab标签，通常会位于IDE窗口的左下角附近。图1.7展现了一个带有标注的Spring Boot Dashboard截屏。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003201544.jpeg" alt="epub_29101559_14"></p>
+<center>图1.7 Spring Boot Dashboard的重点功能</center>
+
+<p>图1.7包含了一些最有用的细节，但是我不想花太多时间介绍Spring Boot Dashboard支持的所有功能。对我们来说，现在最重要的事情是需要知道如何使用它来运行TacoCloud应用。确保taco-cloud应用程序在项目列表中能够显示出来（这是图1.7中显示的唯一应用），然后点击启动按钮（上方工具栏最左边的按钮，也就是带有绿色三角形和红色正方形的按钮），应用程序应该就能立即启动。</p>
+<p>在应用启动的过程中，你会在控制台看到一些Spring ASCII码，随后会是描述应用启动各个步骤的日志条目。在控制台输出的最后，你将会看到一条Tomcat已经在port(s): 8080 (http)启动的日志，这意味着此时你可以打开Web浏览器并导航至主页，这样就能看到我们的劳动成果了。</p>
+<p>稍等一下！刚才说启动Tomcat？但是我们是什么时候将应用部署到Tomcat的呢？</p>
+<p>Spring Boot应用的习惯做法是将所有它需要的东西都放到一起，没有必要将其部署到某种应用服务器中。在这个过程中，我们根本没有将应用部署到Tomcat中……Tomcat是我们应用的一部分！（在1.3.6小节，我会介绍Tomcat是如何成为我们应用的一部分的。）</p>
+<p>现在，应用已经启动起来了，打开Web浏览器并访问<a href="http://localhost:8080（或者在Spring">http://localhost:8080（或者在Spring</a> Boot Dashboard中点击上方的地球样式的按钮，如图1.7所示），你将会看到如图1.8所示的界面。如果你设计了自己的Logo图片，那么显示效果可能会有所不同。但是，与图1.8相比，应该不会有太大的差异。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003201706.jpeg" alt="epub_29101559_15"></p>
+<center>图1.8 Taco Cloud主页</center>
+
+<p>看上去似乎并不太美观，但这不是一本关于平面设计的书。目前，略显简陋的主页外观已经足够了，它为我们学习Spring打下了一个良好的开端。</p>
+<p>到现在为止，我一直没有提及DevTools。在初始化项目的时候，我们将其作为一个依赖添加了进来。在最终生成的pom.xml文件中，它表现为一个依赖项。甚至Spring BootDashboard都显示项目启用了DevTools。那么，DevTools是什么，它又能为我们做些什么呢？接下来，让我们快速浏览一下DevTools最有用的一些特性。</p>
+<h2 id="1-3-5-了解Spring-Boot-DevTools"><a href="#1-3-5-了解Spring-Boot-DevTools" class="headerlink" title="1.3.5 了解Spring Boot DevTools"></a>1.3.5 了解Spring Boot DevTools</h2><p>顾名思义，DevTools为Spring开发人员提供了一些便利的开发期工具，其中包括：</p>
+<ul>
+<li>代码变更后应用会自动重启；</li>
+<li>当面向浏览器的资源（如模板、JavaScript、样式表）等发生变化时，会自动刷新浏览器；</li>
+<li>自动禁用模板缓存；</li>
+<li>如果使用H2数据库的话，内置了H2控制台。</li>
+</ul>
+<p>需要注意，DevTools并不是IDE插件，它也不需要你使用特定的IDE。在Spring Tool Suite、IntelliJ IDEA和NetBeans中，它都能很好地运行。另外，因为它的目的是仅仅用于开发，所以能够很智能地在生产环境中把自己禁用掉。（我们将会在第19章学习应用部署的时候再讨论它是如何做到这一点的。）现在，我们主要关注Spring Boot DevTools最有用的特性，先从应用的自动重启开始。</p>
+<h3 id="应用自动重启"><a href="#应用自动重启" class="headerlink" title="应用自动重启"></a>应用自动重启</h3><p>如果将DevTools作为项目的一部分，那么你可以看到，当对项目中的Java代码和属性文件做出修改后，这些变更稍后就能发挥作用。DevTools会监控变更，当它看到有变化的时候，将会自动重启应用。</p>
+<p>更准确地说，当DevTools运行的时候，应用程序会被加载到Java虚拟机（Java virtual Machine，JVM）两个独立的类加载器中。其中一个类加载器会加载你的Java代码、属性文件以及项目中“src&#x2F;main&#x2F;”路径下几乎所有的内容。这些条目很可能会经常发生变化。另外一个类加载器会加载依赖的库，这些库不太可能经常发生变化。</p>
+<p>当探测到变更的时候，DevTools只会重新加载包含项目代码的类加载器，并重启Spring的应用上下文，在这个过程中另外一个类加载器和JVM会原封不动。这个策略非常精细，但是它能减少应用启动的时间。</p>
+<p>这种策略的一个不足之处就是自动重启无法反映依赖项的变化。这是因为包含依赖库的类加载器不会自动重新加载。这意味着每当我们在构建规范中添加、变更或移除依赖的时候，为了让变更生效，我们需要重新启动应用。</p>
+<h3 id="浏览器自动刷新和禁用模板缓存"><a href="#浏览器自动刷新和禁用模板缓存" class="headerlink" title="浏览器自动刷新和禁用模板缓存"></a>浏览器自动刷新和禁用模板缓存</h3><p>默认情况下，像Thymeleaf和FreeMarker这样的模板方案在配置时会缓存模板解析的结果。这样的话，在为每个请求提供服务的时候，模板就不用重新解析了。在生产环境中，这是一种很好的方式，因为它会带来一定的性能收益。</p>
+<p>但是，在开发期，缓存模板就不太好了。在应用运行的时候，如果缓存模板，那么我们刷新浏览器就无法看到模板变更的效果了。即便我们对模板做了修改，在应用重启之前，缓存的模板依然会有效。</p>
+<p>DevTools通过禁用所有模板缓存解决了这个问题。你可以对模板进行任意数量的修改，只需要刷新一下浏览器就能看到结果。</p>
+<p>如果你像我这样，连浏览器的刷新按钮都懒得点，那么对代码做出变更之后，马上在浏览器中看到结果就好了。幸运的是，DevTools有一些特殊的功能可以供我们使用。</p>
+<p>DevTools在运行的时候，它会和你的应用程序一起，同时自动启动一个LiveReload服务器。LiveReload服务器本身并没有太大的用处。但是，当它与LiveReload浏览器插件结合起来的时候，就能够在模板、图片、样式表、JavaScript等（实际上，几乎涵盖为浏览器提供服务的所有内容）发生变化的时候自动刷新浏览器。</p>
+<p>LiveReload有针对Google Chrome、Safari和Firefox的浏览器插件（要对Internet Explorer和Edge粉丝说声抱歉）。请访问LiveReload官网，以了解如何为你的浏览器安装LiveReload。</p>
+<h3 id="内置的H2控制台"><a href="#内置的H2控制台" class="headerlink" title="内置的H2控制台"></a>内置的H2控制台</h3><p>虽然我们的项目还没有使用数据库，但是这种情况在第3章中就会发生变化。如果你使用H2数据库进行开发，DevTools将会自动启用H2。这样的话，我们可以通过Web浏览器进行访问。你只需要让浏览器访问<a target="_blank" rel="noopener" href="http://localhost:8080/h2-console%EF%BC%8C%E5%B0%B1%E8%83%BD%E7%9C%8B%E5%88%B0%E5%BA%94%E7%94%A8%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%82">http://localhost:8080/h2-console，就能看到应用所使用的数据。</a></p>
+<p>此时，我们已经编写了一个尽管非常简单却很完整的Spring应用。在本书中，我们将会不断扩展它。现在，我们要回过头来看一下都完成了哪些工作以及Spring发挥了什么作用。</p>
+<h2 id="1-3-6-回顾一下"><a href="#1-3-6-回顾一下" class="headerlink" title="1.3.6 回顾一下"></a>1.3.6 回顾一下</h2><p>回想一下我们是怎样完成这一切的。简短来说，在构建基于Spring的Taco Cloud应用的过程中，我们执行了如下步骤：</p>
+<ul>
+<li>使用Spring Initializr创建初始的项目结构；</li>
+<li>编写控制器类处理针对主页的请求；</li>
+<li>定义了一个视图模板来渲染主页；</li>
+<li>编写了一个简单的测试类来验证工作符合预期。</li>
+</ul>
+<p>这些步骤都非常简单直接，对吧？除了初始化应用的第一个步骤之外，我们所做的每一个操作都专注于生成主页的目标。</p>
+<p>实际上，我们所编写的每行代码都致力于实现这个目标。除了Java import语句之外，我只能在控制器中找到两行Spring相关的代码，而在视图模板中一行Spring相关的代码都没有。尽管测试类的大部分内容都使用了Spring对测试的支持，但是它在测试的上下文中似乎没有那么具有侵入性。</p>
+<p>这是使用Spring进行开发的一个重要收益。你可以只关注满足应用需求的代码，无须考虑如何满足框架的需求。尽管我们偶尔还是需要编写一些框架特定的代码，但是它们通常只占整个代码库很小的一部分。正如我在前文所述，Spring（以及Spring Boot）可以视为感受不到框架的框架（frameworklessframework）。</p>
+<p>但是这又是如何运行起来的呢？Spring在幕后做了些什么来保证应用的需求能够得到满足呢？要理解Spring到底做了些什么，我们首先来看一下构建规范。</p>
+<p>在pom.xml文件中，我们声明了对Web和Thymeleaf starter的依赖。这两项依赖会传递引入大量其他的依赖，包括：</p>
+<ul>
+<li>Spring的MVC框架；</li>
+<li>嵌入式的Tomcat；</li>
+<li>Thymeleaf和Thymeleaf布局方言；</li>
+</ul>
+<p>它还引入了Spring Boot的自动配置库。当应用启动的时候，Spring Boot的自动配置将会探测到这些库，并自动完成如下功能：</p>
+<ul>
+<li>在Spring应用上下文中配置bean以启用Spring MVC；</li>
+<li>在Spring应用上下文中配置嵌入式的Tomcat服务器；</li>
+<li>配置Thymeleaf视图解析器，以便于使用Thymeleaf模板渲染Spring MVC视图。</li>
+</ul>
+<p>简而言之，自动配置功能完成了所有的脏活累活，让我们能够集中精力编写实现应用功能的代码。如果你问我对此的观点，那么我认为这是一个很好的安排！</p>
+<p>我们的Spring之旅才刚刚开始。Taco Cloud应用程序只涉及Spring所提供功能的一小部分。在开始下一步之前，我们先整体了解一下Spring，看看在我们的路途中都会有哪些地标。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/5a3762bc/" title="1.3 编写Spring应用">https://lanlan2017.github.io/ReadingNotes/5a3762bc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/84852806/" rel="prev" title="1.2 初始化Spring应用">
+                  <i class="fa fa-chevron-left"></i> 1.2 初始化Spring应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/aa0526a2/" rel="next" title="1.4 俯瞰Spring风景线">
+                  1.4 俯瞰Spring风景线 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/5a3762bc/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/5a3762bc/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

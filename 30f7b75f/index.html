@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="2.6 案例研究—某网站品牌列表的效果以下是某网站上的一个品牌列表的展示效果，用户进入该页面时，品牌列表默认是精简显示的（即不完整的品牌列表），如图2-6所示。 用户可以单击商品列表下方的“显示全部品牌”按钮来显示全部的品牌。 单击“显示全部品牌”按钮的同时，列表会将推荐的品牌的名字高亮显示，按钮里的文字也换成了“精简显示品牌”，如图2-7所示。 [插图] 图2-6 品牌展示列表（精简）   [插">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.6 案例研究—某网站品牌列表的效果">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/30f7b75f/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="2.6 案例研究—某网站品牌列表的效果以下是某网站上的一个品牌列表的展示效果，用户进入该页面时，品牌列表默认是精简显示的（即不完整的品牌列表），如图2-6所示。 用户可以单击商品列表下方的“显示全部品牌”按钮来显示全部的品牌。 单击“显示全部品牌”按钮的同时，列表会将推荐的品牌的名字高亮显示，按钮里的文字也换成了“精简显示品牌”，如图2-7所示。 [插图] 图2-6 品牌展示列表（精简）   [插">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-12T08:04:10.000Z">
+<meta property="article:modified_time" content="2021-12-13T08:11:00.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/30f7b75f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/30f7b75f/","path":"/30f7b75f/","title":"2.6 案例研究—某网站品牌列表的效果"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2.6 案例研究—某网站品牌列表的效果 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6%E2%80%94%E6%9F%90%E7%BD%91%E7%AB%99%E5%93%81%E7%89%8C%E5%88%97%E8%A1%A8%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">2.6 案例研究—某网站品牌列表的效果</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/30f7b75f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2.6 案例研究—某网站品牌列表的效果 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.6 案例研究—某网站品牌列表的效果
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-12 16:04:10" itemprop="dateCreated datePublished" datetime="2021-12-12T16:04:10+08:00">2021-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-13 16:11:00" itemprop="dateModified" datetime="2021-12-13T16:11:00+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC2%E7%AB%A0-jQuery%E9%80%89%E6%8B%A9%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">第2章 jQuery选择器</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/30f7b75f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/30f7b75f/" data-xid="/ReadingNotes/30f7b75f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="2-6-案例研究—某网站品牌列表的效果"><a href="#2-6-案例研究—某网站品牌列表的效果" class="headerlink" title="2.6 案例研究—某网站品牌列表的效果"></a>2.6 案例研究—某网站品牌列表的效果</h1><p>以下是某网站上的一个品牌列表的展示效果，用户进入该页面时，品牌列表默认是精简显示的（即不完整的品牌列表），如图2-6所示。</p>
+<p>用户可以单击商品列表下方的“显示全部品牌”按钮来显示全部的品牌。</p>
+<p>单击“显示全部品牌”按钮的同时，列表会将推荐的品牌的名字高亮显示，按钮里的文字也换成了“精简显示品牌”，如图2-7所示。</p>
+<p>[插图]</p>
+<center>图2-6 品牌展示列表（精简）</center>
+
+
+<p>[插图]</p>
+<center>图2-7 品牌展示列表（全部）</center>
+
+<p>再次单击“精简显示品牌”按钮，即又回到图2-6所示的页面。</p>
+<p>为了实现这个例子，首先需要设计它的HTML结构。HTML代码如下：</p>
+<p>[插图]</p>
+<p>然后为上面的HTML代码添加CSS样式。页面初始化的效果如图2-8所示。</p>
+<p>接下来为这个页面添加一些交互效果，要做的工作有以下几项。</p>
+<p>[插图]</p>
+<center>图2-8 品牌展示列表（精简）</center>
+
+<p>（1）从第7条开始隐藏后面的品牌（最后一条“其它品牌相机”除外）。<br>（2）当用户单击“显示全部品牌”按钮时，将执行以下操作。<br>① 显示隐藏的品牌。<br>② “显示全部品牌”按钮文本切换成“精简显示品牌”。<br>③ 高亮推荐品牌。</p>
+<p>（3）当用户单击“精简显示品牌”按钮时，将执行以下操作。<br>① 从第7条开始隐藏后面的品牌（最后一条“其它品牌相机”除外）。<br>② “精简显示品牌”按钮文本切换成“显示全部品牌”。<br>③ 去掉高亮显示的推荐品牌。</p>
+<p>（4）循环进行第（2）步和第（3）步。<br>下面逐步来完成以上的效果。</p>
+<p>（1）从第7条开始隐藏后面的品牌（最后一条“其它品牌相机”除外）。</p>
+<p>[插图]</p>
+<p><code>$(&#39;ul li:gt(5):not(:last)&#39;)</code>的意思是先获取<code>&lt;ul&gt;</code>元素下索引值大于5的<code>&lt;li&gt;</code>元素的集合元素，然后去掉集合元素中的最后一个元素。这样，即可将从第7条开始至倒数第2条的所有品牌都获取到。最后通过hide()方法隐藏这些元素。</p>
+<p>（2）当用户单击“显示全部品牌”按钮时，执行以下操作。<br>首先获取到按钮，代码如下：</p>
+<p>[插图]</p>
+<p>然后给按钮添加事件，使用show()方法把隐藏的品牌列表显示出来，代码如下：</p>
+<p>[插图]</p>
+<p>由于给超链接添加onclick事件，因此需要使用“return false”语句让浏览器认为用户没有单击该超链接，从而阻止该超链接跳转。</p>
+<p>之后，需要将“显示全部品牌”按钮文本切换成“精简显示品牌”，代码如下：</p>
+<p>[插图]</p>
+<p>这里完成了两步操作，即把按钮的背景图片换成向上的图片，同时也改变了按钮文本内容，将其替换成“精简显示品牌”。</p>
+<p>接下来需要高亮推荐品牌，代码如下：</p>
+<p>[插图]</p>
+<p>使用filter()方法筛选出符合要求的品牌，然后为它们添加promoted样式。在这里推荐了3个品牌，即佳能、尼康和奥林巴斯。</p>
+<p>此时，完成的jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行上面的代码，单击“显示全部品牌”按钮后，显示图2-9所示的效果，此时已经能够正常显示全部品牌了。</p>
+<p>[插图]</p>
+<center>图2-9 当按钮被单击后</center>
+
+<div style="border:1px solid;"><strong>注意</strong>：上面代码中用到的几个jQuery方法的意思如下：
+
+<ul>
+<li>show()：显示隐藏的匹配元素。</li>
+<li>css(name,value)：给元素设置样式。</li>
+<li>text(string)：设置所有匹配元素的文本内容。</li>
+<li>filter(expr)：筛选出与指定表达式匹配的元素集合，其中expr可以是多个选择器的组合。注意区分它和find()方法。find()会在元素内寻找匹配元素，而filter()则是筛选元素。一个是对它的子集操作，一个是对自身集合元素进行筛选。</li>
+<li>addClass(class)：为匹配的元素添加指定的类名。</div></li>
+</ul>
+<p>（3）当用户单击“精简显示品牌”按钮时，将执行以下操作。</p>
+<p>由于用户单击的是同一个按钮，因此事件仍然是在刚才的按钮元素上。要将切换两种状态的效果在一个按钮上进行，可以通过判断元素的显示或者隐藏来达到目的，代码结构如下：</p>
+<p>[插图]</p>
+<p>代码②就是第（2）步的内容，接下来只需要完成代码①的内容即可。</p>
+<p>在jQuery中，与show()方法相反的是hide()方法，因此可以使用hide()方法将品牌隐藏起来，代码如下：</p>
+<p>[插图]</p>
+<p>然后将“精简显示品牌”按钮文本切换成“显示全部品牌”，同时按钮图片换成向下的图片，这一步与前面类似，只不过是图片路径和文本内容不同而已，代码如下：</p>
+<p>[插图]</p>
+<p>接下来需要去掉所有品牌的高亮显示状态，此时可以使用 removeClass()方法来完成，代码如下：</p>
+<p>[插图]</p>
+<p>它将去掉所有<code>&lt;li&gt;</code>元素上的“promoted”样式，即去掉了品牌的高亮状态。</p>
+<div style="border:1px solid;"><strong>注意</strong>：removeClass(class)的功能和addClass(class)的功能正好相反。addClass(class)的功能是为匹配的元素添加指定的类，而removeClass(class)则是从匹配的元素中删除指定的类。</div>
+
+<p>至此完成代码①。</p>
+<p>最后通过判断元素是否显示来分别执行代码①和代码②，代码如下：</p>
+<p>[插图]</p>
+<p>之后即可将代码①和代码②插入相应的位置。jQuery代码如下：</p>
+<p>[插图]</p>
+<p>至此任务完成，完整的jQuery代码如下：</p>
+<p>[插图]</p>
+<p>运行代码后，单击按钮，品牌列表会在“全部”和“精简”两种效果之间循环切换，显示效果如图2-10和图2-11所示。</p>
+<p>[插图]</p>
+<center>图2-10 精简模式</center>
+
+
+<p>[插图]</p>
+<center>图2-11 全部模式</center>
+
+<p>在 jQuery 中有一个方法更适合上面的情况，它能给一个按钮添加一组交互事件，而不需要像上例一样去判断，上例的代码如下：</p>
+<p>[插图]</p>
+<p>如果改成toggle()方法，代码则可以直接写成以下形式：</p>
+<p>[插图]</p>
+<p>当单击按钮后，脚本会对代码③和代码④进行交替处理。</p>
+<p>jQuery还提供了很多简单易用的方法，上面讲解的toggle()方法只是其中的一种，这些方法将在后面的章节中进行详细介绍。</p>
+<div style="border:1px solid;"><strong>注意</strong>：在本例中，如果用户禁用了JavaScript的功能，品牌列表仍然能够完全显示，当用户单击“显示全部品牌”按钮的时候，会跳转到 more.html页面来显示品牌列表。作为一名专业的开发者，必须要考虑到禁用或者不支持 JavaScript的浏览器（用户代理）。另外，这点对于搜索引擎优化也特别有帮助，毕竟当前的搜索引擎爬虫基本都不支持JavaScript。</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/30f7b75f/" title="2.6 案例研究—某网站品牌列表的效果">https://lanlan2017.github.io/ReadingNotes/30f7b75f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/56f50afd/" rel="prev" title="2.5 选择器中的一些注意事项">
+                  <i class="fa fa-chevron-left"></i> 2.5 选择器中的一些注意事项
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/2c151ad5/" rel="next" title="2.7 其他选择器">
+                  2.7 其他选择器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/30f7b75f/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/30f7b75f/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

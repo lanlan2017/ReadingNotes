@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="7.1 使用RestTemplate消费REST端点从客户端的角度来看，与REST资源进行交互涉及很多工作，而且大多数都是很单调乏味的样板式代码。如果使用较低层级HTTP库，客户端就需要创建一个客户端实例和请求对象、执行请求、解析响应、将响应映射为领域对象，并且还要处理这个过程中可能会抛出的所有异常。不管发送什么样的HTTP请求，这种样板代码都要不断重复。 为了避免这种样板代码，Spring提供了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.1 使用RestTemplate消费REST端点">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/f31289aa/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="7.1 使用RestTemplate消费REST端点从客户端的角度来看，与REST资源进行交互涉及很多工作，而且大多数都是很单调乏味的样板式代码。如果使用较低层级HTTP库，客户端就需要创建一个客户端实例和请求对象、执行请求、解析响应、将响应映射为领域对象，并且还要处理这个过程中可能会抛出的所有异常。不管发送什么样的HTTP请求，这种样板代码都要不断重复。 为了避免这种样板代码，Spring提供了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015103500.jpeg">
+<meta property="article:published_time" content="2021-10-15T02:53:42.000Z">
+<meta property="article:modified_time" content="2021-10-15T02:53:42.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015103500.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/f31289aa/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/f31289aa/","path":"/f31289aa/","title":"7.1 使用RestTemplate消费REST端点"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7.1 使用RestTemplate消费REST端点 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-%E4%BD%BF%E7%94%A8RestTemplate%E6%B6%88%E8%B4%B9REST%E7%AB%AF%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">7.1 使用RestTemplate消费REST端点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-1-GET%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">7.1.1 GET资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-2-PUT%E8%B5%84%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">7.1.2 PUT资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-3-DELETE%E8%B5%84%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">7.1.3 DELETE资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-4-POST%E8%B5%84%E6%BA%90"><span class="nav-number">1.4.</span> <span class="nav-text">7.1.4 POST资源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/f31289aa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7.1 使用RestTemplate消费REST端点 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.1 使用RestTemplate消费REST端点
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-15 10:53:42" itemprop="dateCreated datePublished" datetime="2021-10-15T10:53:42+08:00">2021-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第2部分 Spring集成</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/%E7%AC%AC7%E7%AB%A0-%E6%B6%88%E8%B4%B9REST%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">第7章 消费REST服务</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/f31289aa/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/f31289aa/" data-xid="/ReadingNotes/f31289aa/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="7-1-使用RestTemplate消费REST端点"><a href="#7-1-使用RestTemplate消费REST端点" class="headerlink" title="7.1 使用RestTemplate消费REST端点"></a>7.1 使用RestTemplate消费REST端点</h1><p>从客户端的角度来看，与REST资源进行交互涉及很多工作，而且大多数都是很单调乏味的样板式代码。如果使用较低层级HTTP库，客户端就需要创建一个客户端实例和请求对象、执行请求、解析响应、将响应映射为领域对象，并且还要处理这个过程中可能会抛出的所有异常。不管发送什么样的HTTP请求，这种样板代码都要不断重复。</p>
+<p>为了避免这种样板代码，Spring提供了RestTemplate。就像JDBCTemplate能够处理JDBC中丑陋的那部分代码一样，RestTemplate也能够将你从消费REST资源所面临的单调工作中解放出来。</p>
+<p>RestTemplat提供了41个与REST资源交互的方法。我们不会详细介绍它所提供的所有方法，而是只考虑12个独立的操作（见表7.1），每种方法都有重载形式，它们组成了完整的41个方法。</p>
+<p>表7.1 RestTemplate中12个独立的操作</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211015103500.jpeg" alt="epub_29101559_44"></p>
+<p>除了TRACE以外，RestTemplate对每种标准的HTTP方法都提供了至少一个方法。除此之外，execute()和exchange()提供了较低层次的通用方法，以便于进行任意的HTTP操作。</p>
+<p>表7.1中的大多数操作都以3种方法的形式进行了重载。</p>
+<ul>
+<li>使用String作为URL格式，并使用可变参数列表指明URL参数。</li>
+<li>使用String作为URL格式，并使用<code>Map&lt;String,String&gt;</code>指明URL参数。</li>
+<li>使用java.net.URI作为URL格式，不支持参数化URL。</li>
+</ul>
+<p>明确了RestTemplate所提供的12个操作以及各个变种如何工作之后，你就能以自己的方式编写消费REST资源的客户端了。</p>
+<p>要使用RestTemplate，你可以在需要的地方创建一个实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RestTemplate</span> <span class="variable">rest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br></pre></td></tr></table></figure>
+
+<p>也可以将其声明为一个bean并注入到需要的地方：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们通过对4个主要HTTP方法（GET、PUT、DELETE和POST）的支持来研究RestTemplate的操作。下面我们从GET方法的getForObject()和getForEntity()开始。</p>
+<h2 id="7-1-1-GET资源"><a href="#7-1-1-GET资源" class="headerlink" title="7.1.1 GET资源"></a>7.1.1 GET资源</h2><p>假设我们现在想要通过Taco Cloud API获取某个配料，并且API没有实现HATEOAS，那么我们可以使用getForObject()获取配料。例如，如下的代码将使用RestTemplate根据ID来获取Ingredient对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">getIngredientById</span><span class="params">(String ingredientId)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> rest.getForObject(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>,</span><br><span class="line">                           Ingredient.class, ingredientId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们使用了getForObject()的变种形式，接收一个String类型的URL并使用可变列表来指定URL变量。传递给getForObject()的ingredientId参数会用来填充给定URL的{id}占位符。尽管在本例中只有一个URL变量，但是很重要的一点需要我们注意，变量参数会按照它们出现的顺序设置到占位符中。getForObject()方法的第二个参数是响应应该绑定的类型。在本例中，响应数据（很可能是JSON格式）应该被反序列化为要返回的Ingredient对象。</p>
+<p>另外一种替代方案是使用Map来指定URL变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">getIngredientById</span><span class="params">(String ingredientId)</span> &#123;</span><br><span class="line">  Map&lt;String,String&gt; urlVariables = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">  urlVariables.put(<span class="string">&quot;id&quot;</span>, ingredientId);</span><br><span class="line">  <span class="keyword">return</span> rest.getForObject(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>,</span><br><span class="line">                           Ingredient.class, urlVariables);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，ingredientId的值会被映射到名为id的key上。当发起请求的时候，{id}占位符将会被替换为key为id的Map条目上。</p>
+<p>使用URL参数要稍微复杂一些，这种方式需要我们在调用getForObject()之前构建一个URI对象。在其他方面，它与另外两个变种非常类似：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">getIngredientById</span><span class="params">(String ingredientId)</span> &#123;</span><br><span class="line">  Map&lt;String,String&gt; urlVariables = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">  urlVariables.put(<span class="string">&quot;id&quot;</span>, ingredientId);</span><br><span class="line">  <span class="type">URI</span> <span class="variable">url</span> <span class="operator">=</span> UriComponentsBuilder</span><br><span class="line">            .fromHttpUrl(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>)</span><br><span class="line">            .build(urlVariables);</span><br><span class="line">  <span class="keyword">return</span> rest.getForObject(url, Ingredient.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，URI对象是通过String规范定义的，它的占位符会被Map中的条目所替换，与之前看到的getForObject()变种非常相似。getForObject()是获取资源的有效方式，但是如果客户端需要的不仅仅是载荷体，那么可以考虑使用getForEntity()。</p>
+<p>getForEntity()的工作方式和getForObject()类似，但是它所返回的并不是代表响应载荷的领域对象，而是一个包裹领域对象的ResponseEntity对象。借助ResponseEntity对象能够访问很多的响应细节，比如响应头信息。</p>
+<p>例如，我们除了想要获取配料数据之外，还想要从响应中探查Date头信息。借助getForEntity()，这个需求很容易实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">getIngredientById</span><span class="params">(String ingredientId)</span> &#123;</span><br><span class="line">  ResponseEntity&lt;Ingredient&gt; responseEntity =</span><br><span class="line">      rest.getForEntity(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>,</span><br><span class="line">          Ingredient.class, ingredientId);</span><br><span class="line">  log.info(<span class="string">&quot;Fetched time: &quot;</span> +</span><br><span class="line">          responseEntity.getHeaders().getDate());</span><br><span class="line">  <span class="keyword">return</span> responseEntity.getBody();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>getForEntity()有与getForObject()方法相同参数的重载形式，所以我们既可以以可变列表参数的形式提供URL变量，也可以以URI对象的形式调用getForEntity()。</p>
+<h2 id="7-1-2-PUT资源"><a href="#7-1-2-PUT资源" class="headerlink" title="7.1.2 PUT资源"></a>7.1.2 PUT资源</h2><p>为了发送HTTP PUT请求，RestTemplate提供了put()方法。put()方法的3个变种形式都会接收一个Object，它会被序列化并发送至给定的URL。就URL本身来讲，它可以以URI对象或String的形式来指定。与getForObject()和getForEntity()类似，URL变量能够以可变参数列表或Map的形式来提供。</p>
+<p>假设我们想要使用一个新Ingredient对象的数据来替换某个配料资源，那么如下的代码片段就能做到这一点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateIngredient</span><span class="params">(Ingredient ingredient)</span> &#123;</span><br><span class="line">  rest.put(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>,</span><br><span class="line">           ingredient,</span><br><span class="line">           ingredient.getId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，URL是以String的形式指定的。该URL包含一个占位符，它会被给定Ingredient的id属性所替换。要发送的数据是Ingredient对象本身。put()方法返回的是void，所以没有必要处理返回值。</p>
+<h2 id="7-1-3-DELETE资源"><a href="#7-1-3-DELETE资源" class="headerlink" title="7.1.3 DELETE资源"></a>7.1.3 DELETE资源</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteIngredient</span><span class="params">(Ingredient ingredient)</span> &#123;</span><br><span class="line">  rest.delete(<span class="string">&quot;http://localhost:8080/ingredients/&#123;id&#125;&quot;</span>,</span><br><span class="line">              ingredient.getId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在本例中，我们只为delete()提供了URL（以String的形式指定）和URL变量值。但是，和其他的RestTemplate方法类似，URL能够以URI对象的方式来指定，并且URL参数也能够以Map的方式来声明。</p>
+<h2 id="7-1-4-POST资源"><a href="#7-1-4-POST资源" class="headerlink" title="7.1.4 POST资源"></a>7.1.4 POST资源</h2><p>现在，假设要添加新的配料到Taco Cloud菜单中，我们可以向“…&#x2F;ingredients”端点发送HTTP POST请求并将配料数据放到请求体中。RestTemplate有3种发送POST请求的方法，每种方法都有相同的重载变种来指定URL。如果你希望在POST请求之后得到新创建的Ingredient资源，那么可以按照如下方式使用postForObject()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">createIngredient</span><span class="params">(Ingredient ingredient)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> rest.postForObject(<span class="string">&quot;http://localhost:8080/ingredients&quot;</span>,</span><br><span class="line">                            ingredient,</span><br><span class="line">                            Ingredient.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>postForObject()方法的这个变种形式接收一个String类型的URL规范、要提交给服务器端的对象以及响应体应该绑定的领域类型。尽管我们在这里没有用到，但是第4个参数可以是URL变量值的Map或者是可变参数的列表，它们能够替换到URL之中。</p>
+<p>如果客户端还想要知道新创建资源的地址，那么我们可以调用postForLocation()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> URI <span class="title function_">createIngredient</span><span class="params">(Ingredient ingredient)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> rest.postForLocation(<span class="string">&quot;http://localhost:8080/ingredients&quot;</span>,</span><br><span class="line">                              ingredient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，postForLocation()的工作方式与postForObject()类似，只不过它所返回的是新创建资源的URI，而不是资源对象本身。这里所返回的URI是从响应的Location头信息中派生出来的。如果你同时需要地址和响应载荷，那么可以使用postForEntity()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Ingredient <span class="title function_">createIngredient</span><span class="params">(Ingredient ingredient)</span> &#123;</span><br><span class="line">  ResponseEntity&lt;Ingredient&gt; responseEntity =</span><br><span class="line">         rest.postForEntity(<span class="string">&quot;http://localhost:8080/ingredients&quot;</span>,</span><br><span class="line">                            ingredient,</span><br><span class="line">                            Ingredient.class);</span><br><span class="line">  log.info(<span class="string">&quot;New resource created at &quot;</span> +</span><br><span class="line">           responseEntity.getHeaders().getLocation());</span><br><span class="line">  <span class="keyword">return</span> responseEntity.getBody();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>尽管RestTemplate的方法在目的上有所不同，但是它们的用法非常相似。因此，我们很容易就可以精通RestTemplate并将其用到客户端代码中。</p>
+<p>另一方面，如果你所消费的API在响应中包含了超链接，那么RestTemplate就力所不及了。当然，我们可以使用RestTemplate获取更详细的资源数据，然后处理里面所包含的内容和链接，但是这个任务并不简单。与其使用RestTemplate来处理超媒体API，还不如选择一个专门关注该领域的库，那就是Traverson。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/f31289aa/" title="7.1 使用RestTemplate消费REST端点">https://lanlan2017.github.io/ReadingNotes/f31289aa/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/ad322983/" rel="prev" title="7.0 第7章 消费REST服务">
+                  <i class="fa fa-chevron-left"></i> 7.0 第7章 消费REST服务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/dea10692/" rel="next" title="7.2 使用Traverson导航REST API">
+                  7.2 使用Traverson导航REST API <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/f31289aa/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/f31289aa/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="12.1 理解Spring Data的反应式概况从Spring Data Kay release train开始，Spring Data首次提供对反应式repository的支持，其中包括使用Cassandra、MongoDB、Couchbase或Redis持久化数据的反应式编程模型。 名称的由来尽管Spring Data的各个项目都有自己的节奏，但是它们都按照一个releasetrain来进行发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12.1 理解Spring Data的反应式概况">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/3aee8943/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="12.1 理解Spring Data的反应式概况从Spring Data Kay release train开始，Spring Data首次提供对反应式repository的支持，其中包括使用Cassandra、MongoDB、Couchbase或Redis持久化数据的反应式编程模型。 名称的由来尽管Spring Data的各个项目都有自己的节奏，但是它们都按照一个releasetrain来进行发">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-17T03:59:29.000Z">
+<meta property="article:modified_time" content="2021-10-17T03:59:29.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/3aee8943/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/3aee8943/","path":"/3aee8943/","title":"12.1 理解Spring Data的反应式概况"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>12.1 理解Spring Data的反应式概况 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#12-1-%E7%90%86%E8%A7%A3Spring-Data%E7%9A%84%E5%8F%8D%E5%BA%94%E5%BC%8F%E6%A6%82%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">12.1 理解Spring Data的反应式概况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-1-Spring-Data%E5%8F%8D%E5%BA%94%E5%BC%8F%E6%9C%AC%E8%B4%A8%E8%AE%BA"><span class="nav-number">1.1.</span> <span class="nav-text">12.1.1 Spring Data反应式本质论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-2-%E5%8F%8D%E5%BA%94%E5%BC%8F%E5%92%8C%E9%9D%9E%E5%8F%8D%E5%BA%94%E5%BC%8F%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.</span> <span class="nav-text">12.1.2 反应式和非反应式类型之间的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-3-%E5%BC%80%E5%8F%91%E5%8F%8D%E5%BA%94%E5%BC%8Frepository"><span class="nav-number">1.3.</span> <span class="nav-text">12.1.3 开发反应式repository</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/3aee8943/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="12.1 理解Spring Data的反应式概况 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          12.1 理解Spring Data的反应式概况
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-17 11:59:29" itemprop="dateCreated datePublished" datetime="2021-10-17T11:59:29+08:00">2021-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/" itemprop="url" rel="index"><span itemprop="name">第3部分 反应式Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC3%E9%83%A8%E5%88%86-%E5%8F%8D%E5%BA%94%E5%BC%8FSpring/%E7%AC%AC12%E7%AB%A0-%E5%8F%8D%E5%BA%94%E5%BC%8F%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">第12章 反应式持久化数据</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/3aee8943/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/3aee8943/" data-xid="/ReadingNotes/3aee8943/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="12-1-理解Spring-Data的反应式概况"><a href="#12-1-理解Spring-Data的反应式概况" class="headerlink" title="12.1 理解Spring Data的反应式概况"></a>12.1 理解Spring Data的反应式概况</h1><p>从Spring Data Kay release train开始，Spring Data首次提供对反应式repository的支持，其中包括使用Cassandra、MongoDB、Couchbase或Redis持久化数据的反应式编程模型。</p>
+<div style="border-style:solid;"><strong>名称的由来</strong><br><p>尽管Spring Data的各个项目都有自己的节奏，但是它们都按照一个releasetrain来进行发布，每个release train的命名对应计算机科学中一个重要人物的名字。</p><p>这些名字是按照字母排序的，比如Babbage、Codd、Dijkstra、Evans、Fowler、Gosling、Hopper和Ingalls。在编写本书的时候，最新的releasetrain版本是Spring Data Kay，这是根据Alan Kay来命名的，Alan Kay是Smalltalk编程语言的设计者之一。</p></div>
+
+<p>你可能也发现了，在这里我并没有提到关系型数据库或JPA。令人遗憾的是，目前还没有对反应式JPA的支持。尽管关系型数据库依然是行业中使用最广泛的数据库方案，但是要让Spring Data JPA支持反应式编程模型，需要数据库和相关的JDBC都支持非阻塞的反应式模型。不幸的是，至少目前还不支持关系数据库的反应式处理。希望这种情况能在不久的将来得到解决。[^1]</p>
+<p>本章的重点是使用Spring Data为支持反应式模型的数据库开发使用反应式类型的repository。我们首先对比一下Spring Data的反应式模型和非反应式模型。</p>
+<h2 id="12-1-1-Spring-Data反应式本质论"><a href="#12-1-1-Spring-Data反应式本质论" class="headerlink" title="12.1.1 Spring Data反应式本质论"></a>12.1.1 Spring Data反应式本质论</h2><p>Spring Data反应式的本质可以概括为一句话，那就是在反应式repository的方法中，要接受和返回Mono和Flux，而不是领域实体和集合。根据配料类型，从后端数据库中获取Ingredient对象的repository，可以声明为如下的repository接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flux&lt;Ingredient&gt; <span class="title function_">findByType</span><span class="params">(Ingredient.Type type)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，这个findByType()方法会返回<code>Flux&lt;Ingredient&gt;</code>，而不是像对应的非反应式实现那样返回<code>List&lt;Ingredient&gt;</code>或<code>Iterable&lt;Ingredient&gt;</code>。</p>
+<p>类似的，在保存Taco的时候，repository的saveAll()方法签名如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Taco&gt; Flux&lt;Taco&gt; <span class="title function_">saveAll</span><span class="params">(Publisher&lt;Taco&gt; tacoPublisher)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，saveAll()方法接受一个Taco类型的Publisher（可能是<code>Mono&lt;Taco&gt;</code>或<code>Flux&lt;Taco&gt;</code>）并返回一个<code>Flux&lt;Taco&gt;</code>。这与非反应式的repository是不同的，它的save()方法直接处理领域类型，接受Taco对象并返回保存的Taco对象。</p>
+<p>简而言之，Spring Data的反应式repository与我们在第3章看到的Spring Data的非反应式repository共享几乎相同的编程模型。唯一重要的区别是，反应式repository的方法接受和返回Flux和Mono，而不是原始的领域类型和集合。</p>
+<h2 id="12-1-2-反应式和非反应式类型之间的转换"><a href="#12-1-2-反应式和非反应式类型之间的转换" class="headerlink" title="12.1.2 反应式和非反应式类型之间的转换"></a>12.1.2 反应式和非反应式类型之间的转换</h2><p>在进一步研究如何使用Spring Data编写反应式repository之前，我们看一下如何解决遗留的巨大问题。我们可能已经使用了关系型数据库，将数据迁移至SpringData反应式编程模型支持的4种数据库之一是不太现实的，那是否就意味着我们无法在应用中使用反应式编程了呢？</p>
+<p>从头到尾使用反应式模型（包括数据库层面）时，我们才能够得到反应式编程的全部收益，但是在非反应式数据库之上使用反应式流的话，我们也能得到一部分收益。即便我们所选择的数据库不支持非阻塞的反应式查询，我们依然可以以阻塞的方式获取数据并将其转换为反应式类型，从而使上游组件从中收益。</p>
+<p>例如，假设我们正在使用关系型数据库并利用Spring Data JPA进行持久化。我们的OrderRepository可能会有一个如下签名的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Order&gt; <span class="title function_">findByUser</span><span class="params">(User user)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法会返回一个非反应式的<code>List&lt;Order&gt;</code>，包含给定User的所有Order信息。当findByUser()被调用的时候，查询执行的过程中该方法会阻塞，结果会收集到一个List中。因为List并不是反应式类型，所以我们不能在它上面执行Flux提供的任何操作。另外，如果调用者是控制器，那么它无法以反应式的方式处理结果，实现提高可扩展性的目的。</p>
+<p>在JPA repository的阻塞性方面我们确实无能为力。但是，我们可以在接收到非反应式List的时候就将其转换成Flux，这样我们就可以从这里开始以反应式的方式处理结果了。为了实现这一点，我们可以使用Flux.fromIterable()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Order&gt; orders = repo.findByUser(someUser);</span><br><span class="line">Flux&lt;Order&gt; orderFlux = Flux.fromIterable(orders);</span><br></pre></td></tr></table></figure>
+
+<p>与之类似，如果我们想要根据ID获取一个Order，我们就可以立即将其转换为Mono：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Order order repo.findById(Long id);</span><br><span class="line">Mono&lt;Order&gt; orderMono = Mono.just(order);</span><br></pre></td></tr></table></figure>
+
+<p>通过使用Mono.just()和Flux的fromIterable()、fromArray()和fromStream()方法，我们可以将非反应式阻塞代码隔离在repository中，在应用的其他地方，我们都可以使用反应式类型。</p>
+<p>那反方向怎么样呢？如果我们有一个Mono或Flux，此时需要调用非反应式JPArepository的save()方法又该怎么办呢？好消息是，Mono和Flux都提供了将它们发布的数据抽取到领域类型或Iterable中的操作。</p>
+<p>例如，假设WebFlux控制器接受的是<code>Mono&lt;Taco&gt;</code>，那么我们需要使用SpringData JPA repository的save()方法将其保存起来。没有问题，我们只需调用Mono的block()方法就可以抽取Taco对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Taco</span> <span class="variable">taco</span> <span class="operator">=</span> tacoMono.block();</span><br><span class="line">tacoRepo.save(taco);</span><br></pre></td></tr></table></figure>
+
+<p>顾名思义，block()方法会执行一个阻塞操作，完成数据的抽取过程。</p>
+<p>如果要从Flux中抽取数据，我们可以使用toIterable()。假设我们有一个<code>Flux&lt;Taco&gt;</code>，并且要调用Spring Data JPA repository的saveAll()方法，如下的代码片段将从<code>Flux&lt;Taco&gt;</code>中抽取<code>Iterable&lt;Taco&gt;</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Iterable&lt;Taco&gt; tacos = tacoFlux.toIterable();</span><br><span class="line">tacoRepo.saveAll(tacos);</span><br></pre></td></tr></table></figure>
+
+<p>与Mono.block()类似，Flux.toIterable()在将Flux发布的对象抽取到Iterable的过程中是阻塞的。因为它们本质上是阻塞的，所以应该谨慎使用Mono.block()和Flux.toIterable()，并且要清楚地认识到使用它们会打破反应式编程模型。</p>
+<p>要避免阻塞的抽取操作，还有一种更具反应式的方法，就是订阅Mono或Flux，并在其发布每个元素的时候执行所需的操作。例如，要使用非反应式的repository保存<code>Flux&lt;Taco&gt;</code>发布的Taco对象，我们可以这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tacoFlux.subscribe(taco -&gt; &#123;</span><br><span class="line">  tacoRepo.save(taco);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>虽然调用repository的save()方法依然是非反应式的阻塞操作，但是在消费和处理Flux或Mono发布的数据时，使用subscribe()是一种更自然、更加反应式的方式。</p>
+<p>关于非反应式repository，我们已经讨论得够多了。接下来，我们见识一下SpringData反应式功能的真正威力，为Taco Cloud应用创建反应式repository。</p>
+<h2 id="12-1-3-开发反应式repository"><a href="#12-1-3-开发反应式repository" class="headerlink" title="12.1.3 开发反应式repository"></a>12.1.3 开发反应式repository</h2><p>正如我们在第3章中看到的那样，Spring Data最令人赞叹的特性之一就是我们只须声明repository接口即可，在运行时Spring Data会自动实现它们。在那一章中，我们主要关注Spring Data JPA，但是同样的编程模型也适用于非关系数据库，包括Cassandra和MongoDB。</p>
+<p>除了Spring Data Cassandra和Spring Data MongoDB对非反应式repository的支持之外，它们都提供了反应式的编程模型。这些数据库在后端提供数据持久化功能，Spring应用可以真正实现从Web层到数据库的端到端反应式流。我们首先看看如何使用反应式Spring Data repository将数据持久化到Cassandra。</p>
+<p>[^1]: Spring Data R2DBC致力于解决关系型数据库的反应式访问问题。——译者注</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/3aee8943/" title="12.1 理解Spring Data的反应式概况">https://lanlan2017.github.io/ReadingNotes/3aee8943/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/ed4715a1/" rel="prev" title="11.6 小结_第11章 开发反应式API">
+                  <i class="fa fa-chevron-left"></i> 11.6 小结_第11章 开发反应式API
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/567c717a/" rel="next" title="12.0 第12章 反应式持久化数据">
+                  12.0 第12章 反应式持久化数据 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/3aee8943/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/3aee8943/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

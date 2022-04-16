@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="30.2 抽象工厂模式VS建造者模式抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。而建造者模式则是要求按照指定的蓝图建造产品，它的主要目的是通过组装零配件而产生一个新产品，两者的区别还是比较明显的，但是还有读者对这两个模式产生混淆，我们通过一个例子说明两者的差别。 现代化的汽车">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30.2 抽象工厂模式VS建造者模式">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a378c4f8/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="30.2 抽象工厂模式VS建造者模式抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。而建造者模式则是要求按照指定的蓝图建造产品，它的主要目的是通过组装零配件而产生一个新产品，两者的区别还是比较明显的，但是还有读者对这两个模式产生混淆，我们通过一个例子说明两者的差别。 现代化的汽车">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930155636.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930160247.png">
+<meta property="article:published_time" content="2021-09-27T11:57:33.000Z">
+<meta property="article:modified_time" content="2021-09-30T08:15:32.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930155636.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a378c4f8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a378c4f8/","path":"/a378c4f8/","title":"30.2 抽象工厂模式VS建造者模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>30.2 抽象工厂模式VS建造者模式 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#30-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8FVS%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">30.2 抽象工厂模式VS建造者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#30-2-1-%E6%8C%89%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%94%9F%E4%BA%A7%E8%BD%A6%E8%BE%86"><span class="nav-number">1.1.</span> <span class="nav-text">30.2.1 按抽象工厂模式生产车辆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-2-2-%E6%8C%89%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F%E7%94%9F%E4%BA%A7%E8%BD%A6%E8%BE%86"><span class="nav-number">1.2.</span> <span class="nav-text">30.2.2 按建造者模式生产车辆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-2-3-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.3.</span> <span class="nav-text">30.2.3 最佳实践</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a378c4f8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="30.2 抽象工厂模式VS建造者模式 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          30.2 抽象工厂模式VS建造者模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-27 19:57:33" itemprop="dateCreated datePublished" datetime="2021-09-27T19:57:33+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-30 16:15:32" itemprop="dateModified" datetime="2021-09-30T16:15:32+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/" itemprop="url" rel="index"><span itemprop="name">3 第三部分 谁的地盘谁做主 ——设计模式PK</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/3-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E8%B0%81%E7%9A%84%E5%9C%B0%E7%9B%98%E8%B0%81%E5%81%9A%E4%B8%BB-%E2%80%94%E2%80%94%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPK/%E7%AC%AC30%E7%AB%A0-%E5%88%9B%E5%BB%BA%E7%B1%BB%E6%A8%A1%E5%BC%8F%E5%A4%A7PK/" itemprop="url" rel="index"><span itemprop="name">第30章 创建类模式大PK</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a378c4f8/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a378c4f8/" data-xid="/ReadingNotes/a378c4f8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="30-2-抽象工厂模式VS建造者模式"><a href="#30-2-抽象工厂模式VS建造者模式" class="headerlink" title="30.2 抽象工厂模式VS建造者模式"></a>30.2 抽象工厂模式VS建造者模式</h1><p>抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。而建造者模式则是要求按照指定的蓝图建造产品，它的主要目的是通过组装零配件而产生一个新产品，两者的区别还是比较明显的，但是还有读者对这两个模式产生混淆，我们通过一个例子说明两者的差别。</p>
+<p>现代化的汽车工厂能够批量生产汽车（不考虑手工打造的豪华车）。不同的工厂生产不同的汽车，宝马工厂生产宝马牌子的车，奔驰工厂生产奔驰牌子的车。车不仅具有不同品牌，还有不同的用途分类，如商务车Van，运动型车SUV等，我们按照两种设计模式分别实现车辆的生产过程。</p>
+<h2 id="30-2-1-按抽象工厂模式生产车辆"><a href="#30-2-1-按抽象工厂模式生产车辆" class="headerlink" title="30.2.1 按抽象工厂模式生产车辆"></a>30.2.1 按抽象工厂模式生产车辆</h2><p>按照抽象工厂模式，首先需要定义一个抽象的产品接口即汽车接口，然后宝马和奔驰分别实现该接口，由于它们只具有了一个品牌属性，还没有定义一个具体的型号，属于对象的抽象层次，每个具体车型由其子类实现，如R系列的奔驰车是商务车，X系列的宝马车属于SUV，我们来看类图，如图30-3所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930155636.png" alt="image-20210930155636695"></p>
+<center>图30-3 车辆生产的工厂类图</center>
+
+<p>在类图中，产品类很简单，我们从两个维度看产品：品牌和车型，每个品牌下都有两个车型，如宝马SUV，宝马商务车等，同时我们又建造了两个工厂，一个专门生产宝马车的宝马工厂BMWFactory，一个是生产奔驰车的奔驰车生产工厂BenzFactory。当然，汽车工厂也有两个不同的维度，可以建立这样两个工厂：一个专门生产SUV车辆的生产工厂，生产宝马SUV和奔驰SUV，另外一个工厂专门生成商务车，分别是宝马商务车和奔驰商务车，这样设计在技术上是完全可行的，但是在业务上是不可行的，为什么？这是因为你看到过有一个工厂既能生产奔驰SUV也能生产宝马SUV吗？这是不可能的，因为业务受限，除非是国内的山寨工厂。我们先来看产品类，汽车接口如代码清单30-12所示。</p>
+<p>代码清单30-12 汽车接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ICar</span> &#123;</span><br><span class="line">    <span class="comment">//汽车的生产商，也就是牌子</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBand</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//汽车的型号</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getModel</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在产品接口中我们定义了车辆有两个可以查询的属性：品牌和型号，奔驰车和宝马车是两个不同品牌的产品，但不够具体，只是知道它们的品牌而已，还不能够实例化，因此还是一个抽象类，如代码清单30-13所示。</p>
+<p>代码清单30-13 抽象宝马车</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsBMW</span> <span class="keyword">implements</span> <span class="title class_">ICar</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BMW_BAND</span> <span class="operator">=</span> <span class="string">&quot;宝马汽车&quot;</span>;</span><br><span class="line">    <span class="comment">//宝马车</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBand</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BMW_BAND;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//型号由具体的实现类实现</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title function_">getModel</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>抽象产品类中实现了产品的类型定义，车辆的型号没有实现，两实现类分别实现商务车和运动型车，分别如代码清单30-14、代码清单30-15所示。</p>
+<p>代码清单30-14 宝马商务车</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BMWVan</span> <span class="keyword">extends</span> <span class="title class_">AbsBMW</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">SEVENT_SEARIES</span> <span class="operator">=</span> <span class="string">&quot;7系列车型商务车&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getModel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SEVENT_SEARIES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码清单30-15 宝马SUV</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BMWSuv</span> <span class="keyword">extends</span> <span class="title class_">AbsBMW</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">X_SEARIES</span> <span class="operator">=</span> <span class="string">&quot;X系列车型SUV&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getModel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> X_SEARIES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>奔驰车与宝马车类似，都已经有清晰品牌定义，但是型号还没有确认，也是一个抽象的产品类，如代码清单30-16所示。</p>
+<p>代码清单30-16 抽象奔驰车</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbsBenz</span> <span class="keyword">implements</span> <span class="title class_">ICar</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BENZ_BAND</span> <span class="operator">=</span> <span class="string">&quot;奔驰汽车&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBand</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> BENZ_BAND;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//具体型号由实现类完成</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title function_">getModel</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于分类的标准是相同的，因此奔驰车也应该有商务车和运动车两个类型，分别如代码清单30-17和代码清单30-18所示。</p>
+<p>代码清单30-17 奔驰商务车</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BenzVan</span> <span class="keyword">extends</span> <span class="title class_">AbsBenz</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">R_SERIES</span> <span class="operator">=</span> <span class="string">&quot;R系列商务车&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getModel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> R_SERIES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码清单30-18 奔驰SUV</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BenzSuv</span> <span class="keyword">extends</span> <span class="title class_">AbsBenz</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">G_SERIES</span> <span class="operator">=</span> <span class="string">&quot;G系列SUV&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getModel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> G_SERIES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有的产品类都已经实现了，剩下的工作就是要定义工厂类进行生产，由于产品类型多样，也导致了必须有多个工厂类来生产不同产品，首先就需要定义一个抽象工厂，声明每个工厂必须完成的职责，如代码清单30-19所示。</p>
+<p>代码清单30-19 抽象工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CarFactory</span> &#123;</span><br><span class="line">    <span class="comment">//生产SUV</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createSuv</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//生产商务车</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createVan</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>抽象工厂定义了每个工厂必须生产两个类型车：SUV（运动车）和VAN（商务车），否则一个工厂就不能被实例化，我们来看宝马车工厂，如代码清单30-20所示。</p>
+<p>代码清单30-20 宝马车工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BMWFactory</span> <span class="keyword">implements</span> <span class="title class_">CarFactory</span> &#123;</span><br><span class="line">    <span class="comment">//生产SUV</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createSuv</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BMWSuv</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生产商务车</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createVan</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BMWVan</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单，你要我生产宝马商务车，没问题，直接产生一个宝马商务车对象，返回给调用者，这对调用者来说根本不需要关心到底是怎么生产的，它只要找到一个宝马工厂，即可生产出自己需要的产品（汽车）。奔驰车工厂与此类似，如代码清单30-21所示。</p>
+<p>代码清单30-21 奔驰车工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BenzFactory</span> <span class="keyword">implements</span> <span class="title class_">CarFactory</span> &#123;</span><br><span class="line">    <span class="comment">//生产SUV</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createSuv</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BenzSuv</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生产商务车</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createVan</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BenzVan</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>产品和工厂都具备了，剩下的工作就是建立一个场景类模拟调用者调用，如代码清单30-22所示。</p>
+<p>代码清单30-22 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//要求生产一辆奔驰SUV</span></span><br><span class="line">        System.out.println(<span class="string">&quot;===要求生产一辆奔驰SUV===&quot;</span>);</span><br><span class="line">        <span class="comment">//首先找到生产奔驰车的工厂</span></span><br><span class="line">        System.out.println(<span class="string">&quot;A、找到奔驰车工厂&quot;</span>);</span><br><span class="line">        CarFactory carFactory= <span class="keyword">new</span> <span class="title class_">BenzFactory</span>();</span><br><span class="line">        <span class="comment">//开始生产奔驰SUV</span></span><br><span class="line">        System.out.println(<span class="string">&quot;B、开始生产奔驰SUV&quot;</span>);</span><br><span class="line">        <span class="type">ICar</span> <span class="variable">benzSuv</span> <span class="operator">=</span> carFactory.createSuv();</span><br><span class="line">        <span class="comment">//生产完毕，展示一下车辆信息</span></span><br><span class="line">        System.out.println(<span class="string">&quot;C、生产出的汽车如下：&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;汽车品牌：&quot;</span>+benzSuv.getBand());</span><br><span class="line">        System.out.println(<span class="string">&quot;汽车型号：&quot;</span> + benzSuv.getModel());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">===要求生产一辆奔驰SUV=== </span><br><span class="line">A、找到奔驰车工厂 </span><br><span class="line">B、开始生产奔驰SUV </span><br><span class="line">C、生产出的汽车如下： </span><br><span class="line">汽车品牌：奔驰汽车 </span><br><span class="line">汽车型号：G系列SUV</span><br></pre></td></tr></table></figure>
+<p>对外界调用者来说，只要更换一个具备相同结构的对象，即可发生非常大的改变，如我们原本使用BenzFactory生产汽车，但是过了一段时间后，我们的系统需要生产宝马汽车，这对系统来说不需要很大的改动，只要把工厂类使用BMWFactory代替即可，立刻可以生产出宝马车，注意这里生产的是一辆完整的车，对于一个产品，只要给出产品代码（车类型）即可生产，抽象工厂模式把一辆车认为是一个完整的、不可拆分的对象。它注重完整性，一个产品一旦找到一个工厂生产，那就是固定的型号，不会出现一个宝马工厂生产奔驰车的情况。那现在的问题是我们就想要一辆混合的车型，如奔驰的引擎，宝马的车轮，那该怎么处理呢？使用我们的建造者模式！</p>
+<h2 id="30-2-2-按建造者模式生产车辆"><a href="#30-2-2-按建造者模式生产车辆" class="headerlink" title="30.2.2 按建造者模式生产车辆"></a>30.2.2 按建造者模式生产车辆</h2><p>按照建造者模式设计一个生产车辆需要把车辆进行拆分，拆分成引擎和车轮两部分，然后由建造者进行建造，想要什么车，你只要有设计图纸就成，马上可以制造一辆车出来。它注重的是对零件的装配、组合、封装，它从一个细微构件装配角度看待一个对象。我们来看生产车辆的类图，如图30-4所示。</p>
+<p>注意看我们类图中的蓝图类Blueprint，它负责对产品建造过程定义。既然要生产产品， 那必然要对产品进行一个描述，在类图中我们定义了一个接口来描述汽车，如代码清单30- 23所示。</p>
+<p>代码清单30-23 车辆产品描述</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ICar</span> &#123;</span><br><span class="line">    <span class="comment">//汽车车轮</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getWheel</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//汽车引擎</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getEngine</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930160247.png" alt="image-20210930160246938"></p>
+<center>图30-4 建造者模式建造车辆</center>
+
+<p>我们定义一辆车必须有车轮和引擎，具体的产品如代码清单30-24所示。</p>
+<p>代码清单30-24 具体车辆</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Car</span> <span class="keyword">implements</span> <span class="title class_">ICar</span> &#123;</span><br><span class="line">    <span class="comment">//汽车引擎</span></span><br><span class="line">    <span class="keyword">private</span> String engine;</span><br><span class="line">    <span class="comment">//汽车车轮</span></span><br><span class="line">    <span class="keyword">private</span> String wheel;</span><br><span class="line">    <span class="comment">//一次性传递汽车需要的信息</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Car</span><span class="params">(String _engine,String _wheel)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.engine = _engine;</span><br><span class="line">        <span class="built_in">this</span>.wheel = _wheel;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getEngine</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> engine;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getWheel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> wheel;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;车的轮子是：&quot;</span> + wheel + <span class="string">&quot;\n车的引擎是：&quot;</span> + engine;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个简单的JavaBean定义产品的属性，明确对产品的描述。我们继续来思考，因为我们的产品是比较抽象的，它没有指定引擎的型号，也没有指定车轮的牌子，那么这样的组合方式有很多，完全要靠建造者来建造，建造者说要生产一辆奔驰SUV那就得用奔驰的引擎和奔驰的车轮，该建造者对于一个具体的产品来说是绝对的权威，我们来描述一下建造者，如代码清单30-25所示。</p>
+<p>代码清单30-25 抽象建造者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">CarBuilder</span> &#123;</span><br><span class="line">    <span class="comment">//待建造的汽车</span></span><br><span class="line">    <span class="keyword">private</span> ICar car;</span><br><span class="line">    <span class="comment">//设计蓝图</span></span><br><span class="line">    <span class="keyword">private</span> Blueprint bp;</span><br><span class="line">    <span class="keyword">public</span> Car <span class="title function_">buildCar</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//按照顺序生产一辆车</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Car</span>(buildEngine(),buildWheel());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//接收一份设计蓝图</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveBlueprint</span><span class="params">(Blueprint _bp)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.bp = _bp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查看蓝图，只有真正的建造者才可以查看蓝图</span></span><br><span class="line">    <span class="keyword">protected</span> Blueprint <span class="title function_">getBlueprint</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> bp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//建造车轮</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title function_">buildWheel</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//建造引擎</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title function_">buildEngine</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到Blueprint类了，它中文的意思是“蓝图”，你要建造一辆车必须有一个设计样稿或者蓝图吧，否则怎么生产？怎么装配？该类就是一个可参考的生产样本，如代码清单30-26所示。</p>
+<p>代码清单30-26 生产蓝图</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Blueprint</span> &#123;</span><br><span class="line">    <span class="comment">//车轮的要求</span></span><br><span class="line">    <span class="keyword">private</span> String wheel;</span><br><span class="line">    <span class="comment">//引擎的要求</span></span><br><span class="line">    <span class="keyword">private</span> String engine;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getWheel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> wheel;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setWheel</span><span class="params">(String wheel)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.wheel = wheel;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getEngine</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> engine;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setEngine</span><span class="params">(String engine)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.engine = engine;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这和一个具体的产品Car类是一样的？错，不一样！它是一个蓝图，是一个可以参考的模板，有一个蓝图可以设计出非常多的产品，如有一个R系统的奔驰商务车设计蓝图，我们就可以生产出一系列的奔驰车。它指导我们的产品生产，而不是一个具体的产品。我们来看宝马车建造车间，如代码清单30-27所示。</p>
+<p>代码清单30-27 宝马车建造车间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BMWBuilder</span> <span class="keyword">extends</span> <span class="title class_">CarBuilder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">buildEngine</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.getBlueprint().getEngine();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">buildWheel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.getBlueprint().getWheel();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是非常简单的类。只要获得一个蓝图，然后按照蓝图制造引擎和车轮即可，剩下的事情就交给抽象的建造者进行装配。奔驰车间与此类似，如代码清单30-28所示。</p>
+<p>代码清单30-28 奔驰车建造车间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BenzBuilder</span> <span class="keyword">extends</span> <span class="title class_">CarBuilder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">buildEngine</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.getBlueprint().getEngine();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">buildWheel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.getBlueprint().getWheel();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个建造车间都已经完成，那现在的问题就变成了怎么让车间运作，谁来编写蓝图？谁来协调生产车间？谁来对外提供最终产品？于是导演类出场了，它不仅仅有每个车间需要的设计蓝图，还具有指导不同车间装配顺序的职责，如代码清单30-29所示。</p>
+<p>代码清单30-29 导演类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Director</span> &#123;</span><br><span class="line">    <span class="comment">//声明对建造者的引用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">CarBuilder</span> <span class="variable">benzBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BenzBuilder</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">CarBuilder</span> <span class="variable">bmwBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BMWBuilder</span>();</span><br><span class="line">    <span class="comment">//生产奔驰SUV</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createBenzSuv</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//制造出汽车</span></span><br><span class="line">        <span class="keyword">return</span> createCar(benzBuilder, <span class="string">&quot;benz的引擎&quot;</span>, <span class="string">&quot;benz的轮胎&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生产出一辆宝马商务车</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createBMWVan</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> createCar(benzBuilder, <span class="string">&quot;BMW的引擎&quot;</span>, <span class="string">&quot;BMW的轮胎&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生产出一个混合车型</span></span><br><span class="line">    <span class="keyword">public</span> ICar <span class="title function_">createComplexCar</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> createCar(bmwBuilder, <span class="string">&quot;BMW的引擎&quot;</span>, <span class="string">&quot;benz的轮胎&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生产车辆</span></span><br><span class="line">    <span class="keyword">private</span> ICar <span class="title function_">createCar</span><span class="params">(CarBuilder _carBuilder,String engine,String wheel)</span>&#123;</span><br><span class="line">        <span class="comment">//导演怀揣蓝图</span></span><br><span class="line">        <span class="type">Blueprint</span> <span class="variable">bp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Blueprint</span>();</span><br><span class="line">        bp.setEngine(engine);</span><br><span class="line">        bp.setWheel(wheel);</span><br><span class="line">        System.out.println(<span class="string">&quot;获得生产蓝图&quot;</span>);</span><br><span class="line">        _carBuilder.receiveBlueprint(bp);</span><br><span class="line">        <span class="keyword">return</span> _carBuilder.buildCar();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有一个私有方法createCar，其作用是减少导演类中的方法对蓝图的依赖，全部由该方法来完成。我们编写一个场景类，如代码清单30-30所示。</p>
+<p>代码清单30-30 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//定义出导演类</span></span><br><span class="line">        <span class="type">Director</span> <span class="variable">director</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">Director</span>();</span><br><span class="line">        <span class="comment">//给我一辆奔驰车SUV</span></span><br><span class="line">        System.out.println(<span class="string">&quot;===制造一辆奔驰SUV===&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="type">ICar</span> <span class="variable">benzSuv</span> <span class="operator">=</span> director.createBenzSuv();</span><br><span class="line">        System.out.println(benzSuv);</span><br><span class="line">        <span class="comment">//给我一辆宝马商务车</span></span><br><span class="line">        System.out.println(<span class="string">&quot;\n===制造一辆宝马商务车===&quot;</span>);</span><br><span class="line">        <span class="type">ICar</span> <span class="variable">bmwVan</span> <span class="operator">=</span> director.createBMWVan();</span><br><span class="line">        System.out.println(bmwVan);</span><br><span class="line">        <span class="comment">//给我一辆混合车型</span></span><br><span class="line">        System.out.println(<span class="string">&quot;\n===制造一辆混合车===&quot;</span>);</span><br><span class="line">        <span class="type">ICar</span> <span class="variable">complexCar</span> <span class="operator">=</span> director.createComplexCar();</span><br><span class="line">        System.out.println(complexCar);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>场景类只要找到导演类（也就是车间主任了）说给我制造一辆这样的宝马车，车间主任马上通晓你的意图，设计了一个蓝图，然后命令建造车间拼命加班加点建造，最终返回给你一件最新出品的产品，运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">===制造一辆奔驰SUV=== </span><br><span class="line">获得生产蓝图 </span><br><span class="line">车的轮子是：benz的轮胎 </span><br><span class="line">车的引擎是：benz的引擎 </span><br><span class="line">===制造一辆宝马商务车=== </span><br><span class="line">获得生产蓝图 </span><br><span class="line">车的轮子是：BMW的轮胎 </span><br><span class="line">车的引擎是：BMW的引擎 </span><br><span class="line">===制造一辆混合车=== </span><br><span class="line">获得生产蓝图 </span><br><span class="line">车的轮子是：benz的轮胎 </span><br><span class="line">车的引擎是：BMW的引擎</span><br></pre></td></tr></table></figure>
+<p>注意最后一个运行结果片段，我们可以立刻生产出一辆混合车型，只要有设计蓝图，这非常容易实现。反观我们的抽象工厂模式，它是不可能实现该功能的，因为它更关注的是整体，而不关注到底用的是奔驰引擎还是宝马引擎，而我们的建造者模式却可以很容易地实现该设计，市场信息变更了，我们就可以立刻跟进，生产出客户需要的产品。</p>
+<h2 id="30-2-3-最佳实践"><a href="#30-2-3-最佳实践" class="headerlink" title="30.2.3 最佳实践"></a>30.2.3 最佳实践</h2><p>注意看上面的描述，我们在抽象工厂模式中使用“工厂”来描述构建者，而在建造者模式中使用“车间”来描述构建者，其实我们已经在说它们两者的区别了，抽象工厂模式就好比是一个一个的工厂，宝马车工厂生产宝马SUV和宝马VAN，奔驰车工厂生产奔驰车SUV和奔驰VAN，它是从一个更高层次去看对象的构建，具体到工厂内部还有很多的车间，如制造引擎的车间、装配引擎的车间等，但这些都是隐藏在工厂内部的细节，对外不公布。也就是对领导者来说，他只要关心一个工厂到底是生产什么产品的，不用关心具体怎么生产。而建造者模式就不同了，它是由车间组成，不同的车间完成不同的创建和装配任务，一个完整的汽车生产过程需要引擎制造车间、引擎装配车间的配合才能完成，它们配合的基础就是设计蓝图，而这个蓝图是掌握在车间主任（导演类）手中，它给建造车间什么蓝图就能生产什么产品，建造者模式更关心建造过程。虽然从外界看来一个车间还是生产车辆，但是这个车间的转型是非常快的，只要重新设计一个蓝图，即可产生不同的产品，这有赖于建造者模式的功劳。</p>
+<p>相对来说，抽象工厂模式比建造者模式的尺度要大，它关注产品整体，而建造者模式关注构建过程，因此建造者模式可以很容易地构建出一个崭新的产品，只要导演类能够提供具体的工艺流程。也正因为如此，两者的应用场景截然不同，如果希望屏蔽对象的创建过程， 只提供一个封装良好的对象，则可以选择抽象工厂方法模式。而建造者模式可以用在构件的装配方面，如通过装配不同的组件或者相同组件的不同顺序，可以产生出一个新的对象，它可以产生一个非常灵活的架构，方便地扩展和维护系统。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a378c4f8/" title="30.2 抽象工厂模式VS建造者模式">https://lanlan2017.github.io/ReadingNotes/a378c4f8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/392c0038/" rel="prev" title="32.1 命令模式VS策略模式">
+                  <i class="fa fa-chevron-left"></i> 32.1 命令模式VS策略模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/3b3a4c9b/" rel="next" title="26.1 城市的纵向发展功臣——电梯">
+                  26.1 城市的纵向发展功臣——电梯 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a378c4f8/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a378c4f8/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

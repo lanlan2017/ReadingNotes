@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="5.2 创建自己的配置属性正如我在前文所述，配置属性只不过是bean的属性，它们可以从Spring的环境抽象中接受配置。我还没有提及的是这些bean该如何消费这些配置。 为了支持配置属性的注入，Spring Boot提供了@ConfigurationProperties注解。将它放到Spring bean上之后，它就会为该bean中那些能够根据Spring环境注入值的属性赋值。 为了阐述@Conf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.2 创建自己的配置属性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/57dcc79/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="5.2 创建自己的配置属性正如我在前文所述，配置属性只不过是bean的属性，它们可以从Spring的环境抽象中接受配置。我还没有提及的是这些bean该如何消费这些配置。 为了支持配置属性的注入，Spring Boot提供了@ConfigurationProperties注解。将它放到Spring bean上之后，它就会为该bean中那些能够根据Spring环境注入值的属性赋值。 为了阐述@Conf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102521.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102550.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102606.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102647.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102704.png">
+<meta property="article:published_time" content="2021-10-14T02:27:10.000Z">
+<meta property="article:modified_time" content="2021-10-14T02:27:10.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102521.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/57dcc79/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/57dcc79/","path":"/57dcc79/","title":"5.2 创建自己的配置属性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>5.2 创建自己的配置属性 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-2-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">5.2 创建自己的配置属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-1-%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E7%9A%84%E6%8C%81%E6%9C%89%E8%80%85"><span class="nav-number">1.1.</span> <span class="nav-text">5.2.1 定义配置属性的持有者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-2-%E5%A3%B0%E6%98%8E%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">5.2.2 声明配置属性元数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%B7%BB%E5%8A%A0%E7%BC%BA%E5%A4%B1%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.1.</span> <span class="nav-text">快速添加缺失的元数据</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/57dcc79/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="5.2 创建自己的配置属性 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5.2 创建自己的配置属性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-14 10:27:10" itemprop="dateCreated datePublished" datetime="2021-10-14T10:27:10+08:00">2021-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC5%E7%AB%A0-%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7/" itemprop="url" rel="index"><span itemprop="name">第5章 使用配置属性</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/57dcc79/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/57dcc79/" data-xid="/ReadingNotes/57dcc79/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="5-2-创建自己的配置属性"><a href="#5-2-创建自己的配置属性" class="headerlink" title="5.2 创建自己的配置属性"></a>5.2 创建自己的配置属性</h1><p>正如我在前文所述，配置属性只不过是bean的属性，它们可以从Spring的环境抽象中接受配置。我还没有提及的是这些bean该如何消费这些配置。</p>
+<p>为了支持配置属性的注入，Spring Boot提供了@ConfigurationProperties注解。将它放到Spring bean上之后，它就会为该bean中那些能够根据Spring环境注入值的属性赋值。</p>
+<p>为了阐述<code>@ConfigurationProperties</code>是如何运行的，假设我们为OrderController添加了如下的方法，该方法会列出当前认证用户过去的订单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">ordersForUser</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@AuthenticationPrincipal</span> User user, Model model)</span> &#123;</span><br><span class="line">  model.addAttribute(<span class="string">&quot;orders&quot;</span>,</span><br><span class="line">      orderRepo.findByUserOrderByPlacedAtDesc(user));</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;orderList&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，我们还要为OrderRepository添加必要的findByUser()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Order&gt; <span class="title function_">findByUserOrderByPlacedAtDesc</span><span class="params">(User user)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意，这个repository方法使用了OrderByPlacedAtDesc子句。OrderBy区域指定了结果要按照什么属性来排序，在本例中，也就是placedAt属性。最后的Desc声明要按照降序进行排列。所以，返回的订单将会按照时间由近及远进行排序。</p>
+<p>按照这种写法，如果用户只创建了少量订单，那么这个控制器方法可能会非常有用，但是，对于狂热的taco爱好者来说，这种方式就显得有些不方便了。在浏览器中显示一些订单会很有用，但是一长串没完没了的订单列表简直就是“噪声”。假设，我们希望将显示的订单数量限制为最近的20个，那么我们可以按照如下方式来修改ordersForUser()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">ordersForUser</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@AuthenticationPrincipal</span> User user, Model model)</span> &#123;</span><br><span class="line">  <span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">  model.addAttribute(<span class="string">&quot;orders&quot;</span>,</span><br><span class="line">      orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;orderList&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OrderRepository也需要对应修改：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Order&gt; <span class="title function_">findByUserOrderByPlacedAtDesc</span><span class="params">(</span></span><br><span class="line"><span class="params">        User user, Pageable pageable)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们修改了findByUserOrderByPlacedAtDesc()方法的签名，使其能够接受Pageable参数。Pageable是Spring Data根据页号和每页数量选取结果的子集的一种方法。在ordersForUser()控制器方法中，我们构建了一个PageRequest对象，该对象实现了Pageable，我们将其声明为请求第一页（序号为0）的数据，并且每页数量为20，这样我们就能获取当前用户最近的20个订单。</p>
+<p>尽管这种方式能够很好地运行，但是我们在这里硬编码了每页的数量，这有点让人担心。如果我们以后发现展示20个订单太多，并决定将其修改为10个，那该怎么办？因为这个值是硬编码的，所以需要重新构建和重新部署应用。</p>
+<p>我们可以将每页数量设置成一个自定义的配置属性，而不是硬编码到代码中。首先，我们需要添加一个名为pageSize的新属性到OrderController中，并为OrderController添加<code>@ConfigurationProperties</code>注解，如程序清单5.1所示。</p>
+<p>程序清单5.1 在OrderController中启用配置属性功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/orders&quot;)</span></span><br><span class="line"><span class="meta">@SessionAttributes(&quot;order&quot;)</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;taco.orders&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPageSize</span><span class="params">(<span class="type">int</span> pageSize)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.pageSize = pageSize;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@GetMapping</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">ordersForUser</span><span class="params">(</span></span><br><span class="line"><span class="params">      <span class="meta">@AuthenticationPrincipal</span> User user, Model model)</span> &#123;</span><br><span class="line">    <span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, pageSize);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;orders&quot;</span>,</span><br><span class="line">        orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;orderList&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序清单5.1最重要的变更是添加了<code>@ConfigurationProperties</code>注解。它的prefix属性设置成了taco.orders，这意味着当设置pageSize的时候，我们需要使用名为taco.orders.pageSize的配置属性。</p>
+<p>新的pageSize值默认为20，但是通过设置taco.orders.pageSize属性，我们可以很容易地将其修改为任意的值。例如，我们可以在application.yml中按照如下的方式设置该属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">taco:</span></span><br><span class="line">  <span class="attr">orders:</span></span><br><span class="line">    <span class="attr">pageSize:</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在生产环境中需要快速更改，我们可以将taco.orders.pageSize设置为环境变量，这样就不用重新构建和重新部署应用了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export TACO_ORDERS_PAGESIZE=10</span><br></pre></td></tr></table></figure>
+
+<p>设置配置属性的任何方式都可以用来调整最近订单页面中每页的数量。接下来，我们看一下如何在属性持有者（property holder）中设置配置数据。</p>
+<h2 id="5-2-1-定义配置属性的持有者"><a href="#5-2-1-定义配置属性的持有者" class="headerlink" title="5.2.1 定义配置属性的持有者"></a>5.2.1 定义配置属性的持有者</h2><p>这里并没有说@ConfigurationProperties只能用到控制器或特定类型的bean中。@ConfigurationProperties实际上通常会放到一种特定类型的bean中，这种bean的目的就是持有配置数据。这样的话，特定的配置细节就能从控制器和其他应用程序类中抽离出来，多个bean也能更容易地共享一些通用的配置。</p>
+<p>针对OrderController中的pageSize属性，我们可以将其抽取到一个单独的类中。程序清单5.2就以这样的方式来使用OrderProps类。</p>
+<p>程序清单5.2 将pageSize抽取到持有者类中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.web;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.</span><br><span class="line">                                        ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;taco.orders&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderProps</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就像我们在OrderController中所做的那样，pageSize的默认值为20，OrderProps使用了<code>@ConfigurationProperties</code>注解并且将前缀设置成了taco.orders。这个类还用到了<code>@Component</code>注解，这样Spring的组件扫描功能会自动发现它并将其创建为Spring应用上下文中的bean。这是非常重要的，因为我们下一步要将OrderProps作为bean注入到OrderController中。</p>
+<p>配置属性持有者并没有什么特别之处。它们只是将Spring环境注入到其属性中的bean。它们可以注入到任意需要这些属性的其他bean中。对于OrderController来说，我们就可以从OrderController中移除pageSize，并注入和使用OrderProps bean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/orders&quot;)</span></span><br><span class="line"><span class="meta">@SessionAttributes(&quot;order&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> OrderRepository orderRepo;</span><br><span class="line">  <span class="keyword">private</span> OrderProps props;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">OrderController</span><span class="params">(OrderRepository orderRepo,</span></span><br><span class="line"><span class="params">          OrderProps props)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.orderRepo = orderRepo;</span><br><span class="line">    <span class="built_in">this</span>.props = props;</span><br><span class="line">  &#125;</span><br><span class="line">    ...</span><br><span class="line">  <span class="meta">@GetMapping</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">ordersForUser</span><span class="params">(</span></span><br><span class="line"><span class="params">      <span class="meta">@AuthenticationPrincipal</span> User user, Model model)</span> &#123;</span><br><span class="line">    <span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, props.getPageSize());</span><br><span class="line">    model.addAttribute(<span class="string">&quot;orders&quot;</span>,</span><br><span class="line">        orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;orderList&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，OrderController不需要负责处理自己的配置属性了。这样能够让OrderController中的代码更加整洁一些，并且能够让其他的bean重用OrderProps中的属性。除此之外，我们可以将订单相关的属性全部放到一个地方，也就是OrderProps类中。如果我们需要添加、删除、重命名或者以其他方式更改其中的属性，我们只需要在OrderProps中进行变更就可以了。</p>
+<p>例如，假设我们在多个其他的bean中也用到了pageSize属性，现在我们决定要对这个属性的值进行一些校验，限制它的值必须要不小于5且不大于25。如果没有持有者bean，我们必须要将校验注解用到OrderController的pageSize属性上以及其他所有使用该属性的类上。但是，因为我们现在将pageSize抽取到了OrderProps中，所以只需要修改OrderProps就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.web;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.Max;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.Min;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.</span><br><span class="line">                                        ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.annotation.Validated;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;taco.orders&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderProps</span> &#123;</span><br><span class="line">  <span class="meta">@Min(value=5, message=&quot;must be between 5 and 25&quot;)</span></span><br><span class="line">  <span class="meta">@Max(value=25, message=&quot;must be between 5 and 25&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//end::validated[]</span></span><br></pre></td></tr></table></figure>
+
+<p>尽管我们很容易就可以将<code>@Validated</code>、<code>@Min</code>和<code>@Max</code>注解用到OrderController（和其他可以注入OrderProps的地方），但是这样会使OrderController更加混乱。通过配置属性的持有者bean，我们将所有的配置属性收集到了一个地方，这样就能让使用这些属性的bean尽可能保持整洁。</p>
+<h2 id="5-2-2-声明配置属性元数据"><a href="#5-2-2-声明配置属性元数据" class="headerlink" title="5.2.2 声明配置属性元数据"></a>5.2.2 声明配置属性元数据</h2><p>在IDE中，你可能会发现application.yml（或application.properties）文件的taco.orders. pageSize条目上会有一条警告信息，根据IDE不同显示会有所差异，这个警告提示的内容可能是“Unknown property ‘taco’”。这个警告产生的原因在于我们刚刚创建的配置属性缺少元数据。图5.2展示了在Spring Tool Suite中，当我将鼠标悬停到taco属性时的样式。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102521.png" alt="image-20211014102516936"></p>
+<center>图5.2 缺少配置属性元数据所产生的警告</center>
+
+<p>配置属性的元数据完全是可选的，它并不会妨碍配置属性的运行。但是，元数据对于为配置属性提供一个最小化的文档非常有用，在IDE中尤为如此。</p>
+<p>举例来说，将鼠标指针悬停到security.user.password属性上时，就会看到图5.3那样的效果。尽管悬停对我们的帮助很有限，但是它足以让我们知道这个属性是做什么的以及如何使用它。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102550.png" alt="image-20211014102550678"></p>
+<center>图5.3 Spring Tool Suite中配置属性的悬停文档</center>
+
+<p>为了帮助那些使用你所定义的配置属性的人（有可能就是你本人），为这些属性创建一些元数据是非常好的办法，至少它能消除IDE上那些烦人的黄色警告。</p>
+<p>为了创建自定义配置属性的元数据，我们需要在META-INF下创建一个名为additional-spring-configuration-metadata.json的文件（比如，在项目的“src&#x2F;main&#x2F;resources&#x2F; META-INF”目录下）。</p>
+<h3 id="快速添加缺失的元数据"><a href="#快速添加缺失的元数据" class="headerlink" title="快速添加缺失的元数据"></a>快速添加缺失的元数据</h3><p>如果使用Spring Tool Suite，就会有一个创建缺失属性元数据的快速修正选项。将鼠标放到缺失元数据警告的那行代码上，在Mac下按CMD+1组合键或者在Windows和Linux下按Ctrl+1组合键就能打开快速修正的弹出框（见图5.4）。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102606.png" alt="image-20211014102606086"></p>
+<center>图5.4 在Spring Tool Suite中通过快速修正弹出框创建配置属性</center>
+
+<p>然后，选择“Create Metadata for …”选项来为属性添加元数据（会在additional-spring- configuration-metadata.json文件中进行添加），如果文件还不存在，将会自动创建该文件。</p>
+<p>对于taco.orders.pageSize属性来说，我们可以通过如下的JSON为其添加元数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;taco.orders.page-size&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;java.lang.String&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span></span><br><span class="line">          <span class="string">&quot;Sets the maximum number of orders to display in a list.&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意，在元数据中引用的属性名为taco.orders.page-size。Spring Boot灵活的属性命名功能允许属性名出现不同的变种，比如taco.orders.page-size等价于taco.orders.pageSize。</p>
+<p>元数据准备就绪之后，警告信息就会消失了。除此之外，如果将鼠标指针悬停到taco.orders. pageSize属性上，就会看到如图5.5所示的描述信息。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102647.png" alt="image-20211014102647143"></p>
+<center>图5.5 自定义配置属性的悬停帮助信息</center>
+
+<p>另外，在IDE中，就像Spring本身提供的配置属性一样，我们还能具备自动补全功能，如图5.6所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211014102704.png" alt="image-20211014102704934"></p>
+<center>图5.6 配置属性的元数据能够帮助实现属性的自动补全功能</center>
+
+<p>我们可以看到，配置属性对于调整自动配置的组件以及应用程序自身的bean都非常有用。但是，如果我们想要为不同的部署环境配置不同的属性又该怎么办呢？接下来，我们看一下该如何使用Spring profile搭建特定环境的配置。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/57dcc79/" title="5.2 创建自己的配置属性">https://lanlan2017.github.io/ReadingNotes/57dcc79/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5434e937/" rel="prev" title="5.1 细粒度的自动配置">
+                  <i class="fa fa-chevron-left"></i> 5.1 细粒度的自动配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/d7f0879d/" rel="next" title="5.3 使用profile进行配置">
+                  5.3 使用profile进行配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/57dcc79/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/57dcc79/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

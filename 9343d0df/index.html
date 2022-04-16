@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="6.3 为什么要采用开闭原则每个事物的诞生都有它存在的必要性，存在即合理，那开闭原则的存在也是合理的，为什么这么说呢？ 首先，开闭原则非常著名，只要是做面向对象编程的，甭管是什么语言，Java也好，C++也好，或者是Smalltalk，在开发时都会提及开闭原则。 其次，开闭原则是最基础的一个原则，前五章节介绍的原则都是开闭原则的具体形态， 也就是说前五个原则就是指导设计的工具和方法，而开闭原则才是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.3 为什么要采用开闭原则">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/9343d0df/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="6.3 为什么要采用开闭原则每个事物的诞生都有它存在的必要性，存在即合理，那开闭原则的存在也是合理的，为什么这么说呢？ 首先，开闭原则非常著名，只要是做面向对象编程的，甭管是什么语言，Java也好，C++也好，或者是Smalltalk，在开发时都会提及开闭原则。 其次，开闭原则是最基础的一个原则，前五章节介绍的原则都是开闭原则的具体形态， 也就是说前五个原则就是指导设计的工具和方法，而开闭原则才是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-18T02:40:56.000Z">
+<meta property="article:modified_time" content="2021-09-27T12:52:32.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/9343d0df/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/9343d0df/","path":"/9343d0df/","title":"6.3 为什么要采用开闭原则"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6.3 为什么要采用开闭原则 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%87%E7%94%A8%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">6.3 为什么要采用开闭原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99%E5%AF%B9%E6%B5%8B%E8%AF%95%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1. 开闭原则对测试的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%A4%8D%E7%94%A8%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">2. 开闭原则可以提高复用性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3. 开闭原则可以提高可维护性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BC%80%E5%8F%91%E7%9A%84%E8%A6%81%E6%B1%82"><span class="nav-number">1.4.</span> <span class="nav-text">4. 面向对象开发的要求</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/9343d0df/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6.3 为什么要采用开闭原则 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6.3 为什么要采用开闭原则
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-18 10:40:56" itemprop="dateCreated datePublished" datetime="2019-09-18T10:40:56+08:00">2019-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-27 20:52:32" itemprop="dateModified" datetime="2021-09-27T20:52:32+08:00">2021-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">1 第一部分 大旗不挥，谁敢冲锋 ——6大设计原则全新解读</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/1-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E5%A4%A7%E6%97%97%E4%B8%8D%E6%8C%A5%EF%BC%8C%E8%B0%81%E6%95%A2%E5%86%B2%E9%94%8B-%E2%80%94%E2%80%946%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%A8%E6%96%B0%E8%A7%A3%E8%AF%BB/%E7%AC%AC6%E7%AB%A0-%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99/" itemprop="url" rel="index"><span itemprop="name">第6章 开闭原则</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/9343d0df/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/9343d0df/" data-xid="/ReadingNotes/9343d0df/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="6-3-为什么要采用开闭原则"><a href="#6-3-为什么要采用开闭原则" class="headerlink" title="6.3 为什么要采用开闭原则"></a>6.3 为什么要采用开闭原则</h1><p>每个事物的诞生都有它存在的必要性，存在即合理，那开闭原则的存在也是合理的，为什么这么说呢？</p>
+<p>首先，开闭原则非常著名，只要是做面向对象编程的，甭管是什么语言，Java也好，C++也好，或者是Smalltalk，在开发时都会提及开闭原则。</p>
+<p>其次，开闭原则是最基础的一个原则，前五章节介绍的原则都是开闭原则的具体形态， 也就是说前五个原则就是指导设计的工具和方法，而开闭原则才是其精神领袖。换一个角度来理解，依照Java语言的称谓，开闭原则是抽象类，其他五大原则是具体的实现类，开闭原则在面向对象设计领域中的地位就类似于牛顿第一定律在力学、勾股定律在几何学、质能方程在狭义相对论中的地位，其地位无人能及。</p>
+<p>最后，开闭原则是非常重要的，可通过以下几个方面来理解其重要性。</p>
+<h2 id="1-开闭原则对测试的影响"><a href="#1-开闭原则对测试的影响" class="headerlink" title="1. 开闭原则对测试的影响"></a>1. 开闭原则对测试的影响</h2><p>所有已经投产的代码都是有意义的，并且都受系统规则的约束，这样的代码都要经过“千锤百炼”的测试过程，不仅保证逻辑是正确的，还要保证苛刻条件（高压力、异常、错误）下不产生“有毒代码”（Poisonous Code），因此有变化提出时，我们就需要考虑一下， 原有的健壮代码是否可以不修改，仅仅通过扩展实现变化呢？否则，就需要把原有的测试过程回笼一遍，需要进行单元测试、功能测试、集成测试甚至是验收测试，现在虽然在大力提倡自动化测试工具，但是仍然代替不了人工的测试工作。</p>
+<p>以上面提到的书店售书为例，IBook接口写完了，实现类NovelBook也写好了，我们需要写一个测试类进行测试，测试类如代码清单6-6所示。</p>
+<p>代码清单6-6 小说类的单元测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NovelBookTest</span> <span class="keyword">extends</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;平凡的世界&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">price</span> <span class="operator">=</span> <span class="number">6000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">author</span> <span class="operator">=</span> <span class="string">&quot;路遥&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">IBook</span> <span class="variable">novelBook</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NovelBook</span>(name,price,author);</span><br><span class="line">    <span class="comment">//测试getPrice方法 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetPrice</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//原价销售，根据输入和输出的值是否相等进行断言</span></span><br><span class="line">        <span class="built_in">super</span>.assertEquals(<span class="built_in">this</span>.price, <span class="built_in">this</span>.novelBook.getPrice());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单元测试通过，显示绿条。在单元测试中，有一句非常有名的话，叫做”Keep the bar green to keep the code clean”，即保持绿条有利于代码整洁，这是什么意思呢？绿条就是Junit 运行的两种结果中的一种：要么是红条，单元测试失败；要么是绿条，单元测试通过。一个方法的测试方法一般不少于3种，为什么呢？首先是正常的业务逻辑要保证测试到，其次是边界条件要测试到，然后是异常要测试到，比较重要的方法的测试方法甚至有十多种，而且单元测试是对类的测试，类中的方法耦合是允许的，在这样的条件下，如果再想着通过修改一个方法或多个方法代码来完成变化，基本上就是痴人说梦，该类的所有测试方法都要重构，想象一下你在一堆你并不熟悉的代码中进行重构时的感觉吧！</p>
+<p>在书店售书的例子中，增加了一个打折销售的需求，如果我们直接修改getPrice方法来实现业务需求的变化，那就要修改单元测试类。想想看，我们举的这个例子是非常简单的， 如果是一个复杂的逻辑，你的测试类就要修改得面目全非。还有，在实际的项目中，一个类一般只有一个测试类，其中可以有很多的测试方法，在一堆本来就很复杂的断言中进行大量修改，难免会出现测试遗漏情况，这是项目经理很难容忍的事情。</p>
+<p>所以，我们需要通过扩展来实现业务逻辑的变化，而不是修改。上面的例子中通过增加一个子类OffNovelBook来完成了业务需求的变化，这对测试有什么好处呢？我们重新生成一个测试文件OffNovelBookTest，然后对getPrice进行测试，单元测试是孤立测试，只要保证我提供的方法正确就成了，其他的我不管，OffNovelBookTest如代码清单6-7所示。</p>
+<p>代码清单6-7 打折销售的小说类单元测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OffNovelBookTest</span> <span class="keyword">extends</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">IBook</span> <span class="variable">below40NovelBook</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OffNovelBook</span>(<span class="string">&quot;平凡的世界&quot;</span>,<span class="number">3000</span>,<span class="string">&quot;路遥&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="type">IBook</span> <span class="variable">above40NovelBook</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OffNovelBook</span>(<span class="string">&quot;平凡的世界&quot;</span>,<span class="number">6000</span>,<span class="string">&quot;路遥&quot;</span>);</span><br><span class="line">    <span class="comment">//测试低于40元的数据是否是打8折</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetPriceBelow40</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.assertEquals(<span class="number">2400</span>, <span class="built_in">this</span>.below40NovelBook.getPrice());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//测试大于40的书籍是否是打9折</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetPriceAbove40</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>.assertEquals(<span class="number">5400</span>, <span class="built_in">this</span>.above40NovelBook.getPrice());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新增加的类，新增加的测试方法，只要保证新增加类是正确的就可以了。</p>
+<h2 id="2-开闭原则可以提高复用性"><a href="#2-开闭原则可以提高复用性" class="headerlink" title="2. 开闭原则可以提高复用性"></a>2. 开闭原则可以提高复用性</h2><p>在面向对象的设计中，所有的逻辑都是从原子逻辑组合而来的，而不是在一个类中独立实现一个业务逻辑。只有这样代码才可以复用，粒度越小，被复用的可能性就越大。那为什么要复用呢？减少代码量，避免相同的逻辑分散在多个角落，避免日后的维护人员为了修改一个微小的缺陷或增加新功能而要在整个项目中到处查找相关的代码，然后发出对开发人员“极度失望”的感慨。那怎么才能提高复用率呢？缩小逻辑粒度，直到一个逻辑不可再拆分为止。</p>
+<h2 id="3-开闭原则可以提高可维护性"><a href="#3-开闭原则可以提高可维护性" class="headerlink" title="3. 开闭原则可以提高可维护性"></a>3. 开闭原则可以提高可维护性</h2><p>一款软件投产后，维护人员的工作不仅仅是对数据进行维护，还可能要对程序进行扩展，维护人员最乐意做的事情就是扩展一个类，而不是修改一个类，甭管原有的代码写得多么优秀还是多么糟糕，让维护人员读懂原有的代码，然后再修改，是一件很痛苦的事情，不要让他在原有的代码海洋里游弋完毕后再修改，那是对维护人员的一种折磨和摧残。</p>
+<h2 id="4-面向对象开发的要求"><a href="#4-面向对象开发的要求" class="headerlink" title="4. 面向对象开发的要求"></a>4. 面向对象开发的要求</h2><p>万物皆对象，我们需要把所有的事物都抽象成对象，然后针对对象进行操作，但是万物皆运动，有运动就有变化，有变化就要有策略去应对，怎么快速应对呢？这就需要在设计之初考虑到所有可能变化的因素，然后留下接口，等待“可能”转变为“现实”。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/9343d0df/" title="6.3 为什么要采用开闭原则">https://lanlan2017.github.io/ReadingNotes/9343d0df/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/f479faa6/" rel="prev" title="6.2 开闭原则的庐山真面目">
+                  <i class="fa fa-chevron-left"></i> 6.2 开闭原则的庐山真面目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a24250d9/" rel="next" title="6.4 如何使用开闭原则">
+                  6.4 如何使用开闭原则 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/9343d0df/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/9343d0df/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

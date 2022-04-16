@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="11.2 jQuery技巧如今，越来越多的人在使用jQuery类库。这也意味着，需要越来越多有用的jQuery技巧和解决方案。下面是我整理的一些实用的jQuery技巧。 1．禁用页面的右键菜单[插图] 2．新窗口打开页面[插图] 3．判断浏览器类型[插图] 需要注意的是，在jQuery 1.3版本之后，官方推荐使用$.support来代替$.browser这种检测方式。 4．输入框文字获取和失去焦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11.2 jQuery技巧">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/c4f25d4b/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="11.2 jQuery技巧如今，越来越多的人在使用jQuery类库。这也意味着，需要越来越多有用的jQuery技巧和解决方案。下面是我整理的一些实用的jQuery技巧。 1．禁用页面的右键菜单[插图] 2．新窗口打开页面[插图] 3．判断浏览器类型[插图] 需要注意的是，在jQuery 1.3版本之后，官方推荐使用$.support来代替$.browser这种检测方式。 4．输入框文字获取和失去焦">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-13T11:17:52.000Z">
+<meta property="article:modified_time" content="2021-12-13T11:17:52.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/c4f25d4b/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/c4f25d4b/","path":"/c4f25d4b/","title":"11.2 jQuery技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>11.2 jQuery技巧 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#11-2-jQuery%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">11.2 jQuery技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%8E%E7%A6%81%E7%94%A8%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95"><span class="nav-number">1.1.</span> <span class="nav-text">1．禁用页面的右键菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%8E%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%93%E5%BC%80%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.2.</span> <span class="nav-text">2．新窗口打开页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%EF%BC%8E%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">3．判断浏览器类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%EF%BC%8E%E8%BE%93%E5%85%A5%E6%A1%86%E6%96%87%E5%AD%97%E8%8E%B7%E5%8F%96%E5%92%8C%E5%A4%B1%E5%8E%BB%E7%84%A6%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">4．输入框文字获取和失去焦点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%EF%BC%8E%E8%BF%94%E5%9B%9E%E5%A4%B4%E9%83%A8%E6%BB%91%E5%8A%A8%E5%8A%A8%E7%94%BB"><span class="nav-number">1.5.</span> <span class="nav-text">5．返回头部滑动动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%EF%BC%8E%E8%8E%B7%E5%8F%96%E9%BC%A0%E6%A0%87%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.6.</span> <span class="nav-text">6．获取鼠标位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%EF%BC%8E%E5%88%A4%E6%96%AD%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">1.7.</span> <span class="nav-text">7．判断元素是否存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%EF%BC%8E%E7%82%B9%E5%87%BBdiv%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.8.</span> <span class="nav-text">8．点击div也可以跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%EF%BC%8E%E6%A0%B9%E6%8D%AE%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%A7%E5%B0%8F%E6%B7%BB%E5%8A%A0%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.9.</span> <span class="nav-text">9．根据浏览器大小添加不同的样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10%EF%BC%8E%E8%AE%BE%E7%BD%AEdiv%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E5%A4%AE"><span class="nav-number">1.10.</span> <span class="nav-text">10．设置div在屏幕中央</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11%EF%BC%8E%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.11.</span> <span class="nav-text">11．创建自己的选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12%EF%BC%8E%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C"><span class="nav-number">1.12.</span> <span class="nav-text">12．关闭所有动画效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13%EF%BC%8E%E6%A3%80%E6%B5%8B%E9%BC%A0%E6%A0%87%E7%9A%84%E5%8F%B3%E9%94%AE%E5%92%8C%E5%B7%A6%E9%94%AE"><span class="nav-number">1.13.</span> <span class="nav-text">13．检测鼠标的右键和左键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14%EF%BC%8E%E5%9B%9E%E8%BD%A6%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95"><span class="nav-number">1.14.</span> <span class="nav-text">14．回车提交表单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15%EF%BC%8E%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80Ajax%E5%8F%82%E6%95%B0"><span class="nav-number">1.15.</span> <span class="nav-text">15．设置全局Ajax参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16%EF%BC%8E%E8%8E%B7%E5%8F%96%E9%80%89%E4%B8%AD%E7%9A%84%E4%B8%8B%E6%8B%89%E6%A1%86"><span class="nav-number">1.16.</span> <span class="nav-text">16．获取选中的下拉框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17%EF%BC%8E%E5%88%87%E6%8D%A2%E5%A4%8D%E9%80%89%E6%A1%86"><span class="nav-number">1.17.</span> <span class="nav-text">17．切换复选框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18%EF%BC%8E%E4%BD%BF%E7%94%A8siblings-%E6%9D%A5%E9%80%89%E6%8B%A9%E5%90%8C%E8%BE%88%E5%85%83%E7%B4%A0"><span class="nav-number">1.18.</span> <span class="nav-text">18．使用siblings()来选择同辈元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19%EF%BC%8E%E4%B8%AA%E6%80%A7%E5%8C%96%E9%93%BE%E6%8E%A5"><span class="nav-number">1.19.</span> <span class="nav-text">19．个性化链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20%EF%BC%8E%E5%9C%A8%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E4%B9%8B%E5%90%8E%E8%87%AA%E5%8A%A8%E9%9A%90%E8%97%8F%E6%88%96%E5%85%B3%E9%97%AD%E5%85%83%E7%B4%A0"><span class="nav-number">1.20.</span> <span class="nav-text">20．在一段时间之后自动隐藏或关闭元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21%EF%BC%8E%E4%BD%BF%E7%94%A8Firefox%E5%92%8CFirebug%E6%9D%A5%E8%AE%B0%E5%BD%95%E4%BA%8B%E4%BB%B6%E6%97%A5%E5%BF%97"><span class="nav-number">1.21.</span> <span class="nav-text">21．使用Firefox和Firebug来记录事件日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22%EF%BC%8E%E4%B8%BA%E4%BB%BB%E4%BD%95%E4%B8%8E%E9%80%89%E6%8B%A9%E5%99%A8%E7%9B%B8%E5%8C%B9%E9%85%8D%E7%9A%84%E5%85%83%E7%B4%A0%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.22.</span> <span class="nav-text">22．为任何与选择器相匹配的元素绑定事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23%EF%BC%8E%E4%BD%BF%E7%94%A8css%E9%92%A9%E5%AD%90"><span class="nav-number">1.23.</span> <span class="nav-text">23．使用css钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24%EF%BC%8E-proxy-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.24.</span> <span class="nav-text">24．$.proxy()的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25%EF%BC%8E%E9%99%90%E5%88%B6Text-Area%E5%9F%9F%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.25.</span> <span class="nav-text">25．限制Text-Area域中的字符的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26%EF%BC%8E%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8"><span class="nav-number">1.26.</span> <span class="nav-text">26．本地存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27%EF%BC%8E%E8%A7%A3%E6%9E%90json%E6%95%B0%E6%8D%AE%E6%97%B6%E6%8A%A5parseError%E9%94%99%E8%AF%AF"><span class="nav-number">1.27.</span> <span class="nav-text">27．解析json数据时报parseError错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28%EF%BC%8E%E4%BB%8E%E5%85%83%E7%B4%A0%E4%B8%AD%E9%99%A4%E5%8E%BBHTML"><span class="nav-number">1.28.</span> <span class="nav-text">28．从元素中除去HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29%EF%BC%8E%E6%89%A9%E5%B1%95String%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.29.</span> <span class="nav-text">29．扩展String对象的方法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/c4f25d4b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="11.2 jQuery技巧 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          11.2 jQuery技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-13 19:17:52" itemprop="dateCreated datePublished" datetime="2021-12-13T19:17:52+08:00">2021-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">锋利的jQuery(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E9%94%8B%E5%88%A9%E7%9A%84jQuery-%E7%AC%AC2%E7%89%88/%E7%AC%AC11%E7%AB%A0-jQuery%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%92%8C%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">第11章 jQuery性能优化和技巧</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/c4f25d4b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/c4f25d4b/" data-xid="/ReadingNotes/c4f25d4b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="11-2-jQuery技巧"><a href="#11-2-jQuery技巧" class="headerlink" title="11.2 jQuery技巧"></a>11.2 jQuery技巧</h1><p>如今，越来越多的人在使用jQuery类库。这也意味着，需要越来越多有用的jQuery技巧和解决方案。下面是我整理的一些实用的jQuery技巧。</p>
+<h2 id="1．禁用页面的右键菜单"><a href="#1．禁用页面的右键菜单" class="headerlink" title="1．禁用页面的右键菜单"></a>1．禁用页面的右键菜单</h2><p>[插图]</p>
+<h2 id="2．新窗口打开页面"><a href="#2．新窗口打开页面" class="headerlink" title="2．新窗口打开页面"></a>2．新窗口打开页面</h2><p>[插图]</p>
+<h2 id="3．判断浏览器类型"><a href="#3．判断浏览器类型" class="headerlink" title="3．判断浏览器类型"></a>3．判断浏览器类型</h2><p>[插图]</p>
+<p>需要注意的是，在jQuery 1.3版本之后，官方推荐使用$.support来代替$.browser这种检测方式。</p>
+<h2 id="4．输入框文字获取和失去焦点"><a href="#4．输入框文字获取和失去焦点" class="headerlink" title="4．输入框文字获取和失去焦点"></a>4．输入框文字获取和失去焦点</h2><p>[插图]</p>
+<h2 id="5．返回头部滑动动画"><a href="#5．返回头部滑动动画" class="headerlink" title="5．返回头部滑动动画"></a>5．返回头部滑动动画</h2><p>[插图]</p>
+<h2 id="6．获取鼠标位置"><a href="#6．获取鼠标位置" class="headerlink" title="6．获取鼠标位置"></a>6．获取鼠标位置</h2><p>[插图]</p>
+<h2 id="7．判断元素是否存在"><a href="#7．判断元素是否存在" class="headerlink" title="7．判断元素是否存在"></a>7．判断元素是否存在</h2><p>[插图]</p>
+<h2 id="8．点击div也可以跳转"><a href="#8．点击div也可以跳转" class="headerlink" title="8．点击div也可以跳转"></a>8．点击div也可以跳转</h2><p>[插图]</p>
+<h2 id="9．根据浏览器大小添加不同的样式"><a href="#9．根据浏览器大小添加不同的样式" class="headerlink" title="9．根据浏览器大小添加不同的样式"></a>9．根据浏览器大小添加不同的样式</h2><p>[插图]</p>
+<h2 id="10．设置div在屏幕中央"><a href="#10．设置div在屏幕中央" class="headerlink" title="10．设置div在屏幕中央"></a>10．设置div在屏幕中央</h2><p>[插图]</p>
+<h2 id="11．创建自己的选择器"><a href="#11．创建自己的选择器" class="headerlink" title="11．创建自己的选择器"></a>11．创建自己的选择器</h2><p>[插图]</p>
+<h2 id="12．关闭所有动画效果"><a href="#12．关闭所有动画效果" class="headerlink" title="12．关闭所有动画效果"></a>12．关闭所有动画效果</h2><p>[插图]</p>
+<h2 id="13．检测鼠标的右键和左键"><a href="#13．检测鼠标的右键和左键" class="headerlink" title="13．检测鼠标的右键和左键"></a>13．检测鼠标的右键和左键</h2><p>[插图]</p>
+<h2 id="14．回车提交表单"><a href="#14．回车提交表单" class="headerlink" title="14．回车提交表单"></a>14．回车提交表单</h2><p>[插图]</p>
+<h2 id="15．设置全局Ajax参数"><a href="#15．设置全局Ajax参数" class="headerlink" title="15．设置全局Ajax参数"></a>15．设置全局Ajax参数</h2><p>[插图]</p>
+<h2 id="16．获取选中的下拉框"><a href="#16．获取选中的下拉框" class="headerlink" title="16．获取选中的下拉框"></a>16．获取选中的下拉框</h2><p>[插图]</p>
+<h2 id="17．切换复选框"><a href="#17．切换复选框" class="headerlink" title="17．切换复选框"></a>17．切换复选框</h2><p>[插图]</p>
+<h2 id="18．使用siblings-来选择同辈元素"><a href="#18．使用siblings-来选择同辈元素" class="headerlink" title="18．使用siblings()来选择同辈元素"></a>18．使用siblings()来选择同辈元素</h2><p>[插图]</p>
+<h2 id="19．个性化链接"><a href="#19．个性化链接" class="headerlink" title="19．个性化链接"></a>19．个性化链接</h2><p>[插图]</p>
+<h2 id="20．在一段时间之后自动隐藏或关闭元素"><a href="#20．在一段时间之后自动隐藏或关闭元素" class="headerlink" title="20．在一段时间之后自动隐藏或关闭元素"></a>20．在一段时间之后自动隐藏或关闭元素</h2><p>[插图]</p>
+<h2 id="21．使用Firefox和Firebug来记录事件日志"><a href="#21．使用Firefox和Firebug来记录事件日志" class="headerlink" title="21．使用Firefox和Firebug来记录事件日志"></a>21．使用Firefox和Firebug来记录事件日志</h2><p>[插图]</p>
+<h2 id="22．为任何与选择器相匹配的元素绑定事件"><a href="#22．为任何与选择器相匹配的元素绑定事件" class="headerlink" title="22．为任何与选择器相匹配的元素绑定事件"></a>22．为任何与选择器相匹配的元素绑定事件</h2><p>[插图]</p>
+<h2 id="23．使用css钩子"><a href="#23．使用css钩子" class="headerlink" title="23．使用css钩子"></a>23．使用css钩子</h2><p>jQuery.cssHooks是1.4.3新增的方法，当你定义新的CSS Hooks时实际上定义的是getter和setter方法，比如，border-radius这个圆角属性想要成功应用于firefox、webkit等浏览器，需要增加属性前缀，比如-moz-border-radius和-webkit-border-radius。你可以通过定义CSS Hooks将其封装成统一的接口borderRadius，而不是一一设置css属性。代码如下：</p>
+<p>[插图]</p>
+<p>更多cssHooks可以查看<a target="_blank" rel="noopener" href="https://github.com/brandonaaron/jquery-cssHooks">https://github.com/brandonaaron/jquery-cssHooks</a> 。</p>
+<h2 id="24．-proxy-的使用"><a href="#24．-proxy-的使用" class="headerlink" title="24．$.proxy()的使用"></a>24．$.proxy()的使用</h2><p>使用回调方法的缺点之一是当执行类库中的方法后，上下文对象被设置到另外一个元素，比如：</p>
+<p>[插图]</p>
+<p>执行下面代码：</p>
+<p>[插图]</p>
+<p>你将遇到问题，button元素会消失，而不是panel元素。可以使用$.proxy方法解决这个问题，代码如下：</p>
+<p>[插图]</p>
+<p>这样才正确的执行。</p>
+<h2 id="25．限制Text-Area域中的字符的个数"><a href="#25．限制Text-Area域中的字符的个数" class="headerlink" title="25．限制Text-Area域中的字符的个数"></a>25．限制Text-Area域中的字符的个数</h2><p>[插图]</p>
+<h2 id="26．本地存储"><a href="#26．本地存储" class="headerlink" title="26．本地存储"></a>26．本地存储</h2><p>本地存储是HTML 5提供的特性之一。它提供了非常简单的API接口，便于添加你的数据到localStorage全局属性中，代码如下：</p>
+<p>[插图]</p>
+<p>事实上对于老的浏览器来说，这并不是个好消息，因为他们不支持，但是我们可以使用jQuery的插件（<a target="_blank" rel="noopener" href="http://plugins.jquery.com/plugin-tags/localstorage">http://plugins.jquery.com/plugin-tags/localstorage</a> ）来提供支持，这种方式可以使得本地存储功能正常工作。</p>
+<h2 id="27．解析json数据时报parseError错误"><a href="#27．解析json数据时报parseError错误" class="headerlink" title="27．解析json数据时报parseError错误"></a>27．解析json数据时报parseError错误</h2><p>jQuery在1.4版本后，采用了更为严格的json解析方式，即所有内容都必须要有双引号，如果升级jQuery版本后，ajax加载json报错，有可能就是这个原因。比如：</p>
+<p>[插图]</p>
+<p>但升级成jQuery 1.4后，都必须加上双引号，格式如下：</p>
+<p>[插图]</p>
+<h2 id="28．从元素中除去HTML"><a href="#28．从元素中除去HTML" class="headerlink" title="28．从元素中除去HTML"></a>28．从元素中除去HTML</h2><p>[插图]</p>
+<h2 id="29．扩展String对象的方法"><a href="#29．扩展String对象的方法" class="headerlink" title="29．扩展String对象的方法"></a>29．扩展String对象的方法</h2><p>[插图]</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/c4f25d4b/" title="11.2 jQuery技巧">https://lanlan2017.github.io/ReadingNotes/c4f25d4b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/984aefb3/" rel="prev" title="11.0 第11章 jQuery性能优化和技巧 11.1 jQuery性能优化">
+                  <i class="fa fa-chevron-left"></i> 11.0 第11章 jQuery性能优化和技巧 11.1 jQuery性能优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/df187157/" rel="next" title="11.3 小结_第11章 jQuery性能优化和技巧">
+                  11.3 小结_第11章 jQuery性能优化和技巧 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/c4f25d4b/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/c4f25d4b/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

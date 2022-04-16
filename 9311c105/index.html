@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="14.6 在运行时刷新配置属性在编写本章的时候，我正在一架飞机上，因为维护问题，飞机被重新拉回了登机口。情况并不严重，你正在读本章的内容，就说明机械工程师的工作完成得还是很令人满意的。即便如此，关于飞机维护，最有意思的事情是它要求飞机必须要在地面上。如果飞机正在飞行，那么能做的事情就太少了。 相比之下，在《星球大战》（Star Wars）电影中，如果Luke Skywalker或PoeDamero">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14.6 在运行时刷新配置属性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/9311c105/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="14.6 在运行时刷新配置属性在编写本章的时候，我正在一架飞机上，因为维护问题，飞机被重新拉回了登机口。情况并不严重，你正在读本章的内容，就说明机械工程师的工作完成得还是很令人满意的。即便如此，关于飞机维护，最有意思的事情是它要求飞机必须要在地面上。如果飞机正在飞行，那么能做的事情就太少了。 相比之下，在《星球大战》（Star Wars）电影中，如果Luke Skywalker或PoeDamero">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215219.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215249.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215304.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215423.png">
+<meta property="article:published_time" content="2021-10-21T10:11:39.000Z">
+<meta property="article:modified_time" content="2021-10-21T10:12:48.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215219.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/9311c105/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/9311c105/","path":"/9311c105/","title":"14.6 在运行时刷新配置属性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>14.6 在运行时刷新配置属性 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#14-6-%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">14.6 在运行时刷新配置属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#14-6-1-%E6%89%8B%E5%8A%A8%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">14.6.1 手动刷新配置属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-6-2-%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">14.6.2 自动刷新配置属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAwebhook"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建webhook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Config-Server%E4%B8%AD%E5%A4%84%E7%90%86webhook%E6%9B%B4%E6%96%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">在Config Server中处理webhook更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAGogs%E7%9A%84%E9%80%9A%E7%9F%A5%E6%8F%90%E5%8F%96%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">创建Gogs的通知提取器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Config-Server%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%AD%E5%90%AF%E7%94%A8%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">在Config Server的客户端中启用自动刷新</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/9311c105/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="14.6 在运行时刷新配置属性 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          14.6 在运行时刷新配置属性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-10-21 18:11:39 / 修改时间：18:12:48" itemprop="dateCreated datePublished" datetime="2021-10-21T18:11:39+08:00">2021-10-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC4%E9%83%A8%E5%88%86-%E4%BA%91%E5%8E%9F%E7%94%9FSpring/" itemprop="url" rel="index"><span itemprop="name">第4部分 云原生Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC4%E9%83%A8%E5%88%86-%E4%BA%91%E5%8E%9F%E7%94%9FSpring/%E7%AC%AC14%E7%AB%A0-%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">第14章 管理配置</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/9311c105/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/9311c105/" data-xid="/ReadingNotes/9311c105/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="14-6-在运行时刷新配置属性"><a href="#14-6-在运行时刷新配置属性" class="headerlink" title="14.6 在运行时刷新配置属性"></a>14.6 在运行时刷新配置属性</h1><p>在编写本章的时候，我正在一架飞机上，因为维护问题，飞机被重新拉回了登机口。情况并不严重，你正在读本章的内容，就说明机械工程师的工作完成得还是很令人满意的。即便如此，关于飞机维护，最有意思的事情是它要求飞机必须要在地面上。如果飞机正在飞行，那么能做的事情就太少了。</p>
+<p>相比之下，在《星球大战》（Star Wars）电影中，如果Luke Skywalker或PoeDameron的X翼战机需要维护，舰载机械机器人（mech droid）就可以派上用场了，即使X翼战机正在作战，它也可以开展工作。</p>
+<p>传统上，应用程序维护，包括配置更改，都需要重新部署或至少重新启动应用。可以说，由于缺少一个“机械机器人”来调整哪怕是最小的配置属性，因此我们每次都需要将应用程序拉回“登机口”。这对云原生应用来说是不可接受的。我们希望能够动态地更改配置属性，而不需要关闭应用程序。</p>
+<p>幸运的是，Spring Cloud Config Server能够刷新正在运行的应用程序的配置属性，而不需要停机。一旦变更推送到支撑的Git仓库或Vault私密仓库，应用中的每个微服务就都可以立即通过以下两种方式的某一种进行刷新。</p>
+<ul>
+<li>手动刷新：Config Server客户端启用一个特殊的“&#x2F;actuator&#x2F;refresh”端点，对每个服务的这个端点发送HTTP POST请求将会强制配置客户端从Config Server的后端检索最新的配置。</li>
+<li>自动刷新：Git仓库上的提交hook会触发所有Config Server客户端服务的刷新操作。这涉及Spring Cloud的另一个项目，名为Spring Cloud Bus，它能够用于Config Server及其客户端之间的通信。</li>
+</ul>
+<p>每种方案都有其优点和缺点。手动刷新能够更精确地控制服务何时更新最新配置，但是它需要向每个微服务实例发送一个HTTP请求。自动更新能够让应用中的每个微服务即时使用最新的配置，但它是由配置仓库的提交自动触发的，对于有些项目来说过于危险。</p>
+<p>我们接下来看一下这两种方案，然后你就可以自行选择哪种方式更适合你的项目了。</p>
+<h2 id="14-6-1-手动刷新配置属性"><a href="#14-6-1-手动刷新配置属性" class="headerlink" title="14.6.1 手动刷新配置属性"></a>14.6.1 手动刷新配置属性</h2><p>在第16章中，我们将会介绍Spring Boot Actuator。它是Spring Boot的基本元素之一，能够探查应用运行时的状况并且允许对运行时进行一些有限的操作，比如修改日志级别。现在先看一个特殊的Actuator特性，只有配置为Spring CloudConfig Server客户端的应用，这个特性才有效。</p>
+<p>当我们将应用设置为Config Server客户端的时候，自动配置功能会配置一个特殊的Actuator端点，用来刷新配置属性。为了使用该端点，在项目的构建文件中除了Config Client依赖，我们还需要添加Actuator starter依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以猜到，这项依赖也可以在Spring Initializr中通过选中Actuator复选框添加进来。</p>
+<p>在Config Server客户端应用中添加Actuator之后，我们可以在任意时间发送HTTPPOST请求到“&#x2F;actuator&#x2F;refresh”，通知它从后端仓库刷新配置属性。</p>
+<p>我们看一下它是如何实现的。假设我们有一个带有<code>@ConfigurationProperties</code>注解的类，名为GreetingProps：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;greeting&quot;)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GreetingProps</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String message;</span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">getMessage</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMessage</span><span class="params">(String message)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.message = message;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外，我们可以编写一个控制器类。GreetingProps会注入其中，当它在处理GET请求时，返回message属性的值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GreetingController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> GreetingProps props;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">GreetingController</span><span class="params">(GreetingProps props)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.props = props;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@GetMapping(&quot;/hello&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">message</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> props.getMessage();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们的Git配置仓库中有一个application.yml文件，含有如下的属性设置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">greeting:</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">Hello</span> <span class="string">World!</span></span><br></pre></td></tr></table></figure>
+
+<p>Config Server和这个简单的hello-world配置客户端运行起来之后，我们对“&#x2F;hello”发送HTTP GET请求，将会产生如下的响应：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8080/hello</span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们对Config Server和hello-world都不进行重启，而是修改application.yml文件并推送至后端Git仓库，这样greeting.message属性将会变成如下形式：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">greeting:</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">Hiya</span> <span class="string">folks!</span></span><br></pre></td></tr></table></figure>
+
+<p>即便在Git中配置已经发生变化，如果我们发送GET请求到hello-world应用，得到的结果依然是“Hello World!”响应。但是，我们可以对刷新端点发送一个POST请求，强制使其刷新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:53419/actuator/refresh -X POST</span><br><span class="line">[&quot;config.client.version&quot;,&quot;greeting.message&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>注意，响应中包含一个JSON数组，列出了发生变更的属性名。这个数组包含greeting.message属性，还包含config.client.version属性（当前配置对应的Git提交的哈希值）的变化。因为现在的配置基于一个新的Git提交，所以每当后端的配置仓库有变化时，这个值都会跟着变化。</p>
+<p>POST请求的响应告诉我们greeting.message已经发生变化了。但是，真正的证据还是要靠再次向“&#x2F;hello”路径发送GET请求：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8080/hello</span><br><span class="line">Hiya folks!</span><br></pre></td></tr></table></figure>
+
+<p>无须重启应用，甚至无须重启Config Server，应用现在就能向我们提供greeting.message属性的全新值。</p>
+<p>如果我们能够完全控制何时对配置属性进行更新，那么“&#x2F;actuator&#x2F;refresh”端点是很不错的选择。如果我们的应用由多个微服务组成（可能每个服务都有多个实例），那么将配置传播到所有服务可能是一项非常乏味的工作。接下来，我们看一下如何一次性地将配置变更自动用到所有服务上。</p>
+<h2 id="14-6-2-自动刷新配置属性"><a href="#14-6-2-自动刷新配置属性" class="headerlink" title="14.6.2 自动刷新配置属性"></a>14.6.2 自动刷新配置属性</h2><p>Config Server能够借助名为Spring Cloud Bus的Spring Cloud项目将配置变更自动通知到每个客户端，作为手动刷新应用中每个Config Server客户端属性的替代方案。图14.7阐述了它是如何运行的。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215219.png" alt="image-20211023215219588"></p>
+<center>图14.7 Config Server与Spring Cloud Bus能够对应用广播变更（应用会在属性发生变化的时候，自动刷新它们的属性）</center>
+
+<p>可以简要概括图14.7中的属性刷新流程。</p>
+<ul>
+<li>在配置Git仓库上创建一个webhook，当Git仓库有任何变化（比如所有的推送）时，都会通知Config Server。很多的Git实现都支持webhook，比如GitHub、GitLab、Bitbucket和Gogs。</li>
+<li>Config Server会对webhook POST请求做出响应，借助某种消息代理以消息的方式广播该变更。</li>
+<li>每个Config Server客户端应用订阅该通知，对通知消息做出响应，也就是会使用Config Server中的新属性值刷新它们的环境。</li>
+</ul>
+<p>这样做的结果就是，在配置属性变更推送到后端的Git仓库之后，所有的ConfigServer客户端应用能够立即获取最新的配置属性值。</p>
+<p>在使用Config Server的自动属性刷新功能时，会有多个部件在发挥作用。我们回顾一下要做的变更，这样对需要做的事情会有一个整体的了解。</p>
+<ul>
+<li>我们需要有一个消息代理，用来处理Config Server及其客户端之间的消息传递，可以选择RabbitMQ或Kafka。</li>
+<li>在后端Git仓库上需要创建一个webhook，将各种变更通知给ConfigServer。</li>
+<li>Config Server需要启用Config Server监控依赖（提供了处理Git仓库webhook请求的端点）以及RabbitMQ或Kafka的Spring Cloud Stream依赖（用于发布属性变更消息给代理）。</li>
+<li>除非消息代理在本地按照默认设置运行，否则，我们要在Config Server及其所有的客户端上配置连接至代理的详细信息。</li>
+<li>每个Config Server的客户端应用需要Spring Cloud Bus依赖。</li>
+</ul>
+<p>假设预先需要的消息代理（不管是RabbitMQ、Kafka，还是你选择的其他方案）已经处于运行状态，并且为传送属性变更消息做好了准备，我们首先从将属性变更应用于Config Server开始，让它处理webhook的更新请求。</p>
+<h3 id="创建webhook"><a href="#创建webhook" class="headerlink" title="创建webhook"></a>创建webhook</h3><p>很多Git服务都支持创建webhook，从而能够将Git仓库的变更信息通知给应用，这些变更包括推送。不同实现之间创建webhook的操作有所差异，我们很难对它们一一描述。在这里，我会介绍如何为Gogs仓库创建webhook。</p>
+<p>我选择Gogs的原因在于它非常易于在本地运行，并且支持将webhook POST用到本地运行的应用上（对于GitHub来说，这非常难以实现）。同时，在Gogs上创建webhook的过程与GitHub几乎完全相同，因此描述Gogs的过程能够间接让你知道为GitHub创建webhook都需要哪些步骤。</p>
+<p>首先，在Web浏览器中访问配置仓库并点击Settings链接，如图14.8所示。（GitHub上Settings链接的位置略有差异，但是它们的外观很相似。）</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215249.png" alt="image-20211023215249586"></p>
+<center>图14.8 在Gogs或GitHub上点击Settings开始创建webhook</center>
+
+<p>这会将我们带到仓库的设置页面，在左侧包含了一个设置分类的菜单。在菜单中选择Webhooks，将会出现如图14.9所示的页面。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215304.png" alt="image-20211023215304730"></p>
+<center>图14.9 Webhooks页面中的Add Webhook按钮会打开创建webhook的表单</center>
+
+<p>在Webhooks设置页面，点击Add Webhook按钮，在Gogs中会生成一个下拉列表，用来选择不同类型的webhook。选择Gogs选项，如图14.9所示。这样，我们会看到一个创建新webhook的表单，如图14.10所示[^1]。</p>
+<p>Add Webhook表单有多个输入域，重要的是Payload URL和Content Type。我们马上将会配置Config Server来处理webhook的POST请求。在实现该功能的时候，Config Server将会在“&#x2F;monitor”路径下处理webhook请求。因此，我们需要将Payload URL输入域设置成引用Config Server的“&#x2F;monitor”端点的URL。因为我是在一个Docker容器中运行Gogs的，所以在图14.10中将URL设置成<a target="_blank" rel="noopener" href="http://host.docker.internal:8888/monitor%EF%BC%8C%E5%AE%83%E7%9A%84%E5%9F%9F%E5%90%8D%E4%B8%BAhost.docker.internal%E3%80%82%E8%BF%99%E4%B8%AA%E5%9F%9F%E5%90%8D%E8%AE%A9Gog%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%A4%9F%E8%B7%A8%E8%B6%8A%E5%AE%B9%E5%99%A8%E7%9A%84%E8%BE%B9%E7%95%8C%E8%AE%BF%E9%97%AE%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%99%A8%E4%B8%8A%E7%9A%84Config">http://host.docker.internal:8888/monitor，它的域名为host.docker.internal。这个域名让Gog服务器能够跨越容器的边界访问宿主机器上的Config</a> Server[^2]。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211023215423.png" alt="image-20211023215423231"></p>
+<center>图14.10 创建webhook时需要指定Config Server的“/monitor”URL和JSON载荷</center>
+
+<p>我还将Content Type输入域设置成了application&#x2F;json。这一点非常重要，因为Config Server的“&#x2F;monitor”端点并不支持Content Type的另一个选项application&#x2F;x-www- form-urlencoded。</p>
+<p>如果设置Secret输入域，就可以在webhook POST请求中新增一个名为X-Gogs-Signature（在GitHub中名为X-Hub-Signature）的头信息，包含给定私密信息的HMAC-SHA256摘要（在GitHub中是HMAC-SHA1）。此时，Config Server的“&#x2F;monitor”端点并不识别这个签名头信息，因此我们可以将这个输入域设置为空。</p>
+<p>最后，我们只关心配置仓库的推送请求，另外，我们当然希望这个webhook处于活跃状态，所以需要确保Just the push event单选框和Active复选框处于选中状态。点击表单底部的Add Webhook按钮，webhook就创建完成了。每当仓库有推送的时候，就会向Config Server发送POST请求。</p>
+<p>现在，我们必须要启用Config Server的“&#x2F;monitor”端点来处理这些请求。</p>
+<h3 id="在Config-Server中处理webhook更新"><a href="#在Config-Server中处理webhook更新" class="headerlink" title="在Config Server中处理webhook更新"></a>在Config Server中处理webhook更新</h3><p>要启用Config Server的“&#x2F;monitor”端点非常简单，我们只需添加spring-cloud-config-monitor依赖到Config Server的配置文件即可。在Maven的pom.xml文件中，如下的依赖就会完成该项工作：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-monitor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这项依赖添加完成之后，自动配置功能会发挥作用，从而启用“&#x2F;monitor”端点。但是，除非Config Server本身有广播变更通知的方法，否则不会带来任何好处。为了实现这一点，我们需要添加对Spring Cloud Stream的依赖。</p>
+<p>Spring Cloud Stream是另一个Spring Cloud项目。借助它，我们能够创建通过底层绑定机制通信的服务，这种通信机制可能是RabbitMQ或Kafka。服务在编写的时候并不会关心如何使用这些通信机制，只是接受流中的数据，对其进行处理，并返回到流中，由下游的服务继续处理。</p>
+<p>“&#x2F;monitor”端点使用Spring Cloud Stream发布通知消息给参与的ConfigServer客户端。为了避免硬编码特定的消息实现，监控器会作为Spring CloudStream的源，发布消息到流中并让底层的绑定机制处理消息发送的特定功能。</p>
+<p>如果使用RabbitMQ，就需要将Spring Cloud Stream RabbitMQ绑定依赖添加到Config Server的构建文件中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-stream-rabbit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你更喜欢Kafka，那么需要添加如下的Spring Cloud Stream Kafka依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-stream-kafka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>依赖准备就绪之后，Config Server几乎就可以参与属性自动刷新功能了。实际上，如果RabbitMQ或Kafka在本地运行并且使用默认配置，Config Server就已经可以运行了。如果消息代理在其他地方运行，而不是在localhost，或者使用了非默认端口，又或者我们修改了访问代理的凭证信息，就需要在Config Server本身的配置中添加一些属性了。</p>
+<p>如果采用RabbitMQ绑定，那么application.yml中的如下条目可以用来重写默认值：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">rabbit.tacocloud.com</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">tacocloud</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">s3cr3t</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然我们在这里设置了所有的属性，但是在你的RabbitMQ代理中只需要设置与默认值不同的属性即可。</p>
+<p>如果使用Kafka，可以使用类似的属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="attr">bootstrap-servers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">kafka.tacocloud.com:9092</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">kafka.tacocloud.com:9093</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">kafka.tacocloud.com:9094</span></span><br></pre></td></tr></table></figure>
+
+<p>你会发现，这些属性来源于第8章我们学习Kafka消息时的配置。实际上，配置自动刷新功能的RabbitMQ和Kafka后端与在Spring中使用代理的其他场景非常相似。</p>
+<h3 id="创建Gogs的通知提取器"><a href="#创建Gogs的通知提取器" class="headerlink" title="创建Gogs的通知提取器"></a>创建Gogs的通知提取器</h3><p>对于每个Git实现来说，webhook POST请求所携带的内容会有所不同。所以，对于“&#x2F;monitor”端点来说，很重要的一点就是在处理webhook POST请求时能够理解不同的数据格式。在幕后，“&#x2F;monitor”端点会有一组组件来检查POST请求，试图弄清楚请求来自哪种Git服务器，然后将请求数据映射为通用的通知类型，并发送至每个客户端。</p>
+<p>Config Server对多个流行的Git实现提供了开箱即用的支持，比如GitHub、GitLab和Bitbucket。如果你使用其中的某一个实现，那么不需要任何额外的操作。在我编写本书的时候，Gogs还没有得到官方支持[^3]。因此，使用Gogs作为Git实现的话，我们需要在项目中提供一个Gogs的通知提取器。</p>
+<p>程序清单14.1为Taco Cloud集成Gogs时我所使用的通知提取器。</p>
+<p>程序清单14.1 Gogs的通知提取器实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.gogs;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.config.monitor.PropertyPathNotification;</span><br><span class="line"><span class="keyword">import</span></span><br><span class="line">     org.springframework.cloud.config.monitor.PropertyPathNotificationExtractor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.annotation.Order;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.MultiValueMap;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Order(Ordered.LOWEST_PRECEDENCE - 300)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GogsPropertyPathNotificationExtractor</span></span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">PropertyPathNotificationExtractor</span> &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> PropertyPathNotification <span class="title function_">extract</span><span class="params">(</span></span><br><span class="line"><span class="params">    MultiValueMap&lt;String, String&gt; headers,</span></span><br><span class="line"><span class="params">    Map&lt;String, Object&gt; request)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">&quot;push&quot;</span>.equals(headers.getFirst(<span class="string">&quot;X-Gogs-Event&quot;</span>))) &#123;</span><br><span class="line">    <span class="keyword">if</span> (request.get(<span class="string">&quot;commits&quot;</span>) <span class="keyword">instanceof</span> Collection) &#123;</span><br><span class="line">      Set&lt;String&gt; paths = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">      <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">      Collection&lt;Map&lt;String, Object&gt;&gt; commits =</span><br><span class="line">          (Collection&lt;Map&lt;String, Object&gt;&gt;) request</span><br><span class="line">          .get(<span class="string">&quot;commits&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Map&lt;String, Object&gt; commit : commits) &#123;</span><br><span class="line">          addAllPaths(paths, commit, <span class="string">&quot;added&quot;</span>);</span><br><span class="line">          addAllPaths(paths, commit, <span class="string">&quot;removed&quot;</span>);</span><br><span class="line">          addAllPaths(paths, commit, <span class="string">&quot;modified&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!paths.isEmpty()) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PropertyPathNotification</span>(</span><br><span class="line">              paths.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[^<span class="number">0</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addAllPaths</span><span class="params">(Set&lt;String&gt; paths,</span></span><br><span class="line"><span class="params">                           Map&lt;String, Object&gt; commit,</span></span><br><span class="line"><span class="params">                           String name)</span> &#123;</span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">    Collection&lt;String&gt; files =</span><br><span class="line">            (Collection&lt;String&gt;) commit.get(name);</span><br><span class="line">    <span class="keyword">if</span> (files != <span class="literal">null</span>) &#123;</span><br><span class="line">      paths.addAll(files);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GogsPropertyPathNotificationExtractor如何运行的细节与我们的讨论没有太大关系，并且在Spring Cloud Config Server内置对Gogs的支持之后，就更加无关紧要了。所以，我不会对它进行过多的介绍，将它放在这里只是为了让你在使用Gogs的时候，可以作为参考。</p>
+<h3 id="在Config-Server的客户端中启用自动刷新"><a href="#在Config-Server的客户端中启用自动刷新" class="headerlink" title="在Config Server的客户端中启用自动刷新"></a>在Config Server的客户端中启用自动刷新</h3><p>在Config Server客户端启用属性的自动刷新比Config Server本身会更加简单。我们需要添加一项依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样会添加AMQP（如RabbitMQ）Spring Cloud Bus starter到构建文件中。</p>
+<p>如果使用Kafka，就需要添加如下的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-kafka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>对应的Spring Cloud Bus starter准备就绪之后，启动应用的时候，自动配置功能就会发挥作用，应用会自动将自己绑定到本地运行的RabbitMQ代理或Kafka集群上。如果你的RabbitMQ或Kafka在其他地方运行，那么我们需要在每个客户端应用上像Config Server本身那样配置它们的详细信息。</p>
+<p>Config Server及其客户端都配置成了支持自动刷新。将它们启动起来，并对application.yml做一下修改（任意修改都可以），当将该文件提交至Git仓库的时候，我们会立即看到它在客户端应用中生效。</p>
+<p>[^1]: GitHub没有可选webhook的下拉列表。在点击Add Webhook按钮之后，会直接出现创建webhook的表单。<br>[^2]: 在Docker容器中。localhost指的是容器本身，而不是Docker宿主机。<br>[^3]: 作者给Config Server项目提交了一个支持Gogs的pull request。在它合并进去之后，本书的这个章节就没有必要关注了。目前，作者的这个pull request经修改后，已经合并到了Config Server中。——译者注</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/9311c105/" title="14.6 在运行时刷新配置属性">https://lanlan2017.github.io/ReadingNotes/9311c105/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/442a9225/" rel="prev" title="14.5 保持配置属性的私密性">
+                  <i class="fa fa-chevron-left"></i> 14.5 保持配置属性的私密性
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/72d681d2/" rel="next" title="14.7 小结_第14章 管理配置">
+                  14.7 小结_第14章 管理配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/9311c105/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/9311c105/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="1.6 数据库设计&amp;nbsp;1.6.1 设计过程&amp;nbsp;确定需求&amp;nbsp;概念设计阶段&amp;nbsp;逻辑设计阶段&amp;nbsp;物理设计阶段&amp;nbsp;1.6.2 大学机构的数据库设计&amp;nbsp;1.6.3 实体-联系模型&amp;nbsp;什么是实体&amp;nbsp;通过属性的集合来描述实体&amp;nbsp;什么是联系&amp;nbsp;什么是实体集&amp;nbsp;什么是联系集&amp;nbsp;实体-联系图 entity-rela">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.6 数据库设计">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/a67e593b/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="1.6 数据库设计&amp;nbsp;1.6.1 设计过程&amp;nbsp;确定需求&amp;nbsp;概念设计阶段&amp;nbsp;逻辑设计阶段&amp;nbsp;物理设计阶段&amp;nbsp;1.6.2 大学机构的数据库设计&amp;nbsp;1.6.3 实体-联系模型&amp;nbsp;什么是实体&amp;nbsp;通过属性的集合来描述实体&amp;nbsp;什么是联系&amp;nbsp;什么是实体集&amp;nbsp;什么是联系集&amp;nbsp;实体-联系图 entity-rela">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch1/1.png">
+<meta property="article:published_time" content="2019-10-10T08:52:37.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch1/1.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/a67e593b/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/a67e593b/","path":"/a67e593b/","title":"1.6 数据库设计"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1.6 数据库设计 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">1.6 数据库设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-1-%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">1.6.1 设计过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E9%9C%80%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">确定需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E8%AE%BE%E8%AE%A1%E9%98%B6%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">概念设计阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E9%98%B6%E6%AE%B5"><span class="nav-number">2.3.</span> <span class="nav-text">逻辑设计阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1%E9%98%B6%E6%AE%B5"><span class="nav-number">2.4.</span> <span class="nav-text">物理设计阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-2-%E5%A4%A7%E5%AD%A6%E6%9C%BA%E6%9E%84%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">1.6.2 大学机构的数据库设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-3-%E5%AE%9E%E4%BD%93-%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">1.6.3 实体-联系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%9E%E4%BD%93"><span class="nav-number">4.1.</span> <span class="nav-text">什么是实体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%B1%9E%E6%80%A7%E7%9A%84%E9%9B%86%E5%90%88%E6%9D%A5%E6%8F%8F%E8%BF%B0%E5%AE%9E%E4%BD%93"><span class="nav-number">4.2.</span> <span class="nav-text">通过属性的集合来描述实体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%94%E7%B3%BB"><span class="nav-number">4.3.</span> <span class="nav-text">什么是联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%9E%E4%BD%93%E9%9B%86"><span class="nav-number">4.4.</span> <span class="nav-text">什么是实体集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%94%E7%B3%BB%E9%9B%86"><span class="nav-number">4.5.</span> <span class="nav-text">什么是联系集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93-%E8%81%94%E7%B3%BB%E5%9B%BE-entity-relationship-diagram-E-R%E5%9B%BE"><span class="nav-number">4.6.</span> <span class="nav-text">实体-联系图 entity-relationship diagram E-R图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R%E5%9B%BE%E7%AC%A6%E5%8F%B7"><span class="nav-number">4.6.1.</span> <span class="nav-text">E-R图符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E5%9F%BA%E6%95%B0"><span class="nav-number">4.6.2.</span> <span class="nav-text">映射基数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-4-%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">1.6.4 规范化</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/a67e593b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1.6 数据库设计 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1.6 数据库设计
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-10 16:52:37" itemprop="dateCreated datePublished" datetime="2019-10-10T16:52:37+08:00">2019-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">数据库系统概念 原书第6版</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5-%E5%8E%9F%E4%B9%A6%E7%AC%AC6%E7%89%88/%E7%AC%AC1%E7%AB%A0-%E5%BC%95%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">第1章 引言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/a67e593b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/a67e593b/" data-xid="/ReadingNotes/a67e593b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/a67e593b/#1-6-数据库设计" class="header_1">1.6 数据库设计</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#1-6-1-设计过程" class="header_1">1.6.1 设计过程</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#确定需求" class="header_2">确定需求</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#概念设计阶段" class="header_2">概念设计阶段</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#逻辑设计阶段" class="header_2">逻辑设计阶段</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#物理设计阶段" class="header_2">物理设计阶段</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#1-6-2-大学机构的数据库设计" class="header_1">1.6.2 大学机构的数据库设计</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#1-6-3-实体-联系模型" class="header_1">1.6.3 实体-联系模型</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#什么是实体" class="header_2">什么是实体</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#通过属性的集合来描述实体" class="header_2">通过属性的集合来描述实体</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#什么是联系" class="header_2">什么是联系</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#什么是实体集" class="header_2">什么是实体集</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#什么是联系集" class="header_2">什么是联系集</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#实体-联系图-entity-relationship-diagram-E-R图" class="header_2">实体-联系图 entity-relationship diagram E-R图</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#E-R图符号" class="header_3">E-R图符号</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#映射基数" class="header_3">映射基数</a>&nbsp;<br><a href="/ReadingNotes/a67e593b/#1-6-4-规范化" class="header_1">1.6.4 规范化</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<!--SSTStart-->
+<h1 id="1-6-数据库设计"><a href="#1-6-数据库设计" class="headerlink" title="1.6 数据库设计"></a>1.6 数据库设计</h1><p>数据库设计的主要内容是<code>数据库模式</code>的设计。为设计一个满足企业需求模型的完整的数据库应用环境还要考虑更多的问题。在本书中,我们先着重讨论<code>数据库查询语句的书写</code>以及<code>数据库模式的设计</code>,第9章将讨论<code>应用设计的整个过程</code>。</p>
+<h1 id="1-6-1-设计过程"><a href="#1-6-1-设计过程" class="headerlink" title="1.6.1 设计过程"></a>1.6.1 设计过程</h1><h2 id="确定需求"><a href="#确定需求" class="headerlink" title="确定需求"></a>确定需求</h2><p>高层的数据模型为数据库设计者提供了一个概念框架,去说明数据库用户的数据需求,以及将怎样构造数据库结构以满足这些需求。因此,数据库设计的初始阶段是全面刻画预期的数据库用户的数据需求。为了完成这个任务,数据库设计者有必要和领域专家、数据库用户广泛地交流。这个阶段的成果是<code>制定出用户需求的规格文档</code>。</p>
+<h2 id="概念设计阶段"><a href="#概念设计阶段" class="headerlink" title="概念设计阶段"></a>概念设计阶段</h2><p>下一步,设计者选择一个数据模型,并运用该选定的数据模型的概念,<strong>将那些需求转换成一个数据库的<code>概念模式</code><strong>。在这个概念设计阶段开发出来的模式提供了企业的详细概述。设计者再复审这个模式,确保所有的数据需求都满足并且相互之间没有冲突,在检查过程中设计者也可以去掉些冗余的特性。这一阶段的重点是描述数据以及它们之间的联系,而不是指定物理的存储细节。<br>从关系模型的角度来看,<code>概念设计阶段</code>涉及</strong>决定数据库中应该包括哪些<code>属性</code></strong>,以及<strong>如何将这些<code>属性</code>组织到多个<code>表</code>中</strong>。前者基本上是商业的决策,在本书中我们不进一步讨论。而后者主要是计算机科学的问题,解决这个问题主要有两种方法:</p>
+<ul>
+<li>一种是使用实体-联系模型(见1.6.3节),</li>
+<li>另一种是引入一套算法(通称为规范化),这套算法将所有属性集作为输入,生成一组关系表(见1.6.4节)。</li>
+</ul>
+<p>一个开发完全的概念模式还将指出企业的功能需求。在<code>功能需求说明</code>中,用户描述数据之上的各种操作(或事务),例如<code>更新数据</code>、<code>检索特定的数据</code>、<code>删除数据</code>等。在概念设计的这个阶段,设计者可以对模式进行复审,确保它满足功能需求。</p>
+<h2 id="逻辑设计阶段"><a href="#逻辑设计阶段" class="headerlink" title="逻辑设计阶段"></a>逻辑设计阶段</h2><p>在逻辑设计阶段( <code>logical-designphrase)</code>,设计者将高层的<code>概念模式</code>映射到要使用的数据库系统的<code>数据模型</code>上;这样,设计者将得到的特定系统的数据库模式</p>
+<h2 id="物理设计阶段"><a href="#物理设计阶段" class="headerlink" title="物理设计阶段"></a>物理设计阶段</h2><p>在这个阶段中指定数据库的物理特性,这些特性包括文件组织的形式以及内部的存储结构,这些内容将在第10章中讨论。</p>
+<h1 id="1-6-2-大学机构的数据库设计"><a href="#1-6-2-大学机构的数据库设计" class="headerlink" title="1.6.2 大学机构的数据库设计"></a>1.6.2 大学机构的数据库设计</h1><p>为了阐明设计过程,我们来看如何为大学做数据库设计。初始的<code>用户需求说明</code>可以基于与数据库用户的交流以及设计者自己对大学机构的分析。这个设计阶段中的需求描述是制定数据库的概念结构的基础。以下是大学的主要特性:</p>
+<ul>
+<li><code>大学</code>分成多个系。每个系由自己唯一的名字(<code>dept_name</code>)来标识,坐落在特定的建筑物(<code>building</code>)中,有它的经费预算(<code>budget</code>)。</li>
+<li>每一个系有一个开设的课程列表。每门课程有课程号(<code>course_id</code>)、课程名(<code>title</code>)、系名(<code>dept_name</code>)和学分( <code>credits</code>),还可能有先修要求(<code>prerequisites</code>)。</li>
+<li><code>教师</code>使用唯一的标识号(<code>ID</code>)来标识。每位教师有姓名(<code>name</code>)、所在的系(<code>dept_name</code>)和工资(<code>salary</code>).</li>
+<li><code>学生</code>使用唯一的标识号(<code>ID</code>)来标识。每位学生有姓名(<code>name</code>)、主修的系(<code>dept_name</code>)和已修学分数( <code>tot_cred</code>)。</li>
+<li><code>大学</code>维护一个<code>教室列表</code>,详细说明楼名(<code>building</code>)、房间号( <code>room_number</code>)和容量(<code>capacity</code>)</li>
+<li><code>大学</code>维护开设的所有<code>课程(开课)的列表</code>。课程由课程号( <code>course_id)</code>、开课号(<code>sec_id)</code>、年(<code>year</code>)和学期( <code>semester</code>)来标识,与之相关联的有学期(<code>semester</code>)、年(<code>year</code>)、楼名(<code>building</code>)、房间号(<code>room_number</code>)和时段号(<code>time_slot_id</code>,即上课的时间)。</li>
+<li><code>系</code>有一个<code>教学任务列表</code>,说明每位教师的授课情况。</li>
+<li>大学有一个所有学生课程注册的列表,说明每位学生选择了哪些课程的哪个课程。</li>
+</ul>
+<p>一个真正的大学数据库会比上述的设计复杂得多。然而,我们就用这个简化了的模型来帮助你理解概念思想,避免你迷失在复杂设计的细节中。</p>
+<h1 id="1-6-3-实体-联系模型"><a href="#1-6-3-实体-联系模型" class="headerlink" title="1.6.3 实体-联系模型"></a>1.6.3 实体-联系模型</h1><p><code>实体-联系</code>(<code>E-R</code>)数据模型<strong>描述了一组称作<code>实体</code>的基本对象之间的联系</strong>。</p>
+<h2 id="什么是实体"><a href="#什么是实体" class="headerlink" title="什么是实体"></a>什么是实体</h2><p>实体是现实世界中可区别于其他对象的一件”事情”或一个”物体”。例如,每个人是一个实体,每个银行账户也是个实体。</p>
+<h2 id="通过属性的集合来描述实体"><a href="#通过属性的集合来描述实体" class="headerlink" title="通过属性的集合来描述实体"></a>通过属性的集合来描述实体</h2><p>**数据库中通过<code>属性集合</code>来描述<code>实体</code>**。例如,属性<code>dept_name</code>、 <code>building</code>与<code>budget</code>可以描述大学中的一个系,并且它们也组成了<code>department</code>实体集的属性。类似地,<code>ID</code>、<code>name</code>和<code>salary</code>这几个属性可以描述<code>instructor</code>实体。</p>
+<p>因为可能存在两位教师有相同的名字和相同的工资,但又必须给每位教师分配唯一的教师标识,所以我们用额外的属性ID来唯一标识教师。在美国,社会保障号是美国政府分配给每个美国人的一个唯一的号码,所以许多机构用一个人的<code>社会保障号</code>作为他的唯一标识。</p>
+<h2 id="什么是联系"><a href="#什么是联系" class="headerlink" title="什么是联系"></a>什么是联系</h2><p><strong>联系(<code>relationship</code>)是几个实体之间的关联</strong>。例如, <code>member</code>联系将一位教师和她所在的系关联在起。</p>
+<h2 id="什么是实体集"><a href="#什么是实体集" class="headerlink" title="什么是实体集"></a>什么是实体集</h2><p>同一类型的所有实体的集合称作<code>实体集</code>(<code>entity set</code>),</p>
+<h2 id="什么是联系集"><a href="#什么是联系集" class="headerlink" title="什么是联系集"></a>什么是联系集</h2><p>同一类型的所有联系的集合称作<code>联系集</code>(<code>relationship set</code>)。</p>
+<h2 id="实体-联系图-entity-relationship-diagram-E-R图"><a href="#实体-联系图-entity-relationship-diagram-E-R图" class="headerlink" title="实体-联系图 entity-relationship diagram E-R图"></a>实体-联系图 entity-relationship diagram E-R图</h2><p>数据库的总体<code>逻辑结构(逻辑模式)</code>可以用实体-联系图进行图形化表示。有几种方法来画这样的图。最常用的方法之一是采用<strong>统一建模语言</strong>(<code>UML</code>)。</p>
+<h3 id="E-R图符号"><a href="#E-R图符号" class="headerlink" title="E-R图符号"></a>E-R图符号</h3><p>在我们使用的基于<code>UML</code>的符号中,<code>E-R</code>图如下表示:</p>
+<ul>
+<li><code>实体</code>用<code>矩形框表示</code>,实体名在头部,属性名列在下面。</li>
+<li><code>联系</code>用连接两个相关的实体集的<code>菱形表示</code>,联系名放在菱形内部</li>
+</ul>
+<p>作为例子,我们来看一下大学数据库中包括教师和系以及它们之间的关联的部分。对应的<code>E-R</code>图如图1-3所示。<code>E-R</code>图表示出有<code>instructor</code>和<code>departmen</code>这两个实体集,它们具有先前已经列出的一些属性。这个图还指明了在教师和系之间的<code>member</code>联系。<br><img data-src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/readbooknote/ShuJuKuXiTongGaiNian/ch1/1.png" alt="这里有一张图片"></p>
+<h3 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h3><p>除了实体和联系外,<code>E-R</code>模型还描绘了数据库必须遵守的对其内容的某些约束。一个重要的约束是<code>映射基数</code>,它表示通过某个联系集能与一实体进行关联的实体数目。例如,如果一<strong>位教师只能属于一个系</strong>,<code>E-R</code>模型就能表达出这种约束。<br><code>实体-联系模型</code>在数据库设计中使用广泛,在第7章中将详细研究。</p>
+<h1 id="1-6-4-规范化"><a href="#1-6-4-规范化" class="headerlink" title="1.6.4 规范化"></a>1.6.4 规范化</h1><p>设计关系数据库所用到的另外一种方法是通常被称为<code>规范化</code>的过程。<code>规范化</code>的目标是生成一个关系模式集合,使我们存储信息时<code>没有不必要的冗余</code>,同时又能很轻易地检索数据。<br>这种方法是设计一种符合适当的<code>范式</code>的模式,为确定一个关系模式是否符合想要的范式,我们需要额外的 关于用数据库建模的 现实世界中机构的信息。最常用的方法是使用<code>函数依赖</code>(<code>functional dependency</code>),我们将在8.4节讨论。</p>
+<p>为了理解规范化的必要性,我们看一看在不好的数据库设计中会发生什么问题。一个不好的设计可能会包括如下不良特性:</p>
+<ol>
+<li>信息重复</li>
+<li>缺乏表达某些信息的能力</li>
+</ol>
+<p>规范化的详尽理论已经研究形成,它有助于形式化地定义什么样的数据库设计是不好的,以及如何得到我们想要的设计。第8章将讨论关系数据库设计,包括规范化。</p>
+<!--SSTStop-->
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/a67e593b/" title="1.6 数据库设计">https://lanlan2017.github.io/ReadingNotes/a67e593b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/fa82473e/" rel="prev" title="1.5 关系数据库">
+                  <i class="fa fa-chevron-left"></i> 1.5 关系数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/293a982a/" rel="next" title="1.7 数据存储和查询">
+                  1.7 数据存储和查询 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/a67e593b/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/a67e593b/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

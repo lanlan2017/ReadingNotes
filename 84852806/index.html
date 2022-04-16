@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="1.2 初始化Spring应用在本书中，我们将会创建一个名为Taco Cloud的在线应用，它能够订购人类所发明的一种美味，也就是墨西哥煎玉米卷（taco）^1。当然，在这个过程中，为了达成我们的目标，我们将会用到Spring、Spring Boot以及各种相关的库和框架。 我们有多种初始化Spring应用的可选方案。尽管我可以教你手动创建项目目录结构和定义构建规范的各个步骤，但这无疑是浪费时间，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.2 初始化Spring应用">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/84852806/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="1.2 初始化Spring应用在本书中，我们将会创建一个名为Taco Cloud的在线应用，它能够订购人类所发明的一种美味，也就是墨西哥煎玉米卷（taco）^1。当然，在这个过程中，为了达成我们的目标，我们将会用到Spring、Spring Boot以及各种相关的库和框架。 我们有多种初始化Spring应用的可选方案。尽管我可以教你手动创建项目目录结构和定义构建规范的各个步骤，但这无疑是浪费时间，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195219.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195247.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195311.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195334.jpeg">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195405.jpeg">
+<meta property="article:published_time" content="2021-10-03T12:03:27.000Z">
+<meta property="article:modified_time" content="2021-10-03T12:03:27.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195219.jpeg">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/84852806/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/84852806/","path":"/84852806/","title":"1.2 初始化Spring应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1.2 初始化Spring应用 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-%E5%88%9D%E5%A7%8B%E5%8C%96Spring%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">1.2 初始化Spring应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-1-%E4%BD%BF%E7%94%A8Spring-Tool-Suite%E5%88%9D%E5%A7%8B%E5%8C%96Spring%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">1.2.1 使用Spring Tool Suite初始化Spring项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-2-%E6%A3%80%E6%9F%A5Spring%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.2 检查Spring项目的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%9E%84%E5%BB%BA%E8%A7%84%E8%8C%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">探索构建规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%AF%BC%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">引导应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E5%99%A8%E7%9A%84%E5%85%B6%E4%BB%96%E5%90%8D%E7%A7%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">测试运行器的其他名称</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/84852806/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1.2 初始化Spring应用 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1.2 初始化Spring应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 20:03:27" itemprop="dateCreated datePublished" datetime="2021-10-03T20:03:27+08:00">2021-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">第1部分 Spring基础</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC1%E9%83%A8%E5%88%86-Spring%E5%9F%BA%E7%A1%80/%E7%AC%AC1%E7%AB%A0-Spring%E8%B5%B7%E6%AD%A5/" itemprop="url" rel="index"><span itemprop="name">第1章 Spring起步</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/84852806/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/84852806/" data-xid="/ReadingNotes/84852806/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-2-初始化Spring应用"><a href="#1-2-初始化Spring应用" class="headerlink" title="1.2 初始化Spring应用"></a>1.2 初始化Spring应用</h1><p>在本书中，我们将会创建一个名为Taco Cloud的在线应用，它能够订购人类所发明的一种美味，也就是墨西哥煎玉米卷（taco）<a href="%E4%B8%BA%E4%BA%86%E8%A1%8C%E6%96%87%E7%AE%80%E6%B4%81%EF%BC%8C%E5%90%8C%E6%97%B6%E4%BF%9D%E6%8C%81%E4%B8%8E%E7%A4%BA%E4%BE%8B%E5%BA%94%E7%94%A8%E4%B8%ADWeb%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%8E%B0%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%8C%E6%88%91%E4%BB%AC%E5%90%8E%E6%96%87%E4%B8%8D%E5%86%8D%E5%B0%86taco%E7%BF%BB%E8%AF%91%E4%B8%BA%E5%A2%A8%E8%A5%BF%E5%93%A5%E7%85%8E%E7%8E%89%E7%B1%B3%E5%8D%B7%EF%BC%8C%E8%80%8C%E6%98%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8taco%E8%BF%99%E4%B8%80%E5%8F%AB%E6%B3%95%E3%80%82%E2%80%94%E2%80%94%E8%AF%91%E8%80%85%E6%B3%A8">^1</a>。当然，在这个过程中，为了达成我们的目标，我们将会用到Spring、Spring Boot以及各种相关的库和框架。</p>
+<p>我们有多种初始化Spring应用的可选方案。尽管我可以教你手动创建项目目录结构和定义构建规范的各个步骤，但这无疑是浪费时间，我们最好将时间花在编写应用代码上。因此，我们将会学习如何使用Spring Initializr初始化应用。</p>
+<p>Spring Initializr是一个基于浏览器的Web应用，同时也是一个REST API，能够生成一个Spring项目结构的骨架，我们还可以使用各种想要的功能来填充它。使用Spring Initializr的几种方式如下：</p>
+<ul>
+<li>通过地址为 <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a> 的Web应用；</li>
+<li>在命令行中使用curl命令；</li>
+<li>在命令行中使用Spring Boot命令行接口；</li>
+<li>在Spring Tool Suite中创建新项目；</li>
+<li>在IntelliJ IDEA中创建新项目；</li>
+<li>在NetBeans中创建新项目。</li>
+</ul>
+<p>我将这些细节放到了附录中，这样就不用在这里花费很多页的篇幅介绍每种方案了。在本章和本书中，我都会向你展示如何使用我最钟爱的方式创建新项目：在Spring Tool Suite中使用Spring Initializr。</p>
+<p>顾名思义，Spring Tool Suite是一个非常棒的Spring开发环境。它同时还提供了便利的Spring Boot Dashboard特性，这个特性是其他IDE都不具备的（至少在我编写本书的时候如此）。</p>
+<p>如果你不是Spring Tool Suite用户，那也没有关系，我们依然可以做朋友。你可以跳转到附录中，查看最适合你的Initializr方案，以此来替换后面小节中的内容。但是，在本书中，我偶尔会提到Spring Tool Suite特有的特性，比如Spring BootDashboard。如果你不使用Spring Tool Suite，那么需要调整这些指令以适配你的IDE。</p>
+<h2 id="1-2-1-使用Spring-Tool-Suite初始化Spring项目"><a href="#1-2-1-使用Spring-Tool-Suite初始化Spring项目" class="headerlink" title="1.2.1 使用Spring Tool Suite初始化Spring项目"></a>1.2.1 使用Spring Tool Suite初始化Spring项目</h2><p>要在Spring Tool Suite中初始化一个新的Spring项目，我们首先要点击File菜单，选择New，接下来选择Spring StarterProject。图1.2展现了要查找的菜单结构。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195219.jpeg" alt="epub_29101559_9"></p>
+<center>图1.2 在Spring Tool Suite中使用Initializr初始化一个新项目</center>
+
+<p>在选择Spring Starter Project之后，将会出现一个新的向导对话框（见图1.3）。向导的第一页会询问一些项目的通用信息，比如项目名称、描述和其他必要的信息。如果你熟悉Mavenpom.xml文件的内容，就可以识别出大多数的输入域条目最终都会成为Maven的构建规范。对于Taco Cloud应用来说，我们可以按照图1.3的样子来填充对话框。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195247.jpeg" alt="epub_29101559_10"></p>
+<center>图1.3 为Taco Cloud应用指定通用的项目信息</center>
+
+<p>向导的下一页会让我们选择要添加到项目中的依赖（见图1.4）。注意，在对话框的顶部，我们可以选择项目要基于哪个Spring Boot版本。它的默认值是最新的可用版本。一般情况下，最好使用这个默认的值，除非你需要使用不同的版本。</p>
+<p>至于依赖项本身，你可以打开各个区域并查找所需的依赖项，也可以在Available顶部的搜索框中对依赖进行搜索。对于TacoCloud应用来说，我们最初的依赖项如图1.4所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195311.jpeg" alt="epub_29101559_11"></p>
+<center>图1.4 选择Starter依赖</center>
+
+<p>现在，你可以点击Finish来生成项目并将其添加到工作空间中。但是，如果你还想多体验一些，那么可以再次点击Next，看一下新Starter项目向导的最后一页，如图1.5所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195334.jpeg" alt="epub_29101559_12"></p>
+<center>图1.5 指定备用的Initializr地址</center>
+
+<p>默认情况下，新项目的向导会调用Spring Initializr来生成项目。通常情况下，没有必要覆盖默认值，这也是我们可以在向导的第二页直接点击Finish的原因。但是，如果你基于某种原因托管了自己的Initializr克隆版本（可能是本地机器上的副本或者公司防火墙内部运行的自定义克隆版本），那么你可能需要在点击Finish之前修改Base Url输入域，使其指向自己的Initializr实例。</p>
+<p>在点击Finish之后，项目会从Initializr下载并加载到工作空间中。此时，要等待它加载和构建，然后你就可以开始开发应用功能了。下面我们看一下Initializr都为我们提供了什么。</p>
+<h2 id="1-2-2-检查Spring项目的结构"><a href="#1-2-2-检查Spring项目的结构" class="headerlink" title="1.2.2 检查Spring项目的结构"></a>1.2.2 检查Spring项目的结构</h2><p>项目加载到IDE中之后，我们将其展开，看一下其中都包含什么内容。图1.6展现了Spring Tool Suite中已展开的Taco Cloud项目。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211003195405.jpeg" alt="epub_29101559_13"></p>
+<center>图1.6 Spring Tool Suite中所展现的初始Spring项目结构</center>
+
+<p>你可能已经看出来了，这就是一个典型的Maven或Gradle项目结构，其中应用的源码放到了“src&#x2F;main&#x2F;java”中，测试代码放到了“src&#x2F;test&#x2F;java”中，而非Java的资源放到了“src&#x2F;main&#x2F;resources”。在这个项目结构中，我们需要注意以下几点。</p>
+<ul>
+<li>mvnw和mvnw.cmd：这是Maven包装器（wrapper）脚本。借助这些脚本，即便你的机器上没有安装Maven，也可以构建项目。</li>
+<li>pom.xml：这是Maven构建规范，随后我们将会深入介绍该文件。</li>
+<li>TacoCloudApplication.java：这是Spring Boot主类，它会启动该项目。随后，我们会详细介绍这个类。</li>
+<li>application.properties：这个文件起初是空的，但是它为我们提供了指定配置属性的地方。在本章中，我们会稍微修改一下这个文件，但是我会将配置属性的详细阐述放到第5章。</li>
+<li>static：在这个文件夹下，你可以存放任意为浏览器提供服务的静态内容（图片、样式表、JavaScript等），该文件夹初始为空。</li>
+<li>templates：这个文件夹中存放用来渲染内容到浏览器的模板文件。这个文件夹初始是空的，不过我们很快就会往里面添加Thymeleaf模板。</li>
+<li>TacoCloudApplicationTests.java：这是一个简单的测试类，它能确保Spring应用上下文可以成功加载。在开发应用的过程中，我们会将更多的测试添加进来。</li>
+</ul>
+<p>随着Taco Cloud应用功能的增长，我们会不断使用Java代码、图片、样式表、测试以及其他附属内容来充实这个项目结构。不过，在此之前，我们先看一下Spring Initializr提供的几个条目。</p>
+<h3 id="探索构建规范"><a href="#探索构建规范" class="headerlink" title="探索构建规范"></a>探索构建规范</h3><p>在填充Initializr表单的时候，我们声明项目要使用Maven来进行构建。因此，Spring Initializr所生成的pom.xml文件已经包含了我们所选择的依赖。程序清单1.1展示了Initializr为我们提供的完整pom.xml。</p>
+<p>程序清单1.1 初始的Maven构建规范</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0</span></span></span><br><span class="line"><span class="string"><span class="tag">          http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>sia<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>taco-cloud<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span>           ⇽--- 打包为JAR</span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>taco-cloud<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>Taco Cloud Example<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span>                    ⇽--- Spring Boot的版本</span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">        UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">        UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>                         ⇽--- Starter依赖</span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>selenium-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>htmlunit-driver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span>                           ⇽--- Spring Boot插件</span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在pom.xml文件中，我们第一个需要注意的地方就是<code>&lt;packaging&gt;</code>。我们选择了将应用构建成一个可执行的JAR文件，而不是WAR文件。这可能是你所做出的最奇怪的选择之一，对Web应用来说尤为如此。毕竟，传统的Java Web应用都是打包成WAR文件，JAR只是用来打包库和较为少见的桌面UI应用的。</p>
+<p>打包为JAR文件是基于云思维做出的选择。尽管WAR文件非常适合部署到传统的Java应用服务器上，但对于大多数云平台来说它们并不是理想的选择。有些云平台（比如CloudFoundry）也能够部署和运行WAR文件，但是所有的Java云平台都能够运行可执行的JAR文件。因此，Spring Initializr默认会使用基于JAR的打包方式，除非我们明确告诉它采用其他的方式。</p>
+<p>如果你想要将应用部署到传统的Java应用服务器上，那么需要选择使用基于WAR的打包方式并要包含一个Web初始化类。在第2章中，我们将会更详细地了解如何构建WAR文件。</p>
+<p>接下来，请留意<code>&lt;parent&gt;</code>元素，更具体来说是它的<code>&lt;version&gt;</code>子元素。这表明我们的项目要以spring-boot-starter-parent作为其父POM。除了其他的一些功能之外，这个父POM为Spring项目常用的一些库提供了依赖管理，现在你不需要指定它们的版本，因为这是通过父POM来管理的。这里的2.0.4.RELEASE表明要使用Spring Boot 2.0.4，所以会根据这个版本的Spring Boot定义来继承依赖管理。</p>
+<p>既然我们谈到了依赖的话题，那么需要注意在<code>&lt;dependencies&gt;</code>元素下声明了3个依赖。在某种程度上，你可能会对前两个更熟悉一些。它们直接对应我们在Spring ToolSuite新项目向导中点击Finish之前所选择的Web和Thymeleaf依赖。第三个依赖提供了很多有用的测试功能。我们没有必要在专门的复选框中选择它，因为Spring Initializr假定你将会编写测试（希望你会正确地开展这项工作）。</p>
+<p>你可能也会注意到这3个依赖的artifact ID上都有starter这个单词。Spring Boot starter依赖的特别之处在于它们本身并不包含库代码，而是传递性地拉取其他的库。这种starter依赖主要有3个好处。</p>
+<ul>
+<li>构建文件会显著减小并且更易于管理，因为这样不必为每个所需的依赖库都声明依赖。</li>
+<li>我们能够根据它们所提供的功能来思考依赖，而不是根据库的名称。如果是开发Web应用，那么你只需要添加webstarter就可以了，而不必添加一堆单独的库再编写Web应用。</li>
+<li>我们不必再担心库版本的问题。你可以直接相信给定版本的Spring Boot，传递性引入的库的版本是兼容的。现在，你只需要关心使用的是哪个版本的Spring Boot就可以了。</li>
+</ul>
+<p>最后，构建规范还包含一个Spring Boot插件。这个插件提供了一些重要的功能。</p>
+<ul>
+<li>它提供了一个Maven goal，允许我们使用Maven来运行应用。在1.3.4小节，我们将会尝试这个goal。</li>
+<li>它会确保依赖的所有库都会包含在可执行JAR文件中，并且能够保证它们在运行时类路径下是可用的。</li>
+<li>它会在JAR中生成一个manifest文件，将引导类（在我们的场景中，也就是TacoCloudApplication）声明为可执行JAR的主类。</li>
+</ul>
+<p>谈到了主类，我们打开它看一下。</p>
+<h3 id="引导应用"><a href="#引导应用" class="headerlink" title="引导应用"></a>引导应用</h3><p>因为我们将会通过可执行JAR文件的形式来运行应用，所以很重要的一点就是要有一个主类，它将会在JAR运行的时候被执行。我们同时还需要一个最小化的Spring配置，以引导该应用。这就是TacoCloudApplication类所做的事情，如程序清单1.2所示。</p>
+<p>程序清单1.2 Taco Cloud的引导类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="meta">@SpringBootApplication</span>                  <span class="comment">//⇽--- Spring Boot应用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TacoCloudApplication</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SpringApplication.run(TacoCloudApplication.class, args);    <span class="comment">//⇽--- 运行应用</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>尽管在TacoCloudApplication中只有很少的代码，但是它包含了很多的内容。其中，最强大的一行代码也是最短的。@SpringBootApplication注解明确表明这是一个Spring Boot应用。但是，@SpringBootApplication远比看上去更强大。</p>
+<p>@SpringBootApplication是一个组合注解，它组合了3个其他的注解。</p>
+<ul>
+<li>@SpringBootConfiguration：将该类声明为配置类。尽管这个类目前还没有太多的配置，但是后续我们可以按需添加基于Java的Spring框架配置。这个注解实际上是@Configuration注解的特殊形式。</li>
+<li>@EnableAutoConfiguration：启用Spring Boot的自动配置。我们随后会介绍自动配置的更多功能。就现在来说，我们只需要知道这个注解会告诉Spring Boot自动配置它认为我们会用到的组件。</li>
+<li>@ComponentScan：启用组件扫描。这样我们能够通过像@Component、@Controller、@Service这样的注解声明其他类，Spring会自动发现它们并将它们注册为Spring应用上下文中的组件。</li>
+</ul>
+<p>TacoCloudApplication另外一个很重要的地方是它的main()方法。这是JAR文件执行的时候要运行的方法。在大多数情况下，这个方法都是样板代码，我们编写的每个Spring Boot应用都会有一个类似或完全相同的方法（类名不同则另当别论）。</p>
+<p>这个main()方法会调用SpringApplication中静态的run()方法，后者会真正执行应用的引导过程，也就是创建Spring的应用上下文。在传递给run()的两个参数中，一个是配置类，另一个是命令行参数。尽管传递给run()的配置类不一定要和引导类相同，但这是最便利和最典型的做法。</p>
+<p>你可能并不需要修改引导类中的任何内容。对于简单的应用程序来说，你可能会发现在引导类中配置一两个组件是非常方便的，但是对于大多数应用来说，最好还是要为没有实现自动配置的功能创建一个单独的配置类。在本书的整个过程中，我们将会创建多个配置类，所以请继续关注后续的细节。</p>
+<h3 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h3><p>测试是软件开发的重要组成部分。鉴于此，Spring Initializr为我们提供了一个测试类作为起步。程序清单1.3展现了这个测试类的概况。</p>
+<p>程序清单1.3 应用测试类的概况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span>                               <span class="comment">//⇽--- 使用Spring的运行器</span></span><br><span class="line"><span class="meta">@SpringBootTest</span>                                   <span class="comment">//⇽--- Spring Boot测试</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TacoCloudApplicationTests</span> &#123;</span><br><span class="line">  <span class="meta">@Test</span>                               <span class="comment">//⇽--- 测试方法</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TacoCloudApplicationTests类中的内容并不多：这个类中只有一个空的测试方法。即便如此，这个测试类还是会执行必要的检查，确保Spring应用上下文能够成功加载。如果你所做的变更导致Spring应用上下文无法创建，那么这个测试将会失败，你就可以做出反应来解决相关的问题了。</p>
+<p>TacoCloudApplicationTests类中的内容并不多：这个类中只有一个空的测试方法。即便如此，这个测试类还是会执行必要的检查，确保Spring应用上下文能够成功加载。如果你所做的变更导致Spring应用上下文无法创建，那么这个测试将会失败，你就可以做出反应来解决相关的问题了。</p>
+<p>另外，注意这个类带有@RunWith(SpringRunner.class)注解。@RunWith是JUnit的注解，它会提供一个测试运行器（runner）来指导JUnit如何运行测试。可以将其想象为给JUnit应用一个插件，以提供自定义的测试行为。在本例中，为JUnit提供的是SpringRunner，这是一个Spring提供的测试运行器，它会创建测试运行所需的Spring应用上下文。</p>
+<h3 id="测试运行器的其他名称"><a href="#测试运行器的其他名称" class="headerlink" title="测试运行器的其他名称"></a>测试运行器的其他名称</h3><p>如果你已经熟悉如何编写Spring测试或者见过其他一些基于Spring的测试类，那么你可能见过名为SpringJUnit4ClassRunner的测试运行器。SpringRunner是SpringJUnit4ClassRunner的别名，是在Spring 4.3中引入的，以便于移除对特定JUnit版本的关联（比如，JUnit 4）。毫无疑问，这个别名更易于阅读和输入。</p>
+<p>@SpringBootTest会告诉JUnit在启动测试的时候要添加上Spring Boot的功能。从现在开始，我们可以将这个测试类视同为在main()方法中调用SpringApplication.run()。在这本书中，我们将会多次看到@SpringBootTest，而且会不断见识它的威力。</p>
+<p>最后，就是测试方法本身了。尽管@RunWith(SpringRunner.class)和@SpringBootTest会为测试加载Spring应用上下文，但是如果没有任何测试方法，那么它们其实什么事情都没有做。即便没有任何断言或代码，这个空的测试方法也会提示这两个注解完成了它们的工作并成功加载Spring应用上下文。如果这个过程中有任何问题，那么测试都会失败。</p>
+<p>此时，我们已经看完了Spring Initializr为我们提供的代码。我们看到了一些用来开发Spring应用程序的基础样板，但是还没有编写任何代码。现在是时候启动IDE、准备好键盘并向TacoCloud应用程序添加一些自定义的代码了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/84852806/" title="1.2 初始化Spring应用">https://lanlan2017.github.io/ReadingNotes/84852806/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a1bc04fc/" rel="prev" title="1.0 第1章 Spring起步">
+                  <i class="fa fa-chevron-left"></i> 1.0 第1章 Spring起步
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5a3762bc/" rel="next" title="1.3 编写Spring应用">
+                  1.3 编写Spring应用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/84852806/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/84852806/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

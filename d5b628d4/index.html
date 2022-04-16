@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="24.4 备忘录模式的扩展24.4.1 clone方式的备忘录大家还记得在第13章中讲的原型模式吗？我们可以通过复制的方式产生一个对象的内部状态，这是一个很好的办法，发起人角色只要实现Cloneable就成，比较简单，我们来看类图，如图24-5所示。  图24-5 Clone方式的备忘录  从类图上看，发起人角色融合了发起人角色和备忘录角色，具有双重功效，如代码清单24-12所示。 代码清单24-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="24.4 备忘录模式的扩展">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/d5b628d4/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="24.4 备忘录模式的扩展24.4.1 clone方式的备忘录大家还记得在第13章中讲的原型模式吗？我们可以通过复制的方式产生一个对象的内部状态，这是一个很好的办法，发起人角色只要实现Cloneable就成，比较简单，我们来看类图，如图24-5所示。  图24-5 Clone方式的备忘录  从类图上看，发起人角色融合了发起人角色和备忘录角色，具有双重功效，如代码清单24-12所示。 代码清单24-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930000232.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930000744.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930094946.png">
+<meta property="article:published_time" content="2021-09-30T01:51:38.000Z">
+<meta property="article:modified_time" content="2021-09-30T07:35:39.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930000232.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/d5b628d4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/d5b628d4/","path":"/d5b628d4/","title":"24.4 备忘录模式的扩展"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>24.4 备忘录模式的扩展 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#24-4-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">24.4 备忘录模式的扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#24-4-1-clone%E6%96%B9%E5%BC%8F%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">24.4.1 clone方式的备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-4-2-%E5%A4%9A%E7%8A%B6%E6%80%81%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">24.4.2 多状态的备忘录模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-4-3-%E5%A4%9A%E5%A4%87%E4%BB%BD%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">1.3.</span> <span class="nav-text">24.4.3 多备份的备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-4-4-%E5%B0%81%E8%A3%85%E5%BE%97%E6%9B%B4%E5%A5%BD%E4%B8%80%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">24.4.4 封装得更好一点</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/d5b628d4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="24.4 备忘录模式的扩展 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          24.4 备忘录模式的扩展
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-09-30 09:51:38 / 修改时间：15:35:39" itemprop="dateCreated datePublished" datetime="2021-09-30T09:51:38+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/2-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9C%9F%E5%88%80%E5%AE%9E%E6%9E%AA-23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AE%8C%E7%BE%8E%E6%BC%94%E7%BB%8E/" itemprop="url" rel="index"><span itemprop="name">2 第二部分 真刀实枪 23种设计模式完美演绎</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/2-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9C%9F%E5%88%80%E5%AE%9E%E6%9E%AA-23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AE%8C%E7%BE%8E%E6%BC%94%E7%BB%8E/%E7%AC%AC24%E7%AB%A0-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">第24章 备忘录模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/d5b628d4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/d5b628d4/" data-xid="/ReadingNotes/d5b628d4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="24-4-备忘录模式的扩展"><a href="#24-4-备忘录模式的扩展" class="headerlink" title="24.4 备忘录模式的扩展"></a>24.4 备忘录模式的扩展</h1><h2 id="24-4-1-clone方式的备忘录"><a href="#24-4-1-clone方式的备忘录" class="headerlink" title="24.4.1 clone方式的备忘录"></a>24.4.1 clone方式的备忘录</h2><p>大家还记得在第13章中讲的原型模式吗？我们可以通过复制的方式产生一个对象的内部状态，这是一个很好的办法，发起人角色只要实现Cloneable就成，比较简单，我们来看类图，如图24-5所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930000232.png" alt="image-20210930000232486"></p>
+<center>图24-5 Clone方式的备忘录</center>
+
+<p>从类图上看，发起人角色融合了发起人角色和备忘录角色，具有双重功效，如代码清单24-12所示。</p>
+<p>代码清单24-12 融合备忘录的发起人角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Originator</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span>&#123;</span><br><span class="line">    <span class="comment">//内部状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState</span><span class="params">(String state)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> Originator <span class="title function_">createMemento</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.clone();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//恢复一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">restoreMemento</span><span class="params">(Originator _originator)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.setState(_originator.getState());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//克隆当前对象</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Originator <span class="title function_">clone</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Originator)<span class="built_in">super</span>.clone();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>增加了clone方法，产生了一个备份对象，需要使用的时候再还原，我们再来看管理员角色，如代码清单24-13所示。</p>
+<p>代码清单24-13 备忘录管理员角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Caretaker</span> &#123;</span><br><span class="line">    <span class="comment">//发起人对象</span></span><br><span class="line">    <span class="keyword">private</span> Originator originator;</span><br><span class="line">    <span class="keyword">public</span> Originator <span class="title function_">getOriginator</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> originator;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOriginator</span><span class="params">(Originator originator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.originator = originator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>没什么太大变化，只是备忘录角色转换成了发起人角色，还是一个简单的JavaBean。我们来想想这种模式是不是还可以简化？要管理员角色干什么？就是为了管理备忘录角色，现在连备忘录角色都被合并了，还留着它干吗？我们想办法把它也精简掉，如代码清单24-14 所示。</p>
+<p>代码清单24-14 发起人自主备份和恢复</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Originator</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Originator backup;</span><br><span class="line">    <span class="comment">//内部状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState</span><span class="params">(String state)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createMemento</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.backup = <span class="built_in">this</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//恢复一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">restoreMemento</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//在进行恢复前应该进行断言，防止空指针</span></span><br><span class="line">        <span class="built_in">this</span>.setState(<span class="built_in">this</span>.backup.getState());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//克隆当前对象</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Originator <span class="title function_">clone</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Originator)<span class="built_in">super</span>.clone();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可能你要发问了，这和备忘录模式的定义不相符，它定义是“在该对象之外保存这个状态”，而你却把这个状态保存在了发起人内部。是的，设计模式定义的诞生比Java的出世略早，它没有想到Java程序是这么有活力，有远见，而且在面向对象的设计中，即使把一个类封装在另一个类中也是可以做到的，何况一个小小的对象复制，这是它的设计模式完全没有预见到的，我们把它弥补回来。</p>
+<p>再来看看Client是如何调用的，如代码清单24-15所示。</p>
+<p>代码清单24-15 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//定义发起人</span></span><br><span class="line">        <span class="type">Originator</span> <span class="variable">originator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Originator</span>();</span><br><span class="line">        <span class="comment">//建立初始状态</span></span><br><span class="line">        originator.setState(<span class="string">&quot;初始状态...&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;初始状态是：&quot;</span>+originator.getState());</span><br><span class="line">        <span class="comment">//建立备份</span></span><br><span class="line">        originator.createMemento();</span><br><span class="line">        <span class="comment">//修改状态</span></span><br><span class="line">        originator.setState(<span class="string">&quot;修改后的状态...&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;修改后状态是：&quot;</span>+originator.getState());</span><br><span class="line">        <span class="comment">//恢复原有状态</span></span><br><span class="line">        originator.restoreMemento();</span><br><span class="line">        System.out.println(<span class="string">&quot;恢复后状态是：&quot;</span>+originator.getState());</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">初始状态是：初始状态... </span><br><span class="line">修改后状态是：修改后的状态... </span><br><span class="line">恢复后状态是：初始状态...</span><br></pre></td></tr></table></figure>
+<p>运行结果是我们所希望的，程序精简了很多，而且高层模块的依赖也减少了，这正是我们期望的效果。现在我们来考虑一下原型模式深拷贝和浅拷贝的问题，在复杂的场景下它会让你的程序逻辑异常混乱，出现错误也很难跟踪。因此Clone方式的备忘录模式适用于较简单的场景。</p>
+<hr>
+<p><strong>注意</strong> 使用Clone方式的备忘录模式，可以使用在比较简单的场景或者比较单一的场景中，尽量不要与其他的对象产生严重的耦合关系。</p>
+<hr>
+<h2 id="24-4-2-多状态的备忘录模式"><a href="#24-4-2-多状态的备忘录模式" class="headerlink" title="24.4.2 多状态的备忘录模式"></a>24.4.2 多状态的备忘录模式</h2><p>读者应该看到我们以上讲解都是单状态的情况，在实际的开发中一个对象不可能只有一个状态，一个JavaBean有多个属性非常常见，这都是它的状态，如果照搬我们以上讲解的备忘录模式，是不是就要写一堆的状态备份、还原语句？这不是一个好办法，这种类似的非智力劳动越多，犯错误的几率越大，那我们有什么办法来处理多个状态的备份问题呢？</p>
+<p>下面我们来讲解一个对象全状态备份方案，它有多种处理方式，比如使用Clone的方式就可以解决，使用数据技术也可以解决（DTO回写到临时表中）等，我们要讲的方案就对备忘录模式继续扩展一下，实现一个JavaBean对象的所有状态的备份和还原，如图24-6所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930000744.png" alt="image-20210930000744163"></p>
+<center>图24-6 多状态的备忘录模式</center>
+
+<p>还是比较简单的类图，增加了一个BeanUtils类，其中backupProp是把发起人的所有属性值转换到HashMap中，方便备忘录角色存储；restoreProp方法则是把HashMap中的值返回到发起人角色中。可能各位要说了，为什么要使用HashMap，直接使用Originator对象的拷贝不是一个很好的方法吗？可以这样做，你就破坏了发起人的通用性，你在做恢复动作的时候需要对该对象进行多次赋值操作，也容易产生错误。我们先来看发起人角色，如代码清单24- 16所示。</p>
+<p>代码清单24-16 发起人角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Originator</span> &#123;</span><br><span class="line">    <span class="comment">//内部状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state1</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state2</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state3</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState1</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState1</span><span class="params">(String state1)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state1 = state1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState2</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState2</span><span class="params">(String state2)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state2 = state2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState3</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState3</span><span class="params">(String state3)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state3 = state3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> Memento <span class="title function_">createMemento</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Memento</span>(BeanUtils.backupProp(<span class="built_in">this</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//恢复一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">restoreMemento</span><span class="params">(Memento _memento)</span>&#123;</span><br><span class="line">        BeanUtils.restoreProp(<span class="built_in">this</span>, _memento.getStateMap());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//增加一个toString方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;state1=&quot;</span> +state1+<span class="string">&quot;\nstat2=&quot;</span>+state2+<span class="string">&quot;\nstate3=&quot;</span>+state3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>覆写toString方法是为了方便打印，可以让展示的结果更清晰。我们再来看BeanUtils工具类，如代码清单24-17所示。</p>
+<p>代码清单24-17 BeanUtils工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanUtils</span> &#123;</span><br><span class="line">    <span class="comment">//把bean的所有属性及数值放入到Hashmap中</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;String,Object&gt; <span class="title function_">backupProp</span><span class="params">(Object bean)</span>&#123;</span><br><span class="line">        HashMap&lt;String,Object&gt; result = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String,Object&gt;();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获得Bean描述</span></span><br><span class="line">            BeanInfo beanInfo=Introspector.getBeanInfo(bean.getClass());</span><br><span class="line">            <span class="comment">//获得属性描述</span></span><br><span class="line">            PropertyDescriptor[] descriptors=beanInfo.getPropertyDescriptors();</span><br><span class="line">            <span class="comment">//遍历所有属性</span></span><br><span class="line">            <span class="keyword">for</span>(PropertyDescriptor des:descriptors)&#123;</span><br><span class="line">                <span class="comment">//属性名称</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">fieldName</span> <span class="operator">=</span> des.getName();</span><br><span class="line">                <span class="comment">//读取属性的方法</span></span><br><span class="line">                <span class="type">Method</span> <span class="variable">getter</span> <span class="operator">=</span> des.getReadMethod();</span><br><span class="line">                <span class="comment">//读取属性值</span></span><br><span class="line">                Object fieldValue=getter.invoke(bean,<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;&#125;);</span><br><span class="line">                <span class="keyword">if</span>(!fieldName.equalsIgnoreCase(<span class="string">&quot;class&quot;</span>))&#123;</span><br><span class="line">                    result.put(fieldName, fieldValue);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">//异常处理</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把HashMap的值返回到bean中</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">restoreProp</span><span class="params">(Object bean,HashMap&lt;String,Object&gt; propMap)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获得Bean描述</span></span><br><span class="line">            <span class="type">BeanInfo</span> <span class="variable">beanInfo</span> <span class="operator">=</span> Introspector.getBeanInfo(bean.getClass());</span><br><span class="line">            <span class="comment">//获得属性描述</span></span><br><span class="line">            PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();</span><br><span class="line">            <span class="comment">//遍历所有属性</span></span><br><span class="line">            <span class="keyword">for</span>(PropertyDescriptor des:descriptors)&#123;</span><br><span class="line">                <span class="comment">//属性名称</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">fieldName</span> <span class="operator">=</span> des.getName();</span><br><span class="line">                <span class="comment">//如果有这个属性</span></span><br><span class="line">                <span class="keyword">if</span>(propMap.containsKey(fieldName))&#123;</span><br><span class="line">                    <span class="comment">//写属性的方法</span></span><br><span class="line">                    <span class="type">Method</span> <span class="variable">setter</span> <span class="operator">=</span> des.getWriteMethod();</span><br><span class="line">                    setter.invoke(bean, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;propMap.get(fieldName)&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">//异常处理</span></span><br><span class="line">            System.out.println(<span class="string">&quot;shit&quot;</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该类大家在项目中会经常用到，可以作为参考使用。类似的功能有很多工具已经提供， 比如Spring、Apache工具集commons等，大家也可以直接使用。我们再来看备忘录角色，如代码清单24-18所示。</p>
+<p>代码清单24-18 备忘录角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Memento</span> &#123;</span><br><span class="line">    <span class="comment">//接受HashMap作为状态</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String,Object&gt; stateMap;</span><br><span class="line">    <span class="comment">//接受一个对象，建立一个备份</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Memento</span><span class="params">(HashMap&lt;String,Object&gt; map)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.stateMap = map;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> HashMap&lt;String,Object&gt; <span class="title function_">getStateMap</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stateMap;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setStateMap</span><span class="params">(HashMap&lt;String,Object&gt; stateMap)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.stateMap = stateMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再编写一个场景类，看看我们的成果是否正确，如代码清单24-19所示。</p>
+<p>代码清单24-19 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//定义出发起人</span></span><br><span class="line">        <span class="type">Originator</span> <span class="variable">ori</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Originator</span>();</span><br><span class="line">        <span class="comment">//定义出备忘录管理员</span></span><br><span class="line">        <span class="type">Caretaker</span> <span class="variable">caretaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Caretaker</span>();</span><br><span class="line">        <span class="comment">//初始化</span></span><br><span class="line">        ori.setState1(<span class="string">&quot;中国&quot;</span>);</span><br><span class="line">        ori.setState2(<span class="string">&quot;强盛&quot;</span>);</span><br><span class="line">        ori.setState3(<span class="string">&quot;繁荣&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;===初始化状态===\n&quot;</span>+ori);</span><br><span class="line">        <span class="comment">//创建一个备忘录</span></span><br><span class="line">        caretaker.setMemento(ori.createMemento());</span><br><span class="line">        <span class="comment">//修改状态值</span></span><br><span class="line">        ori.setState1(<span class="string">&quot;软件&quot;</span>);</span><br><span class="line">        ori.setState2(<span class="string">&quot;架构&quot;</span>);</span><br><span class="line">        ori.setState3(<span class="string">&quot;优秀&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;\n===修改后状态===\n&quot;</span>+ori);</span><br><span class="line">        <span class="comment">//恢复一个备忘录</span></span><br><span class="line">        ori.restoreMemento(caretaker.getMemento());</span><br><span class="line">        System.out.println(<span class="string">&quot;\n===恢复后状态===\n&quot;</span>+ori);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">===初始化状态=== </span><br><span class="line">state1=中国 </span><br><span class="line">stat2=强盛 </span><br><span class="line">state3=繁荣 </span><br><span class="line">===修改后状态=== </span><br><span class="line">state1=软件 </span><br><span class="line">stat2=架构 </span><br><span class="line">state3=优秀 </span><br><span class="line">===恢复后状态=== </span><br><span class="line">state1=中国 </span><br><span class="line">stat2=强盛 </span><br><span class="line">state3=繁荣</span><br></pre></td></tr></table></figure>
+<p>通过这种方式的改造，不管有多少状态都没有问题，直接把原有的对象所有属性都备份了一遍，想恢复当时的点数据？那太容易了！</p>
+<hr>
+<p>注意 如果要设计一个在运行期决定备份状态的框架，则建议采用AOP框架来实现，避 免采用动态代理无谓地增加程序逻辑复杂性。</p>
+<hr>
+<h2 id="24-4-3-多备份的备忘录"><a href="#24-4-3-多备份的备忘录" class="headerlink" title="24.4.3 多备份的备忘录"></a>24.4.3 多备份的备忘录</h2><p>不知道你有没有做过系统级别的维护？比如Backup Administrator（备份管理员），每天负责查看系统的备份情况，所有的备份都是由自动化脚本产生的。有一天，突然有一个重要的系统说我数据库有点问题，请把上一个月末的数据拉出来恢复，那怎么办？对备份管理员来说，这很好办，直接根据时间戳找到这个备份，还原回去就成了，但是对于我们刚刚学习的备忘录模式却行不通，为什么呢？它对于一个确定的发起人，永远只有一份备份，在这种情况下，单一的备份就不能满足要求了，我们需要设计一套多备份的架构。</p>
+<p>我们先来说一个名词，检查点（Check Point），也就是你在备份的时候做的戳记，系统级的备份一般是时间戳，那我们程序的检查点该怎么设计呢？一般是一个有意义的字符串。</p>
+<p>我们只要把通用代码中的Caretaker管理员稍做修改就可以了，如代码清单24-20所示。</p>
+<p>代码清单24-20 备忘录管理员</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Caretaker</span> &#123;</span><br><span class="line">    <span class="comment">//容纳备忘录的容器</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String,Memento&gt; memMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String,Memento&gt;();</span><br><span class="line">    <span class="keyword">public</span> Memento <span class="title function_">getMemento</span><span class="params">(String idx)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> memMap.get(idx);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMemento</span><span class="params">(String idx,Memento memento)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.memMap.put(idx, memento);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把容纳备忘录的容器修改为Map类型就可以了，场景类也稍做改动，如代码清单24-21所示。</p>
+<p>代码清单24-21 场景类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//定义出发起人</span></span><br><span class="line">        <span class="type">Originator</span> <span class="variable">originator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Originator</span>();</span><br><span class="line">        <span class="comment">//定义出备忘录管理员</span></span><br><span class="line">        <span class="type">Caretaker</span> <span class="variable">caretaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Caretaker</span>();</span><br><span class="line">        <span class="comment">//创建两个备忘录</span></span><br><span class="line">        caretaker.setMemento(<span class="string">&quot;001&quot;</span>,originator.createMemento());</span><br><span class="line">        caretaker.setMemento(<span class="string">&quot;002&quot;</span>,originator.createMemento());</span><br><span class="line">        <span class="comment">//恢复一个指定标记的备忘录</span></span><br><span class="line">        originator.restoreMemento(caretaker.getMemento(<span class="string">&quot;001&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>注意</strong> 内存溢出问题，该备份一旦产生就装入内存，没有任何销毁的意向，这是非常危险的。因此，在系统设计时，要严格限定备忘录的创建，建议增加Map的上限，否则系统很容易产生内存溢出情况。</p>
+<hr>
+<h2 id="24-4-4-封装得更好一点"><a href="#24-4-4-封装得更好一点" class="headerlink" title="24.4.4 封装得更好一点"></a>24.4.4 封装得更好一点</h2><p>在系统管理上，一个备份的数据是完全、绝对不能修改的，它保证数据的洁净，避免数据污染而使备份失去意义。在我们的设计领域中，也存在着同样的问题，备份是不能被篡改的，也就是说需要缩小备份出的备忘录的阅读权限，保证只能是发起人可读就成了，那怎么才能做到这一点呢？使用内置类，如图24-7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210930094946.png" alt="image-20210930094946625"></p>
+<center>图24-7 使用内置类的备忘录模式</center>
+
+<p>这也是比较简单的，建立一个空接口IMemento——什么方法属性都没有的接口，然后在发起人Originator类中建立一个内置类（也叫做类中类）Memento实现IMemento接口，同时也实现自己的业务逻辑，如代码清单24-22所示。</p>
+<p>代码清单24-22 发起人角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Originator</span> &#123;</span><br><span class="line">    <span class="comment">//内部状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getState</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setState</span><span class="params">(String state)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> IMemento <span class="title function_">createMemento</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Memento</span>(<span class="built_in">this</span>.state);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//恢复一个备忘录</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">restoreMemento</span><span class="params">(IMemento _memento)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.setState(((Memento)_memento).getState());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//内置类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">Memento</span> <span class="keyword">implements</span> <span class="title class_">IMemento</span>&#123;</span><br><span class="line">        <span class="comment">//发起人的内部状态</span></span><br><span class="line">        <span class="keyword">private</span> <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//构造函数传递参数</span></span><br><span class="line">        <span class="keyword">private</span> <span class="title function_">Memento</span><span class="params">(String _state)</span>&#123;</span><br><span class="line">            <span class="built_in">this</span>.state = _state;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">private</span> String <span class="title function_">getState</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setState</span><span class="params">(String state)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.state = state;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内置类Memento全部是private的访问权限，也就是说除了发起人外，别人休想访问到， 那如果要产生关联关系又应如何处理呢？通过接口！别忘记了我们还有一个空接口是公共的访问权限，如代码清单24-23所示。</p>
+<p>代码清单24-23 备忘录的空接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IMemento</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再来看管理者，如代码清单24-24所示。</p>
+<p>代码清单24-24 备忘录管理者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Caretaker</span> &#123;</span><br><span class="line">    <span class="comment">//备忘录对象</span></span><br><span class="line">    <span class="keyword">private</span> IMemento memento;</span><br><span class="line">    <span class="keyword">public</span> IMemento <span class="title function_">getMemento</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> memento;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMemento</span><span class="params">(IMemento memento)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.memento = memento;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>全部通过接口访问，这当然没有问题，如果你想访问它的属性那是肯定不行的。但是安全是相对的，没有绝对的安全，可以使用refelect反射修改Memento的数据。</p>
+<p>在这里我们使用了一个新的设计方法：双接口设计，我们的一个类可以实现多个接口， 在系统设计时，如果考虑对象的安全问题，则可以提供两个接口，一个是业务的正常接口， 实现必要的业务逻辑，叫做宽接口；另外一个接口是一个空接口，什么方法都没有，其目的是提供给子系统外的模块访问，比如容器对象，这个叫做窄接口，由于窄接口中没有提供任何操纵数据的方法，因此相对来说比较安全。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/d5b628d4/" title="24.4 备忘录模式的扩展">https://lanlan2017.github.io/ReadingNotes/d5b628d4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/dc3e8bee/" rel="prev" title="24.3 备忘录模式的应用">
+                  <i class="fa fa-chevron-left"></i> 24.3 备忘录模式的应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/32decd5d/" rel="next" title="24.5 最佳实践">
+                  24.5 最佳实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/d5b628d4/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/d5b628d4/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

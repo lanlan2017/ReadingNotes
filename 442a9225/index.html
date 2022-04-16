@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="14.5 保持配置属性的私密性Config Server提供的大多数配置可能并不是私密的。但是，我们可能需要ConfigServer提供一些包含敏感信息的属性，比如密码或安全token，在后端仓库中，它们最好保持私密。 Config Server提供了两种方式来支持私密的配置属性。  在Git存储的属性文件中使用加密后的值。 使用HashiCorp Vault作为Config Server的后端存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14.5 保持配置属性的私密性">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/442a9225/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="14.5 保持配置属性的私密性Config Server提供的大多数配置可能并不是私密的。但是，我们可能需要ConfigServer提供一些包含敏感信息的属性，比如密码或安全token，在后端仓库中，它们最好保持私密。 Config Server提供了两种方式来支持私密的配置属性。  在Git存储的属性文件中使用加密后的值。 使用HashiCorp Vault作为Config Server的后端存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211021180046.png">
+<meta property="article:published_time" content="2021-10-21T10:03:10.000Z">
+<meta property="article:modified_time" content="2021-10-21T10:12:48.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211021180046.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/442a9225/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/442a9225/","path":"/442a9225/","title":"14.5 保持配置属性的私密性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>14.5 保持配置属性的私密性 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#14-5-%E4%BF%9D%E6%8C%81%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E7%9A%84%E7%A7%81%E5%AF%86%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">14.5 保持配置属性的私密性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#14-5-1-%E5%9C%A8Git%E4%B8%AD%E5%8A%A0%E5%AF%86%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">14.5.1 在Git中加密属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-5-2-%E5%9C%A8Vault%E4%B8%AD%E5%AD%98%E5%82%A8%E7%A7%81%E5%AF%86%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">14.5.2 在Vault中存储私密信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8Vault%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动Vault服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E7%A7%81%E5%AF%86%E4%BF%A1%E6%81%AF%E5%88%B0Vault%E4%B8%AD"><span class="nav-number">1.2.2.</span> <span class="nav-text">写入私密信息到Vault中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Config-Server%E4%B8%AD%E5%90%AF%E7%94%A8Vault%E5%90%8E%E7%AB%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">在Config Server中启用Vault后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Config-Server%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AEVault-token"><span class="nav-number">1.2.4.</span> <span class="nav-text">在Config Server客户端设置Vault token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E7%89%B9%E5%AE%9A%E5%BA%94%E7%94%A8%E5%92%8C%E7%89%B9%E5%AE%9Aprofile%E7%9A%84%E7%A7%81%E5%AF%86%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.5.</span> <span class="nav-text">写入特定应用和特定profile的私密信息</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/442a9225/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="14.5 保持配置属性的私密性 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          14.5 保持配置属性的私密性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-10-21 18:03:10 / 修改时间：18:12:48" itemprop="dateCreated datePublished" datetime="2021-10-21T18:03:10+08:00">2021-10-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC4%E9%83%A8%E5%88%86-%E4%BA%91%E5%8E%9F%E7%94%9FSpring/" itemprop="url" rel="index"><span itemprop="name">第4部分 云原生Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC4%E9%83%A8%E5%88%86-%E4%BA%91%E5%8E%9F%E7%94%9FSpring/%E7%AC%AC14%E7%AB%A0-%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">第14章 管理配置</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/442a9225/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/442a9225/" data-xid="/ReadingNotes/442a9225/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="14-5-保持配置属性的私密性"><a href="#14-5-保持配置属性的私密性" class="headerlink" title="14.5 保持配置属性的私密性"></a>14.5 保持配置属性的私密性</h1><p>Config Server提供的大多数配置可能并不是私密的。但是，我们可能需要ConfigServer提供一些包含敏感信息的属性，比如密码或安全token，在后端仓库中，它们最好保持私密。</p>
+<p>Config Server提供了两种方式来支持私密的配置属性。</p>
+<ul>
+<li>在Git存储的属性文件中使用加密后的值。</li>
+<li>使用HashiCorp Vault作为Config Server的后端存储，补充（或替代）Git。</li>
+</ul>
+<p>我们将会依次看一下这两种方案是如何与Config Server组合使用保证配置属性私密性的。首先，我们看一下如何在Git后端中写入加密的属性。</p>
+<h2 id="14-5-1-在Git中加密属性"><a href="#14-5-1-在Git中加密属性" class="headerlink" title="14.5.1 在Git中加密属性"></a>14.5.1 在Git中加密属性</h2><p>除了提供非加密值以外，Config Server也可以借助存储在Git中的属性文件提供加密值。处理存储在Git中的加密数据的关键在于一个秘钥（key），即加密秘钥（encryption key）。</p>
+<p>为了启用加密属性功能，我们使用一个加密秘钥来配置Config Server，在将属性值提供给客户端应用之前，Config Server要使用这个秘钥对属性值进行解密。Config Server支持对称秘钥和非对称秘钥。要设置对称秘钥，我们可以在ConfigServer自己的配置中将encrypt.key属性设置为加密和解密秘钥的值：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">encrypt:</span></span><br><span class="line">  <span class="attr">key:</span> <span class="string">s3cr3t</span></span><br></pre></td></tr></table></figure>
+
+<p>很重要的一点需要注意，这个属性要设置到bootstrap配置中（例如，bootstrap.properties或bootstrap.yml）。这样的话，在自动配置功能启用Config Server之前，这个属性就会加载和启用。</p>
+<p>为了更加安全一些，我们可以让Config Server使用非对称的RSA秘钥对或引用一个keystore。要创建这样的秘钥，我们可以使用keytool命令行工具：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias tacokey -keyalg RSA \</span><br><span class="line">-dname &quot;CN=Web Server,OU=Unit,O=Organization,L=City,S=State,C=US&quot; \</span><br><span class="line">-keypass s3cr3t -keystore keystore.jks -storepass l3tm31n</span><br></pre></td></tr></table></figure>
+
+<p>这样形成的keystore会写入到名为keystore.jks的文件中。我们可以将这个keystore.jks文件放到文件系统中或者放到应用本身。不管使用哪种方式，我们都需要在Config Server的bootstrap.yml文件中配置keystore的位置和凭证信息。</p>
+<div style="border-style:solid;">注意：为了在Config Server中使用加密功能，我们需要要安装JavaCryptography Extensions Unlimited Strength策略文件。参见Oracle的JavaSE页面了解详细信息。</div>
+
+<p>例如，假设我们要将keystore打包到应用本身，将其放到类路径的根目录下，那么我们可以配置如下的属性，让Config Server使用该keystore：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">encrypt:</span></span><br><span class="line">  <span class="attr">key-store:</span></span><br><span class="line">    <span class="attr">alias:</span> <span class="string">tacokey</span></span><br><span class="line">    <span class="attr">location:</span> <span class="string">classpath:/keystore.jks</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">l3tm31n</span></span><br><span class="line">    <span class="attr">secret:</span> <span class="string">s3cr3t</span></span><br></pre></td></tr></table></figure>
+
+<p>秘钥和keystore就绪之后，我们需要对某些数据进行加密。Config Server暴露了一个“&#x2F;encrypt”端口会帮助我们实现该功能。我们需要做的就是提交一个POST请求到“&#x2F;encrypt”端点，其中包括要加密的数据。例如，我们要加密连接至MongoDB数据库的密码。借助curl，我们可以按照如下的方式加密密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8888/encrypt -d &quot;s3cr3tP455w0rd&quot;</span><br><span class="line">93912a660a7f3c04e811b5df9a3cf6e1f63850cdcd4aa092cf5a3f7e1662fab7</span><br></pre></td></tr></table></figure>
+
+<p>在提交POST请求之后，我们会接收到一个加密的值作为响应。接下来，需要做的就是复制这个值并粘贴到Git仓库托管的配置文件中。</p>
+<p>为了设置MongoDB，在Git仓库的application.yml文件中添加spring.data.mongodb. password属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">data:</span></span><br><span class="line">    <span class="attr">mongodb:</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&#x27;&#123;cipher&#125;93912a660a7f3c04e811b5df9a3cf6e1f63850...&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意，spring.data.mongodb.password被一个单括号（’）括了起来，并且带有{cipher}前缀。这样就会告诉Config Server，这是一个加密的值，而不是简单的未加密值。</p>
+<p>在将这个变更提交并推送到Git仓库中的application.yml文件之后，Config Server就可以对外提供加密的属性了。如果要实际看一下，就使用curl命令伪装成ConfigServer的客户端：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8888/application/default | jq</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;app&quot;,</span><br><span class="line">  &quot;profiles&quot;: [</span><br><span class="line">    &quot;prof&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;label&quot;: null,</span><br><span class="line">  &quot;version&quot;: &quot;464adfd43485182e4e0af08c2aaaa64d2f78c4cf&quot;,</span><br><span class="line">  &quot;state&quot;: null,</span><br><span class="line">  &quot;propertySources&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;http://localhost:10080/tacocloud/tacocloudconfig/</span><br><span class="line">     application.yml&quot;,</span><br><span class="line">      &quot;source&quot;: &#123;</span><br><span class="line">        &quot;spring.data.mongodb.password&quot;: &quot;s3cr3tP455w0rd&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，spring.data.mongodb.password的值是以解密后的形式提供的。默认情况下，Config Server提供的所有加密值只是在后端Git仓库中处于加密的状态，它们在对外提供之前会解密。这意味着，消费这个配置的客户端应用并不需要任何特殊的代码和配置就能接收Git中已加密的属性。</p>
+<p>如果你想要让Config Server以未解密的形式对外提供加密属性，那么可以将spring.cloud.config.server.encrypt.enabled属性设置为false：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">server:</span></span><br><span class="line">        <span class="attr">git:</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:10080/tacocloud/tacocloud-config</span></span><br><span class="line">        <span class="attr">encrypt:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>这样导致的结果就是Config Server在提供所有的属性值的时候完全按照Git仓库设置的样子进行发送，包括已加密的属性值。我们再次伪装成一个客户端，利用curl命令展示禁用解密的效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8888/application/default | jq</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  &quot;propertySources&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;http://localhost:10080/tacocloud/tacocloudconfig/</span><br><span class="line">     application.yml&quot;,</span><br><span class="line">      &quot;source&quot;: &#123;</span><br><span class="line">        &quot;spring.data.mongodb.password&quot;: &quot;&#123;cipher&#125;AQA4JeVhf2cRXW...&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，如果客户端接收到了未解密的属性值，那么客户端需要自行解密。</p>
+<p>尽管可以通过Config Server在Git中保存已加密的私密信息，但是我们可以看到加密并不是Git的原生特性。它需要我们自己对写入Git仓库的数据进行加密。另外，除非将解密的任务推给Config Server的客户端应用，否则对于任何请求配置的客户端，Config Server API对外提供的私密信息都是解密之后的形式。我们接下来看一下另一个Config Server后端方案，它能够只向已授权的用户提供私密信息。</p>
+<h2 id="14-5-2-在Vault中存储私密信息"><a href="#14-5-2-在Vault中存储私密信息" class="headerlink" title="14.5.2 在Vault中存储私密信息"></a>14.5.2 在Vault中存储私密信息</h2><p>HashiCorp Vault是一个私密管理工具。这意味着与Git相比，Vault的核心特性就是原生地处理私密信息。对于敏感的配置数据，Vault是一个更有吸引力的ConfigServer后端支撑方案。</p>
+<p>为了开始使用Vault，我们需要参考Vault Web站点的安装指南下载并安装vault命令行工具。在本小节中，我们将会使用vault命令管理私密信息和启动Vault服务器。</p>
+<h3 id="启动Vault服务器"><a href="#启动Vault服务器" class="headerlink" title="启动Vault服务器"></a>启动Vault服务器</h3><p>在使用Config Server写入和对外提供私密信息之前，我们需要启动一个Vault服务器。对于我们来讲，最简单的方式就是在开发模式下使用如下的命令启动服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vault server -dev -dev-root-token-id=roottoken</span><br><span class="line">$ export VAULT_ADDR=&#x27;http://127.0.0.1:8200&#x27;</span><br><span class="line">$ vault status</span><br></pre></td></tr></table></figure>
+
+<p>第一条命令会在开发模式下启动一个Vault服务器，其中根token（root token）的ID为roottoken。顾名思义，开发模式意味着它是一个更简单但并不完全安全的Vault运行时。它不应该在生产环境中使用，但是在开发的工作流程中，这种使用Vault的方式会非常便利。</p>
+<div style="border-style:solid;">注意：Vault是一个功能完备且健壮的私密管理工具。除了开发模式下的简单使用之外，本章没有足够的篇幅完整介绍Vault服务器的运行。我强烈建议你在尝试生产环境中使用Vault之前，通过阅读Vaul文档来更详细地了解Vault。</div>
+
+<p>对Vault服务器的所有访问都需要向服务器提供一个token。根token是一个管理token，这意味着除了其他功能之外，它允许我们创建其他的token。它还能够用于读取和写入私密信息。如果在开发模式启动服务器的时候未指定根token，那么Vault服务器会为我们创建一个token并在启动的时候写入日志中。为了便于使用，建议将根token设置成一个易于记忆的值，比如roottoken。</p>
+<p>开发模式的服务器启动之后，它将会监听本地机器的8200端口。所以，要让vault命令行知道Vault服务器在什么地方，设置VAULT_ADDR环境变量是非常重要的，这也是上述代码片段第二行所做的事情。</p>
+<p>最后，vault status命令会校验之前的两条命令是否已经按照预期运行。你大致会看到描述Vault服务器的6个属性，包括Vault是否密闭（在开发模式下，它不应该处于密闭状态）。</p>
+<p>使用Vault 0.10.0或之后的版本的话，Vault与Config Server协作使用之前还有其他的两条命令需要执行。Vault运行方式的一些变更会导致一个标准的私密后端与Config Server不兼容。以下两个命令会重新创建名为secret的后端，以兼容Config Server：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault secrets disable secret</span><br><span class="line">$ vault secrets enable -path=secret kv</span><br></pre></td></tr></table></figure>
+
+<p>如果使用更早版本的Vault，就不需要这些步骤。</p>
+<h3 id="写入私密信息到Vault中"><a href="#写入私密信息到Vault中" class="headerlink" title="写入私密信息到Vault中"></a>写入私密信息到Vault中</h3><p>借助vault命令，可以很容易将私密信息写入Vault中。例如，假设我们想要将访问MongoDB的密码（也就是spring.data.mongodb.password）存储到Vault中，而不是存储到Git里面，就可以通过vault命令完成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write secret/application spring.data.mongodb.password=s3cr3t</span><br></pre></td></tr></table></figure>
+
+<p>图14.6拆分了vault write命令，阐述每个组成部分在将私密信息写入Vault的过程中扮演了什么角色。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211021180046.png" alt="image-20211021180046275"></p>
+<center>图14.6 通过vault命令将私密信息写入Vault</center>
+
+<p>现在，我们最需要关注的就是私密信息的路径、key和值。私密信息的路径就像文件系统中的路径那样，允许我们将相关的私密信息放到一个给定的路径中，而将其他的私密信息放到不同的路径中。路径的前缀“secret&#x2F;”用来识别Vault后端，在这里使用了一个key-value的后端，名为“secret”。</p>
+<p>私密信息的key和值是我们实际要写入Vault的内容。当Config Server要对外提供已写入的私密信息时，很重要的一点在于私密信息的key要和配置属性保持一致。</p>
+<p>我们可以使用vault read命令校验私密信息是否已经写入Vault中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vault read secret/application</span><br><span class="line">Key                             Value</span><br><span class="line">---                             -----</span><br><span class="line">refresh_interval                768h</span><br><span class="line">spring.data.mongodb.password    s3cr3t</span><br></pre></td></tr></table></figure>
+
+<p>在将私密信息写入到指定路径的时候，需要注意每次往给定路径中写入时都会覆盖之前在该路径下写入的私密信息。例如，假设我们还想要往Vault的上述路径中写入MongoDB用户名，我们不能简单地写入spring.data.mongodb.usernamesecret私密信息本身，如果这样做就会导致spring.data.mongodb.password私密信息丢失。我们需要同时将这两个属性写进去：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% vault write secret/application \</span><br><span class="line">              spring.data.mongodb.password=s3cr3t \</span><br><span class="line">              spring.data.mongodb.username=tacocloud</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们已经往Vault中写入了一些私密信息。接下来，我们看一下如何让Vault作为Config Server的后端属性源。</p>
+<h3 id="在Config-Server中启用Vault后端"><a href="#在Config-Server中启用Vault后端" class="headerlink" title="在Config Server中启用Vault后端"></a>在Config Server中启用Vault后端</h3><p>为了将Vault添加为Config Server的后端，我们至少需要将Vault添加为激活的profile。在Config Server的application.yml文件中，将会如下所示：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">vault</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span></span><br></pre></td></tr></table></figure>
+
+<p>如上所示，vault和git profile均处于激活状态，允许Config Server同时从Vault和Git获取配置。一般而言，我们会将敏感的配置属性写入Vault，对于不需要私密性的属性则继续使用Git作为后端。如果你希望将所有配置都写到Vault中或者没有必要使用Git后端，那么可以将spring.profiles.active设置为vault，完全放弃Git后端。</p>
+<p>默认情况下，Config Server会假定Vault运行在localhost并监听8200端口。但是，我们可以在Config Server的配置中修改这种默认行为，如下所示：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">server:</span></span><br><span class="line">        <span class="attr">git:</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:10080/tacocloud/tacocloud-config</span></span><br><span class="line">          <span class="attr">order:</span> <span class="number">2</span></span><br><span class="line">        <span class="attr">vault:</span></span><br><span class="line">          <span class="attr">host:</span> <span class="string">vault.tacocloud.com</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">8200</span></span><br><span class="line">          <span class="attr">scheme:</span> <span class="string">https</span></span><br><span class="line">          <span class="attr">order:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>Config Server对Vault的默认假定都可以通过spring.cloud.config.server.vault.*相关的属性重写。在这里，我们告诉Config Server，Vault的API可以通过<a target="_blank" rel="noopener" href="https://vault.tacocloud.com:8200/">https://vault.tacocloud.com:8200</a> 来访问。</p>
+<p>注意，我们保留了Git配置，假定Vault和Git分担了提供配置相关的职责。order属性表明Vault提供的私密属性要优先于Git提供的属性。</p>
+<p>在配置完Config Server使用Vault作为后端之后，我们可以使用curl命令伪装成一个客户端尝试一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[habuma:habuma]% curl localhost:8888/application/default | jq</span><br><span class="line">&#123;</span><br><span class="line">  &quot;timestamp&quot;: &quot;2018-04-29T23:33:22.275+0000&quot;,</span><br><span class="line">  &quot;status&quot;: 400,</span><br><span class="line">  &quot;error&quot;: &quot;Bad Request&quot;,</span><br><span class="line">  &quot;message&quot;: &quot;Missing required header: X-Config-Token&quot;,</span><br><span class="line">  &quot;path&quot;: &quot;/application/default&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>噢，不！似乎出现问题了。实际上，这个错误表明Config Server提供来自Vault的私密信息，但是请求中没有包含Vault token。</p>
+<p>很重要的一点需要注意，对Vault的所有请求都要包含一个X-Vault-Token头信息。我们不会在Config Server本身中配置这个token，而是让每个Config Server客户端在向Config Server发送请求的时候在请求中包含X-Config-Token头信息。Config Server会接收到X-Config-Token头信息，然后将其转换成发送给Vault的X-Vault-Token头信息。</p>
+<p>我们可以看到，因为在请求中缺少这个token，所以Config Server拒绝提供任何属性，甚至连Git中的属性都不可用了，因为在暴露私密的信息之前需要一个token。这是组合使用Vault和Git的一个有趣的副作用，除非提供一个合法的token，否则连Git属性都会被Config Server间接隐藏。</p>
+<p>我们可以再尝试一下，在请求中添加一个X-Config-Token头信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:8888/application/default</span><br><span class="line">        -H&quot;X-Config-Token: roottoken&quot; | jq</span><br></pre></td></tr></table></figure>
+
+<p>请求中的这个X-Config-Token头信息应该会产生更好的结果，响应中将会包含我们写入到Vault中的私密信息。这里给出的token是在我们以开发模式启动Vault的时候设置的根token，但实际上Vault服务器创建的所有合法、未过期且具有访问Vault私密后端的token都是可以的。</p>
+<h3 id="在Config-Server客户端设置Vault-token"><a href="#在Config-Server客户端设置Vault-token" class="headerlink" title="在Config Server客户端设置Vault token"></a>在Config Server客户端设置Vault token</h3><p>显然，在每个微服务中，我们不能使用curl来指定消费Config Server属性的token。相反，我们应该在服务应用的本地配置中添加一点配置信息：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">token:</span> <span class="string">roottoken</span></span><br></pre></td></tr></table></figure>
+
+<p>spring.cloud.config.token属性会告诉Config Server客户端在每次向ConfigServer发送请求的时候都要带上给定的token。这个属性必须设置到应用的本地配置中（而不能存放到Config Server的Git或Vault中），Config Server才能够将其传递到Vault上，从而访问私密属性。</p>
+<h3 id="写入特定应用和特定profile的私密信息"><a href="#写入特定应用和特定profile的私密信息" class="headerlink" title="写入特定应用和特定profile的私密信息"></a>写入特定应用和特定profile的私密信息</h3><p>在为Config Server提供服务的时候，写入application路径的属性适用于所有的应用，不管它们的名字是什么。如果我们想要写入针对给定应用的私密属性，就需要将路径中的application部分改成应用的名称。例如，如下的vault write命令会为名为ingredient-service的应用（通过其spring.application.name属性指定）写入专有的私密信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault write secret/ingredient-service \</span><br><span class="line">              spring.data.mongodb.password=s3cr3t</span><br></pre></td></tr></table></figure>
+
+<p>类似的，如果我们不指定profile，写入Vault的私密信息就会成为默认profile属性的一部分。也就是说，不管哪个profile处于激活状态，客户端都能收到这些私密信息。我们可能想要将私密信息写入到特定的profile中，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% vault write secret/application,production \</span><br><span class="line">              spring.data.mongodb.password=s3cr3t \</span><br><span class="line">              spring.data.mongodb.username=tacocloud</span><br></pre></td></tr></table></figure>
+
+<p>这种方式写入的私密信息只对激活profile为production的应用有效。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/442a9225/" title="14.5 保持配置属性的私密性">https://lanlan2017.github.io/ReadingNotes/442a9225/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/7bab10e2/" rel="prev" title="14.4 提供特定应用和profile的属性">
+                  <i class="fa fa-chevron-left"></i> 14.4 提供特定应用和profile的属性
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/9311c105/" rel="next" title="14.6 在运行时刷新配置属性">
+                  14.6 在运行时刷新配置属性 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/442a9225/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/442a9225/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

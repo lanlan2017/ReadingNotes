@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="Java UDP网络编程相关类&amp;nbsp;DatagramSocket类&amp;nbsp;&#96;DatagramPacket&#96;类&amp;nbsp;UDP客户端编程步骤&amp;nbsp;建立连接&amp;nbsp;发送数据&amp;nbsp;客户端接收数据&amp;nbsp;关闭&amp;nbsp;UDP服务端网络编程&amp;nbsp;第一步监听窗口，建立连接&amp;nbsp;第二步：接收客户端的数据&amp;nbsp;第三步：处理接收的数据，给出响应&amp;nbsp;实例&amp;n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UDP网络编程">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/b6cecc51/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="Java UDP网络编程相关类&amp;nbsp;DatagramSocket类&amp;nbsp;&#96;DatagramPacket&#96;类&amp;nbsp;UDP客户端编程步骤&amp;nbsp;建立连接&amp;nbsp;发送数据&amp;nbsp;客户端接收数据&amp;nbsp;关闭&amp;nbsp;UDP服务端网络编程&amp;nbsp;第一步监听窗口，建立连接&amp;nbsp;第二步：接收客户端的数据&amp;nbsp;第三步：处理接收的数据，给出响应&amp;nbsp;实例&amp;n">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/fzgDZkV.png">
+<meta property="og:image" content="https://i.imgur.com/ONgEpnm.png">
+<meta property="og:image" content="https://i.imgur.com/gPAL9qU.png">
+<meta property="article:published_time" content="2018-08-18T07:50:10.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/fzgDZkV.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/b6cecc51/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/b6cecc51/","path":"/b6cecc51/","title":"UDP网络编程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>UDP网络编程 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-UDP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">Java UDP网络编程相关类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DatagramSocket%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">DatagramSocket类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DatagramPacket%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">DatagramPacket类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%96%E7%A8%8B%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">UDP客户端编程步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.1.</span> <span class="nav-text">建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE"><span class="nav-number">2.2.</span> <span class="nav-text">发送数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">2.3.</span> <span class="nav-text">客户端接收数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD"><span class="nav-number">2.4.</span> <span class="nav-text">关闭</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">UDP服务端网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E7%9B%91%E5%90%AC%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.1.</span> <span class="nav-text">第一步监听窗口，建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%8E%A5%E6%94%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">第二步：接收客户端的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%A4%84%E7%90%86%E6%8E%A5%E6%94%B6%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E7%BB%99%E5%87%BA%E5%93%8D%E5%BA%94"><span class="nav-number">3.3.</span> <span class="nav-text">第三步：处理接收的数据，给出响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%AC%A1%E5%8F%91%E9%80%81%E5%A4%9A%E6%AC%A1%E6%8E%A5%E6%94%B6"><span class="nav-number">5.</span> <span class="nav-text">多次发送多次接收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5%EF%BC%9A%E5%BE%97%E4%B8%8D%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%93%8D%E5%BA%94%EF%BC%8C%E4%B8%80%E7%9B%B4%E9%98%BB%E5%A1%9E"><span class="nav-number">5.1.</span> <span class="nav-text">情况：得不到服务器的响应，一直阻塞</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/b6cecc51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="UDP网络编程 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UDP网络编程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-18 15:50:10" itemprop="dateCreated datePublished" datetime="2018-08-18T15:50:10+08:00">2018-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">java 网络编程</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/b6cecc51/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/b6cecc51/" data-xid="/ReadingNotes/b6cecc51/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/b6cecc51/#Java-UDP网络编程相关类" class="header_2">Java UDP网络编程相关类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#DatagramSocket类" class="header_3">DatagramSocket类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#-DatagramPacket-类" class="header_3">`DatagramPacket`类</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#UDP客户端编程步骤" class="header_2">UDP客户端编程步骤</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#建立连接" class="header_3">建立连接</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#发送数据" class="header_3">发送数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#客户端接收数据" class="header_3">客户端接收数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#关闭" class="header_3">关闭</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#UDP服务端网络编程" class="header_2">UDP服务端网络编程</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第一步监听窗口，建立连接" class="header_3">第一步监听窗口，建立连接</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第二步：接收客户端的数据" class="header_3">第二步：接收客户端的数据</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#第三步：处理接收的数据，给出响应" class="header_3">第三步：处理接收的数据，给出响应</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#实例" class="header_2">实例</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#多次发送多次接收" class="header_2">多次发送多次接收</a>&nbsp;<br><a href="/ReadingNotes/b6cecc51/#情况：得不到服务器的响应，一直阻塞" class="header_3">情况：得不到服务器的响应，一直阻塞</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sihai12345/article/details/79334299">https://blog.csdn.net/sihai12345/article/details/79334299</a></p>
+<p>网络通讯的方式除了<code>TCP</code>方式以外，还有一种实现的方式就是<code>UDP</code>方式。<code>UDP(User Datagram Protocol)</code>，中文意思是<strong>用户数据报协议</strong>，方式类似于发短信息，是一种物美价廉的通讯方式，使用<strong>该种方式无需建立专用的虚拟连接</strong>，由于无需建立专用的连接，所以<strong>对于服务器的压力要比<code>TCP</code>小很多</strong>，所以也是一种常见的网络编程方式。但是使用<strong>该种方式最大的不足是传输不可靠</strong>，当然也不是说经常丢失，就像大家发短信息一样，理论上存在收不到的可能，这种可能性可能是<code>1%</code>，反正比较小，但是由于这种可能的存在，所以平时我们都觉得重要的事情还是打个电话吧(类似<code>TCP</code>方式)，一般的事情才发短信息(类似<code>UDP</code>方式)。网络编程中也是这样，<strong>必须要求可靠传输的信息一般使用<code>TCP</code>方式实现，一般的数据才使用<code>UDP</code>方式实现。</strong></p>
+<p><code>UDP</code>方式的网络编程也在<code>Java</code>语言中获得了良好的支持，由于其在传输数据的过程中不需要建立专用的连接等特点，所以在<code>Java API</code>中设计的实现结构和<code>TCP</code>方式不太一样。当然，需要使用的类还是包含在<code>java.net</code>包中。</p>
+<h2 id="Java-UDP网络编程相关类"><a href="#Java-UDP网络编程相关类" class="headerlink" title="Java UDP网络编程相关类"></a>Java UDP网络编程相关类</h2><p>在<code>Java API</code>中，实现<code>UDP</code>方式的编程，包含<code>客户端网络编程</code>和<code>服务器端网络编程</code>，主要由两个类实现，分别是：</p>
+<h3 id="DatagramSocket类"><a href="#DatagramSocket类" class="headerlink" title="DatagramSocket类"></a>DatagramSocket类</h3><p><code>DatagramSocket</code>类实现“<strong>网络连接</strong>”，包括客户端网络连接和服务器端网络连接。虽然UDP方式的网络通讯不需要建立专用的网络连接，但是毕竟还是需要发送和接收数据，**<code>DatagramSocket</code>实现的就是发送数据时的发射器，以及接收数据时的监听器的角色。**类比于TCP中的网络连接，该类既可以用于实现客户端连接，也可以用于实现服务器端连接。</p>
+<h3 id="DatagramPacket类"><a href="#DatagramPacket类" class="headerlink" title="DatagramPacket类"></a><code>DatagramPacket</code>类</h3><p><strong><code>DatagramPacket</code>类实现对于网络中传输的数据封装</strong>，也就是说，<strong>该类的对象代表网络中交换的<code>数据</code><strong>。<br><strong>在<code>UDP</code>方式的网络编程中，无论是需要发送的数据还是需要接收的数据，都必须被处理成<code>DatagramPacket</code>类型的对象</strong>，该对象中包含<code>发送到的地址</code>、<code>发送到的端口号</code>以及<code>发送的内容</code>等。其实<code>DatagramPacket</code>类的作用类似于现实中的信件，在信件中包含信件发送到的地址以及接收人，还有发送的内容等，邮局只需要按照地址传递即可。在接收数据时，接收到的数据也必须被处理成<code>DatagramPacket</code>类型的对象，在该对象中包含发送方的地址、端口号等信息，也包含数据的内容。和<code>TCP</code>方式的网络传输相比，</strong><code>IO</code>编程在<code>UDP</code>方式的网络编程中变得不是必须的内容</strong>，结构也要比<code>TCP</code>方式的网络编程简单一些。</p>
+<p>下面介绍一下UDP方式的网络编程中，客户端和服务器端的实现步骤，以及通过基础的示例演示UDP方式的网络编程在Java语言中的实现方式。</p>
+<p>UDP方式的网络编程，编程的步骤和TCP方式类似，只是使用的类和方法存在比较大的区别，下面首先介绍一下UDP方式的网络编程客户端实现过程。</p>
+<h2 id="UDP客户端编程步骤"><a href="#UDP客户端编程步骤" class="headerlink" title="UDP客户端编程步骤"></a>UDP客户端编程步骤</h2><p>UDP客户端编程涉及的步骤也是4个部分：<strong>建立连接</strong>、<strong>发送数据</strong>、<strong>接收数据</strong>和<strong>关闭连接</strong>。</p>
+<h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><p>首先介绍UDP方式的网络编程中建立连接的实现。其中<strong>UDP方式的建立连接和TCP方式不同，只需要建立一个连接对象即可，不需要指定服务器的IP和端口号码</strong>。实现的代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatagramSocket ds = new DatagramSocket();</span><br></pre></td></tr></table></figure>
+<p>这样就建立了一个客户端连接，<strong>该客户端连接使用系统随机分配的一个本地计算机的未用端口号</strong>。在该连接中，不指定服务器端的IP和端口，所以UDP方式的网络连接更像一个发射器，而不是一个具体的连接。<br>当然，可以通过制定连接使用的端口号来创建客户端连接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatagramSocket ds = new DatagramSocket(5000);</span><br></pre></td></tr></table></figure>
+<p>这样就是使用本地计算机的<code>5000</code>号端口建立了一个连接。<strong>一般在建立客户端连接时没有必要指定端口号码。</strong></p>
+<h3 id="发送数据"><a href="#发送数据" class="headerlink" title="发送数据"></a>发送数据</h3><p>接着，介绍一下UDP客户端编程中发送数据的实现。<strong>在UDP方式的网络编程中，IO技术不是必须的</strong>，<strong>发送数据步骤：</strong></p>
+<ul>
+<li>需要将需要发送的数据内容首先转换为<code>byte</code>数组，</li>
+<li>然后将<code>数据内容</code>、<code>服务器IP</code>和<code>服务器端口号</code>一起构造成一个<code>DatagramPacket</code>类型的对象，这样数据的准备就完成了，</li>
+<li>发送时调用网络连接对象中的send方法发送该对象即可。</li>
+</ul>
+<p>例如将字符串“<code>Hello</code>”发送到IP是<code>127.0.0.1</code>，端口号是<code>10001</code>的服务器，则实现发送数据的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> “Hello”;</span><br><span class="line"><span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> “<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”;</span><br><span class="line"><span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">10001</span>;</span><br><span class="line"><span class="comment">//将发送的内容转换为byte数组</span></span><br><span class="line"><span class="type">byte</span>[] byteToSend = s.getBytes();</span><br><span class="line"><span class="comment">//将服务器IP转换为InetAddress对象</span></span><br><span class="line"><span class="type">InetAddress</span> <span class="variable">serverIP</span> <span class="operator">=</span> InetAddress.getByName(host);</span><br><span class="line"><span class="comment">//构造发送的数据包对象,数据包中放入数据，目的地址，目的端口号</span></span><br><span class="line"><span class="type">DatagramPacket</span> <span class="variable">sendDp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(byteToSend,byteToSend.length,serverIP,port);</span><br><span class="line"><span class="comment">//发送数据</span></span><br><span class="line">ds.send(sendDp);</span><br></pre></td></tr></table></figure>
+<p>在该示例代码中，不管发送的数据内容是什么，都需要转换为byte数组，然后将服务器端的IP地址构造成InetAddress类型的对象，在准备完成以后，将这些信息构造成一个DatagramPacket类型的对象，发送的数据内容、服务器端的IP和端口号，都包含在DatagramPacket对象中。在准备完成以后，调用连接对象ds的send方法把DatagramPacket对象发送出去即可。</p>
+<p>按照UDP协议的约定，在进行数据传输时，系统只是尽全力传输数据，但是并不保证数据一定被正确传输，<strong>如果数据在传输过程中丢失，那就丢失了。</strong></p>
+<p>UDP方式在进行网络通讯时，也遵循“<strong>请求-响应</strong>”模型，<strong>在发送数据完成以后，就可以接收服务器端的反馈数据了。</strong></p>
+<h3 id="客户端接收数据"><a href="#客户端接收数据" class="headerlink" title="客户端接收数据"></a>客户端接收数据</h3><p>下面介绍一下UDP客户端编程中接收数据的实现。当数据发送出去以后，就可以接收服务器端的反馈信息了。<strong>接收数据在Java语言中的实现是这样的：</strong></p>
+<ul>
+<li>首先构造一个数据缓冲数组，该数组用于存储接收的服务器端反馈数据，该数组的长度必须大于或等于服务器端反馈的实际有效数据的长度。</li>
+<li>然后以该缓冲数组为基础构造一个DatagramPacket数据包对象，</li>
+<li>最后调用连接对象的receive方法接收数据即可。</li>
+</ul>
+<p>接收到的服务器端反馈数据存储在DatagramPacket类型的对象内部。实现接收数据以及显示服务器端反馈内容的示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步,构造缓冲数组用于接收数据</span></span><br><span class="line"><span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="comment">//第二步,构造数据包对象</span></span><br><span class="line"><span class="type">DatagramPacket</span> <span class="variable">received</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(data,data.length);</span><br><span class="line"><span class="comment">//接收数据</span></span><br><span class="line">ds.receive(receiveDp);</span><br><span class="line"><span class="comment">//输出数据内容</span></span><br><span class="line"><span class="type">byte</span>[] b = receiveDp.getData(); <span class="comment">//获得缓冲数组</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> receiveDp.getLength(); <span class="comment">//获得有效数据长度</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(b,<span class="number">0</span>,len);</span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure>
+<p>在该代码中，首先构造缓冲数组<code>data</code>，这里设置的长度<code>1024</code>是预估的接收到的数据长度，要求该长度必须大于或等于接收到的数据长度，然后以该缓冲数组为基础，构造数据包对象，使用连接对象<code>ds</code>的<code>receive</code>方法接收反馈数据，由于在<code>Java</code>语言中，除<code>String</code>以外的其它对象都是按照地址传递，所以在<code>receive</code>方法内部可以改变数据包对象<code>receiveDp</code>的内容，这里的<code>receiveDp</code>的功能和返回值类似。数据接收到以后，只需要从数据包对象中读取出来就可以了，使用<code>DatagramPacket</code>对象中的<code>getData</code>方法可以获得数据包对象的缓冲区数组，但是缓冲区数组的长度一般大于有效数据的长度，换句话说，也就是缓冲区数组中只有一部分数据是反馈数据，所以需要使用<code>DatagramPacket</code>对象中的<code>getLength</code>方法获得有效数据的长度，则有效数据就是缓冲数组中的前有效数据长度个内容，这些才是真正的服务器端反馈的数据的内容。</p>
+<h3 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h3><p>UDP方式客户端网络编程的最后一个步骤就是关闭连接。虽然UDP方式不建立专用的虚拟连接，但是连接对象还是需要占用系统资源，所以在使用完成以后必须关闭连接。关闭连接使用连接对象中的close方法即可，实现的代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.close();</span><br></pre></td></tr></table></figure>
+<p>需要说明的是，和TCP建立连接的方式不同，UDP方式的同一个网络连接对象，可以发送到达不同服务器端IP或端口的数据包，这点是TCP方式无法做到的。</p>
+<h2 id="UDP服务端网络编程"><a href="#UDP服务端网络编程" class="headerlink" title="UDP服务端网络编程"></a>UDP服务端网络编程</h2><p>介绍完了<code>UDP</code>方式客户端网络编程的基础知识以后，下面再来介绍一下<code>UDP</code>方式服务器端网络编程的基础知识。</p>
+<p><code>UDP</code>方式网络编程的服务器端实现和<code>TCP</code>方式的服务器端实现类似，也是服务器端监听某个端口，然后获得数据包，进行逻辑处理以后将处理以后的结果反馈给客户端，最后关闭网络连接，下面依次进行介绍。</p>
+<h3 id="第一步监听窗口，建立连接"><a href="#第一步监听窗口，建立连接" class="headerlink" title="第一步监听窗口，建立连接"></a>第一步监听窗口，建立连接</h3><p>首先<code>UDP</code>方式服务器端网络编程需要建立一个连接，该连接监听某个端口，实现的代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatagramSocket ds = new DatagramSocket(10010);</span><br></pre></td></tr></table></figure>
+<p>由于<strong>服务器端的端口需要固定，所以一般在建立服务器端连接时，都指定端口号。</strong>例如该示例代码中指定10010端口为服务器端使用的端口号，客户端端在连接服务器端时连接该端口号即可。</p>
+<h3 id="第二步：接收客户端的数据"><a href="#第二步：接收客户端的数据" class="headerlink" title="第二步：接收客户端的数据"></a>第二步：接收客户端的数据</h3><p>接着服务器端就开始接收客户端发送过来的数据，其接收的方法和客户端接收的方法一直，其中<code>receive</code>方法的作用类似于<code>TCP</code>方式中<code>accept</code>方法的作用，该方法也是一个阻塞方法，其作用是接收数据。</p>
+<h3 id="第三步：处理接收的数据，给出响应"><a href="#第三步：处理接收的数据，给出响应" class="headerlink" title="第三步：处理接收的数据，给出响应"></a>第三步：处理接收的数据，给出响应</h3><p>接收到客户端发送过来的数据以后，服务器端对该数据进行逻辑处理，然后将处理以后的结果再发送给客户端，<strong>在这里发送时就比客户端要麻烦一些，因为服务器端需要获得客户端的IP和客户端使用的端口号</strong>，这个都可以<code>从接收到的数据包中获得</code>。示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获得客户端的IP</span></span><br><span class="line"><span class="type">InetAddress</span> <span class="variable">clientIP</span> <span class="operator">=</span> receiveDp.getAddress();</span><br><span class="line"><span class="comment">//获得客户端的端口号</span></span><br><span class="line"><span class="type">Int</span> <span class="variable">clientPort</span> <span class="operator">=</span> receiveDp.getPort();</span><br></pre></td></tr></table></figure>
+<p>使用以上代码，就可以从接收到的数据包对象<code>receiveDp</code>中获得客户端的<code>IP</code>地址和客户端的端口号，这样就可以在服务器端中将处理以后的数据构造成数据包对象，然后将处理以后的数据内容反馈给客户端了。</p>
+<p>最后，当服务器端实现完成以后，关闭服务器端连接，实现的方式为调用连接对象的<code>close</code>方法，示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.close();</span><br></pre></td></tr></table></figure>
+<p>介绍完了<code>UDP</code>方式下的客户端编程和服务器端编程的基础知识以后，下面通过一个简单的示例演示<code>UDP</code>网络编程的基本使用。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>该实例的功能是实现<strong>将客户端程序的系统时间发送给服务器端，服务器端接收到时间以后，向客户端反馈字符串“<code>OK</code>”。</strong>实现该功能的客户端代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> udp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简单的UDP客户端，实现向服务器端发生系统时间功能</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleUDPClient</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">DatagramSocket</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="literal">null</span>; <span class="comment">// 连接对象</span></span><br><span class="line">        DatagramPacket sendDp; <span class="comment">// 发送数据包对象</span></span><br><span class="line">        DatagramPacket receiveDp; <span class="comment">// 接收数据包对象</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">serverHost</span> <span class="operator">=</span> <span class="string">&quot;127.0.0.1&quot;</span>; <span class="comment">// 服务器IP</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">serverPort</span> <span class="operator">=</span> <span class="number">10010</span>; <span class="comment">// 服务器端口号</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 建立连接,自动分配一个空闲端口</span></span><br><span class="line">            ds = <span class="keyword">new</span> <span class="title class_">DatagramSocket</span>();</span><br><span class="line">            <span class="comment">// 初始化发送数据</span></span><br><span class="line">            <span class="type">Date</span> <span class="variable">d</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(); <span class="comment">// 当前时间</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> d.toString(); <span class="comment">// 转换为字符串</span></span><br><span class="line">            <span class="type">byte</span>[] data = content.getBytes();</span><br><span class="line">            <span class="comment">// 初始化IP地址</span></span><br><span class="line">            <span class="type">InetAddress</span> <span class="variable">address</span> <span class="operator">=</span> InetAddress.getByName(serverHost);</span><br><span class="line">            <span class="comment">// 初始化发送包对象 数据,数据的长度,IP地址,端口号</span></span><br><span class="line">            sendDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(data, data.length, address, serverPort);</span><br><span class="line">            <span class="comment">// 发送这个数据包</span></span><br><span class="line">            ds.send(sendDp);</span><br><span class="line">            <span class="comment">// 初始化接收数据</span></span><br><span class="line">            <span class="type">byte</span>[] receive = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            receiveDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(receive, receive.length);</span><br><span class="line">            <span class="comment">// 从服务器接收数据包,</span></span><br><span class="line">            ds.receive(receiveDp);</span><br><span class="line">            <span class="comment">// 读取反馈内容，并输出</span></span><br><span class="line">            <span class="type">byte</span>[] response = receiveDp.getData();</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> receiveDp.getLength();</span><br><span class="line">            <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(response, <span class="number">0</span>, len);</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器端反馈为：&quot;</span> + s);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                ds.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e)</span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在该示例代码中，首先建立<code>UDP</code>方式的网络连接，然后获得当前系统时间，这里获得的系统时间是客户端程序运行的本地计算机的时间，然后将时间字符串以及服务器端的<code>IP</code>和端口，构造成发送数据包对象，调用连接对象<code>ds</code>的<code>send</code>方法发送出去。在数据发送出去以后，构造接收数据的数据包对象，调用连接对象<code>ds</code>的<code>receive</code>方法接收服务器端的反馈，并输出在控制台。最后在<code>finally</code>语句块中关闭客户端网络连接。</p>
+<p>和下面将要介绍的服务器端一起运行时，客户端程序的输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">服务器端反馈为：OK</span><br></pre></td></tr></table></figure>
+<p>下面是该示例程序的服务器端代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> udp;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 简单UDP服务器端，实现功能是输出客户端发送数据，</span></span><br><span class="line"><span class="comment">并反馈字符串“OK&quot;给客户端</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleUDPServer</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">DatagramSocket</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="literal">null</span>; <span class="comment">//连接对象</span></span><br><span class="line">        DatagramPacket sendDp; <span class="comment">//发送数据包对象</span></span><br><span class="line">        DatagramPacket receiveDp; <span class="comment">//接收数据包对象</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">10010</span>; <span class="comment">//端口</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//建立连接，监听端口</span></span><br><span class="line">            ds = <span class="keyword">new</span> <span class="title class_">DatagramSocket</span>(PORT);</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器端已启动：&quot;</span>);</span><br><span class="line">            <span class="comment">//初始化接收数据</span></span><br><span class="line">            <span class="type">byte</span>[] b = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            receiveDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(b,b.length);</span><br><span class="line">            <span class="comment">//接收</span></span><br><span class="line">            ds.receive(receiveDp);</span><br><span class="line">            <span class="comment">//读取反馈内容，并输出</span></span><br><span class="line">            <span class="type">InetAddress</span> <span class="variable">clientIP</span> <span class="operator">=</span> receiveDp.getAddress();</span><br><span class="line">            <span class="type">int</span> <span class="variable">clientPort</span> <span class="operator">=</span> receiveDp.getPort();</span><br><span class="line">            <span class="type">byte</span>[] data = receiveDp.getData();</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> receiveDp.getLength();</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端IP：&quot;</span> + clientIP.getHostAddress());</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端端口：&quot;</span> + clientPort);</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端发送内容：&quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(data,<span class="number">0</span>,len));</span><br><span class="line">            <span class="comment">//发送反馈</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">response</span> <span class="operator">=</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">            <span class="type">byte</span>[] bData = response.getBytes();</span><br><span class="line">            sendDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(bData,bData.length,clientIP,clientPort);</span><br><span class="line">            <span class="comment">//发送</span></span><br><span class="line">            ds.send(sendDp);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//关闭连接,释放占用的端口</span></span><br><span class="line">                ds.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在该服务器端实现中，首先监听<code>10010</code>号端口，和<code>TCP</code>方式的网络编程类似，服务器端的<code>receive</code>方法是阻塞方法，如果客户端不发送数据，则程序会在该方法处阻塞。</p>
+<p>当客户端发送数据到达服务器端时，则接收客户端发送过来的数据，然后将客户端发送的数据内容读取出来，并在服务器端程序中打印客户端的相关信息，<strong>从客户端发送过来的数据包中可以读取出客户端的<code>IP</code>以及客户端端口号</strong>，将反馈数据字符串“<code>OK</code>”发送给客户端，最后关闭服务器端连接，释放占用的系统资源，完成程序功能示例。</p>
+<p>运行结果：<br><img data-src="https://i.imgur.com/fzgDZkV.png"></p>
+<p>和前面<code>TCP</code>方式中的网络编程类似，这个示例也仅仅是网络编程的功能示例，也存在前面介绍的客户端无法进行多次数据交换，以及服务器端不支持多个客户端的问题，这两个问题也需要对于代码进行处理才可以很方便的进行解决。</p>
+<p>在解决该问题以前，需要特别指出的是<code>UDP</code>方式的网络编程由于不建立虚拟的连接，所以在实际使用时和<code>TCP</code>方式存在很多的不同，最大的一个不同就是“<code>无状态</code>”。该特点指每次服务器端都收到信息，但是这些信息和连接无关，换句话说，也就是服务器端只是从信息是无法识别出是谁发送的，这样就要求发送信息时的内容需要多一些，这个在后续的示例中可以看到。</p>
+<h2 id="多次发送多次接收"><a href="#多次发送多次接收" class="headerlink" title="多次发送多次接收"></a>多次发送多次接收</h2><p>下面是实现客户端多次发送以及服务器端支持多个数据包同时处理的程序结构，实现的原理和<code>TCP</code>方式类似，在<strong>客户端将数据的发送和接收放入循环中，而服务器端则将接收到的每个数据包启动一个专门的线程进行处理。</strong>实现的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> udp;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 简单的UDP客户端，实现向服务器端发生系统时间功能</span></span><br><span class="line"><span class="comment">* 该程序发送3次数据到服务器端</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulUDPClient</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">DatagramSocket</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="literal">null</span>; <span class="comment">//连接对象</span></span><br><span class="line">        DatagramPacket sendDp; <span class="comment">//发送数据包对象</span></span><br><span class="line">        DatagramPacket receiveDp; <span class="comment">//接收数据包对象</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">serverHost</span> <span class="operator">=</span> <span class="string">&quot;127.0.0.1&quot;</span>; <span class="comment">//服务器IP</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">serverPort</span> <span class="operator">=</span> <span class="number">10012</span>; <span class="comment">//服务器端口号</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//建立连接</span></span><br><span class="line">            ds = <span class="keyword">new</span> <span class="title class_">DatagramSocket</span>();</span><br><span class="line">            <span class="comment">//初始化</span></span><br><span class="line">            <span class="type">InetAddress</span> <span class="variable">address</span> <span class="operator">=</span> InetAddress.getByName(serverHost);</span><br><span class="line">            <span class="type">byte</span>[] b = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            receiveDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(b,b.length);</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端准备完成&quot;</span>);</span><br><span class="line">            <span class="comment">//循环10次，每次间隔0.01秒</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">10</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//初始化发送数据</span></span><br><span class="line">                <span class="type">Date</span> <span class="variable">d</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(); <span class="comment">//当前时间</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> d.toString(); <span class="comment">//转换为字符串</span></span><br><span class="line">                <span class="type">byte</span>[] data = content.getBytes();</span><br><span class="line">                <span class="comment">//初始化发送包对象</span></span><br><span class="line">                sendDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(data,data.length,address, serverPort);</span><br><span class="line">                <span class="comment">//发送</span></span><br><span class="line">                ds.send(sendDp);</span><br><span class="line">                <span class="comment">//延迟</span></span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                <span class="comment">//接收</span></span><br><span class="line">                ds.receive(receiveDp);</span><br><span class="line">                <span class="comment">//读取反馈内容，并输出</span></span><br><span class="line">                <span class="type">byte</span>[] response = receiveDp.getData();</span><br><span class="line">                <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> receiveDp.getLength();</span><br><span class="line">                <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(response,<span class="number">0</span>,len);</span><br><span class="line">                System.out.println(<span class="string">&quot;服务器端反馈为：&quot;</span> + s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//关闭连接</span></span><br><span class="line">                ds.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在该示例中，将和服务器端进行数<strong>据交换的逻辑写在一个for循环的内部，这样就可以实现和服务器端的多次交换了</strong>，考虑到服务器端的响应速度，在每次发送之间加入0.01秒的时间间隔。最后当数据交换完成以后关闭连接，结束程序。</p>
+<p>实现该逻辑的服务器端程序代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> udp;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 可以并发处理数据包的服务器端</span></span><br><span class="line"><span class="comment">* 功能为：显示客户端发送的内容，并向客户端反馈字符串“OK”</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulUDPServer</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">DatagramSocket</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="literal">null</span>; <span class="comment">//连接对象</span></span><br><span class="line">        DatagramPacket receiveDp; <span class="comment">//接收数据包对象</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">10012</span>; <span class="comment">//端口</span></span><br><span class="line">        <span class="type">byte</span>[] b = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        receiveDp = <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(b,b.length);</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//建立连接，监听端口</span></span><br><span class="line">            ds = <span class="keyword">new</span> <span class="title class_">DatagramSocket</span>(PORT);</span><br><span class="line">            System.out.println(<span class="string">&quot;服务器端已启动：&quot;</span>);</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//接收</span></span><br><span class="line">                ds.receive(receiveDp);</span><br><span class="line">                <span class="comment">//启动线程处理数据包</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">LogicThread</span>(ds,receiveDp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//关闭连接</span></span><br><span class="line">                ds.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>该代码实现了服务器端的接收逻辑，使用一个循环来接收客户端发送过来的数据包，当接收到数据包以后启动一个LogicThread线程处理该数据包。这样服务器端就可以实现同时处理多个数据包了。</p>
+<p>实现逻辑处理的线程代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> udp;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 逻辑处理线程</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogicThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**连接对象*/</span></span><br><span class="line">    DatagramSocket ds;</span><br><span class="line">    <span class="comment">/**接收到的数据包*/</span></span><br><span class="line">    DatagramPacket dp;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LogicThread</span><span class="params">(DatagramSocket ds,DatagramPacket dp)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">this</span>.ds = ds;</span><br><span class="line">        <span class="built_in">this</span>.dp = dp;</span><br><span class="line">        start(); <span class="comment">//启动线程</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//获得缓冲数组</span></span><br><span class="line">            <span class="type">byte</span>[] data = dp.getData();</span><br><span class="line">            <span class="comment">//获得有效数据长度</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> dp.getLength();</span><br><span class="line">            <span class="comment">//客户端IP</span></span><br><span class="line">            <span class="type">InetAddress</span> <span class="variable">clientAddress</span> <span class="operator">=</span> dp.getAddress();</span><br><span class="line">            <span class="comment">//客户端端口</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">clientPort</span> <span class="operator">=</span> dp.getPort();</span><br><span class="line">            <span class="comment">//输出</span></span><br><span class="line">            System.out.println(<span class="string">&quot;客户端IP：&quot;</span> + clientAddress.getHostAddress());</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端端口号：&quot;</span> + clientPort);</span><br><span class="line">            System.out.println(<span class="string">&quot;客户端发送内容：&quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(data,<span class="number">0</span>,len));</span><br><span class="line">            <span class="comment">//反馈到客户端</span></span><br><span class="line">            <span class="type">byte</span>[] b = <span class="string">&quot;OK&quot;</span>.getBytes();</span><br><span class="line">            <span class="type">DatagramPacket</span> <span class="variable">sendDp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DatagramPacket</span>(b,b.length,clientAddress,clientPort);</span><br><span class="line">            <span class="comment">//发送</span></span><br><span class="line">            ds.send(sendDp);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在该线程中，只处理一次UDP通讯，当通讯结束以后线程死亡，在线程内部，每次获得客户端发送过来的信息，将获得的信息输出到服务器端程序的控制台，然后向客户端反馈字符串“OK”。</p>
+<p><strong>由于UDP数据传输过程中可能存在丢失，所以在运行该程序时可能会出现程序阻塞的情况。</strong>如果需要避免该问题，可以<strong>将客户端的网络发送部分也修改成线程实现</strong>。</p>
+<h3 id="情况：得不到服务器的响应，一直阻塞"><a href="#情况：得不到服务器的响应，一直阻塞" class="headerlink" title="情况：得不到服务器的响应，一直阻塞"></a>情况：得不到服务器的响应，一直阻塞</h3><p><img data-src="https://i.imgur.com/ONgEpnm.png"><br>正常运行的情况：<br><img data-src="https://i.imgur.com/gPAL9qU.png"><br>客户端接收响应的时候，设置超时时间，超时的时候停止等待接收。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; 10;i++)</span><br><span class="line">&#123;</span><br><span class="line">    //初始化发送数据</span><br><span class="line">    Date d = new Date(); //当前时间</span><br><span class="line">    String content = d.toString(); //转换为字符串</span><br><span class="line">    byte[] data = content.getBytes();</span><br><span class="line">    //初始化发送包对象</span><br><span class="line">    sendDp = new DatagramPacket(data,data.length,address, serverPort);</span><br><span class="line">    //发送</span><br><span class="line">    ds.send(sendDp);</span><br><span class="line">    //设置接收的延时如果超过这个时间就不在等待接收</span><br><span class="line">    ds.setSoTimeout(3000);</span><br><span class="line">    //接收</span><br><span class="line">    ds.receive(receiveDp);</span><br><span class="line">    //读取反馈内容，并输出</span><br><span class="line">    byte[] response = receiveDp.getData();</span><br><span class="line">    int len = receiveDp.getLength();</span><br><span class="line">    String s = new String(response,0,len);</span><br><span class="line">    System.out.println(&quot;服务器端反馈为：&quot; + s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样当客户端长时间接收不到服务器的响应的时候，就会抛出<code>java.net.SocketTimeoutException</code>异常，客户端被终止运行。<br>超时的运行效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">客户端准备完成</span><br><span class="line">服务器端反馈为：OK</span><br><span class="line">java.net.SocketTimeoutException: Receive timed out</span><br><span class="line">        at java.net.DualStackPlainDatagramSocketImpl.socketReceiveOrPeekData(Native Method)</span><br><span class="line">        at java.net.DualStackPlainDatagramSocketImpl.receive0(DualStackPlainDatagramSocketImpl.java:124)</span><br><span class="line">        at java.net.AbstractPlainDatagramSocketImpl.receive(AbstractPlainDatagramSocketImpl.java:143)</span><br><span class="line">        at java.net.DatagramSocket.receive(DatagramSocket.java:812)</span><br><span class="line">        at udp.MulUDPClient.main(MulUDPClient.java:40)</span><br></pre></td></tr></table></figure>
+<p>关于基础的UDP网络编程就介绍这么多了，下面将介绍一下网络协议的概念。</p>
+<blockquote>
+<p>原文链接: <a target="_blank" rel="noopener" href="https://www.lansheng.net.cn/blog/b6cecc51/">UDP网络编程</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/b6cecc51/" title="UDP网络编程">https://lanlan2017.github.io/ReadingNotes/b6cecc51/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/5eef6183/" rel="prev" title="5TCP编程优化">
+                  <i class="fa fa-chevron-left"></i> 5TCP编程优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/12786bb5/" rel="next" title="7网络协议">
+                  7网络协议 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/b6cecc51/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/b6cecc51/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

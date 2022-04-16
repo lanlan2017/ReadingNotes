@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="21.4 组合模式的扩展21.4.1 真实的组合模式什么是真实的组合模式？就是你在实际项目中使用的组合模式，而不是仅仅依照书本上学习到的模式，它是“实践出真知”。在我们的例子中，经过精简后，确实是类、接口减少了很多，而且程序也简单很多，但是大家可能还是很迷茫，这个Client程序并没有改变多少呀，非常正确，树的组装是跑不了的，你要知道在项目中使用关系型数据库来存储这些信息，你可以从数据库中直接提取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21.4 组合模式的扩展">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/f87aebb/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="21.4 组合模式的扩展21.4.1 真实的组合模式什么是真实的组合模式？就是你在实际项目中使用的组合模式，而不是仅仅依照书本上学习到的模式，它是“实践出真知”。在我们的例子中，经过精简后，确实是类、接口减少了很多，而且程序也简单很多，但是大家可能还是很迷茫，这个Client程序并没有改变多少呀，非常正确，树的组装是跑不了的，你要知道在项目中使用关系型数据库来存储这些信息，你可以从数据库中直接提取">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929172935.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929173044.png">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929173339.png">
+<meta property="article:published_time" content="2021-09-29T09:35:37.000Z">
+<meta property="article:modified_time" content="2021-09-30T07:35:39.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929172935.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/f87aebb/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/f87aebb/","path":"/f87aebb/","title":"21.4 组合模式的扩展"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>21.4 组合模式的扩展 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#21-4-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">21.4 组合模式的扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-4-1-%E7%9C%9F%E5%AE%9E%E7%9A%84%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">21.4.1 真实的组合模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-4-2-%E9%80%8F%E6%98%8E%E7%9A%84%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">21.4.2 透明的组合模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-4-3-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.3.</span> <span class="nav-text">21.4.3 组合模式的遍历</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/f87aebb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="21.4 组合模式的扩展 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          21.4 组合模式的扩展
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-29 17:35:37" itemprop="dateCreated datePublished" datetime="2021-09-29T17:35:37+08:00">2021-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-30 15:35:39" itemprop="dateModified" datetime="2021-09-30T15:35:39+08:00">2021-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">设计模式之禅(第2版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/2-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9C%9F%E5%88%80%E5%AE%9E%E6%9E%AA-23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AE%8C%E7%BE%8E%E6%BC%94%E7%BB%8E/" itemprop="url" rel="index"><span itemprop="name">2 第二部分 真刀实枪 23种设计模式完美演绎</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85-%E7%AC%AC2%E7%89%88/2-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E7%9C%9F%E5%88%80%E5%AE%9E%E6%9E%AA-23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AE%8C%E7%BE%8E%E6%BC%94%E7%BB%8E/%E7%AC%AC21%E7%AB%A0-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">第21章 组合模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/f87aebb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/f87aebb/" data-xid="/ReadingNotes/f87aebb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="21-4-组合模式的扩展"><a href="#21-4-组合模式的扩展" class="headerlink" title="21.4 组合模式的扩展"></a>21.4 组合模式的扩展</h1><h2 id="21-4-1-真实的组合模式"><a href="#21-4-1-真实的组合模式" class="headerlink" title="21.4.1 真实的组合模式"></a>21.4.1 真实的组合模式</h2><p>什么是真实的组合模式？就是你在实际项目中使用的组合模式，而不是仅仅依照书本上学习到的模式，它是“实践出真知”。在我们的例子中，经过精简后，确实是类、接口减少了很多，而且程序也简单很多，但是大家可能还是很迷茫，这个Client程序并没有改变多少呀，非常正确，树的组装是跑不了的，你要知道在项目中使用关系型数据库来存储这些信息，你可以从数据库中直接提取出哪些人要分配到树枝，哪些人要分配到树叶，树枝与树枝、树叶的关系等，这些都是由相关的业务人员维护到数据库中的，通常这里是把数据存放到一张单独的表中，表结构如图21-7所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929172935.png" alt="image-20210929172935715"></p>
+<center>图21-7 关系数据库中存储的树形结构</center>
+
+<p>这张数据表定义了一个树形结构，我们要做的就是从数据库中把它读取出来，然后展现到前台上，用for循环加上递归就可以完成这个读取。用了数据库后，数据和逻辑已经在表中定义好了，我们直接读取放到树上就可以了，这个还是比较容易做的，大家不妨自己考虑一下。</p>
+<p>这才是组合模式的真实引用，它依靠了关系数据库的非对象存储性能，非常方便地保存了一个树形结构。大家可以在项目中考虑采用，想想看现在还有哪个项目不使用关系型数据库呢？</p>
+<h2 id="21-4-2-透明的组合模式"><a href="#21-4-2-透明的组合模式" class="headerlink" title="21.4.2 透明的组合模式"></a>21.4.2 透明的组合模式</h2><p>组合模式有两种不同的实现：透明模式和安全模式，我们上面讲的就是安全模式，那透明模式是什么样子呢？透明模式的通用类图，如图21-8所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929173044.png" alt="image-20210929173044473"></p>
+<center>图21-8 透明模式的通用类图</center>
+
+<p>我们与图21-6所示的安全模式类图对比一下就非常清楚了，透明模式是把用来组合使用的方法放到抽象类中，比如add()、remove()以及getChildren等方法（顺便说一下，getChildren 一般返回的结果为Iterable的实现类，很多，大家可以看JDK的帮助），不管叶子对象还是树枝对象都有相同的结构，通过判断是getChildren的返回值确认是叶子节点还是树枝节点，如果处理不当，这个会在运行期出现问题，不是很建议的方式；安全模式就不同了，它是把树枝节点和树叶节点彻底分开，树枝节点单独拥有用来组合的方法，这种方法比较安全，我们的例子使用了安全模式。</p>
+<p>由于透明模式的使用者还是比较多，我们也把它的通用源代码共享出来，首先看抽象构件，如代码清单21-22所示。</p>
+<p>代码清单21-22 抽象构件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Component</span> &#123;</span><br><span class="line">    <span class="comment">//个体和整体都具有的共享</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//编写业务逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//增加一个叶子构件或树枝构件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(Component component)</span>;</span><br><span class="line">    <span class="comment">//删除一个叶子构件或树枝构件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(Component component)</span>;</span><br><span class="line">    <span class="comment">//获得分支下的所有叶子构件和树枝构件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> ArrayList&lt;Component&gt; <span class="title function_">getChildren</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>抽象构件定义了树枝节点和树叶节点都必须具有的方法和属性，这样树枝节点的实现就不需要任何变化，如代码清单21-19所示。</p>
+<p>树叶节点继承了Component抽象类，不想让它改变有点难，它必须实现三个抽象方法， 怎么办？好办，给个空方法，如代码清单21-23所示。</p>
+<p>代码清单21-23 树叶节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Leaf</span> <span class="keyword">extends</span> <span class="title class_">Component</span> &#123;</span><br><span class="line">    <span class="meta">@Deprecated</span> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(Component component)</span> <span class="keyword">throws</span> UnsupportedOperationException&#123;</span><br><span class="line">        <span class="comment">//空实现,直接抛弃一个&quot;不支持请求&quot;异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Deprecated</span> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(Component component)</span><span class="keyword">throws</span> UnsupportedOperationException&#123;</span><br><span class="line">        <span class="comment">//空实现</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Deprecated</span> </span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Component&gt; <span class="title function_">getChildren</span><span class="params">()</span><span class="keyword">throws</span> UnsupportedOperationException&#123;</span><br><span class="line">        <span class="comment">//空实现</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么要加个Deprecated注解呢？就是在编译器期告诉调用者，你可以调我这个方法， 但是可能出现错误哦，我已经告诉你“该方法已经失效”了，你还使用那在运行期也会抛出UnsupportedOperationException异常。</p>
+<p>在透明模式下，遍历整个树形结构是比较容易的，不用进行强制类型转换，如代码清单21-24所示。</p>
+<p>代码清单21-24 树结构遍历</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="comment">//通过递归遍历树</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">display</span><span class="params">(Component root)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(Component c:root.getChildren())&#123;</span><br><span class="line">            <span class="keyword">if</span>(c <span class="keyword">instanceof</span> Leaf)&#123;</span><br><span class="line">                <span class="comment">//叶子节点</span></span><br><span class="line">                c.doSomething();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//树枝节点</span></span><br><span class="line">                display(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仅仅在遍历时不再进行牵制的类型转化了，其他的组装则没有任何变化。透明模式的好处就是它基本遵循了依赖倒转原则，方便系统进行扩展。</p>
+<h2 id="21-4-3-组合模式的遍历"><a href="#21-4-3-组合模式的遍历" class="headerlink" title="21.4.3 组合模式的遍历"></a>21.4.3 组合模式的遍历</h2><p>我们在上面也还提到了一个问题，就是树的遍历问题，从上到下遍历没有问题，但是我要是从下往上遍历呢？比如组织机构这棵树，我从中抽取一个用户，要找到它的上级有哪些，下级有哪些，怎么处理？想想，再想想！想出来了吧，我们对下答案，类图如图21-9所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20210929173339.png" alt="image-20210929173339475"></p>
+<center>图21-9 增加父查询的类图</center>
+看类图中，在Corp类中增加了两个方法，setParent是设置父节点是谁，getParent是查找父节点是谁，我们来看一下程序的改变，如代码清单21-25所示。
+
+<p>代码清单21-25 抽象构件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Corp</span> &#123;</span><br><span class="line">    <span class="comment">//公司每个人都有名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//公司每个人都职位</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">position</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//公司每个人都有薪水</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">salary</span> <span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">    <span class="comment">//父节点是谁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Corp</span> <span class="variable">parent</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Corp</span><span class="params">(String _name,String _position,<span class="type">int</span> _salary)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = _name;</span><br><span class="line">        <span class="built_in">this</span>.position = _position;</span><br><span class="line">        <span class="built_in">this</span>.salary = _salary;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得员工信息</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">info</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        info = <span class="string">&quot;姓名：&quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">        info = info + <span class="string">&quot;\t职位：&quot;</span>+ <span class="built_in">this</span>.position;</span><br><span class="line">        info = info + <span class="string">&quot;\t薪水：&quot;</span> + <span class="built_in">this</span>.salary;</span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//设置父节点</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">setParent</span><span class="params">(Corp _parent)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.parent = _parent;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//得到父节点</span></span><br><span class="line">    <span class="keyword">public</span> Corp <span class="title function_">getParent</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.parent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就增加了粗体部分，然后我们再来看看树枝节点的改变，如代码清单21-26所示。</p>
+<p>代码清单21-26 树枝构件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Branch</span> <span class="keyword">extends</span> <span class="title class_">Corp</span> &#123;</span><br><span class="line">    <span class="comment">//领导下边有哪些下级领导和小兵</span></span><br><span class="line">    ArrayList&lt;Corp&gt; subordinateList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Corp&gt;();</span><br><span class="line">    <span class="comment">//构造函数是必需的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Branch</span><span class="params">(String _name,String _position,<span class="type">int</span> _salary)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(_name,_position,_salary);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//增加一个下属，可能是小头目，也可能是个小兵</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addSubordinate</span><span class="params">(Corp corp)</span> &#123;</span><br><span class="line">        corp.setParent(<span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">//设置父节点</span></span><br><span class="line">        <span class="built_in">this</span>.subordinateList.add(corp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//我有哪些下属</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Corp&gt; <span class="title function_">getSubordinate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.subordinateList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>增加了粗体部分。看懂程序了吗？甭管是树枝节点还是树叶节点，在每个节点都增加了一个属性：父节点对象，这样在树枝节点增加子节点或叶子节点是设置父节点，然后你看整棵树除了根节点外每个节点都有一个父节点，剩下的事情还不好处理吗？每个节点上都有父节点了，你要往上找，那就找呗！大家自己考虑一下，写个find方法，然后一步一步往上找，非常简单的方法，这里就不再赘述。</p>
+<p>有了这个parent属性，什么后序遍历（从下往上找）、中序遍历（从中间某个环节往上或往下遍历）都解决了，这个就不多说了。</p>
+<p>再提一个问题，树叶节点和树枝节点是有顺序的，你不能乱排，怎么办？比如我们上面的例子，研发一组下边有3个成员，这3个成员要进行排序（在机关里这叫做排位，同样是同事也有个先后升迁顺序），你怎么处理？问我呀，问你呢，好好想想，以后用得着的！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/f87aebb/" title="21.4 组合模式的扩展">https://lanlan2017.github.io/ReadingNotes/f87aebb/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a875ee09/" rel="prev" title="21.3 组合模式的应用">
+                  <i class="fa fa-chevron-left"></i> 21.3 组合模式的应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/4887104b/" rel="next" title="21.5 最佳实践">
+                  21.5 最佳实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/f87aebb/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/f87aebb/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

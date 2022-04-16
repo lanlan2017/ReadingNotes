@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="9.3 创建Email集成流我们决定Taco Cloud应该允许客户通过Email提交taco设计和创建订单。我们发放传单并在报纸上刊登外卖广告，邀请每个人通过Email发送taco订单。这非常成功！但是，令人遗憾的是，它过于成功了。有太多的Email涌了进来，我们不得不申请临时帮助，让别人阅读所有的Email并将订单提交到订单系统中。 在本节中，我们将会实现一个集成流，轮询Taco Cloud的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝蓝站点">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/371f660a/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="9.3 创建Email集成流我们决定Taco Cloud应该允许客户通过Email提交taco设计和创建订单。我们发放传单并在报纸上刊登外卖广告，邀请每个人通过Email发送taco订单。这非常成功！但是，令人遗憾的是，它过于成功了。有太多的Email涌了进来，我们不得不申请临时帮助，让别人阅读所有的Email并将订单提交到订单系统中。 在本节中，我们将会实现一个集成流，轮询Taco Cloud的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016100609.png">
+<meta property="article:published_time" content="2022-04-16T08:10:07.799Z">
+<meta property="article:modified_time" content="2022-04-16T08:10:07.800Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016100609.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/371f660a/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/371f660a/","path":"/371f660a/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#9-3-%E5%88%9B%E5%BB%BAEmail%E9%9B%86%E6%88%90%E6%B5%81"><span class="nav-number">1.</span> <span class="nav-text">9.3 创建Email集成流</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/371f660a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-16 16:10:07" itemprop="dateCreated datePublished" datetime="2022-04-16T16:10:07+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/" itemprop="url" rel="index"><span itemprop="name">Spring实战(第5版)</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第2部分 Spring集成</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/Spring%E5%AE%9E%E6%88%98-%E7%AC%AC5%E7%89%88/%E7%AC%AC2%E9%83%A8%E5%88%86-Spring%E9%9B%86%E6%88%90/%E7%AC%AC9%E7%AB%A0-Spring%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">第9章 Spring集成</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/371f660a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/371f660a/" data-xid="/ReadingNotes/371f660a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="9-3-创建Email集成流"><a href="#9-3-创建Email集成流" class="headerlink" title="9.3 创建Email集成流"></a>9.3 创建Email集成流</h1><p>我们决定Taco Cloud应该允许客户通过Email提交taco设计和创建订单。我们发放传单并在报纸上刊登外卖广告，邀请每个人通过Email发送taco订单。这非常成功！但是，令人遗憾的是，它过于成功了。有太多的Email涌了进来，我们不得不申请临时帮助，让别人阅读所有的Email并将订单提交到订单系统中。</p>
+<p>在本节中，我们将会实现一个集成流，轮询Taco Cloud的taco订单Email的收件箱、解析Email中的订单细节并将订单提交给Taco Cloud来进行处理。简而言之，在我们所创建的集成流中，入站通道适配器将会使用Email端点模块摄取TacoCloud收件箱中的Email到集成流中。</p>
+<p>集成流的下一步会将Email解析为订单对象，这些订单对象会被传递给另一个处理器，从而将订单提交至Taco Cloud的REST API中，在这里我们会像其他订单那样处理它们。首先，我们定义一个简单的配置属性类，它会捕获处理Taco CloudEmail的特定信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;tacocloud.email&quot;)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmailProperties</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line">  <span class="keyword">private</span> String password;</span><br><span class="line">  <span class="keyword">private</span> String host;</span><br><span class="line">  <span class="keyword">private</span> String mailbox;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">long</span> <span class="variable">pollRate</span> <span class="operator">=</span> <span class="number">30000</span>;</span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">getImapUrl</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> String.format(<span class="string">&quot;imaps://%s:%s@%s/%s&quot;</span>,</span><br><span class="line">        <span class="built_in">this</span>.username, <span class="built_in">this</span>.password, <span class="built_in">this</span>.host, <span class="built_in">this</span>.mailbox);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，EmailProperties会捕获生成IMAP URL的属性。这个流会使用这个URL连接Taco Cloud Email服务器并轮询Email。在捕获的属性中包括Email用户的用户名和密码以及IMAP服务器的主机、要轮询的邮箱以及邮箱轮询的频率（默认为30秒）。</p>
+<p>EmailProperties在类级别使用了<code>@ConfigurationProperties</code>注解，并将prefix属性设置为tacocloud.email。这意味着，我们可以在application.yml文件中按照下述方式配置消费Email的详细信息：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tacocloud:</span></span><br><span class="line">  <span class="attr">email:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">imap.tacocloud.com</span></span><br><span class="line">    <span class="attr">mailbox:</span> <span class="string">INBOX</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">taco-in-flow</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">1L0v3T4c0s</span></span><br><span class="line">    <span class="attr">poll-rate:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，我们使用EmailProperties来配置集成流。我们想要创建的流大致如图9.10所示。</p>
+<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016100609.png" alt="image-20211016100608960"></p>
+<center>图9.10 通过Email接受taco订单的集成流</center>
+
+<p>我们有两种方案来定义这个流。</p>
+<ul>
+<li>在Taco Cloud应用中进行定义：在流的结束点，服务激活器要调用我们之前定义的创建订单的repository。</li>
+<li>在单独的应用中进行定义：在流的结束点，服务激活器要发送POST请求到Taco Cloud API以提交taco订单。</li>
+</ul>
+<p>不管选择哪种方式，除了服务激活器的实现方式之外，对流的本身影响并不大。但是，因为我们需要一些表示taco、订单和配料的类型，它们与Taco Cloud主应用可能会略微有所差异，所以我们会在一个单独的应用中定义集成流，避免与已有的领域类型相混淆。</p>
+<p>我们还可以选择使用XML配置、Java配置或者Java DSL来定义流。我更喜欢DSL的优雅，所以在这里将会使用这种方案。如果你想要一些额外的挑战，也可以选择其他配置风格编写流的定义。现在，我们看一下taco Email订单流的Java DSL配置，如程序清单9.5所示。</p>
+<p>程序清单9.5 定义接收Email并将其提交为订单的集成流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.email;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.integration.dsl.IntegrationFlow;</span><br><span class="line"><span class="keyword">import</span> org.springframework.integration.dsl.IntegrationFlows;</span><br><span class="line"><span class="keyword">import</span> org.springframework.integration.dsl.Pollers;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TacoOrderEmailIntegrationConfig</span> &#123;</span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="keyword">public</span> IntegrationFlow <span class="title function_">tacoOrderEmailFlow</span><span class="params">(</span></span><br><span class="line"><span class="params">      EmailProperties emailProps,</span></span><br><span class="line"><span class="params">      EmailToOrderTransformer emailToOrderTransformer,</span></span><br><span class="line"><span class="params">      OrderSubmitMessageHandler orderSubmitHandler)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> IntegrationFlows</span><br><span class="line">      .from(Mail.imapInboundAdapter(emailProps.getImapUrl()),</span><br><span class="line">          e -&gt; e.poller(</span><br><span class="line">              Pollers.fixedDelay(emailProps.getPollRate())))</span><br><span class="line">      .transform(emailToOrderTransformer)</span><br><span class="line">      .handle(orderSubmitHandler)</span><br><span class="line">      .get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据tacoOrderEmailFlow()方法的定义，taco Email订单流由3个不同的组件组成。</p>
+<ul>
+<li>MAP Email入站通道适配器：使用IMP URL创建，而URL是根据EmailProperties的getImapUrl()方法创建的，并且会根据EmailProperties中设置的pollRate属性进行轮询。传入的Email会传递给一个通道，然后连接到转换器。</li>
+<li>将Email转换成订单对象的转换器：转换器是通过EmailToOrderTransformer实现的，它会注入tacoOrderEmailFlow()方法中。转换所形成的订单会通过另外一个通道传递给最后一个组件。</li>
+<li>处理器（作为出站通道适配器）：处理器接受订单对象并将其提交至TacoCloud的REST API。</li>
+</ul>
+<p>我们只有将Email端点模块作为依赖项添加到项目构建文件中，才能调用Mail.imap InboundAdapter()。Maven依赖如下所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.integration<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-integration-file<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>EmailToOrderTransformer是Spring Integration Transformer接口的实现，扩展了AbstractMailMessageTransformer（如程序清单9.6所示）。</p>
+<p>程序清单9.6 使用集成转换器将传入的Email转换为taco订单</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmailToOrderTransformer</span></span><br><span class="line">     <span class="keyword">extends</span> <span class="title class_">AbstractMailMessageTransformer</span>&lt;Order&gt; &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> AbstractIntegrationMessageBuilder&lt;Order&gt;</span><br><span class="line">                <span class="title function_">doTransform</span><span class="params">(Message mailMessage)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">Order</span> <span class="variable">tacoOrder</span> <span class="operator">=</span> processPayload(mailMessage);</span><br><span class="line">    <span class="keyword">return</span> MessageBuilder.withPayload(tacoOrder);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AbstractMailMessageTransformer是一个很便利的基类，适用于载荷为Email的消息。它会抽取传入消息Email的信息，并将它放到一个Message对象中，传递给doTransform()方法。在doTransform()方法中，我们将Message对象传递给一个名为processPayload()的private方法，将Email解析为Order对象。这个Order对象尽管和主Taco Cloud应用中的Order对象有些相似，但是并不完全相同，这里更加简单一些：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.email;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Order</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> String email;</span><br><span class="line">  <span class="keyword">private</span> List&lt;Taco&gt; tacos = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addTaco</span><span class="params">(Taco taco)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.tacos.add(taco);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个Order类不包含客户完整的投递信息和账单信息，而是只携带了客户的Email地址（通过传入的Email获取的）。</p>
+<p>将Email解析成订单是一项非常重要的任务。实际上，即便最简单的实现也需要几十行代码。这些代码对于进一步讨论Spring Integration和如何实现转换器并没有任何助益。所以，为了节省空间，我在这里省略了processPayload()方法的细节。</p>
+<p>EmailToOrderTransformer做的最后一件事情就是返回一个MessageBuilder，让消息的载荷中包含Order对象。MessageBuilder所生成的消息会发送至集成流的最后一个组件：将订单提交至Taco Cloud API的消息处理器。OrderSubmitMessageHandler实现了Spring Integration的GenericHandler，它会处理带有Order载荷的消息，如程序清单9.7所示。</p>
+<p>程序清单9.7 通过消息处理器将订单提交至Taco Cloud API</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos.email;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> org.springframework.integration.handler.GenericHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.client.RestTemplate;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderSubmitMessageHandler</span></span><br><span class="line">                                  <span class="keyword">implements</span> <span class="title class_">GenericHandler</span>&lt;Order&gt; &#123;</span><br><span class="line">  <span class="keyword">private</span> RestTemplate rest;</span><br><span class="line">  <span class="keyword">private</span> ApiProperties apiProps;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">OrderSubmitMessageHandler</span><span class="params">(</span></span><br><span class="line"><span class="params">          ApiProperties apiProps, RestTemplate rest)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.apiProps = apiProps;</span><br><span class="line">    <span class="built_in">this</span>.rest = rest;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> Object <span class="title function_">handle</span><span class="params">(Order order, Map&lt;String, Object&gt; headers)</span> &#123;</span><br><span class="line">    rest.postForObject(apiProps.getUrl(), order, String.class);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了满足GenericHandler接口的要求，OrderSubmitMessageHandler重写了handle()方法，这个方法接收传入的Order对象，并使用注入的RestTemplate利用POST请求将Order提交至ApiProperties对象指定的URL。最后，handle()方法返回null，表明这个处理器是流的终点。</p>
+<p>这里使用ApiProperties避免在postForObject()时硬编码URL。它是一个配置属性类，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;tacocloud.api&quot;)</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ApiProperties</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在application.yml中，Taco Cloud API的URL可能会配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tacocloud:</span></span><br><span class="line">  <span class="attr">api:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">http://api.tacocloud.com</span></span><br></pre></td></tr></table></figure>
+
+<p>为了让这个应用能够使用RestTemplate，并自动注入OrderSubmitMessageHandler中，我们需要在项目的构建文件中添加SpringBoot web starter依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这不仅会将RestTemplate添加到类路径中，还会触发Spring MVC的自动配置功能。作为独立的Spring Integration流，这个应用并不需要Spring MVC，更不需要自动配置所提供的嵌入式Tomcat。所以，我们可以在application.yml中通过如下的配置条目禁用Spring MVC的自动配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">main:</span></span><br><span class="line">    <span class="attr">web-application-type:</span> <span class="string">none</span></span><br></pre></td></tr></table></figure>
+
+<p>spring.main.web-application-type属性可以设置为servlet、reactive或none。当Spring MVC位于类路径之中时，自动配置功能会将其设置为servlet。我们在这里将其重写为none，所以Spring MVC和Tomcat将不会进行自动配置（我们将会在第11章介绍反应式Web应用是什么样子的）。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/371f660a/" title="">https://lanlan2017.github.io/ReadingNotes/371f660a/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/ab64e3a0/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/a84ecaec/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/371f660a/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/371f660a/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>

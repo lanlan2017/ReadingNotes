@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/ReadingNotes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ReadingNotes/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ReadingNotes/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ReadingNotes/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="_Sly-yzHYmALHXzjFpPWsodMrjBSphw7bfRbMUH80Qc">
+  <meta name="msvalidate.01" content="B1CFD346B8DEBBFE0C983C2AF8955531">
+  <meta name="baidu-site-verification" content="vkMTwK56xr">
+
+<link rel="stylesheet" href="/ReadingNotes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lanlan2017.github.io","root":"/ReadingNotes/","images":"/ReadingNotes/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/ReadingNotes/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/ReadingNotes/js/config.js"></script>
+
+    <meta name="description" content="需求&amp;nbsp;只编码URL里的中文&amp;nbsp;同时编码中文和空格&amp;nbsp;方案1：先把空格编码成加号，然后用%20替换&amp;nbsp;方案2：只编码中文,直接用%20替换空格&amp;nbsp;完整代码&amp;nbsp;参考链接&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20">
+<meta property="og:url" content="https://lanlan2017.github.io/ReadingNotes/7865fbca/index.html">
+<meta property="og:site_name" content="蓝蓝站点">
+<meta property="og:description" content="需求&amp;nbsp;只编码URL里的中文&amp;nbsp;同时编码中文和空格&amp;nbsp;方案1：先把空格编码成加号，然后用%20替换&amp;nbsp;方案2：只编码中文,直接用%20替换空格&amp;nbsp;完整代码&amp;nbsp;参考链接&amp;nbsp; .header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/Java/javaw%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/api/Ecoder/404.png">
+<meta property="og:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/Java/javaw%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/api/Ecoder/yes.png">
+<meta property="article:published_time" content="2018-10-30T12:22:09.000Z">
+<meta property="article:modified_time" content="2019-12-16T18:00:55.000Z">
+<meta property="article:author" content="蓝蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/Java/javaw%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/api/Ecoder/404.png">
+
+
+<link rel="canonical" href="https://lanlan2017.github.io/ReadingNotes/7865fbca/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lanlan2017.github.io/ReadingNotes/7865fbca/","path":"/7865fbca/","title":"Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20 | 蓝蓝站点</title>
+  
+
+  <script src="/ReadingNotes/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?dadeb188eb14ccde0b25a19230c429b5"></script>
+
+
+
+<link rel="dns-prefetch" href="https://waline-test-lanlan2017.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/ReadingNotes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/ReadingNotes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">蓝蓝站点</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">读书笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/ReadingNotes/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-dir"><a href="/ReadingNotes/dir/" rel="section"><i class="fa fa-sitemap fa-fw"></i>目录</a></li><li class="menu-item menu-item-categories"><a href="/ReadingNotes/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/ReadingNotes/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/ReadingNotes/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E7%BC%96%E7%A0%81URL%E9%87%8C%E7%9A%84%E4%B8%AD%E6%96%87"><span class="nav-number">2.</span> <span class="nav-text">只编码URL里的中文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E7%BC%96%E7%A0%81%E4%B8%AD%E6%96%87%E5%92%8C%E7%A9%BA%E6%A0%BC"><span class="nav-number">3.</span> <span class="nav-text">同时编码中文和空格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%881%EF%BC%9A%E5%85%88%E6%8A%8A%E7%A9%BA%E6%A0%BC%E7%BC%96%E7%A0%81%E6%88%90%E5%8A%A0%E5%8F%B7%EF%BC%8C%E7%84%B6%E5%90%8E%E7%94%A8-20%E6%9B%BF%E6%8D%A2"><span class="nav-number">3.1.</span> <span class="nav-text">方案1：先把空格编码成加号，然后用%20替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%882%EF%BC%9A%E5%8F%AA%E7%BC%96%E7%A0%81%E4%B8%AD%E6%96%87-%E7%9B%B4%E6%8E%A5%E7%94%A8-20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC"><span class="nav-number">3.2.</span> <span class="nav-text">方案2：只编码中文,直接用%20替换空格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蓝蓝"
+      src="/ReadingNotes/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">蓝蓝</p>
+  <div class="site-description" itemprop="description">好好学习，天天向上</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/ReadingNotes/archives/">
+          <span class="site-state-item-count">594</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/ReadingNotes/categories/">
+        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/todo/" title="todo → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;todo&#x2F;"><i class="fa fa-check-square fa-fw"></i>todo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://lanlan2017.github.io/links/" title="links → https:&#x2F;&#x2F;lanlan2017.github.io&#x2F;links&#x2F;"><i class="fa fa-link fa-fw"></i>links</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/7865fbca/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
+      <meta itemprop="name" content="蓝蓝">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝蓝站点">
+      <meta itemprop="description" content="好好学习，天天向上">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20 | 蓝蓝站点">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-30 20:22:09" itemprop="dateCreated datePublished" datetime="2018-10-30T20:22:09+08:00">2018-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-12-17 02:00:55" itemprop="dateModified" datetime="2019-12-17T02:00:55+08:00">2019-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">java 网络编程</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/ReadingNotes/categories/java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/API/" itemprop="url" rel="index"><span itemprop="name">API</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/ReadingNotes/7865fbca/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/7865fbca/" data-xid="/ReadingNotes/7865fbca/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div id='my_toc'><a href="/ReadingNotes/7865fbca/#需求" class="header_2">需求</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#只编码URL里的中文" class="header_2">只编码URL里的中文</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#同时编码中文和空格" class="header_2">同时编码中文和空格</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#方案1：先把空格编码成加号，然后用%20替换" class="header_3">方案1：先把空格编码成加号，然后用%20替换</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#方案2：只编码中文-直接用%20替换空格" class="header_3">方案2：只编码中文,直接用%20替换空格</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#完整代码" class="header_2">完整代码</a>&nbsp;<br><a href="/ReadingNotes/7865fbca/#参考链接" class="header_2">参考链接</a>&nbsp;<br></div>
+<style>.header_1{margin-left: 1em;}.header_2{margin-left: 2em;}.header_3{margin-left: 3em;}.header_4{margin-left: 4em;}.header_5{margin-left: 5em;}.header_6{margin-left: 6em;}</style>
+<span id="more"></span>
+<script>if (navigator.platform.search('arm')==-1){document.getElementById('my_toc').style.display = 'none';}var e,p = document.getElementsByTagName('p');while (p.length>0) {e = p[0];e.parentElement.removeChild(e);}</script>
+
+<!--end-->
+
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>把下面的带中文的URL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/</span><br></pre></td></tr></table></figure>
+<p>编码成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java%20IO%E6%B5%81/Java%20IO%E6%B5%81%20%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br></pre></td></tr></table></figure>
+<h2 id="只编码URL里的中文"><a href="#只编码URL里的中文" class="headerlink" title="只编码URL里的中文"></a>只编码URL里的中文</h2><p>java中，默认的URLEcoder.encode()方法对URL进行编码的时候，会把特殊字符<code>:</code>,<code>.</code>,<code>空格</code>等都进行编码,这与我从浏览器中复制粘贴出来的显然不一样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/&quot;</span>;</span><br><span class="line">System.out.println(URLEncoder.encode(str,<span class="string">&quot;utf-8&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https%3A%2F%2Fwww.lansheng.net.cn%2F2018%2F10%2F30%2FJava%2FJava+IO%E6%B5%81%2FJava+IO%E6%B5%81+%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%2F</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到默认的URLEncoder.encode(str,”utf-8”)方法，把<code>:</code>编码成<code>%3A</code>,<code>/</code>编码成<code>%2F</code>并不需要编码那么多，只需要编码中文即可,这里来使用正则表达式对中文进行编码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encode</span><span class="params">(String str, String charset)</span></span><br><span class="line">        <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//匹配中文和空格的正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">zhPattern</span> <span class="operator">=</span> <span class="string">&quot;[\u4e00-\u9fa5]+&quot;</span>;</span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(zhPattern);</span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(str);</span><br><span class="line">    <span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">    <span class="keyword">while</span> (m.find())</span><br><span class="line">    &#123;</span><br><span class="line">        m.appendReplacement(b, URLEncoder.encode(m.group(<span class="number">0</span>), charset));</span><br><span class="line">    &#125;</span><br><span class="line">    m.appendTail(b);</span><br><span class="line">    <span class="keyword">return</span> b.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java IO%E6%B5%81/Java IO%E6%B5%81 %E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br></pre></td></tr></table></figure>
+<p>这里可以看到，空格没有被编码。</p>
+<h2 id="同时编码中文和空格"><a href="#同时编码中文和空格" class="headerlink" title="同时编码中文和空格"></a>同时编码中文和空格</h2><p>这里有两个方案，方案1：在正则表达式中匹配空格，也就是把正则表达式改成<code>[\u4e00-\u9fa5 ]</code>这样空格就会被编码了。</p>
+<h3 id="方案1：先把空格编码成加号，然后用-20替换"><a href="#方案1：先把空格编码成加号，然后用-20替换" class="headerlink" title="方案1：先把空格编码成加号，然后用%20替换"></a>方案1：先把空格编码成加号，然后用%20替换</h3><p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java+IO%E6%B5%81/Java+IO%E6%B5%81+%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br></pre></td></tr></table></figure>
+<p>可以看到这里空格被编码为加号<code>+</code>,但是，不幸的是，我复制到浏览器中，还是打不开我的这篇文章。：<br><img data-src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/Java/javaw%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/api/Ecoder/404.png"><br>解决方案，使用正则表达式把加号+，替换为<code>%20</code>即可：<br>只对中文和空格进行编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 只对中文和空格进行编码。</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> str</span></span><br><span class="line"><span class="comment"> *            被替换的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset</span></span><br><span class="line"><span class="comment"> *            字符集</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 替换好的</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> UnsupportedEncodingException</span></span><br><span class="line"><span class="comment"> *             不支持的字符集</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encodeSpaceChinese</span><span class="params">(String str, String charset)</span></span><br><span class="line">            <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//匹配中文和空格的正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">zhPattern</span> <span class="operator">=</span> <span class="string">&quot;[\u4e00-\u9fa5 ]+&quot;</span>;</span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(zhPattern);</span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(str);</span><br><span class="line">    <span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">    <span class="keyword">while</span> (m.find())</span><br><span class="line">    &#123;</span><br><span class="line">        m.appendReplacement(b, URLEncoder.encode(m.group(<span class="number">0</span>), charset));</span><br><span class="line">    &#125;</span><br><span class="line">    m.appendTail(b);</span><br><span class="line">    <span class="keyword">return</span> b.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/&quot;</span>;</span><br><span class="line">String url=encodeSpaceChinese(str, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">System.out.println(url);</span><br><span class="line">url=url.replaceAll(<span class="string">&quot;\\+&quot;</span>, <span class="string">&quot;%20&quot;</span>);</span><br><span class="line">System.out.println(url);</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java+IO%E6%B5%81/Java+IO%E6%B5%81+%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java%20IO%E6%B5%81/Java%20IO%E6%B5%81%20%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br></pre></td></tr></table></figure>
+<p>这样就可以成功打来我的这篇文章了：<br><img data-src="https://image-1257720033.cos.ap-shanghai.myqcloud.com/blog/Java/javaw%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/api/Ecoder/yes.png"><br>因为这与我从浏览器中复制粘贴的地址格式已经完全一样了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java%20IO%E6%B5%81/Java%20IO%E6%B5%81%20%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br></pre></td></tr></table></figure>
+<h3 id="方案2：只编码中文-直接用-20替换空格"><a href="#方案2：只编码中文-直接用-20替换空格" class="headerlink" title="方案2：只编码中文,直接用%20替换空格"></a>方案2：只编码中文,直接用%20替换空格</h3><p>这里钻了个空子：我可以直接编码中文，然后把没有编码的空格<code> </code>直接替换为<code>%20</code>。这样少了一步操作。<br>只对中文进行编码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encodeChinese</span><span class="params">(String str, String charset)</span></span><br><span class="line">        <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//匹配中文和空格的正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">zhPattern</span> <span class="operator">=</span> <span class="string">&quot;[\u4e00-\u9fa5]+&quot;</span>;</span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(zhPattern);</span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(str);</span><br><span class="line">    <span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">    <span class="keyword">while</span> (m.find())</span><br><span class="line">    &#123;</span><br><span class="line">        m.appendReplacement(b, URLEncoder.encode(m.group(<span class="number">0</span>), charset));</span><br><span class="line">    &#125;</span><br><span class="line">    m.appendTail(b);</span><br><span class="line">    <span class="keyword">return</span> b.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/&quot;</span>;</span><br><span class="line">String url=encodeChinese(str, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">System.out.println(url);</span><br><span class="line">url=url.replaceAll(<span class="string">&quot; &quot;</span>, <span class="string">&quot;%20&quot;</span>);</span><br><span class="line">System.out.println(url);</span><br></pre></td></tr></table></figure>
+
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java IO%E6%B5%81/Java IO%E6%B5%81 %E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br><span class="line">https://www.lansheng.net.cn/2018/10/30/Java/Java%20IO%E6%B5%81/Java%20IO%E6%B5%81%20%E4%BD%BF%E7%94%A8RandomAccessFile%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当然这两个方法基本差不多，我这里就简单记录一下两种可能，个人习惯用第二中方法。</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> url.encoder.hz;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.net.URLEncoder;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 正则替换字符串里面的汉字部分。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">URLEncoderCH</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;https://www.lansheng.net.cn/2018/10/30/Java/Java IO流/Java IO流 使用RandomAccessFile快速读写文本文件最后一行/&quot;</span>;</span><br><span class="line"><span class="comment">//        把URL中表示空格的+替换成%20,因为有些应用不认+表示的空格，只认%20</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> URLEncode(str);</span><br><span class="line">        System.out.println(url);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**编码为浏览器可以直接访问的URL。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> str</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> UnsupportedEncodingException  </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">URLEncode</span><span class="params">(String str)</span></span><br><span class="line">            <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">    &#123;</span><br><span class="line">        String url=encodeChinese(str, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        System.out.println(url);</span><br><span class="line">        url=url.replaceAll(<span class="string">&quot; &quot;</span>, <span class="string">&quot;%20&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> url;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 只对中文进行编码。</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> str</span></span><br><span class="line"><span class="comment">     *            被替换的字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> charset</span></span><br><span class="line"><span class="comment">     *            字符集</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 替换好的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> UnsupportedEncodingException</span></span><br><span class="line"><span class="comment">     *             不支持的字符集</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encodeChinese</span><span class="params">(String str, String charset)</span></span><br><span class="line">            <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//匹配中文和空格的正则表达式</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">zhPattern</span> <span class="operator">=</span> <span class="string">&quot;[\u4e00-\u9fa5]+&quot;</span>;</span><br><span class="line">        <span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(zhPattern);</span><br><span class="line">        <span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(str);</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">        <span class="keyword">while</span> (m.find())</span><br><span class="line">        &#123;</span><br><span class="line">            m.appendReplacement(b, URLEncoder.encode(m.group(<span class="number">0</span>), charset));</span><br><span class="line">        &#125;</span><br><span class="line">        m.appendTail(b);</span><br><span class="line">        <span class="keyword">return</span> b.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 只对中文和空格进行编码。</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> str</span></span><br><span class="line"><span class="comment">     *            被替换的字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> charset</span></span><br><span class="line"><span class="comment">     *            字符集</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 替换好的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> UnsupportedEncodingException</span></span><br><span class="line"><span class="comment">     *             不支持的字符集</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encodeSpaceChinese</span><span class="params">(String str, String charset)</span></span><br><span class="line">            <span class="keyword">throws</span> UnsupportedEncodingException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//匹配中文和空格的正则表达式</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">zhPattern</span> <span class="operator">=</span> <span class="string">&quot;[\u4e00-\u9fa5 ]+&quot;</span>;</span><br><span class="line">        <span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(zhPattern);</span><br><span class="line">        <span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(str);</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">        <span class="keyword">while</span> (m.find())</span><br><span class="line">        &#123;</span><br><span class="line">            m.appendReplacement(b, URLEncoder.encode(m.group(<span class="number">0</span>), charset));</span><br><span class="line">        &#125;</span><br><span class="line">        m.appendTail(b);</span><br><span class="line">        <span class="keyword">return</span> b.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>URLEncoder的只编码中文字符的类：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a332324956/article/details/18991243">https://blog.csdn.net/a332324956/article/details/18991243</a><br>URL中关于空格的编码转换成＋或转换成％20的问题：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4a7eb969235d">https://www.jianshu.com/p/4a7eb969235d</a></p>
+<blockquote>
+<p>原文链接: <a target="_blank" rel="noopener" href="https://www.lansheng.net.cn/blog/7865fbca/">Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/ReadingNotes/images/wechatpay.png" alt="蓝蓝 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>蓝蓝
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lanlan2017.github.io/ReadingNotes/7865fbca/" title="Java网络编程 URLEncoder只编码URL中的中文,空格编码为百分之20">https://lanlan2017.github.io/ReadingNotes/7865fbca/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/c1fee13e/" rel="prev" title="DatagramSocket类">
+                  <i class="fa fa-chevron-left"></i> DatagramSocket类
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/ReadingNotes/e07c2ce7/" rel="next" title="2.2 容器能提供什么">
+                  2.2 容器能提供什么 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蓝蓝</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">1.8m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">27:29</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/comments.js"></script><script src="/ReadingNotes/js/utils.js"></script><script src="/ReadingNotes/js/motion.js"></script><script src="/ReadingNotes/js/next-boot.js"></script><script src="/ReadingNotes/js/bookmark.js"></script><script src="/ReadingNotes/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/ReadingNotes/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/ReadingNotes/js/third-party/fancybox.js"></script>
+
+  <script src="/ReadingNotes/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/ReadingNotes/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://lanlan2017.github.io/ReadingNotes/7865fbca/"}</script>
+  <script src="/ReadingNotes/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":null,"enable":true,"serverURL":"https://waline-test-lanlan2017.vercel.app","placeholder":"填写邮箱可接收回复通知 填写个人网址可为您引流","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/ReadingNotes/7865fbca/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+</body>
+</html>
