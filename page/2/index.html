@@ -221,7 +221,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/74ff2d8d/">
+    <link itemprop="mainEntityOfPage" href="https://lanlan2017.github.io/ReadingNotes/c7282675/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/ReadingNotes/images/avatar.gif">
@@ -239,7 +239,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/ReadingNotes/74ff2d8d/" class="post-title-link" itemprop="url">10.2 初识Reactor</a>
+          <a href="/ReadingNotes/c7282675/" class="post-title-link" itemprop="url">10.4 小结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -279,8 +279,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/ReadingNotes/74ff2d8d/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/74ff2d8d/" data-xid="/ReadingNotes/74ff2d8d/" itemprop="commentCount"></span>
+    <a title="waline" href="/ReadingNotes/c7282675/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/ReadingNotes/c7282675/" data-xid="/ReadingNotes/c7282675/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -291,14 +291,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>232</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -309,35 +309,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="10-2-初识Reactor"><a href="#10-2-初识Reactor" class="headerlink" title="10.2 初识Reactor"></a>10.2 初识Reactor</h1><p>反应式编程要求我们采取和命令式编程不一样的思维方式。此时我们不会再描述每一步要进行的步骤，反应式编程意味着要构建数据将要流经的管道。当数据流经管道时，可以对它们进行某种形式的修改或者使用。</p>
-<p>例如，假设我们想要接受一个英文人名，然后将所有的字母都转换为大写，并用得到的结果创建一个问候消息，并最终打印它。使用命令式编程模型，代码看起来如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;Craig&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">capitalName</span> <span class="operator">=</span> name.toUpperCase();</span><br><span class="line"><span class="type">String</span> <span class="variable">greeting</span> <span class="operator">=</span> <span class="string">&quot;Hello, &quot;</span> + capitalName + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">System.out.println(greeting);</span><br></pre></td></tr></table></figure>
-
-<p>使用命令式编程模型，每行代码执行一个步骤，按部就班，并且肯定在同一个线程中进行。每一步在执行完成之前都会阻止执行线程执行下一步。</p>
-<p>与之不同，如下的函数式、反应式代码完成了相同的事情：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;Craig&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">capitalName</span> <span class="operator">=</span> name.toUpperCase();</span><br><span class="line"><span class="type">String</span> <span class="variable">greeting</span> <span class="operator">=</span> <span class="string">&quot;Hello, &quot;</span> + capitalName + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">System.out.println(greeting);</span><br><span class="line">Mono.just(<span class="string">&quot;Craig&quot;</span>)</span><br><span class="line">    .map(n -&gt; n.toUpperCase())</span><br><span class="line">    .map(cn -&gt; <span class="string">&quot;Hello, &quot;</span> + cn + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">    .subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-
-<p>不用过度关心这个例子中的细节，我们很快将会详细讨论just()、map()和subscribe() 方法。现在，重要的是要理解：虽然这个反应式的例子看起来依然保持着按步骤执行的模型，但实际是数据会流经处理管线。在处理管线的每一步，都对数据进行了某种形式的加工，但是我们不能判断数据会在哪个线程上执行操作。它们既可能在同一个线程，也可能在不同的线程。</p>
-<p>这个例子中的Mono是Reactor的两种核心类型之一，另一个类型是Flux。两者都实现了反应式流的Publisher接口。Flux代表具有零个、一个或者多个（可能是无限个）数据项的管道。Mono是一种特殊的反应式类型，针对数据项不超过一个的场景，它进行了优化。</p>
-<div style="border-style:solid;"><strong>Reactor与RxJava（ReactiveX）的对比</strong><p>如果你熟悉RxJava或者ReactiveX，那么你可能认为Mono和Flux类似于Observable和Single。事实上它们不仅在语义上大致相同，还共享了很多相同的操作符。</p><p>虽然我们在本书中主要介绍Reactor，但是Reactor和RxJava的类型可以互相转换，我相信你对这一点会感到很开心。甚至，在接下来的章节中我们还会看到，Spring也可以使用RxJava的类型。</p></div>
-
-<p>实际上，在前面的例子中有3个Mono。其中，just() 操作创建了第一个Mono。当该Mono发送一个值的时候，这个值被传递给了将字母转换为大写的map()操作，据此又创建了另一个Mono。当第二个Mono发布它的数据时，数据被传递给了第二个map()操作，并且会在此进行一些字符串连接操作，而结果将用于创建第三个Mono。最后，对第三个Mono上的subscribe()方法调用时，会接收数据并将数据打印出来。</p>
-<h2 id="10-2-1-绘制反应式流图"><a href="#10-2-1-绘制反应式流图" class="headerlink" title="10.2.1 绘制反应式流图"></a>10.2.1 绘制反应式流图</h2><p>反应式流程通常使用弹珠图（marble diagram）表示，如图10.1所示。弹珠图的展现形式非常简单，在顶部描述了数据流经Flux或者Mono的时间线，在中间描述了要执行的操作，在底部描述了结果形成的Flux或者Mono的时间线。我们将会看到，当数据流经原始的Flux时，某些操作将会对它进行处理，并产生一个新的Flux，已经处理过的数据将会在新Flux中流动。</p>
-<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016111138.png" alt="image-20211016111138194"></p>
-<p>图10.1 描绘Flux基本流程的弹珠图</p>
-<p>图10.2展示了一个类似的弹珠图，但是针对的是Mono。我们可以看到，这里主要的不同是Mono将会有零个或者一个数据项，或者一个错误。</p>
-<p><img data-src="https://gitee.com/XiaoLan223/images/raw/master/Blog/Sum/20211016111230.png" alt="image-20211016111229961"></p>
-<p>图10.2 描绘Mono基本流程的弹珠图</p>
-<h2 id="10-2-2-添加Reactor依赖"><a href="#10-2-2-添加Reactor依赖" class="headerlink" title="10.2.2 添加Reactor依赖"></a>10.2.2 添加Reactor依赖</h2><p>要开始使用Reactor，请将下面的依赖项添加到项目的构建文件中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.projectreactor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>reactor-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Reactor还提供了非常棒的测试支持。我们将会围绕Reactor代码编写大量的测试，因此绝对需要将下面的依赖添加到构建文件中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.projectreactor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>reactor-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果你计划将这些依赖添加到一个Spring Boot工程中，那么Spring Boot工程会替你管理依赖。但是，如果要在非Spring Boot项目中使用Reactor，就需要在构建文件中设置Reactor的BOM（Bill Of Materials，物料清单）。下面的依赖管理条目将会把Reactor的Bismuth版本添加到构建文件中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.projectreactor<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>reactor-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Bismuth-RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>现在Reactor已经位于工程的构建文件中了，我们可以开始使用Mono和Flux来创建反应式的处理管线。在本章的剩余部分，我们将介绍Mono和Flux所提供的几个操作。</p>
+          <h1 id="10-4-小结"><a href="#10-4-小结" class="headerlink" title="10.4 小结"></a>10.4 小结</h1><ul>
+<li>反应式编程会涉及创建数据流经的处理管道。</li>
+<li>反应式流规范定义了4种类型：Publisher、Subscriber、Subscription和Processor（它是Publisher和Subscriber的组合）。</li>
+<li>Reactor项目实现了反应式流规范，将反应式流的定义抽象为两个主要的类型，即Flux和Mono，并为每种类型都提供数百个操作。</li>
+<li>Spring 5利用Reactor提供了反应式控制器、repository、REST客户端以及其他反应式框架的支持。</li>
+</ul>
 
       
     </div>
